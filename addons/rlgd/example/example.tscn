@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/rlgd/example/tileset.png" type="Texture" id=1]
+[ext_resource path="res://addons/rlgd/nodes/color_tile_map/color_tile_map.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/rlgd/example/example.gd" type="Script" id=3]
+
+[node name="Example" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Tiles" parent="." instance=ExtResource( 2 )]
+texture = ExtResource( 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0.64, 0.64, 0.64, 1, 0.564706, 0.278431, 0, 1 )
+
+[node name="Fog" parent="." instance=ExtResource( 2 )]
+texture = ExtResource( 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0.768627 )
