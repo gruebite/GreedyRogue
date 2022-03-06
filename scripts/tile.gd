@@ -19,6 +19,7 @@ enum {
 	LAVA_CARVING,
 	GOLD,
 	ROCK,
+	PITFALL,
 }
 
 enum Property {

@@ -1,0 +1,60 @@
+tool
+extends Component
+class_name Animated
+
+const NAME := "Animated"
+
+export var background_color := Color.transparent setget set_background_color
+
+export(Brightness.Enum) var brightness: int = Brightness.NONE setget set_brightness
+export var ascii_frames: SpriteFrames setget set_ascii_frames
+export var sprite_frames: SpriteFrames setget set_sprite_frames
+export var frame: int = 0 setget set_frame
+
+func _ready() -> void:
+	pass
+
+func set_background_color(c: Color) -> void:
+	background_color = c
+	if not is_inside_tree(): yield(self, 'ready')
+	$Background.modulate = c
+
+func set_brightness(to: int) -> void:
+	brightness = to
+	if not is_inside_tree(): yield(self, 'ready')
+	match brightness:
+		Brightness.NONE:
+			hide()
+		Brightness.LIT:
+			show()
+			var f: int = $Sprite.frame
+			$Sprite.animation = "lit"
+			$Sprite.frame = f
+		Brightness.DIM:
+			show()
+			var f: int = $Sprite.frame
+			$Sprite.animation = "dim"
+			$Sprite.frame = f
+
+func set_ascii_frames(frames: SpriteFrames) -> void:
+	ascii_frames = frames
+	if not is_inside_tree(): yield(self, 'ready')
+	if Constants.ASCII:
+		$Sprite.frames = frames
+
+func set_sprite_frames(frames: SpriteFrames) -> void:
+	sprite_frames = frames
+	if not is_inside_tree(): yield(self, 'ready')
+	if not Constants.ASCII:
+		$Sprite.frames = frames
+
+func set_frame(f: int) -> void:
+	frame = f
+	if not is_inside_tree(): yield(self, 'ready')
+	$Sprite.frame = f
+
+func play() -> void:
+	$Sprite.play()
+
+func stop() -> void:
+	$Sprite.stop()

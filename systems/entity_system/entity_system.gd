@@ -68,3 +68,6 @@ func set_brightness(x: int, y: int, brightness: int) -> void:
 		var disp = ent.get_component(Display.NAME)
 		if disp != null:
 			disp.brightness = brightness
+		var anim = ent.get_component(Animated.NAME)
+		if anim != null:
+			anim.brightness = brightness

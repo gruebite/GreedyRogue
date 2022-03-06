@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://components/ai/ai.gd"
 }, {
 "base": "Component",
+"class": "Animated",
+"language": "GDScript",
+"path": "res://components/animated/animated.gd"
+}, {
+"base": "Component",
 "class": "Anxiety",
 "language": "GDScript",
 "path": "res://components/anxiety/anxiety.gd"
@@ -68,6 +73,11 @@ _global_script_classes=[ {
 "class": "Cp437",
 "language": "GDScript",
 "path": "res://addons/rlgd/cp437.gd"
+}, {
+"base": "Component",
+"class": "Crack",
+"language": "GDScript",
+"path": "res://components/crack/crack.gd"
 }, {
 "base": "Component",
 "class": "Dam",
@@ -138,6 +148,11 @@ _global_script_classes=[ {
 "class": "Grid",
 "language": "GDScript",
 "path": "res://addons/rlgd/grid.gd"
+}, {
+"base": "Component",
+"class": "Grounded",
+"language": "GDScript",
+"path": "res://components/grounded/grounded.gd"
 }, {
 "base": "Component",
 "class": "Health",
@@ -239,6 +254,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://components/treasure/treasure.gd"
 }, {
+"base": "Component",
+"class": "Tripwire",
+"language": "GDScript",
+"path": "res://components/tripwire/tripwire.gd"
+}, {
 "base": "Node2D",
 "class": "TurnSystem",
 "language": "GDScript",
@@ -256,6 +276,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Ai": "",
+"Animated": "",
 "Anxiety": "",
 "Backpack": "",
 "Bright": "",
@@ -267,6 +288,7 @@ _global_script_class_icons={
 "Constants": "",
 "Controller": "",
 "Cp437": "",
+"Crack": "",
 "Dam": "",
 "Dammable": "",
 "DenseGrid": "",
@@ -281,6 +303,7 @@ _global_script_class_icons={
 "Game": "",
 "GeneratorSystem": "",
 "Grid": "",
+"Grounded": "",
 "Health": "",
 "Hex": "",
 "Lair": "",
@@ -301,6 +324,7 @@ _global_script_class_icons={
 "Tile": "",
 "TileSystem": "",
 "Treasure": "",
+"Tripwire": "",
 "TurnSystem": "",
 "TurnTaker": "",
 "Walker": ""

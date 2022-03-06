@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/display/display.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://components/backpack/backpack.tscn" type="PackedScene" id=8]
 [ext_resource path="res://components/anxiety/anxiety.tscn" type="PackedScene" id=9]
 [ext_resource path="res://components/health/health.tscn" type="PackedScene" id=10]
+[ext_resource path="res://components/grounded/grounded.tscn" type="PackedScene" id=11]
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -31,6 +32,8 @@ region_rect = Rect2( 0, 256, 16, 16 )
 dynamic = true
 lit_radius = 4
 dim_radius = 20
+
+[node name="Grounded" parent="." instance=ExtResource( 11 )]
 
 [node name="Flammable" parent="." instance=ExtResource( 5 )]
 

@@ -60,6 +60,13 @@ func generate() -> void:
 		walker.mark(tile_to_walker_tile(Tile.ROCK))
 		walker.commit()
 
+	for i in 10:
+		walker.goto_random_opened()
+		for s in 10:
+			walker.step_random()
+			walker.mark(tile_to_walker_tile(Tile.PITFALL))
+		walker.commit()
+
 	# Gold
 
 	var piles := walker.rng.randi_range(10, 30)
@@ -139,6 +146,9 @@ func generate() -> void:
 					elif tile == Tile.GOLD:
 						tile_system.set_tile(x, y, Tile.FLOOR)
 						ent = Entities.GOLD.instance()
+					elif tile == Tile.PITFALL:
+						tile_system.set_tile(x, y, Tile.FLOOR)
+						ent = Entities.PITFALL.instance()
 					elif tile == Tile.LAVA_CARVING:
 						# Abyss blocks light, optimizes lava casts.
 						tile_system.set_tile(x, y, Tile.ABYSS_WALL)
