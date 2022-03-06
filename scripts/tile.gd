@@ -13,6 +13,7 @@ enum {
 	# Tiles used only for generation.
 	LAVA,
 	GOLD,
+	ROCK,
 }
 
 enum Property {

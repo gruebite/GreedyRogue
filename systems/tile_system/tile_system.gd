@@ -11,11 +11,15 @@ onready var foreground: TileMap = $Foreground
 
 var tiles := {}
 
+func _enter_tree() -> void:
+	$Background.colors = Palette.LIST
+
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 
-	background.colors = Palette.LIST
+func is_exit(x: int, y: int) -> bool:
+	return x == 0 or y == 0 or x == Constants.MAP_COLUMNS - 1 or y == Constants.MAP_ROWS - 1
 
 func set_tile_bright(x: int, y: int, tile: int, brightness: int) -> void:
 	tiles[Vector2(x, y)] = tile
@@ -24,10 +28,10 @@ func set_tile_bright(x: int, y: int, tile: int, brightness: int) -> void:
 			background.clear_tile(x, y)
 			foreground.set_cell(x, y, -1)
 		Brightness.DIM:
-			background.set_tile(x, y, tile, dim_background)
+			background.set_tile(x, y, 0, dim_background)
 			foreground.set_cell(x, y, tile * 2)
 		Brightness.LIT:
-			background.set_tile(x, y, tile, lit_background)
+			background.set_tile(x, y, 0, lit_background)
 			foreground.set_cell(x, y, tile * 2 + 1)
 
 func set_tile(x: int, y: int, tile: int) -> void:

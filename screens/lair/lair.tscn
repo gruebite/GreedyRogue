@@ -127,3 +127,18 @@ margin_right = 320.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "0"
+
+[node name="HSeparator4" type="HSeparator" parent="UI/HUD/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 116.0
+margin_right = 320.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 0, 16 )
+
+[node name="Title2" type="Label" parent="UI/HUD/VBoxContainer"]
+modulate = Color( 1, 0.741176, 0.25098, 1 )
+margin_top = 132.0
+margin_right = 320.0
+margin_bottom = 149.0
+text = "Items"
+align = 1

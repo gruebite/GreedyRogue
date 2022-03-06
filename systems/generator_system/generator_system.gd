@@ -52,6 +52,13 @@ func generate() -> void:
 		walker.commit()
 		walker.forget()
 	
+	# Rocks
+	
+	for i in 10:
+		walker.goto_random_opened()
+		walker.mark(tile_to_walker_tile(Tile.ROCK))
+		walker.commit()
+	
 	# Gold
 	
 	var piles := walker.rng.randi_range(10, 30)
@@ -115,29 +122,41 @@ func generate() -> void:
 	var to_add := []
 	for x in Constants.MAP_COLUMNS:
 		for y in Constants.MAP_ROWS:
-			if x == 0 or y == 0 or x == Constants.MAP_COLUMNS - 1 or y == Constants.MAP_ROWS - 1:
+			if tile_system.is_exit(x, y):
 				tile_system.set_tile(x, y, Tile.WALL)
 			else:
 				var tile := walker_tile_to_tile(walker.get_tile(x - 1, y - 1))
 				if tile < Tile.LAVA:
 					# Regular tiles.
 					tile_system.set_tile(x, y, tile)
-				elif tile == Tile.LAVA:
-					# Abyss blocks light, optimizes lava casts.
-					tile_system.set_tile(x, y, Tile.ABYSS_WALL)
-					# Special marker tiles.
-					var lava := Entities.LAVA.instance()
-					lava.grid_position = Vector2(x, y)
-					to_add.append(lava)
-				elif tile == Tile.GOLD:
-					tile_system.set_tile(x, y, Tile.FLOOR)
-					# Special marker tiles.
-					var gold := Entities.GOLD.instance()
-					gold.grid_position = Vector2(x, y)
-					to_add.append(gold)
+				else:
+					var ent: Entity
+					if tile == Tile.ROCK:
+						tile_system.set_tile(x, y, Tile.FLOOR)
+						ent = Entities.ROCK.instance()
+					elif tile == Tile.GOLD:
+						tile_system.set_tile(x, y, Tile.FLOOR)
+						ent = Entities.GOLD.instance()
+					elif tile == Tile.LAVA:
+						# Abyss blocks light, optimizes lava casts.
+						tile_system.set_tile(x, y, Tile.ABYSS_WALL)
+						ent = Entities.LAVA.instance()
+					ent.grid_position = Vector2(x, y)
+					to_add.append(ent)
 	
-	
+	# Player and exits.
 
+	entity_system.player.grid_position = walker.exit_tiles.random(walker.rng) + Vector2(1, 1)
+	entity_system.update_entity(entity_system.player)
+
+	var exit_pos := walker.exit_tiles.random(walker.rng) + Vector2(1, 1)
+	for p in circle.array:
+		var pd: Vector2 = p + exit_pos
+		if tile_system.is_exit(pd.x, pd.y):
+			tile_system.set_tile(pd.x, pd.y, Tile.FLOOR)
+	
+	# Light.
+	
 	bright_system.update_blocking_grid()
 	bright_system.update_brights()
 	for ent in to_add:

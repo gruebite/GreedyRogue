@@ -11,6 +11,7 @@ var entity_grid := {}
 var entity_positions := {}
 
 onready var entities: Node2D = get_node(entities_path)
+onready var player: Entity = entities.get_node("Player")
 
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)

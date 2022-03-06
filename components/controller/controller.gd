@@ -3,6 +3,8 @@ class_name Controller
 
 const NAME := "Controller"
 
+signal found_exit()
+
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
@@ -33,11 +35,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		delta = Vector2.RIGHT
 
 	if delta != Vector2.ZERO and turn_system.can_initiate_turn():
-		var can_move := navigation_system.can_move_to(entity.grid_position + delta)
-		if can_move:
-			entity.move(entity.grid_position + delta)
+		var desired := entity.grid_position + delta
+		if navigation_system.can_move_to(desired):
+			entity.move(desired)
 			entity_system.update_entity(entity)
-			turn_system.initiate_turn()
+			if tile_system.is_exit(desired.x, desired.y):
+				emit_signal("found_exit")
+			else:
+				turn_system.initiate_turn()
+		else:
+			var bumps := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
+			for bump in bumps:
+				bump.bump(entity)
 
 func _on_pickup(ent: Entity) -> void:
 	var treasure: Treasure = ent.get_component(Treasure.NAME)
