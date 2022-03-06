@@ -1,13 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/display/display.tscn" type="PackedScene" id=2]
 [ext_resource path="res://components/moveable/moveable.tscn" type="PackedScene" id=3]
 [ext_resource path="res://components/bumpable/bumpable.tscn" type="PackedScene" id=4]
 [ext_resource path="res://components/presence/presence.tscn" type="PackedScene" id=5]
+[ext_resource path="res://components/dam/dam.tscn" type="PackedScene" id=6]
 
 [node name="Rock" type="Node2D"]
 script = ExtResource( 1 )
+layer = 2
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 lit_pos = Vector2( 64, 336 )
@@ -15,6 +17,9 @@ lit_pos = Vector2( 64, 336 )
 [node name="Presence" parent="." instance=ExtResource( 5 )]
 blocks_movement = true
 
+[node name="Dam" parent="." instance=ExtResource( 6 )]
+
 [node name="Bumpable" parent="." instance=ExtResource( 4 )]
 
 [node name="Moveable" parent="." instance=ExtResource( 3 )]
+ignores = 2

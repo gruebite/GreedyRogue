@@ -2,16 +2,21 @@ extends Reference
 class_name Tile
 
 enum {
+	# Tiles used only for generation.
+	LAVA_SETTLED = -1,
+	
+	# Displayed tiles.
 	CHASM,
 	WALL,
 	FLOOR,
 	
 	# Not displayed.
+	ABYSS_CHASM,
 	ABYSS_WALL,
 	ABYSS_FLOOR,
 	
 	# Tiles used only for generation.
-	LAVA,
+	LAVA_CARVING,
 	GOLD,
 	ROCK,
 }
@@ -22,10 +27,11 @@ enum Property {
 }
 
 const LIST := [
-	[false, false],
+	[true, false],
 	[true, true],
 	[false, false],
 	
+	[true, false],
 	[true, true],
 	[false, false],
 ]

@@ -27,6 +27,11 @@ func clear() -> void:
 		if ent.name != "Player":
 			ent.queue_free()
 
+func spawn_entity(escene: PackedScene, gpos: Vector2) -> void:
+	var ent: Entity = escene.instance()
+	ent.grid_position = gpos
+	add_entity(ent)
+
 func add_entity(entity: Entity) -> void:
 	#print("[entity_system.add] " + entity.name)
 	entities.add_child(entity)

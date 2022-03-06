@@ -22,5 +22,5 @@ func set_anxiety(to: int) -> void:
 	if to > max_anxiety: to = max_anxiety
 	anxiety = to
 	if anxiety > max_anxiety:
-		queue_free()
+		entity.queue_free()
 	emit_signal("anxiety_changed", anxiety, max_anxiety)

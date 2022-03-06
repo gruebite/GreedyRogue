@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Component",
+"class": "Ai",
+"language": "GDScript",
+"path": "res://components/ai/ai.gd"
+}, {
+"base": "Component",
 "class": "Anxiety",
 "language": "GDScript",
 "path": "res://components/anxiety/anxiety.gd"
@@ -63,6 +68,16 @@ _global_script_classes=[ {
 "class": "Cp437",
 "language": "GDScript",
 "path": "res://addons/rlgd/cp437.gd"
+}, {
+"base": "Component",
+"class": "Dam",
+"language": "GDScript",
+"path": "res://components/dam/dam.gd"
+}, {
+"base": "Component",
+"class": "Dammable",
+"language": "GDScript",
+"path": "res://components/dammable/dammable.gd"
 }, {
 "base": "Grid",
 "class": "DenseGrid",
@@ -230,6 +245,7 @@ _global_script_classes=[ {
 "path": "res://addons/rlgd/walker.gd"
 } ]
 _global_script_class_icons={
+"Ai": "",
 "Anxiety": "",
 "Backpack": "",
 "Bright": "",
@@ -241,6 +257,8 @@ _global_script_class_icons={
 "Constants": "",
 "Controller": "",
 "Cp437": "",
+"Dam": "",
+"Dammable": "",
 "DenseGrid": "",
 "Direction": "",
 "Display": "",

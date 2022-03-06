@@ -42,7 +42,7 @@ func cast_light(x: int, y: int, lit_radius: int, dim_radius: int) -> void:
 			cb = 0
 		var offset: Vector2 = cell - origin
 		if offset.length_squared() <= lit_radius2:
-			static_light_grid.set_cellv(cell, cb if cb > Brightness.LIT else Brightness.LIT)
+			static_light_grid.set_cellv(cell, Brightness.LIT)
 		else:
 			static_light_grid.set_cellv(cell, cb if cb > Brightness.DIM else Brightness.DIM)
 	_scratch_grid.clear()
@@ -70,11 +70,14 @@ func update_brights() -> void:
 		var lit_radius2: int = b.lit_radius * b.lit_radius
 		ShadowCast.compute(blocking_grid, _scratch_grid, origin, b.dim_radius)
 		for cell in _scratch_grid.cells:
+			var cb = dynamic_light_grid.get_cellv(cell)
+			if cb == null:
+				cb = 0
 			var offset: Vector2 = cell - origin
 			if offset.length_squared() <= lit_radius2:
 				dynamic_light_grid.set_cellv(cell, Brightness.LIT)
 			else:
-				dynamic_light_grid.set_cellv(cell, Brightness.DIM)
+				dynamic_light_grid.set_cellv(cell, cb if cb > Brightness.DIM else Brightness.DIM)
 		_scratch_grid.clear()
 
 func update_tiles() -> void:

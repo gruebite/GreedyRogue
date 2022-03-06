@@ -54,7 +54,7 @@ func generate() -> void:
 	
 	# Rocks
 	
-	for i in 10:
+	for i in 40:
 		walker.goto_random_opened()
 		walker.mark(tile_to_walker_tile(Tile.ROCK))
 		walker.commit()
@@ -98,7 +98,7 @@ func generate() -> void:
 			size = 15
 		for s in size:
 			walker.step_random()
-			walker.mark_point_set(plus, tile_to_walker_tile(Tile.LAVA))
+			walker.mark_point_set(plus, tile_to_walker_tile(Tile.LAVA_CARVING))
 		walker.commit()
 
 	# Lava Rivers
@@ -113,20 +113,21 @@ func generate() -> void:
 			walker.step_weighted_last_remembered(0.6)
 			walker.mark_point_set(circle, tile_to_walker_tile(Tile.FLOOR))
 			walker.commit(Walker.COMMIT_OPENED_OVER_CLOSED)
-			walker.mark_point_set(plus, tile_to_walker_tile(Tile.LAVA))
+			walker.mark_point_set(plus, tile_to_walker_tile(Tile.LAVA_CARVING))
 			walker.commit()
 	walker.forget()
 	
 	# Entities
 
 	var to_add := []
+	
 	for x in Constants.MAP_COLUMNS:
 		for y in Constants.MAP_ROWS:
 			if tile_system.is_exit(x, y):
 				tile_system.set_tile(x, y, Tile.WALL)
 			else:
 				var tile := walker_tile_to_tile(walker.get_tile(x - 1, y - 1))
-				if tile < Tile.LAVA:
+				if tile >= Tile.CHASM and tile <= Tile.ABYSS_FLOOR:
 					# Regular tiles.
 					tile_system.set_tile(x, y, tile)
 				else:
@@ -137,12 +138,22 @@ func generate() -> void:
 					elif tile == Tile.GOLD:
 						tile_system.set_tile(x, y, Tile.FLOOR)
 						ent = Entities.GOLD.instance()
-					elif tile == Tile.LAVA:
+					elif tile == Tile.LAVA_CARVING:
 						# Abyss blocks light, optimizes lava casts.
 						tile_system.set_tile(x, y, Tile.ABYSS_WALL)
+						# Set lava to a closed variant, so we have accurate map info.
+						walker.goto(x, y)
+						walker.mark(tile_to_walker_tile(Tile.LAVA_SETTLED))
 						ent = Entities.LAVA.instance()
 					ent.grid_position = Vector2(x, y)
 					to_add.append(ent)
+	walker.commit()
+	
+	for i in 10:
+		var pos := walker.opened_tiles.random(walker.rng) + Vector2(1, 1)
+		var ent: Entity = Entities.DRAGONLING.instance()
+		ent.grid_position = Vector2(pos.x, pos.y)
+		to_add.append(ent)
 	
 	# Player and exits.
 
@@ -158,15 +169,16 @@ func generate() -> void:
 	# Light.
 	
 	bright_system.update_blocking_grid()
-	bright_system.update_brights()
 	for ent in to_add:
 		entity_system.add_entity(ent)
+	bright_system.update_brights()
+	bright_system.update_tiles()
 
 	for x in Constants.MAP_COLUMNS:
 		for y in Constants.MAP_ROWS:
 			var tile := tile_system.get_tile(x, y)
 			if tile == Tile.ABYSS_WALL:
-				tile_system.set_tile(x, y, Tile.ABYSS_FLOOR)
+				tile_system.set_tile(x, y, Tile.FLOOR)
 	
 	bright_system.update_blocking_grid()
 

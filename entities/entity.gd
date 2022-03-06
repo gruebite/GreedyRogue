@@ -1,7 +1,18 @@
 extends Node2D
 class_name Entity
 
+enum Layer {
+	BELOW,
+	GROUND,
+	WAIST,
+	HEAD,
+	OVERHEAD,
+	AIR,
+}
+
 signal moved(from, to)
+
+export(Layer) var layer := Layer.GROUND setget set_layer
 
 var grid_position: Vector2 setget set_grid_position, get_grid_position
 
@@ -18,3 +29,7 @@ func move(value: Vector2) -> void:
 	var from := self.grid_position
 	self.grid_position = value
 	emit_signal("moved", from, value)
+
+func set_layer(l: int) -> void:
+	layer = l
+	z_index = layer

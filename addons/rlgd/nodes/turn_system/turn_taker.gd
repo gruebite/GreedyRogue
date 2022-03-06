@@ -3,7 +3,7 @@ class_name TurnTaker
 
 signal take_turn()
 
-onready var system: TurnSystem = TurnSystem.instance(get_tree())
+onready var system: TurnSystem = get_tree().get_nodes_in_group(TurnSystem.GROUP_NAME)[0]
 
 func _ready() -> void:
 	add_to_group(TurnSystem.TURN_TAKER_GROUP_NAME)
