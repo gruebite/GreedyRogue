@@ -13,6 +13,6 @@ func _ready() -> void:
 func _on_entity_moved(_from: Vector2, to: Vector2) -> void:
 	var ents := entity_system.get_entities(to.x, to.y)
 	for ent in ents:
-		var fire: Fire = ent.get_component(Fire.NAME)
+		var fire: Flaming = ent.get_component(Flaming.NAME)
 		if fire:
 			health.health -= fire.heat

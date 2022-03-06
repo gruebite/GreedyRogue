@@ -2,6 +2,7 @@ extends Reference
 class_name Entities
 
 const DRAGONLING := preload("res://entities/dragonling/dragonling.tscn")
+const FIRE := preload("res://entities/fire/fire.tscn")
 const GOLD := preload("res://entities/gold/gold.tscn")
 const LAVA := preload("res://entities/lava/lava.tscn")
 const PITFALL := preload("res://entities/pitfall/pitfall.tscn")

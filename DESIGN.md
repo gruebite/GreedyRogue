@@ -84,7 +84,7 @@ Lit only.
 
 Lit only.  Animated.
 - Lava.
-- Fire.
+- Flaming.
 - Melted treasure.
 - Gold.
 - Chest.
@@ -99,7 +99,7 @@ Lit & dim variants.  Animated. (idle only animation?)
 #### Effects
 
 - Rock explosion.  For stalagmites.
-- Fire burning.  For lava walking.
+- Flaming burning.  For lava walking.
 
 ### Sound
 
@@ -108,9 +108,9 @@ Lit & dim variants.  Animated. (idle only animation?)
 - Ambience.  Lava bubbles, echoes, rocks falling.
 
 - Gold pickup.  Ding.
-- Fire damage.  Tsst.
+- Flaming damage.  Tsst.
 - Claw attack.  Rip.
-- Fire breath.  Explosion.
+- Flaming breath.  Explosion.
 - Cracking.
 
 ## Future

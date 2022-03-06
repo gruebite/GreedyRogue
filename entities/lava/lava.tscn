@@ -5,7 +5,7 @@
 [ext_resource path="res://components/dammable/dammable.tscn" type="PackedScene" id=3]
 [ext_resource path="res://components/bright/bright.tscn" type="PackedScene" id=4]
 [ext_resource path="res://components/presence/presence.tscn" type="PackedScene" id=5]
-[ext_resource path="res://components/fire/fire.tscn" type="PackedScene" id=6]
+[ext_resource path="res://components/flaming/flaming.tscn" type="PackedScene" id=6]
 
 [node name="Lava" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,7 +19,7 @@ lit_pos = Vector2( 0, 288 )
 
 [node name="Presence" parent="." instance=ExtResource( 5 )]
 
-[node name="Fire" parent="." instance=ExtResource( 6 )]
+[node name="Flaming" parent="." instance=ExtResource( 6 )]
 
 [node name="Bright" parent="." instance=ExtResource( 4 )]
 dim_radius = 5
