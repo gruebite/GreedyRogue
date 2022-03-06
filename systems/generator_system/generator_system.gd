@@ -6,6 +6,7 @@ const GROUP_NAME := "generator_system"
 onready var tile_system: TileSystem = get_node("../TileSystem")
 onready var entity_system: EntitySystem = get_node("../EntitySystem")
 onready var bright_system: BrightSystem = get_node("../BrightSystem")
+onready var navigation_system: NavigationSystem = get_node("../NavigationSystem")
 
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
@@ -25,7 +26,7 @@ func generate() -> void:
 	walker.commit()
 
 	# Cavern structure.
-	
+
 	var plus := PointSets.plus()
 	while walker.percent_opened() < 0.7:
 		walker.goto_random_opened()
@@ -51,16 +52,16 @@ func generate() -> void:
 			walker.mark_point_set(plus, tile_to_walker_tile(Tile.FLOOR))
 		walker.commit()
 		walker.forget()
-	
+
 	# Rocks
-	
+
 	for i in 40:
 		walker.goto_random_opened()
 		walker.mark(tile_to_walker_tile(Tile.ROCK))
 		walker.commit()
-	
+
 	# Gold
-	
+
 	var piles := walker.rng.randi_range(10, 30)
 	var small_piles := walker.rng.randi_range(piles * 3 / 2, piles)
 	var medium_piles := walker.rng.randi_range(0, piles - small_piles)
@@ -116,14 +117,14 @@ func generate() -> void:
 			walker.mark_point_set(plus, tile_to_walker_tile(Tile.LAVA_CARVING))
 			walker.commit()
 	walker.forget()
-	
+
 	# Entities
 
 	var to_add := []
-	
+
 	for x in Constants.MAP_COLUMNS:
 		for y in Constants.MAP_ROWS:
-			if tile_system.is_exit(x, y):
+			if navigation_system.is_exit(x, y):
 				tile_system.set_tile(x, y, Tile.WALL)
 			else:
 				var tile := walker_tile_to_tile(walker.get_tile(x - 1, y - 1))
@@ -142,19 +143,19 @@ func generate() -> void:
 						# Abyss blocks light, optimizes lava casts.
 						tile_system.set_tile(x, y, Tile.ABYSS_WALL)
 						# Set lava to a closed variant, so we have accurate map info.
-						walker.goto(x, y)
+						walker.goto(x - 1, y - 1)
 						walker.mark(tile_to_walker_tile(Tile.LAVA_SETTLED))
 						ent = Entities.LAVA.instance()
 					ent.grid_position = Vector2(x, y)
 					to_add.append(ent)
 	walker.commit()
-	
+
 	for i in 10:
 		var pos := walker.opened_tiles.random(walker.rng) + Vector2(1, 1)
 		var ent: Entity = Entities.DRAGONLING.instance()
 		ent.grid_position = Vector2(pos.x, pos.y)
 		to_add.append(ent)
-	
+
 	# Player and exits.
 
 	entity_system.player.grid_position = walker.exit_tiles.random(walker.rng) + Vector2(1, 1)
@@ -163,11 +164,31 @@ func generate() -> void:
 	var exit_pos := walker.exit_tiles.random(walker.rng) + Vector2(1, 1)
 	for p in circle.array:
 		var pd: Vector2 = p + exit_pos
-		if tile_system.is_exit(pd.x, pd.y):
+		if navigation_system.is_exit(pd.x, pd.y):
 			tile_system.set_tile(pd.x, pd.y, Tile.FLOOR)
-	
+
+	# Make lava come from somewhere.
+	for x in 2:
+		for y in Constants.MAP_ROWS - 3:
+			var check := Vector2(x * (Constants.MAP_COLUMNS - 3), y + 1)
+			if walker.get_tile(check.x, check.y) == tile_to_walker_tile(Tile.LAVA_SETTLED):
+				var realv := Vector2(x * (Constants.MAP_COLUMNS - 1), y + 1)
+				tile_system.set_tile(realv.x, realv.y, Tile.FLOOR)
+				var ent: Entity = Entities.LAVA.instance()
+				ent.grid_position = realv
+				to_add.append(ent)
+	for x in Constants.MAP_COLUMNS - 3:
+		for y in 2:
+			var check := Vector2(x + 1, y * (Constants.MAP_ROWS - 3))
+			if walker.get_tile(check.x, check.y) == tile_to_walker_tile(Tile.LAVA_SETTLED):
+				var realv := Vector2(x + 1, y * (Constants.MAP_ROWS - 1))
+				tile_system.set_tile(realv.x, realv.y, Tile.FLOOR)
+				var ent: Entity = Entities.LAVA.instance()
+				ent.grid_position = realv
+				to_add.append(ent)
+
 	# Light.
-	
+
 	bright_system.update_blocking_grid()
 	for ent in to_add:
 		entity_system.add_entity(ent)
@@ -179,7 +200,7 @@ func generate() -> void:
 			var tile := tile_system.get_tile(x, y)
 			if tile == Tile.ABYSS_WALL:
 				tile_system.set_tile(x, y, Tile.FLOOR)
-	
+
 	bright_system.update_blocking_grid()
 
 func tile_to_walker_tile(tile: int) -> int:

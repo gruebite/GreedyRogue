@@ -21,6 +21,9 @@ func _ready() -> void:
 func out_of_bounds(gpos: Vector2) -> bool:
 	return gpos.x < 0 or gpos.y < 0 or gpos.x >= Constants.MAP_COLUMNS or gpos.y >= Constants.MAP_ROWS
 
+func is_exit(x: int, y: int) -> bool:
+	return x == 0 or y == 0 or x == Constants.MAP_COLUMNS - 1 or y == Constants.MAP_ROWS - 1
+
 func can_move_to(ent: Entity, gpos: Vector2, ignore: int=Ignore.NONE) -> bool:
 	if out_of_bounds(gpos):
 		return false

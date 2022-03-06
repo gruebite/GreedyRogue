@@ -39,7 +39,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if navigation_system.can_move_to(entity, desired):
 			entity.move(desired)
 			entity_system.update_entity(entity)
-			if tile_system.is_exit(desired.x, desired.y):
+			if navigation_system.is_exit(desired.x, desired.y):
 				emit_signal("found_exit")
 			else:
 				turn_system.initiate_turn()

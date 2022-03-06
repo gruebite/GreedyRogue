@@ -18,9 +18,6 @@ func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 
-func is_exit(x: int, y: int) -> bool:
-	return x == 0 or y == 0 or x == Constants.MAP_COLUMNS - 1 or y == Constants.MAP_ROWS - 1
-
 func set_tile_bright(x: int, y: int, tile: int, brightness: int) -> void:
 	tiles[Vector2(x, y)] = tile
 	match brightness:
