@@ -1,0 +1,30 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://screens/lair/lair.gd" type="Script" id=1]
+[ext_resource path="res://addons/rlgd/nodes/turn_system/turn_system.tscn" type="PackedScene" id=2]
+[ext_resource path="res://systems/tile_system/tile_system.tscn" type="PackedScene" id=3]
+[ext_resource path="res://systems/entity_system/entity_system.tscn" type="PackedScene" id=4]
+[ext_resource path="res://entities/player/player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://systems/generator_system/generator_system.tscn" type="PackedScene" id=6]
+[ext_resource path="res://systems/navigation_system/navigation_system.tscn" type="PackedScene" id=7]
+[ext_resource path="res://systems/bright_system/bright_system.tscn" type="PackedScene" id=8]
+
+[node name="Lair" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="TurnSystem" parent="." instance=ExtResource( 2 )]
+
+[node name="TileSystem" parent="." instance=ExtResource( 3 )]
+
+[node name="EntitySystem" parent="." instance=ExtResource( 4 )]
+entities_path = NodePath("../Entities")
+
+[node name="BrightSystem" parent="." instance=ExtResource( 8 )]
+
+[node name="GeneratorSystem" parent="." instance=ExtResource( 6 )]
+
+[node name="NavigationSystem" parent="." instance=ExtResource( 7 )]
+
+[node name="Entities" type="YSort" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource( 5 )]

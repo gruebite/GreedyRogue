@@ -13,9 +13,9 @@ You play as a Rogue looting treasure from a Dragon's Lair under a volcano.  You'
 
 GreedyRogue is similar to a traditional Roguelike: permadeath, procedural generation, turn-based.  The core gameplay revolves around resource management and movement constraints.
 
-You start out in a chamber.    You can only see things directly nearby, but can make out vague details of things further out.  Some treasure is special, and grants you certain advantages, like a torch to increase sight range, or jumping boots allowing you to stay greedy by jumping over gaps in treasure.  Only after filling your bag, will you consider making an escape.
+You start out in a Dragon's Lair under a volcano filled with lava rivers and chasms.  You can only see things lit up, but can make out vague details of things a bit beyond the light.  You have two stats: health and anxiety.  Anxiety constantly increases and can be lowered by collecting treasure.  Treasure is randomly spread around the lair in large piles.  Some treasure is special, and grants you certain advantages, like a torch to emit more light, or winged boots.  Dragonlings wake up the more treasure you collect.  They move randomly, and breathe fire which melts treasure.  You can see them when awake because they emit a small amount of light.
 
-Dragonlings wake up the more treasure you grab.  They move randomly, and breathe fire which melts treasure.  You can see them when awake because they emit a small amount of light.
+The goal is to grab as much treasure and book it for the exit.
 
 #### The Rogue
 

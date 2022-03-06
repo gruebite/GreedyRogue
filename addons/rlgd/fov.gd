@@ -8,7 +8,7 @@ enum Transparency {
 }
 
 ## Anything <= 0 is unlit, anything > 0 is lit.
-enum Lighting {
+enum Brightness {
 	NONE,
 	FULL,
 }

@@ -39,7 +39,7 @@ static func _scan(tile_grid: Grid, light_grid: Grid, trans: Array, origin: Vecto
 			new_bottom_y = 0
 		else:
 			new_bottom_y = ((x * 2 - 1) * bottom_y + bottom_x) / (bottom_x * 2)
-		
+
 		var was_opaque := -1
 		for y in range(new_top_y, new_bottom_y - 1, -1):
 			var realx = origin.x + trans[_XX] * x + trans[_XY] * y
@@ -49,8 +49,8 @@ static func _scan(tile_grid: Grid, light_grid: Grid, trans: Array, origin: Vecto
 				continue
 			var in_range := radius < 0 || origin.distance_squared_to(realv) <= radius * radius
 			if in_range && (y != new_top_y || top_y * x >= top_x * y) && (y != new_bottom_y || bottom_y * x <= bottom_x * y):
-				light_grid.set_cellv(realv, Fov.Lighting.FULL)
-			
+				light_grid.set_cellv(realv, Fov.Brightness.FULL)
+
 			var tile = tile_grid.get_cellv(realv)
 			if tile == null: tile = 0
 			var is_opaque: bool = !in_range || tile <= Fov.Transparency.NONE

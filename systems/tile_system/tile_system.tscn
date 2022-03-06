@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://systems/tile_system/ascii_tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://assets/textures/white.png" type="Texture" id=2]
+[ext_resource path="res://addons/rlgd/nodes/color_tile_map/color_tile_map.tscn" type="PackedScene" id=3]
+[ext_resource path="res://systems/tile_system/tile_system.gd" type="Script" id=4]
+
+[node name="TileSystem" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Background" parent="." instance=ExtResource( 3 )]
+texture = ExtResource( 2 )
+tile_size = Vector2( 16, 16 )
+cell_size = Vector2( 16, 16 )
+
+[node name="Foreground" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1

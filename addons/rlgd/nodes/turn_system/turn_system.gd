@@ -22,9 +22,6 @@ var state: int = OUT_OF_TURN
 
 var _turn_takers := {}
 
-static func instance(tree: SceneTree) -> Node2D:
-	return tree.get_nodes_in_group(GROUP_NAME)[0]
-
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
