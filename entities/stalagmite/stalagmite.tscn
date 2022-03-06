@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://entities/entity.gd" type="Script" id=1]
+[ext_resource path="res://components/display/display.tscn" type="PackedScene" id=2]
+[ext_resource path="res://components/presence/presence.tscn" type="PackedScene" id=3]
+[ext_resource path="res://components/bumpable/bumpable.tscn" type="PackedScene" id=4]
+[ext_resource path="res://components/toppleable/toppleable.tscn" type="PackedScene" id=5]
+
+[node name="Stalagmite" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Display" parent="." instance=ExtResource( 2 )]
+dim_pos = Vector2( 0, 416 )
+lit_pos = Vector2( 64, 416 )
+
+[node name="Presence" parent="." instance=ExtResource( 3 )]
+blocks_movement = true
+
+[node name="Bumpable" parent="." instance=ExtResource( 4 )]
+
+[node name="Toppleable" parent="." instance=ExtResource( 5 )]

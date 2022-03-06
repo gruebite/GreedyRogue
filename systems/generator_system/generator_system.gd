@@ -59,12 +59,21 @@ func generate() -> void:
 		walker.goto_random_opened()
 		walker.mark(tile_to_walker_tile(Tile.ROCK))
 		walker.commit()
+	
+	# Pits
 
 	for i in 10:
 		walker.goto_random_opened()
 		for s in 10:
 			walker.step_random()
 			walker.mark(tile_to_walker_tile(Tile.PITFALL))
+		walker.commit()
+	
+	# Stalagmites
+
+	for i in 20:
+		walker.goto_random_opened()
+		walker.mark(tile_to_walker_tile(Tile.STALAGMITE))
 		walker.commit()
 
 	# Gold
@@ -146,6 +155,9 @@ func generate() -> void:
 					elif tile == Tile.GOLD:
 						tile_system.set_tile(x, y, Tile.FLOOR)
 						ent = Entities.GOLD.instance()
+					elif tile == Tile.STALAGMITE:
+						tile_system.set_tile(x, y, Tile.FLOOR)
+						ent = Entities.STALAGMITE.instance()
 					elif tile == Tile.PITFALL:
 						tile_system.set_tile(x, y, Tile.FLOOR)
 						ent = Entities.PITFALL.instance()

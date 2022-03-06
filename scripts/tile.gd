@@ -20,6 +20,7 @@ enum {
 	GOLD,
 	ROCK,
 	PITFALL,
+	STALAGMITE,
 }
 
 enum Property {
