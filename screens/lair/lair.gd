@@ -14,7 +14,7 @@ func _on_gold_changed(to: int) -> void:
 	$UI/HUD/VBoxContainer/Gold/Value.text = str(to)
 
 func _on_health_changed(to: int, _mx: int) -> void:
-	$UI/HUD/VBoxContainer/Anxiety/Value.text = "♥".repeat(ceil(to))
+	$UI/HUD/VBoxContainer/Health/Value.text = "♥".repeat(ceil(to))
 
 func _on_anxiety_changed(to: int, mx: int) -> void:
 	var slots := 10

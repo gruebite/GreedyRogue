@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/display/display.tscn" type="PackedScene" id=2]
 [ext_resource path="res://components/controller/controller.tscn" type="PackedScene" id=3]
 [ext_resource path="res://components/presence/presence.tscn" type="PackedScene" id=4]
+[ext_resource path="res://components/flammable/flammable.tscn" type="PackedScene" id=5]
 [ext_resource path="res://components/bright/bright.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/pickup/pickup.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/backpack/backpack.tscn" type="PackedScene" id=8]
@@ -30,6 +31,8 @@ region_rect = Rect2( 0, 256, 16, 16 )
 dynamic = true
 lit_radius = 4
 dim_radius = 20
+
+[node name="Flammable" parent="." instance=ExtResource( 5 )]
 
 [node name="Health" parent="." instance=ExtResource( 10 )]
 

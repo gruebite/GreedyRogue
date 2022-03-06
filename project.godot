@@ -109,6 +109,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://systems/entity_system/entity_system.gd"
 }, {
+"base": "Component",
+"class": "Fire",
+"language": "GDScript",
+"path": "res://components/fire/fire.gd"
+}, {
+"base": "Component",
+"class": "Flammable",
+"language": "GDScript",
+"path": "res://components/flammable/flammable.gd"
+}, {
 "base": "Reference",
 "class": "Fov",
 "language": "GDScript",
@@ -265,6 +275,8 @@ _global_script_class_icons={
 "Entities": "",
 "Entity": "",
 "EntitySystem": "",
+"Fire": "",
+"Flammable": "",
 "Fov": "",
 "Game": "",
 "GeneratorSystem": "",
