@@ -17,10 +17,12 @@ func _ready() -> void:
 
 func set_background_color(c: Color) -> void:
 	background_color = c
+	if not is_inside_tree(): yield(self, 'ready')
 	$Background.modulate = c
 
 func set_brightness(to: int) -> void:
 	brightness = to
+	if not is_inside_tree(): yield(self, 'ready')
 	match brightness:
 		Brightness.NONE:
 			hide()
@@ -35,21 +37,24 @@ func set_brightness(to: int) -> void:
 
 func set_ascii_texture(tex: Texture) -> void:
 	ascii_texture = tex
-	if !is_inside_tree(): return
+	if not is_inside_tree(): yield(self, 'ready')
 	if Constants.ASCII:
 		$Lit.texture = tex
 		$Dim.texture = tex
 
 func set_sprite_texture(tex: Texture) -> void:
 	sprite_texture = tex
+	if not is_inside_tree(): yield(self, 'ready')
 	if not Constants.ASCII:
 		$Lit.texture = tex
 		$Dim.texture = tex
 
 func set_lit_pos(pos: Vector2) -> void:
 	lit_pos = pos
+	if not is_inside_tree(): yield(self, 'ready')
 	$Lit.region_rect = Rect2(pos, Constants.CELL_VECTOR)
 
 func set_dim_pos(pos: Vector2) -> void:
 	dim_pos = pos
+	if not is_inside_tree(): yield(self, 'ready')
 	$Dim.region_rect = Rect2(pos, Constants.CELL_VECTOR)
