@@ -3,6 +3,8 @@ class_name Bright
 
 const NAME := "Bright"
 
+export var dynamic := false
+
 export var lit_radius := 1
 export var dim_radius := 3
 

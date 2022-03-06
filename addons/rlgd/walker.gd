@@ -57,6 +57,7 @@ enum {
 var rng: RandomNumberGenerator
 var opened_tiles := PointSet.new()
 var closed_tiles := PointSet.new()
+var exit_tiles := PointSet.new()
 var pinned_tiles := {}
 
 var grid := {}
@@ -77,6 +78,7 @@ func _init(r: RandomNumberGenerator=null):
 func start(w: int, h: int, tile: int=Tile.CLOSED) -> void:
 	opened_tiles.clear()
 	closed_tiles.clear()
+	exit_tiles.clear()
 	pinned_tiles.clear()
 	grid.clear()
 	remembered = []
@@ -92,13 +94,19 @@ func start(w: int, h: int, tile: int=Tile.CLOSED) -> void:
 			grid[Vector2(x, y)] = tile
 
 func out_of_bounds(pos: Vector2) -> bool:
-	return pos.x < 0 || pos.y < 0 || pos.x >= width || pos.y >= height
+	return pos.x < 0 or pos.y < 0 or pos.x >= width or pos.y >= height
+
+func on_edge(pos: Vector2) -> bool:
+	return pos.x == 0 or pos.y == 0 or pos.x == width - 1 or pos.y == height - 1
 
 func percent_opened() -> float:
 	return opened_tiles.length() / float(width * height)
 
 func is_out_of_bounds() -> bool:
 	return out_of_bounds(position)
+
+func is_on_edge() -> bool:
+	return on_edge(position)
 
 func is_on_last_remembered() -> bool:
 	return position == remembered[-1]
@@ -145,6 +153,16 @@ func gotov(pos: Vector2) -> void:
 
 func goto_random() -> void:
 	position = Vector2(rng.randi_range(0, width - 1), rng.randi_range(0, height - 1))
+
+func goto_random_edge() -> void:
+	var side := rng.randi_range(0, 1)
+	match side:
+		0:
+			position.x = rng.randi_range(0, 1) * (width - 1)
+			position.y = rng.randi_range(0, height - 1)
+		1:
+			position.x = rng.randi_range(0, width - 1)
+			position.y = rng.randi_range(0, 1) * (height - 1)
 
 func goto_random_opened() -> void:
 	position = opened_tiles.random(rng)
@@ -311,12 +329,16 @@ func commit(commit_over: int=COMMIT_OVER_ALL) -> void:
 					grid[pos] = tile
 					closed_tiles.remove(pos.x, pos.y)
 					opened_tiles.add(pos.x, pos.y)
+					if on_edge(pos):
+						exit_tiles.add(pos.x, pos.y)
 			else:
 				if (opened_tiles.hasv(pos) && commit_over & COMMIT_CLOSED_OVER_OPENED) || \
 				(closed_tiles.hasv(pos) && commit_over & COMMIT_CLOSED_OVER_CLOSED):
 					grid[pos] = tile
 					opened_tiles.remove(pos.x, pos.y)
 					closed_tiles.add(pos.x, pos.y)
+					if on_edge(pos):
+						exit_tiles.remove(pos.x, pos.y)
 
 			if old_tile != null and pinned_tiles.has(old_tile):
 				pinned_tiles[old_tile].remove(pos.x, pos.y)

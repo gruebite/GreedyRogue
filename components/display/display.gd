@@ -4,10 +4,11 @@ class_name Display
 
 const NAME := "Display"
 
-export(Brightness.Enum) var brightness: int = Brightness.LIT setget set_brightness
-export var texture: Texture setget set_texture
-export var lit_pos: Vector2 setget set_lit_pos
+export(Brightness.Enum) var brightness: int = Brightness.NONE setget set_brightness
+export var ascii_texture: Texture setget set_ascii_texture
+export var sprite_texture: Texture setget set_sprite_texture
 export var dim_pos: Vector2 setget set_dim_pos
+export var lit_pos: Vector2 setget set_lit_pos
 
 func _ready() -> void:
 	pass
@@ -26,10 +27,17 @@ func set_brightness(to: int) -> void:
 			$Lit.hide()
 			$Dim.show()
 
-func set_texture(tex: Texture) -> void:
-	texture = tex
-	$Lit.texture = texture
-	$Dim.texture = texture
+func set_ascii_texture(tex: Texture) -> void:
+	ascii_texture = tex
+	if Constants.ASCII:
+		$Lit.texture = tex
+		$Dim.texture = tex
+
+func set_sprite_texture(tex: Texture) -> void:
+	sprite_texture = tex
+	if not Constants.ASCII:
+		$Lit.texture = tex
+		$Dim.texture = tex
 
 func set_lit_pos(pos: Vector2) -> void:
 	lit_pos = pos

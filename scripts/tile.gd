@@ -5,6 +5,14 @@ enum {
 	CHASM,
 	WALL,
 	FLOOR,
+	
+	# Not displayed.
+	ABYSS_WALL,
+	ABYSS_FLOOR,
+	
+	# Tiles used only for generation.
+	LAVA,
+	GOLD,
 }
 
 enum Property {
@@ -13,7 +21,10 @@ enum Property {
 }
 
 const LIST := [
-	[true, false],
+	[false, false],
+	[true, true],
+	[false, false],
+	
 	[true, true],
 	[false, false],
 ]

@@ -27,11 +27,11 @@ func clear() -> void:
 			ent.queue_free()
 
 func add_entity(entity: Entity) -> void:
-	print("[entity_system.add] " + entity.name)
+	#print("[entity_system.add] " + entity.name)
 	entities.add_child(entity)
 
 func update_entity(entity: Entity) -> void:
-	print("[entity_system.update] " + entity.name)
+	#print("[entity_system.update] " + entity.name)
 	if entity_positions.has(entity):
 		var old_position: Vector2 = entity_positions[entity]
 		entity_grid[old_position].erase(entity)
@@ -39,7 +39,7 @@ func update_entity(entity: Entity) -> void:
 	entity_grid[entity.grid_position][entity] = true
 
 func remove_entity(entity: Entity) -> void:
-	print("[entity_system.remove] " + entity.name)
+	#print("[entity_system.remove] " + entity.name)
 	if entity_positions.has(entity):
 		var old_position: Vector2 = entity_positions[entity]
 		entity_grid[old_position].erase(entity)
@@ -55,3 +55,10 @@ func get_components(x: int, y: int, comp_name: String) -> Array:
 		if comp != null:
 			comps.append(comp)
 	return comps
+
+func set_brightness(x: int, y: int, brightness: int) -> void:
+	var ents := get_entities(x, y)
+	for ent in ents:
+		var disp = ent.get_component(Display.NAME)
+		if disp != null:
+			disp.brightness = brightness

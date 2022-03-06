@@ -17,22 +17,31 @@ func _ready() -> void:
 
 	background.colors = Palette.LIST
 
-func set_tile(x: int, y: int, tile: int, brightness: int) -> void:
+func set_tile_bright(x: int, y: int, tile: int, brightness: int) -> void:
 	tiles[Vector2(x, y)] = tile
 	match brightness:
 		Brightness.NONE:
 			background.clear_tile(x, y)
 			foreground.set_cell(x, y, -1)
-		Brightness.LIT:
-			background.set_tile(x, y, tile, lit_background)
-			foreground.set_cell(x, y, tile * 2)
 		Brightness.DIM:
 			background.set_tile(x, y, tile, dim_background)
+			foreground.set_cell(x, y, tile * 2)
+		Brightness.LIT:
+			background.set_tile(x, y, tile, lit_background)
 			foreground.set_cell(x, y, tile * 2 + 1)
+
+func set_tile(x: int, y: int, tile: int) -> void:
+	set_tile_bright(x, y, tile, get_brightness(x, y))
 
 func get_tile(x: int, y: int) -> int:
 	return tiles[Vector2(x, y)]
 
 func set_brightness(x: int, y: int, brightness: int) -> void:
-	var tile := get_tile(x, y)
-	set_tile(x, y, tile, brightness)
+	set_tile_bright(x, y, get_tile(x, y), brightness)
+
+func get_brightness(x: int, y: int) -> int:
+	var c: int = foreground.get_cell(x, y)
+	if c == -1:
+		return Brightness.NONE
+	else:
+		return (c & 1) + 1
