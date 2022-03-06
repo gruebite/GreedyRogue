@@ -4,12 +4,14 @@ class_name Dam
 const NAME := "Dam"
 
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
+onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 
 func _ready() -> void:
-	var _ignore = entity.connect("moved", self, "_on_moved")
+	var _ignore = turn_system.connect("out_of_turn", self, "_on_out_of_turn")
 
-func _on_moved(_from: Vector2, to: Vector2) -> void:
-	var ents := entity_system.get_entities(to.x, to.y)
+func _on_out_of_turn() -> void:
+	var gpos := entity.grid_position
+	var ents := entity_system.get_entities(gpos.x, gpos.y)
 	for ent in ents:
 		var dammable: Dammable = ent.get_component(Dammable.NAME)
 		if dammable:

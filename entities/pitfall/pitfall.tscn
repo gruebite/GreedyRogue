@@ -58,6 +58,7 @@ script = ExtResource( 1 )
 [node name="Animated" parent="." instance=ExtResource( 2 )]
 ascii_frames = SubResource( 1 )
 sprite_frames = SubResource( 2 )
+brightness = 0
 
 [node name="Presence" parent="." instance=ExtResource( 3 )]
 

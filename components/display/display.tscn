@@ -6,7 +6,6 @@
 [ext_resource path="res://assets/textures/spritesheet.png" type="Texture" id=4]
 
 [node name="Display" type="Node2D"]
-visible = false
 script = ExtResource( 1 )
 ascii_texture = ExtResource( 3 )
 sprite_texture = ExtResource( 4 )

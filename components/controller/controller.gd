@@ -33,8 +33,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		delta = Vector2.LEFT
 	elif event.is_action_pressed("ui_right", true):
 		delta = Vector2.RIGHT
-	elif event.is_action_pressed("ui_cancel"):
-		entity_system.spawn_entity(preload("res://entities/fire/fire.tscn"), entity.grid_position)
+	elif event is InputEventKey and event.pressed:
+		match event.scancode:
+			KEY_F:
+				entity_system.spawn_entity(preload("res://entities/fire/fire.tscn"), entity.grid_position)
+			KEY_A:
+				entity_system.spawn_entity(preload("res://entities/falling_rock/falling_rock.tscn"), entity.grid_position)
 
 	if delta != Vector2.ZERO and turn_system.can_initiate_turn():
 		var desired := entity.grid_position + delta
@@ -49,6 +53,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			var bumps := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
 			for bump in bumps:
 				bump.bump(entity)
+			if bumps.size() > 0:
+				turn_system.initiate_turn()
 
 func _on_pickup(ent: Entity) -> void:
 	var treasure: Treasure = ent.get_component(Treasure.NAME)
