@@ -15,5 +15,10 @@ export var max_gold := 0
 export var torch_weight := 0.0
 export var potion_weight := 0.0
 
-var gold := randi() % (max_gold - min_gold + 1) + min_gold
-var item: int = Item.NONE
+var gold: int
+var item: int
+
+func initialize():
+	gold = randi() % (max_gold - min_gold + 1) + min_gold
+	item = Item.NONE
+	return self

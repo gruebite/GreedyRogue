@@ -36,6 +36,8 @@ entities_path = NodePath("../Entities")
 [node name="Player" parent="Entities" instance=ExtResource( 5 )]
 invinsible = true
 
+[node name="Effects" type="Node2D" parent="."]
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Control" parent="UI"]

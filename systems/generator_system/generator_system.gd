@@ -8,7 +8,7 @@ onready var entity_system: EntitySystem = get_node("../EntitySystem")
 onready var bright_system: BrightSystem = get_node("../BrightSystem")
 onready var navigation_system: NavigationSystem = get_node("../NavigationSystem")
 
-var gold_remaining: int
+var gold_total: int
 
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func generate() -> void:
 	entity_system.clear()
-	gold_remaining = 0
+	gold_total = 0
 
 	var walker := Walker.new()
 	walker.start(Constants.MAP_COLUMNS - 2, Constants.MAP_ROWS - 2)
@@ -166,6 +166,8 @@ func generate() -> void:
 					elif tile == Tile.GOLD:
 						tile_system.set_tile(x, y, Tile.FLOOR)
 						ent = Entities.GOLD.instance()
+						var treasure: Treasure = ent.get_component(Treasure.NAME).initialize()
+						gold_total += treasure.gold
 					elif tile == Tile.STALAGMITE:
 						tile_system.set_tile(x, y, Tile.FLOOR)
 						ent = Entities.STALAGMITE.instance()

@@ -6,7 +6,7 @@ enum {
 	NORTHEAST,
 	NORTH,
 	NORTHWEST,
-	WEST, 
+	WEST,
 	SOUTHWEST,
 	SOUTH,
 	SOUTHEAST,
@@ -19,7 +19,7 @@ const COMPASS = [
 	NORTHEAST,
 	NORTH,
 	NORTHWEST,
-	WEST, 
+	WEST,
 	SOUTHWEST,
 	SOUTH,
 	SOUTHEAST,
@@ -37,6 +37,23 @@ static func delta(dir: int) -> Vector2:
 		SOUTHEAST: return Vector2(1, 1)
 	return Vector2.ZERO
 
+static func angle_to_cardinal_direction(phi: float) -> int:
+	var east := 0.0
+	var south := PI / 2
+	var west := PI
+	var north := PI * (3.0 / 2.0)
+
+	var dist_east := abs(atan2(sin(east - phi), cos(east - phi)))
+	if dist_east <= PI / 4:
+		return EAST
+	var dist_south := abs(atan2(sin(south - phi), cos(south - phi)))
+	if dist_south <= PI / 4:
+		return SOUTH
+	var dist_west := abs(atan2(sin(west - phi), cos(west - phi)))
+	if dist_west <= PI / 4:
+		return WEST
+	return NORTH
+
 static func is_cardinal(dir: int) -> bool:
 	match dir:
 		EAST: return true
@@ -52,6 +69,6 @@ static func is_diagonal(dir: int) -> bool:
 		SOUTHWEST: return true
 		SOUTHEAST: return true
 	return false
-	
+
 static func opposite(dir: int) -> int:
 	return (dir + 4) % 8

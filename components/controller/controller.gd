@@ -46,6 +46,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_R:
 				entity_system.spawn_entity(preload("res://entities/rock/rock.tscn"), entity.grid_position)
 
+	# Hacky mouse detection.
+	if event is InputEventMouseButton:
+		if event.pressed:
+			var center := Constants.MAP_RESOLUTION / 2
+			var angle: float = (event.position - center).angle()
+			delta = Direction.delta(Direction.angle_to_cardinal_direction(angle))
+
 	if delta != Vector2.ZERO and turn_system.can_initiate_turn():
 		var desired := entity.grid_position + delta
 		if navigation_system.out_of_bounds(desired.x, desired.y):

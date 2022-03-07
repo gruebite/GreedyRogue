@@ -29,8 +29,13 @@ func _process(_delta: float) -> void:
 		$TurnSystem.disabled = false
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not game_over:
+		return
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_SPACE:
+			regenerate()
+	if event is InputEventMouseButton:
+		if event.pressed:
 			regenerate()
 
 func _on_player_died(by: Node2D) -> void:
@@ -39,6 +44,12 @@ func _on_player_died(by: Node2D) -> void:
 	$TurnSystem.disabled = true
 
 func _on_gold_changed(to: int) -> void:
+	var gold_p: float = (float(to) / max(1, $GeneratorSystem.gold_total))
+	print("Gold percentage: " + str(gold_p * 100))
+	$SecuritySystem.gold_p = gold_p
+	var effect = preload("res://effects/gold/collect_gold.tscn").instance()
+	effect.position = player.position
+	$Effects.add_child(effect)
 	$UI/HUD/VBoxContainer/Gold/Value.text = str(to)
 
 func _on_health_changed(to: int, mx: int) -> void:

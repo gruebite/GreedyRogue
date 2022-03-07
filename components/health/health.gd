@@ -6,7 +6,7 @@ const NAME := "Health"
 signal health_changed(to)
 
 export var flashing_node_path := NodePath("../Display")
-export var max_health := 10
+export var max_health := 15
 var health := max_health setget set_health
 
 export var transparency: float = 0 setget set_transparency

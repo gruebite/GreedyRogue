@@ -13,7 +13,7 @@ enum Layer {
 signal moved(from, to)
 signal died(by)
 
-export var invinsible := false
+export var invincible := false
 export(Layer) var layer := Layer.GROUND setget set_layer
 
 var grid_position: Vector2 setget set_grid_position, get_grid_position
@@ -34,7 +34,7 @@ func move(value: Vector2) -> void:
 
 func kill(by: Node2D) -> void:
 	emit_signal("died", by)
-	if not invinsible:
+	if not invincible:
 		queue_free()
 
 func set_layer(l: int) -> void:
