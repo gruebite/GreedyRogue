@@ -1,13 +1,15 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
-[ext_resource path="res://components/bright/bright.tscn" type="PackedScene" id=2]
+[ext_resource path="res://components/defend/defend.tscn" type="PackedScene" id=2]
 [ext_resource path="res://components/display/display.tscn" type="PackedScene" id=3]
 [ext_resource path="res://components/presence/presence.tscn" type="PackedScene" id=4]
-[ext_resource path="res://components/ai/ai.tscn" type="PackedScene" id=5]
+[ext_resource path="res://components/dragon/dragon.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/bumpable/bumpable.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/bumper/bumper.tscn" type="PackedScene" id=8]
+[ext_resource path="res://components/attack/attack.tscn" type="PackedScene" id=9]
+[ext_resource path="res://components/health/health.tscn" type="PackedScene" id=10]
 
 [node name="Dragonling" type="Node2D"]
 script = ExtResource( 1 )
@@ -18,17 +20,21 @@ background_color = Color( 0, 0, 0, 1 )
 dim_pos = Vector2( 0, 352 )
 lit_pos = Vector2( 64, 352 )
 
+[node name="Health" parent="." instance=ExtResource( 10 )]
+max_health = 2
+
 [node name="Bumpable" parent="." instance=ExtResource( 7 )]
 bump_mask = 8
 
 [node name="Bumper" parent="." instance=ExtResource( 8 )]
 bump_mask = 3
 
-[node name="Presence" parent="." instance=ExtResource( 4 )]
+[node name="Defend" parent="." instance=ExtResource( 2 )]
 
-[node name="Bright" parent="." instance=ExtResource( 2 )]
-dynamic = true
+[node name="Attack" parent="." instance=ExtResource( 9 )]
+
+[node name="Presence" parent="." instance=ExtResource( 4 )]
 
 [node name="TurnTaker" parent="." instance=ExtResource( 6 )]
 
-[node name="Ai" parent="." instance=ExtResource( 5 )]
+[node name="Dragon" parent="." instance=ExtResource( 5 )]

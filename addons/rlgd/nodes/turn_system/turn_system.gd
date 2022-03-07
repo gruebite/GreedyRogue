@@ -3,7 +3,7 @@ class_name TurnSystem
 
 ##
 ## Turn system for turn-based games.
-## 
+##
 ## Should appear in the scene before any nodes that use it.
 ##
 
@@ -44,15 +44,16 @@ func taking_turn(node: Node2D) -> void:
 	_turn_takers[node] = true
 
 func finish_turn(node: Node2D) -> void:
-	assert(state == IN_TURN, "can only finish turn when in_turn")
-	_turn_takers.erase(node)
+	var _ignore = _turn_takers.erase(node)
 
 func can_initiate_turn() -> bool:
 	return not disabled and state == OUT_OF_TURN
 
-func initiate_turn() -> void:
+func will_initiate_turn() -> void:
 	assert(can_initiate_turn())
 	state = IN_TURN
+
+func initiate_turn() -> void:
 	emit_signal("initiated_turn")
 	for tt in get_tree().get_nodes_in_group(TURN_TAKER_GROUP_NAME):
 		tt.emit_signal("take_turn")

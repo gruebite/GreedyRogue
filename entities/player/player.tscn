@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/display/display.tscn" type="PackedScene" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://components/grounded/grounded.tscn" type="PackedScene" id=11]
 [ext_resource path="res://components/bumper/bumper.tscn" type="PackedScene" id=12]
 [ext_resource path="res://components/bumpable/bumpable.tscn" type="PackedScene" id=13]
+[ext_resource path="res://components/attack/attack.tscn" type="PackedScene" id=14]
+[ext_resource path="res://components/defend/defend.tscn" type="PackedScene" id=15]
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -33,19 +35,23 @@ dynamic = true
 lit_radius = 4
 dim_radius = 20
 
+[node name="Health" parent="." instance=ExtResource( 10 )]
+
+[node name="Anxiety" parent="." instance=ExtResource( 9 )]
+
 [node name="Bumpable" parent="." instance=ExtResource( 13 )]
 bump_mask = 1
 
 [node name="Bumper" parent="." instance=ExtResource( 12 )]
 bump_mask = 30
 
+[node name="Defend" parent="." instance=ExtResource( 15 )]
+
+[node name="Attack" parent="." instance=ExtResource( 14 )]
+
 [node name="Grounded" parent="." instance=ExtResource( 11 )]
 
 [node name="Flammable" parent="." instance=ExtResource( 5 )]
-
-[node name="Health" parent="." instance=ExtResource( 10 )]
-
-[node name="Anxiety" parent="." instance=ExtResource( 9 )]
 
 [node name="Presence" parent="." instance=ExtResource( 4 )]
 

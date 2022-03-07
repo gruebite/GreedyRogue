@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://screens/lair/lair.gd" type="Script" id=1]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_system.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://systems/navigation_system/navigation_system.tscn" type="PackedScene" id=7]
 [ext_resource path="res://systems/bright_system/bright_system.tscn" type="PackedScene" id=8]
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=9]
+[ext_resource path="res://systems/security_system/security_system.tscn" type="PackedScene" id=10]
 
 [node name="Lair" type="Node2D"]
 script = ExtResource( 1 )
@@ -25,6 +26,8 @@ entities_path = NodePath("../Entities")
 [node name="GeneratorSystem" parent="." instance=ExtResource( 6 )]
 
 [node name="NavigationSystem" parent="." instance=ExtResource( 7 )]
+
+[node name="SecuritySystem" parent="." instance=ExtResource( 10 )]
 
 [node name="Entities" type="YSort" parent="."]
 
@@ -145,6 +148,7 @@ text = "Items"
 align = 1
 
 [node name="Loading" type="Control" parent="UI"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 9 )
@@ -160,3 +164,13 @@ anchor_bottom = 1.0
 text = "Loading..."
 align = 1
 valign = 1
+
+[node name="EscapeScreen" type="Control" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="DeathScreen" type="Control" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0

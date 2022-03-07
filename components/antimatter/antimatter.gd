@@ -18,4 +18,4 @@ func _on_in_turn() -> void:
 			matter.entity.kill(self)
 			entity.kill(self)
 		elif mask & matter.mask:
-			matter.kill(self)
+			matter.entity.kill(self)

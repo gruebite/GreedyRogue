@@ -8,6 +8,9 @@ onready var system: TurnSystem = get_tree().get_nodes_in_group(TurnSystem.GROUP_
 func _ready() -> void:
 	add_to_group(TurnSystem.TURN_TAKER_GROUP_NAME)
 
+func _exit_tree() -> void:
+	system.finish_turn(self)
+
 func taking_turn() -> void:
 	system.taking_turn(self)
 

@@ -11,4 +11,9 @@ enum {
 	ELEMENTALS = 0x10,
 }
 
+signal bumped(other)
+
 export(int, FLAGS, "PLAYER", "ENVIRONMENT", "OBJECTS", "DRAGONS", "ELEMENTALS") var bump_mask = 0
+
+func bump(other: Entity) -> void:
+	emit_signal("bumped", other)

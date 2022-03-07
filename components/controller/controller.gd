@@ -5,6 +5,7 @@ const NAME := "Controller"
 
 signal found_exit()
 
+onready var bright_sytem: BrightSystem = find_system(BrightSystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
@@ -19,6 +20,9 @@ func _ready() -> void:
 
 	entity.grid_position = Vector2(Constants.MAP_COLUMNS / 2, Constants.MAP_ROWS / 2).floor()
 	entity_system.update_entity(entity)
+
+func _exit_tree() -> void:
+	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 
@@ -54,7 +58,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			if not on_lava:
 				emit_signal("found_exit")
 		if navigation_system.can_move_to(entity, desired):
+			turn_system.will_initiate_turn()
 			navigation_system.move_to(entity, desired)
+			bright_sytem.update_brights()
+			bright_sytem.update_tiles()
 			turn_system.initiate_turn()
 
 func _on_pickup(ent: Entity) -> void:

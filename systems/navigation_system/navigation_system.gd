@@ -53,6 +53,7 @@ func move_to(ent: Entity, desired: Vector2) -> void:
 		for bumpable in bumpables:
 			if (bumper.bump_mask & bumpable.bump_mask) != 0:
 				bumpable.bump(ent)
+				bumper.bump(bumpable.entity)
 				bumped += 1
 			# If we couldn't bump, but had to, we will not move.
 			elif bumpable.must_bump:
@@ -63,3 +64,14 @@ func move_to(ent: Entity, desired: Vector2) -> void:
 
 	ent.move(desired)
 	entity_system.update_entity(ent)
+
+func can_see(from: Entity, to: Entity, dist: int) -> bool:
+	var fpos := from.grid_position
+	var tpos := to.grid_position
+	if fpos.distance_squared_to(tpos) >= dist * dist:
+		return false
+	var line := Pathing.line(fpos.x, fpos.y, tpos.x, tpos.y)
+	for v in line:
+		if tile_system.blocks_light(v.x, v.y):
+			return false
+	return true
