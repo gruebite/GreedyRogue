@@ -20,9 +20,7 @@ func is_exit(x: int, y: int) -> bool:
 ## - Not out of bounds
 ## - The tile doesn't block movement
 ## - Entity is not a Bumper
-## - There are no Bumpable entities
-## - If entity is a Bumper and there are Bumpable entities, we can bump at least one.
-## - There are no entities we can bump
+## - There are no Bumpable entities we must bump, but can't
 func can_move_to(ent: Entity, desired: Vector2) -> bool:
 	# OOB.
 	if out_of_bounds(desired):
@@ -40,14 +38,11 @@ func can_move_to(ent: Entity, desired: Vector2) -> bool:
 
 	# Check bumpables.
 	var bumpables := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
-	if bumpables.size() == 0:
-		return true
-
 	for bumpable in bumpables:
-		# At least one is bumpable.
-		if (bumper.bump_mask & bumpable.bump_mask) != 0:
-			return true
-	return false
+		# At least one is bumpable that we can't bump.
+		if bumpable.must_bump and (bumper.bump_mask & bumpable.bump_mask) == 0:
+			return false
+	return true
 
 func move_to(ent: Entity, desired: Vector2) -> void:
 	var bumper: Bumper = ent.get_component(Bumper.NAME)

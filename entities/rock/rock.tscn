@@ -5,7 +5,7 @@
 [ext_resource path="res://components/moveable/moveable.tscn" type="PackedScene" id=3]
 [ext_resource path="res://components/bumpable/bumpable.tscn" type="PackedScene" id=4]
 [ext_resource path="res://components/presence/presence.tscn" type="PackedScene" id=5]
-[ext_resource path="res://components/dam/dam.tscn" type="PackedScene" id=6]
+[ext_resource path="res://components/antimatter/antimatter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/grounded/grounded.tscn" type="PackedScene" id=7]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=8]
 [ext_resource path="res://components/bumper/bumper.tscn" type="PackedScene" id=9]
@@ -23,11 +23,13 @@ lit_pos = Vector2( 64, 336 )
 
 [node name="TurnTaker" parent="." instance=ExtResource( 8 )]
 
-[node name="Dam" parent="." instance=ExtResource( 6 )]
-
 [node name="Bumpable" parent="." instance=ExtResource( 4 )]
 bump_mask = 4
 
 [node name="Bumper" parent="." instance=ExtResource( 9 )]
+
+[node name="Antimatter" parent="." instance=ExtResource( 6 )]
+free_self_mask = 1
+mask = 2
 
 [node name="Moveable" parent="." instance=ExtResource( 3 )]

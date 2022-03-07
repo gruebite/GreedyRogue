@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://components/animated/animated.gd"
 }, {
 "base": "Component",
+"class": "Antimatter",
+"language": "GDScript",
+"path": "res://components/antimatter/antimatter.gd"
+}, {
+"base": "Component",
 "class": "Anxiety",
 "language": "GDScript",
 "path": "res://components/anxiety/anxiety.gd"
@@ -83,16 +88,6 @@ _global_script_classes=[ {
 "class": "Crack",
 "language": "GDScript",
 "path": "res://components/crack/crack.gd"
-}, {
-"base": "Component",
-"class": "Dam",
-"language": "GDScript",
-"path": "res://components/dam/dam.gd"
-}, {
-"base": "Component",
-"class": "Dammable",
-"language": "GDScript",
-"path": "res://components/dammable/dammable.gd"
 }, {
 "base": "Grid",
 "class": "DenseGrid",
@@ -183,6 +178,11 @@ _global_script_classes=[ {
 "class": "Lifetime",
 "language": "GDScript",
 "path": "res://components/lifetime/lifetime.gd"
+}, {
+"base": "Component",
+"class": "Matter",
+"language": "GDScript",
+"path": "res://components/matter/matter.gd"
 }, {
 "base": "Component",
 "class": "Moveable",
@@ -297,6 +297,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Ai": "",
 "Animated": "",
+"Antimatter": "",
 "Anxiety": "",
 "Backpack": "",
 "Bright": "",
@@ -310,8 +311,6 @@ _global_script_class_icons={
 "Controller": "",
 "Cp437": "",
 "Crack": "",
-"Dam": "",
-"Dammable": "",
 "DenseGrid": "",
 "Direction": "",
 "Display": "",
@@ -330,6 +329,7 @@ _global_script_class_icons={
 "Hex": "",
 "Lair": "",
 "Lifetime": "",
+"Matter": "",
 "Moveable": "",
 "NavigationSystem": "",
 "Palette": "",

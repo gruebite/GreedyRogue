@@ -39,6 +39,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				entity_system.spawn_entity(preload("res://entities/fire/fire.tscn"), entity.grid_position)
 			KEY_A:
 				entity_system.spawn_entity(preload("res://entities/falling_rock/falling_rock.tscn"), entity.grid_position)
+			KEY_R:
+				entity_system.spawn_entity(preload("res://entities/rock/rock.tscn"), entity.grid_position)
 
 	if delta != Vector2.ZERO and turn_system.can_initiate_turn():
 		var desired := entity.grid_position + delta

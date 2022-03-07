@@ -2,7 +2,7 @@
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/display/display.tscn" type="PackedScene" id=2]
-[ext_resource path="res://components/dammable/dammable.tscn" type="PackedScene" id=3]
+[ext_resource path="res://components/matter/matter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://components/bright/bright.tscn" type="PackedScene" id=4]
 [ext_resource path="res://components/presence/presence.tscn" type="PackedScene" id=5]
 [ext_resource path="res://components/flaming/flaming.tscn" type="PackedScene" id=6]
@@ -11,9 +11,7 @@
 script = ExtResource( 1 )
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
-visible = true
 background_color = Color( 0.74902, 0.168627, 0.160784, 1 )
-brightness = 2
 dim_pos = Vector2( 0, 288 )
 lit_pos = Vector2( 0, 288 )
 
@@ -24,4 +22,5 @@ lit_pos = Vector2( 0, 288 )
 [node name="Bright" parent="." instance=ExtResource( 4 )]
 dim_radius = 5
 
-[node name="Dammable" parent="." instance=ExtResource( 3 )]
+[node name="Matter" parent="." instance=ExtResource( 3 )]
+mask = 1
