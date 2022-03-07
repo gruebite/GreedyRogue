@@ -14,6 +14,5 @@ func _ready() -> void:
 func _on_take_turn() -> void:
 	var dir := Direction.delta(Direction.CARDINALS[randi() % 4])
 	var desired := entity.grid_position + dir
-	if navigation_system.can_move_to(entity, desired, NavigationSystem.Ignore.ENTITIES):
-		entity.grid_position = desired
-		entity_system.update_entity(entity)
+	if navigation_system.can_move_to(entity, desired):
+		navigation_system.move_to(entity, desired)

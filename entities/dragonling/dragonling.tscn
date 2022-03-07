@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/bright/bright.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://components/presence/presence.tscn" type="PackedScene" id=4]
 [ext_resource path="res://components/ai/ai.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=6]
+[ext_resource path="res://components/bumpable/bumpable.tscn" type="PackedScene" id=7]
+[ext_resource path="res://components/bumper/bumper.tscn" type="PackedScene" id=8]
 
 [node name="Dragonling" type="Node2D"]
 script = ExtResource( 1 )
@@ -16,8 +18,13 @@ background_color = Color( 0, 0, 0, 1 )
 dim_pos = Vector2( 0, 352 )
 lit_pos = Vector2( 64, 352 )
 
+[node name="Bumpable" parent="." instance=ExtResource( 7 )]
+bump_mask = 8
+
+[node name="Bumper" parent="." instance=ExtResource( 8 )]
+bump_mask = 3
+
 [node name="Presence" parent="." instance=ExtResource( 4 )]
-blocks_movement = true
 
 [node name="Bright" parent="." instance=ExtResource( 2 )]
 dynamic = true

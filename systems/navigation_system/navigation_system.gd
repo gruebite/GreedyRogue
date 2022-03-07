@@ -3,14 +3,6 @@ class_name NavigationSystem
 
 const GROUP_NAME := "navigation_system"
 
-enum Ignore {
-	NONE,
-	TILES,
-	# If ignored, only entities on the same layer are blocking.
-	ENTITIES,
-	BOTH,
-}
-
 onready var tile_system: TileSystem = get_node("../TileSystem")
 onready var entity_system: EntitySystem = get_node("../EntitySystem")
 
@@ -24,19 +16,55 @@ func out_of_bounds(gpos: Vector2) -> bool:
 func is_exit(x: int, y: int) -> bool:
 	return x == 0 or y == 0 or x == Constants.MAP_COLUMNS - 1 or y == Constants.MAP_ROWS - 1
 
-func can_move_to(ent: Entity, gpos: Vector2, ignore: int=Ignore.NONE) -> bool:
-	if out_of_bounds(gpos):
+## An entity can move into a place if:
+## - Not out of bounds
+## - The tile doesn't block movement
+## - Entity is not a Bumper
+## - There are no Bumpable entities
+## - If entity is a Bumper and there are Bumpable entities, we can bump at least one.
+## - There are no entities we can bump
+func can_move_to(ent: Entity, desired: Vector2) -> bool:
+	# OOB.
+	if out_of_bounds(desired):
 		return false
-	var tile := tile_system.get_tile(gpos.x, gpos.y)
-	if Tile.LIST[tile][Tile.Property.BLOCKS_MOVEMENT] and ignore != Ignore.TILES and ignore != Ignore.BOTH:
+
+	# Tile blocks movement?
+	var tile := tile_system.get_tile(desired.x, desired.y)
+	if Tile.LIST[tile][Tile.Property.BLOCKS_MOVEMENT]:
 		return false
-	
-	var presence := entity_system.get_components(gpos.x, gpos.y, Presence.NAME)
-	for p in presence:
-		if p.blocks_movement:
-			if ignore != Ignore.ENTITIES and ignore != Ignore.BOTH:
-				return false
-			# Can't move over same layer.
-			elif p.entity.layer == ent.layer:
-				return false
-	return true
+
+	# We don't bump.
+	var bumper: Bumper = ent.get_component(Bumper.NAME)
+	if not bumper:
+		return true
+
+	# Check bumpables.
+	var bumpables := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
+	if bumpables.size() == 0:
+		return true
+
+	for bumpable in bumpables:
+		# At least one is bumpable.
+		if (bumper.bump_mask & bumpable.bump_mask) != 0:
+			return true
+	return false
+
+func move_to(ent: Entity, desired: Vector2) -> void:
+	var bumper: Bumper = ent.get_component(Bumper.NAME)
+	# If we bump, we try.
+	if bumper:
+		var bumpables := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
+		var bumped := 0
+		for bumpable in bumpables:
+			if (bumper.bump_mask & bumpable.bump_mask) != 0:
+				bumpable.bump(ent)
+				bumped += 1
+			# If we couldn't bump, but had to, we will not move.
+			elif bumpable.must_bump:
+				bumped += 99
+		# We bumped something.
+		if bumped > 0:
+			return
+
+	ent.move(desired)
+	entity_system.update_entity(ent)

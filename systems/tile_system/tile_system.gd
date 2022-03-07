@@ -46,3 +46,9 @@ func get_brightness(x: int, y: int) -> int:
 		return Brightness.NONE
 	else:
 		return (c & 1) + 1
+
+func blocks_movement(x: int, y: int) -> bool:
+	return Tile.LIST[get_tile(x, y)][Tile.Property.BLOCKS_MOVEMENT]
+
+func blocks_light(x: int, y: int) -> bool:
+	return Tile.LIST[get_tile(x, y)][Tile.Property.BLOCKS_LIGHT]

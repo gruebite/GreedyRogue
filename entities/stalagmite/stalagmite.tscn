@@ -14,8 +14,8 @@ dim_pos = Vector2( 0, 416 )
 lit_pos = Vector2( 64, 416 )
 
 [node name="Presence" parent="." instance=ExtResource( 3 )]
-blocks_movement = true
 
 [node name="Bumpable" parent="." instance=ExtResource( 4 )]
+bump_mask = 2
 
 [node name="Toppleable" parent="." instance=ExtResource( 5 )]

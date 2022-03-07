@@ -43,18 +43,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if delta != Vector2.ZERO and turn_system.can_initiate_turn():
 		var desired := entity.grid_position + delta
 		if navigation_system.can_move_to(entity, desired):
-			entity.move(desired)
-			entity_system.update_entity(entity)
-			if navigation_system.is_exit(desired.x, desired.y):
+			navigation_system.move_to(entity, desired)
+			if navigation_system.is_exit(entity.grid_position.x, entity.grid_position.y):
 				emit_signal("found_exit")
-			else:
-				turn_system.initiate_turn()
-		else:
-			var bumps := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
-			for bump in bumps:
-				bump.bump(entity)
-			if bumps.size() > 0:
-				turn_system.initiate_turn()
+			turn_system.initiate_turn()
 
 func _on_pickup(ent: Entity) -> void:
 	var treasure: Treasure = ent.get_component(Treasure.NAME)
