@@ -15,7 +15,7 @@ func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 
-func play_effect(scene: PackedScene, pos: Vector2) -> void:
+func spawn_effect(scene: PackedScene, pos: Vector2) -> void:
 	var effect = scene.instance()
 	effect.position = pos
 	effects_node.add_child(effect)

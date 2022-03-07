@@ -16,6 +16,7 @@ func _ready() -> void:
 
 func generate() -> void:
 	entity_system.clear()
+	entity_system.player.dead = false
 	gold_total = 0
 
 	var walker := Walker.new()

@@ -69,6 +69,7 @@ func _on_panicking(_amount: int) -> void:
 
 func _on_calmed_down() -> void:
 	panicking = false
+	$UI/HUD/VBoxContainer/Anxiety/Value/Progress.rect_position = Vector2.ZERO
 
 func _on_found_exit() -> void:
 	$UI/Escaped/Label.text = "Found an escape!\nCollected %.2f%% of the gold" % (gold_p * 100)

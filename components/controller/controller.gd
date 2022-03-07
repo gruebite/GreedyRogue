@@ -73,4 +73,4 @@ func _on_pickup(ent: Entity) -> void:
 	if treasure:
 		backpack.gold += treasure.gold
 		anxiety.anxiety -= treasure.gold
-		effect_system.play_effect(preload("res://effects/collect_gold/collect_gold.tscn"), entity.position)
+		effect_system.spawn_effect(preload("res://effects/collect_gold/collect_gold.tscn"), entity.position)

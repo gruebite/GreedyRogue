@@ -16,6 +16,7 @@ signal died(by)
 export var invincible := false
 export(Layer) var layer := Layer.GROUND setget set_layer
 
+var dead := false
 var grid_position: Vector2 setget set_grid_position, get_grid_position
 
 func set_grid_position(value: Vector2) -> void:
@@ -33,6 +34,9 @@ func move(value: Vector2) -> void:
 	emit_signal("moved", from, value)
 
 func kill(by: Node2D) -> void:
+	if dead:
+		return
+	dead = true
 	emit_signal("died", by)
 	if not invincible:
 		queue_free()

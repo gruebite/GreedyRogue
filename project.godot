@@ -114,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://components/dragon/dragon.gd"
 }, {
+"base": "Component",
+"class": "EffectPlayer",
+"language": "GDScript",
+"path": "res://components/effect_player/effect_player.gd"
+}, {
 "base": "Node2D",
 "class": "EffectSystem",
 "language": "GDScript",
@@ -346,6 +351,7 @@ _global_script_class_icons={
 "Direction": "",
 "Display": "",
 "Dragon": "",
+"EffectPlayer": "",
 "EffectSystem": "",
 "Entities": "",
 "Entity": "",
