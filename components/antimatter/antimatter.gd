@@ -15,7 +15,7 @@ func _on_in_turn() -> void:
 	var matters := entity_system.get_components(gpos.x, gpos.y, Matter.NAME)
 	for matter in matters:
 		if free_self_mask & matter.mask:
-			matter.entity.queue_free()
-			entity.queue_free()
+			matter.entity.kill(self)
+			entity.kill(self)
 		elif mask & matter.mask:
-			matter.entity.queue_free()
+			matter.kill(self)

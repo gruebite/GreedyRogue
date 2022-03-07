@@ -59,7 +59,7 @@ func generate() -> void:
 		walker.goto_random_opened()
 		walker.mark(tile_to_walker_tile(Tile.ROCK))
 		walker.commit()
-	
+
 	# Pits
 
 	for i in 10:
@@ -68,7 +68,7 @@ func generate() -> void:
 			walker.step_random()
 			walker.mark(tile_to_walker_tile(Tile.PITFALL))
 		walker.commit()
-	
+
 	# Stalagmites
 
 	for i in 20:
@@ -140,7 +140,7 @@ func generate() -> void:
 
 	for x in Constants.MAP_COLUMNS:
 		for y in Constants.MAP_ROWS:
-			if navigation_system.is_exit(x, y):
+			if navigation_system.is_edge(x, y):
 				tile_system.set_tile(x, y, Tile.WALL)
 			else:
 				var tile := walker_tile_to_tile(walker.get_tile(x - 1, y - 1))
@@ -180,13 +180,21 @@ func generate() -> void:
 
 	# Player and exits.
 
-	entity_system.player.grid_position = walker.exit_tiles.random(walker.rng) + Vector2(1, 1)
+	var player_spawn := walker.exit_tiles.random(walker.rng) + Vector2(1, 1)
+	entity_system.player.grid_position = player_spawn
 	entity_system.update_entity(entity_system.player)
 
-	var exit_pos := walker.exit_tiles.random(walker.rng) + Vector2(1, 1)
+	var farthest_exit := player_spawn
+	var farthest_amount2 := 0
+	for exit in walker.exit_tiles.array:
+		var exit_dist: float = exit.distance_squared_to(player_spawn)
+		if exit_dist > farthest_amount2:
+			farthest_exit = exit
+			farthest_amount2 = exit_dist
+
 	for p in circle.array:
-		var pd: Vector2 = p + exit_pos
-		if navigation_system.is_exit(pd.x, pd.y):
+		var pd: Vector2 = p + farthest_exit
+		if navigation_system.is_edge(pd.x, pd.y):
 			tile_system.set_tile(pd.x, pd.y, Tile.FLOOR)
 
 	# Make lava come from somewhere.

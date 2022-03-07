@@ -44,10 +44,17 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if delta != Vector2.ZERO and turn_system.can_initiate_turn():
 		var desired := entity.grid_position + delta
+		if navigation_system.out_of_bounds(desired.x, desired.y):
+			var on_lava: bool = false
+			for matter in entity_system.get_components(desired.x, desired.y, Matter.NAME):
+				if Matter.LAVA & matter.mask:
+					on_lava = true
+					break
+			# Can't exit through lava.
+			if not on_lava:
+				emit_signal("found_exit")
 		if navigation_system.can_move_to(entity, desired):
 			navigation_system.move_to(entity, desired)
-			if navigation_system.is_exit(entity.grid_position.x, entity.grid_position.y):
-				emit_signal("found_exit")
 			turn_system.initiate_turn()
 
 func _on_pickup(ent: Entity) -> void:

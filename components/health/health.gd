@@ -13,5 +13,5 @@ func set_health(to: int) -> void:
 	if to > max_health: to = max_health
 	health = to
 	if health == 0:
-		entity.queue_free()
+		entity.kill(self)
 	emit_signal("health_changed", health, max_health)

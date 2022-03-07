@@ -29,6 +29,7 @@ entities_path = NodePath("../Entities")
 [node name="Entities" type="YSort" parent="."]
 
 [node name="Player" parent="Entities" instance=ExtResource( 5 )]
+invinsible = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 

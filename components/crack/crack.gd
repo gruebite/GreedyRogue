@@ -18,7 +18,7 @@ func _on_tripped(by: Entity) -> void:
 		animated.frame += 1
 	if integrity <= 0:
 		by.queue_free()
-		entity.queue_free()
+		entity.kill(self)
 		var gpos := entity.grid_position
 		tile_system.set_tile(gpos.x, gpos.y, Tile.CHASM)
-		
+

@@ -13,4 +13,4 @@ func _ready() -> void:
 func _on_take_turn() -> void:
 	time -= 1
 	if time <= 0:
-		entity.queue_free()
+		entity.kill(self)

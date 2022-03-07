@@ -18,4 +18,4 @@ func _on_bumped(by: Entity) -> void:
 		if tile_system.blocks_movement(desired.x, desired.y):
 			break
 		entity_system.spawn_entity(preload("res://entities/falling_rock/falling_rock.tscn"), desired)
-	entity.queue_free()
+	entity.kill(self)

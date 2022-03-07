@@ -28,4 +28,4 @@ func _on_take_turn() -> void:
 				health.health -= damage
 		if spawns:
 			entity_system.spawn_entity(spawns, entity.grid_position)
-		entity.queue_free()
+		entity.kill(self)

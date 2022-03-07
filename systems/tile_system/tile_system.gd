@@ -18,9 +18,6 @@ func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 
-func out_of_bounds(x: int, y: int) -> bool:
-	return x < 0 or y < 0 or x >= Constants.MAP_COLUMNS or y >= Constants.MAP_ROWS
-
 func set_tile_bright(x: int, y: int, tile: int, brightness: int) -> void:
 	tiles[Vector2(x, y)] = tile
 	match brightness:
@@ -51,11 +48,11 @@ func get_brightness(x: int, y: int) -> int:
 		return (c & 1) + 1
 
 func blocks_movement(x: int, y: int) -> bool:
-	if out_of_bounds(x, y):
+	if x < 0 or y < 0 or x >= Constants.MAP_COLUMNS or y >= Constants.MAP_ROWS:
 		return true
 	return Tile.LIST[get_tile(x, y)][Tile.Property.BLOCKS_MOVEMENT]
 
 func blocks_light(x: int, y: int) -> bool:
-	if out_of_bounds(x, y):
+	if x < 0 or y < 0 or x >= Constants.MAP_COLUMNS or y >= Constants.MAP_ROWS:
 		return true
 	return Tile.LIST[get_tile(x, y)][Tile.Property.BLOCKS_LIGHT]

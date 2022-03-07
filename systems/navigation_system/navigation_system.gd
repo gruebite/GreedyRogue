@@ -10,10 +10,10 @@ func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 
-func out_of_bounds(gpos: Vector2) -> bool:
-	return gpos.x < 0 or gpos.y < 0 or gpos.x >= Constants.MAP_COLUMNS or gpos.y >= Constants.MAP_ROWS
+func out_of_bounds(x: int, y: int) -> bool:
+	return x < 0 or y < 0 or x >= Constants.MAP_COLUMNS or y >= Constants.MAP_ROWS
 
-func is_exit(x: int, y: int) -> bool:
+func is_edge(x: int, y: int) -> bool:
 	return x == 0 or y == 0 or x == Constants.MAP_COLUMNS - 1 or y == Constants.MAP_ROWS - 1
 
 ## An entity can move into a place if:
@@ -23,7 +23,7 @@ func is_exit(x: int, y: int) -> bool:
 ## - There are no Bumpable entities we must bump, but can't
 func can_move_to(ent: Entity, desired: Vector2) -> bool:
 	# OOB.
-	if out_of_bounds(desired):
+	if out_of_bounds(desired.x, desired.y):
 		return false
 
 	# Tile blocks movement?
