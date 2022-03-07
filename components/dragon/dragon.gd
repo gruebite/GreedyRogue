@@ -124,7 +124,7 @@ func breath_fire(dir: int) -> void:
 	for dv in cone.array:
 		var gpos: Vector2 = entity.grid_position + dv + dirv
 		if tile_system.blocks_movement(gpos.x, gpos.y):
-			break
+			continue
 		entity_system.spawn_entity(preload("res://entities/fire/fire.tscn"), gpos)
 
 func set_breath(value: float) -> void:

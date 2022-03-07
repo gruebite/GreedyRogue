@@ -6,6 +6,7 @@ onready var player: Entity = $EntitySystem.player
 var loading = null
 var game_over := false
 var gold_p := 0.0
+var panicking := false
 
 func _ready() -> void:
 	var _ignore
@@ -13,11 +14,17 @@ func _ready() -> void:
 	_ignore = player.get_component(Backpack.NAME).connect("gold_changed", self, "_on_gold_changed")
 	_ignore = player.get_component(Health.NAME).connect("health_changed", self, "_on_health_changed")
 	_ignore = player.get_component(Anxiety.NAME).connect("anxiety_changed", self, "_on_anxiety_changed")
+	_ignore = player.get_component(Anxiety.NAME).connect("panicking", self, "_on_panicking")
+	_ignore = player.get_component(Anxiety.NAME).connect("calmed_down", self, "_on_calmed_down")
 	_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
 
 	regenerate()
 
 func _process(_delta: float) -> void:
+	if panicking:
+		$UI/HUD/VBoxContainer/Anxiety/Value/Progress.rect_position = Vector2(
+			randf() * 5 - 2.5, randf() * 5 - 2.5)
+
 	if not loading:
 		return
 
@@ -55,7 +62,13 @@ func _on_health_changed(to: int, mx: int) -> void:
 	$UI/HUD/VBoxContainer/Health/Value.value = (float(to) / mx) * 100
 
 func _on_anxiety_changed(to: int, mx: int) -> void:
-	$UI/HUD/VBoxContainer/Anxiety/Value.value = (float(to)) / mx * 100
+	$UI/HUD/VBoxContainer/Anxiety/Value/Progress.value = (float(to)) / mx * 100
+
+func _on_panicking(_amount: int) -> void:
+	panicking = true
+
+func _on_calmed_down() -> void:
+	panicking = false
 
 func _on_found_exit() -> void:
 	$UI/Escaped/Label.text = "Found an escape!\nCollected %.2f%% of the gold" % (gold_p * 100)

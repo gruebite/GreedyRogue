@@ -4,6 +4,8 @@ class_name Anxiety
 const NAME := "Anxiety"
 
 signal anxiety_changed(to, mx)
+signal panicking(amount)
+signal calmed_down()
 
 export var normal_panic := 1
 export var max_anxiety := 200
@@ -13,9 +15,15 @@ var anxiety := 0 setget set_anxiety
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 
 func _ready() -> void:
-	var _ignore = turn_system.connect("in_turn", self, "_on_in_turn")
+	var _ignore
+	_ignore = turn_system.connect("in_turn", self, "_on_in_turn")
 
 func _on_in_turn() -> void:
+	# Check if we panicked this turn.
+	if panic > normal_panic:
+		emit_signal("panicking", panic)
+	else:
+		emit_signal("calmed_down")
 	self.anxiety += panic
 	panic = normal_panic
 

@@ -113,10 +113,15 @@ margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Anxiety"
 
-[node name="Value" type="TextureProgress" parent="UI/HUD/VBoxContainer/Anxiety"]
+[node name="Value" type="Control" parent="UI/HUD/VBoxContainer/Anxiety"]
 margin_left = 160.0
 margin_right = 320.0
 margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="Progress" type="TextureProgress" parent="UI/HUD/VBoxContainer/Anxiety/Value"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 texture_over = ExtResource( 12 )
 texture_progress = ExtResource( 11 )
