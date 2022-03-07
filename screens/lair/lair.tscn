@@ -34,7 +34,6 @@ entities_path = NodePath("../Entities")
 [node name="Entities" type="YSort" parent="."]
 
 [node name="Player" parent="Entities" instance=ExtResource( 5 )]
-invinsible = true
 
 [node name="Effects" type="Node2D" parent="."]
 
@@ -186,12 +185,38 @@ text = "Loading..."
 align = 1
 valign = 1
 
-[node name="EscapeScreen" type="Control" parent="UI"]
+[node name="Escaped" type="Control" parent="UI"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 9 )
 
-[node name="DeathScreen" type="Control" parent="UI"]
+[node name="ColorRect" type="ColorRect" parent="UI/Escaped"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="UI/Escaped"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Escaped!"
+align = 1
+valign = 1
+
+[node name="Died" type="Control" parent="UI"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 9 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/Died"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="UI/Died"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Loading..."
+align = 1
+valign = 1
