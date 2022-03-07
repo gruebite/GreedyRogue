@@ -30,27 +30,29 @@ func _process(_delta: float) -> void:
 
 	if loading is GDScriptFunctionState and loading.is_valid():
 		loading = loading.resume()
-		$UI/Loading/Label.text += "."
+		append_message(".")
 
 	if not loading:
+		hide_message()
 		$UI/Loading.hide()
-		$TurnSystem.disabled = false
 
 func _input(event: InputEvent) -> void:
-	if not game_over:
+	if not $UI/Message.visible:
 		return
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_SPACE:
-			regenerate()
+			hide_message()
+			if game_over:
+				regenerate()
 	if event is InputEventMouseButton:
 		if event.pressed:
-			regenerate()
+			hide_message()
+			if game_over:
+				regenerate()
 
 func _on_player_died(_by: Node2D) -> void:
-	$UI/Died/Label.text = "Died\nCollected %.2f%% of the gold" % [gold_p * 100]
-	$UI/Died.show()
+	show_message("Died\nCollected %.2f%% of the gold" % [gold_p * 100])
 	game_over = true
-	$TurnSystem.disabled = true
 
 func _on_gold_changed(to: int) -> void:
 	gold_p = (float(to) / max(1, $GeneratorSystem.gold_total))
@@ -72,16 +74,27 @@ func _on_calmed_down() -> void:
 	$UI/HUD/VBoxContainer/Anxiety/Value/Progress.rect_position = Vector2.ZERO
 
 func _on_found_exit() -> void:
-	$UI/Escaped/Label.text = "Found an escape!\nCollected %.2f%% of the gold" % (gold_p * 100)
-	$UI/Escaped.show()
+	if gold_p < 0.5:
+		show_message("Refuse to leave with less than 50%% of the gold\nCollected %.2f%%" % (gold_p * 100))
+		return
+	show_message("Found an escape!\nCollected %.2f%% of the gold" % (gold_p * 100))
 	game_over = true
-	$TurnSystem.disabled = true
 
 func regenerate() -> void:
 	game_over = false
-	$UI/Escaped.hide()
-	$UI/Died.hide()
+	show_message("Loading")
 	$UI/Loading.show()
-	$UI/Loading/Label.text = "Loading\n"
 	loading = $GeneratorSystem.generate()
+
+func show_message(msg: String) -> void:
+	$UI/Message/MarginContainer/MarginContainer/Label.text = msg
+	$UI/Message.show()
 	$TurnSystem.disabled = true
+
+func append_message(msg: String) -> void:
+	$UI/Message/MarginContainer/MarginContainer/Label.text += msg
+
+func hide_message() -> void:
+	$UI/Loading.hide()
+	$UI/Message.hide()
+	$TurnSystem.disabled = false

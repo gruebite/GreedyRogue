@@ -16,8 +16,9 @@ onready var backpack: Backpack = entity.get_component(Backpack.NAME)
 onready var anxiety: Anxiety = entity.get_component(Anxiety.NAME)
 
 func _ready() -> void:
-	var pickup: Pickup = entity.get_component(Pickup.NAME)
-	var _ignore = pickup.connect("picked_up", self, "_on_pickup")
+	var _ignore
+	_ignore = turn_system.connect("out_of_turn", self, "_on_out_of_turn")
+	_ignore = entity.get_component(Pickup.NAME).connect("picked_up", self, "_on_pickup")
 
 	entity.grid_position = Vector2(Constants.MAP_COLUMNS / 2, Constants.MAP_ROWS / 2).floor()
 	entity_system.update_entity(entity)
@@ -56,17 +57,20 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if delta != Vector2.ZERO and turn_system.can_initiate_turn():
 		var desired := entity.grid_position + delta
-		if navigation_system.out_of_bounds(desired.x, desired.y):
-			var on_lava := navigation_system.on_lava(entity.grid_position.x, entity.grid_position.y)
-			# Can't exit through lava.
-			if not on_lava:
-				emit_signal("found_exit")
 		if navigation_system.can_move_to(entity, desired):
 			turn_system.will_initiate_turn()
 			navigation_system.move_to(entity, desired)
 			bright_sytem.update_brights()
 			bright_sytem.update_tiles()
 			turn_system.initiate_turn()
+
+func _on_out_of_turn() -> void:
+	var gpos := entity.grid_position
+	if navigation_system.is_edge(gpos.x, gpos.y):
+		var on_lava := navigation_system.on_lava(gpos.x, gpos.y)
+		# Can't exit through lava.
+		if not on_lava:
+			emit_signal("found_exit")
 
 func _on_pickup(ent: Entity) -> void:
 	var treasure: Treasure = ent.get_component(Treasure.NAME)

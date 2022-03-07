@@ -210,7 +210,7 @@ func generate() -> void:
 	for p in circle.array:
 		var pd: Vector2 = p + farthest_exit
 		if navigation_system.is_edge(pd.x, pd.y):
-			tile_system.set_tile(pd.x, pd.y, Tile.FLOOR)
+			tile_system.set_tile(pd.x, pd.y, Tile.EXIT)
 
 	yield()
 	# Make lava come from somewhere.

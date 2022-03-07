@@ -50,6 +50,11 @@ margin_right = -1.0
 rect_min_size = Vector2( 320, 720 )
 theme = ExtResource( 9 )
 
+[node name="ColorRect" type="ColorRect" parent="UI/HUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -185,45 +190,39 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Label" type="Label" parent="UI/Loading"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Loading..."
-align = 1
-valign = 1
-
-[node name="Escaped" type="Control" parent="UI"]
-visible = false
+[node name="Message" type="CenterContainer" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 9 )
 
-[node name="ColorRect" type="ColorRect" parent="UI/Escaped"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="MarginContainer" type="MarginContainer" parent="UI/Message"]
+margin_left = 390.0
+margin_top = 301.0
+margin_right = 890.0
+margin_bottom = 418.0
+
+[node name="ColorRect" type="ColorRect" parent="UI/Message/MarginContainer"]
+margin_right = 500.0
+margin_bottom = 117.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Label" type="Label" parent="UI/Escaped"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Escaped!"
-align = 1
-valign = 1
+[node name="MarginContainer" type="MarginContainer" parent="UI/Message/MarginContainer"]
+margin_right = 500.0
+margin_bottom = 117.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
 
-[node name="Died" type="Control" parent="UI"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 9 )
-
-[node name="ColorRect" type="ColorRect" parent="UI/Died"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
-
-[node name="Label" type="Label" parent="UI/Died"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Loading..."
+[node name="Label" type="Label" parent="UI/Message/MarginContainer/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 490.0
+margin_bottom = 107.0
+text = "Heye
+What upasdasdakhdsljahslhdalhd
+dsfas
+adf
+sadfadsfasdfadf"
 align = 1
 valign = 1

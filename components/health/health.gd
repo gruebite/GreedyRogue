@@ -6,12 +6,14 @@ const NAME := "Health"
 signal health_changed(to)
 
 export var flashing_node_path := NodePath("../Display")
-export var max_health := 15
+export var max_health := 10
 var health := max_health setget set_health
 
 export var transparency: float = 0 setget set_transparency
 
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
+onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
+
 onready var flashing_node := get_node(flashing_node_path)
 
 func _exit_tree() -> void:
@@ -21,6 +23,7 @@ func set_health(to: int) -> void:
 	if to < 0: to = 0
 	if to > max_health: to = max_health
 	if to < health:
+		effect_system.spawn_effect(preload("res://effects/blood/blood.tscn"), entity.position)
 		flash()
 	health = to
 	if health == 0:
