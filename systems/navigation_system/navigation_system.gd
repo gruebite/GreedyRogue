@@ -20,7 +20,7 @@ func is_edge(x: int, y: int) -> bool:
 ## - Not out of bounds
 ## - The tile doesn't block movement
 ## - Entity is not a Bumper
-## - There are no Bumpable entities we must bump, but can't
+## - There are no Bumpable entities we must bump (on same layer or flag), but can't
 func can_move_to(ent: Entity, desired: Vector2) -> bool:
 	# OOB.
 	if out_of_bounds(desired.x, desired.y):
@@ -39,8 +39,9 @@ func can_move_to(ent: Entity, desired: Vector2) -> bool:
 	# Check bumpables.
 	var bumpables := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
 	for bumpable in bumpables:
+		var must_bump = bumpable.must_bump or bumpable.entity.layer == ent.layer
 		# At least one is bumpable that we can't bump.
-		if bumpable.must_bump and (bumper.bump_mask & bumpable.bump_mask) == 0:
+		if must_bump and (bumper.bump_mask & bumpable.bump_mask) == 0:
 			return false
 	return true
 
@@ -75,3 +76,11 @@ func can_see(from: Entity, to: Entity, dist: int) -> bool:
 		if tile_system.blocks_light(v.x, v.y):
 			return false
 	return true
+
+func on_lava(x: int, y: int) -> bool:
+	var yep := false
+	for matter in entity_system.get_components(x, y, Matter.NAME):
+		if Matter.LAVA & matter.mask:
+			yep = true
+			break
+	return yep

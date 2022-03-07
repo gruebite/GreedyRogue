@@ -31,20 +31,15 @@ func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 
-func _process(delta: float) -> void:
-	if state == OUT_OF_TURN:
-		return
-
-	if _turn_takers.size() == 0:
-		state = OUT_OF_TURN
-		emit_signal("out_of_turn")
-
 func taking_turn(node: Node2D) -> void:
 	assert(state == IN_TURN, "can only take turn when in_turn")
 	_turn_takers[node] = true
 
 func finish_turn(node: Node2D) -> void:
 	var _ignore = _turn_takers.erase(node)
+	if state == IN_TURN and _turn_takers.size() == 0:
+		state = OUT_OF_TURN
+		emit_signal("out_of_turn")
 
 func can_initiate_turn() -> bool:
 	return not disabled and state == OUT_OF_TURN
@@ -55,6 +50,11 @@ func will_initiate_turn() -> void:
 
 func initiate_turn() -> void:
 	emit_signal("initiated_turn")
+	taking_turn(self)
+	# We yield to allow some effects to get processed if necessary (like queue_free)
+	yield(get_tree(), "idle_frame")
 	for tt in get_tree().get_nodes_in_group(TURN_TAKER_GROUP_NAME):
 		tt.emit_signal("take_turn")
+	yield(get_tree(), "idle_frame")
 	emit_signal("in_turn")
+	finish_turn(self)

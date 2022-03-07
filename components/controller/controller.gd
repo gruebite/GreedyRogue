@@ -9,6 +9,7 @@ onready var bright_sytem: BrightSystem = find_system(BrightSystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
+onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
 onready var navigation_system: NavigationSystem = find_system(NavigationSystem.GROUP_NAME)
 
 onready var backpack: Backpack = entity.get_component(Backpack.NAME)
@@ -56,11 +57,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if delta != Vector2.ZERO and turn_system.can_initiate_turn():
 		var desired := entity.grid_position + delta
 		if navigation_system.out_of_bounds(desired.x, desired.y):
-			var on_lava: bool = false
-			for matter in entity_system.get_components(desired.x, desired.y, Matter.NAME):
-				if Matter.LAVA & matter.mask:
-					on_lava = true
-					break
+			var on_lava := navigation_system.on_lava(entity.grid_position.x, entity.grid_position.y)
 			# Can't exit through lava.
 			if not on_lava:
 				emit_signal("found_exit")
@@ -76,3 +73,4 @@ func _on_pickup(ent: Entity) -> void:
 	if treasure:
 		backpack.gold += treasure.gold
 		anxiety.anxiety -= treasure.gold
+		effect_system.play_effect(preload("res://effects/collect_gold/collect_gold.tscn"), entity.position)

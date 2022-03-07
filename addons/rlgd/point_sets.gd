@@ -58,4 +58,21 @@ static func rectangle(left: int, right: int, top: int, bottom: int) -> PointSet:
 		dx += 1
 	return ps
 
+## width is how quickly width grows with distance,
+static func cone(dir: int, dist: int, width_ratio: float=1.0) -> PointSet:
+	var ps := PointSet.new()
+	var deltav := Direction.delta(dir)
+	var leftv := Direction.delta(Direction.cardinal_left(dir))
+	var rightv := Direction.delta(Direction.cardinal_right(dir))
+	var linev := Vector2.ZERO
+	for i in dist:
+		ps.add(linev.x, linev.y)
+		var width: int = int(i * width_ratio)
+		for j in width:
+			var lv: Vector2 = linev + leftv * (j + 1)
+			ps.add(lv.x, lv.y)
+			var rv: Vector2 = linev + rightv * (j + 1)
+			ps.add(rv.x, rv.y)
+		linev += deltav
+	return ps
 

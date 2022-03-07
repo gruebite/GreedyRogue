@@ -24,6 +24,7 @@ lit_pos = Vector2( 64, 352 )
 max_health = 2
 
 [node name="Bumpable" parent="." instance=ExtResource( 7 )]
+must_bump = true
 bump_mask = 8
 
 [node name="Bumper" parent="." instance=ExtResource( 8 )]

@@ -3,15 +3,15 @@ class_name EntitySystem
 
 const GROUP_NAME := "entity_system"
 
-export(NodePath) var entities_path
+export var entities_node_path := NodePath("../Entities")
 
 # Vector2 -> {Entity}
 var entity_grid := {}
 # Entity -> Vector2
 var entity_positions := {}
 
-onready var entities: Node2D = get_node(entities_path)
-onready var player: Entity = entities.get_node("Player")
+onready var entities_node: Node2D = get_node(entities_node_path)
+onready var player: Entity = entities_node.get_node("Player")
 
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
@@ -22,7 +22,7 @@ func _ready() -> void:
 			entity_grid[Vector2(x, y)] = {}
 
 func clear() -> void:
-	for ent in entities.get_children():
+	for ent in entities_node.get_children():
 		# Kinda hacky.
 		if ent.name != "Player":
 			ent.queue_free()
@@ -34,7 +34,7 @@ func spawn_entity(escene: PackedScene, gpos: Vector2) -> void:
 
 func add_entity(entity: Entity) -> void:
 	#print("[entity_system.add] " + entity.name)
-	entities.add_child(entity)
+	entities_node.add_child(entity)
 
 func update_entity(entity: Entity) -> void:
 	#print("[entity_system.update] " + entity.name)

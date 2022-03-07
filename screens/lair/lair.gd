@@ -5,6 +5,7 @@ onready var player: Entity = $EntitySystem.player
 
 var loading = null
 var game_over := false
+var gold_p := 0.0
 
 func _ready() -> void:
 	var _ignore
@@ -28,7 +29,7 @@ func _process(_delta: float) -> void:
 		$UI/Loading.hide()
 		$TurnSystem.disabled = false
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not game_over:
 		return
 	if event is InputEventKey:
@@ -38,18 +39,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.pressed:
 			regenerate()
 
-func _on_player_died(by: Node2D) -> void:
-	print("you died by " + by.name)
+func _on_player_died(_by: Node2D) -> void:
+	$UI/Died/Label.text = "Died\nCollected %.2f%% of the gold" % [gold_p * 100]
+	$UI/Died.show()
 	game_over = true
 	$TurnSystem.disabled = true
 
 func _on_gold_changed(to: int) -> void:
-	var gold_p: float = (float(to) / max(1, $GeneratorSystem.gold_total))
+	gold_p = (float(to) / max(1, $GeneratorSystem.gold_total))
 	print("Gold percentage: " + str(gold_p * 100))
 	$SecuritySystem.gold_p = gold_p
-	var effect = preload("res://effects/gold/collect_gold.tscn").instance()
-	effect.position = player.position
-	$Effects.add_child(effect)
 	$UI/HUD/VBoxContainer/Gold/Value.text = str(to)
 
 func _on_health_changed(to: int, mx: int) -> void:
@@ -59,12 +58,15 @@ func _on_anxiety_changed(to: int, mx: int) -> void:
 	$UI/HUD/VBoxContainer/Anxiety/Value.value = (float(to)) / mx * 100
 
 func _on_found_exit() -> void:
-	print("you win")
+	$UI/Escaped/Label.text = "Found an escape!\nCollected %.2f%% of the gold" % (gold_p * 100)
+	$UI/Escaped.show()
 	game_over = true
 	$TurnSystem.disabled = true
 
 func regenerate() -> void:
 	game_over = false
+	$UI/Escaped.hide()
+	$UI/Died.hide()
 	$UI/Loading.show()
 	$UI/Loading/Label.text = "Loading\n"
 	loading = $GeneratorSystem.generate()

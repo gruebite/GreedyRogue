@@ -114,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://components/dragon/dragon.gd"
 }, {
+"base": "Node2D",
+"class": "EffectSystem",
+"language": "GDScript",
+"path": "res://systems/effect_system/effect_system.gd"
+}, {
 "base": "Reference",
 "class": "Entities",
 "language": "GDScript",
@@ -168,6 +173,11 @@ _global_script_classes=[ {
 "class": "Grounded",
 "language": "GDScript",
 "path": "res://components/grounded/grounded.gd"
+}, {
+"base": "Component",
+"class": "Harmful",
+"language": "GDScript",
+"path": "res://components/harmful/harmful.gd"
 }, {
 "base": "Component",
 "class": "Health",
@@ -259,6 +269,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/rlgd/sparse_grid.gd"
 }, {
+"base": "Component",
+"class": "SpawnOnDeath",
+"language": "GDScript",
+"path": "res://components/spawn_on_death/spawn_on_death.gd"
+}, {
 "base": "Node2D",
 "class": "State",
 "language": "GDScript",
@@ -331,6 +346,7 @@ _global_script_class_icons={
 "Direction": "",
 "Display": "",
 "Dragon": "",
+"EffectSystem": "",
 "Entities": "",
 "Entity": "",
 "EntitySystem": "",
@@ -342,6 +358,7 @@ _global_script_class_icons={
 "GeneratorSystem": "",
 "Grid": "",
 "Grounded": "",
+"Harmful": "",
 "Health": "",
 "Hex": "",
 "Lair": "",
@@ -360,6 +377,7 @@ _global_script_class_icons={
 "SecuritySystem": "",
 "ShadowCast": "",
 "SparseGrid": "",
+"SpawnOnDeath": "",
 "State": "",
 "StateMachine": "",
 "Tile": "",

@@ -72,3 +72,9 @@ static func is_diagonal(dir: int) -> bool:
 
 static func opposite(dir: int) -> int:
 	return (dir + 4) % 8
+
+static func cardinal_left(dir: int) -> int:
+	return (dir + 6) % 8
+
+static func cardinal_right(dir: int) -> int:
+	return (dir + 2) % 8

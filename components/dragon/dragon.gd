@@ -18,7 +18,7 @@ export var dim_range := 4
 export var lit_range := 1
 export var breath_weapon_chance := 0.1
 export var breath_weapon_time := 2
-export var breath_weapon_range := 4
+export var breath_weapon_range := 5
 
 # Scale.
 export var breathing_node_path := NodePath("../Display")
@@ -59,15 +59,9 @@ func _on_take_turn() -> void:
 		BREATHING:
 			if breath_timer == breath_weapon_time:
 				$AnimationPlayer.play("breath_in")
-				turn_system.taking_turn(self)
-				yield($AnimationPlayer, "animation_finished")
-				turn_system.finish_turn(self)
 			if breath_timer == 0:
 				$AnimationPlayer.play("breath_out")
-				turn_system.taking_turn(self)
-				yield($AnimationPlayer, "animation_finished")
-				turn_system.finish_turn(self)
-				breath_fire(Direction.delta(Direction.CARDINALS[randi() % 4]))
+				breath_fire(Direction.CARDINALS[randi() % 4])
 				state = WANDERING
 			else:
 				breath_timer -= 1
@@ -124,9 +118,11 @@ func wake_up() -> void:
 	entity.add_child(bright)
 	emit_signal("woke_up")
 
-func breath_fire(dv: Vector2) -> void:
-	for i in breath_weapon_range:
-		var gpos: Vector2 = entity.grid_position + dv * (i + 1)
+func breath_fire(dir: int) -> void:
+	var cone := PointSets.cone(dir, breath_weapon_range, 0.5)
+	var dirv := Direction.delta(dir)
+	for dv in cone.array:
+		var gpos: Vector2 = entity.grid_position + dv + dirv
 		if tile_system.blocks_movement(gpos.x, gpos.y):
 			break
 		entity_system.spawn_entity(preload("res://entities/fire/fire.tscn"), gpos)
