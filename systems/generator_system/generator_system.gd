@@ -25,6 +25,7 @@ func generate() -> void:
 	walker.mark(tile_to_walker_tile(Tile.FLOOR))
 	walker.commit()
 
+	yield()
 	# Cavern structure.
 
 	var plus := PointSets.plus()
@@ -53,6 +54,7 @@ func generate() -> void:
 		walker.commit()
 		walker.forget()
 
+	yield()
 	# Rocks
 
 	for i in 40:
@@ -60,6 +62,7 @@ func generate() -> void:
 		walker.mark(tile_to_walker_tile(Tile.ROCK))
 		walker.commit()
 
+	yield()
 	# Pits
 
 	for i in 10:
@@ -69,6 +72,7 @@ func generate() -> void:
 			walker.mark(tile_to_walker_tile(Tile.PITFALL))
 		walker.commit()
 
+	yield()
 	# Stalagmites
 
 	for i in 20:
@@ -76,6 +80,7 @@ func generate() -> void:
 		walker.mark(tile_to_walker_tile(Tile.STALAGMITE))
 		walker.commit()
 
+	yield()
 	# Gold
 
 	var piles := walker.rng.randi_range(10, 30)
@@ -99,6 +104,7 @@ func generate() -> void:
 			walker.mark_point_set(plus, tile_to_walker_tile(Tile.GOLD))
 		walker.commit(Walker.COMMIT_OPENED_OVER_OPENED)
 
+	yield()
 	# Lava pools.
 
 	var pools := walker.rng.randi_range(1, 10)
@@ -118,6 +124,7 @@ func generate() -> void:
 			walker.mark_point_set(plus, tile_to_walker_tile(Tile.LAVA_CARVING))
 		walker.commit()
 
+	yield()
 	# Lava Rivers
 
 	var circle := PointSets.circle(4)
@@ -134,6 +141,7 @@ func generate() -> void:
 			walker.commit()
 	walker.forget()
 
+	yield()
 	# Entities
 
 	var to_add := []
@@ -178,6 +186,7 @@ func generate() -> void:
 		ent.grid_position = Vector2(pos.x, pos.y)
 		to_add.append(ent)
 
+	yield()
 	# Player and exits.
 
 	var player_spawn := walker.exit_tiles.random(walker.rng) + Vector2(1, 1)
@@ -197,6 +206,7 @@ func generate() -> void:
 		if navigation_system.is_edge(pd.x, pd.y):
 			tile_system.set_tile(pd.x, pd.y, Tile.FLOOR)
 
+	yield()
 	# Make lava come from somewhere.
 	for x in 2:
 		for y in Constants.MAP_ROWS - 3:
@@ -217,13 +227,18 @@ func generate() -> void:
 				ent.grid_position = realv
 				to_add.append(ent)
 
+	yield()
 	# Light.
 
 	bright_system.update_blocking_grid()
+	yield()
 	for ent in to_add:
 		entity_system.add_entity(ent)
+	yield()
 	bright_system.update_brights()
+	yield()
 	bright_system.update_tiles()
+	yield()
 
 	for x in Constants.MAP_COLUMNS:
 		for y in Constants.MAP_ROWS:
@@ -231,6 +246,7 @@ func generate() -> void:
 			if tile == Tile.ABYSS_WALL:
 				tile_system.set_tile(x, y, Tile.FLOOR)
 
+	yield()
 	bright_system.update_blocking_grid()
 
 func tile_to_walker_tile(tile: int) -> int:

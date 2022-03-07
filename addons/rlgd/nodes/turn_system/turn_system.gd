@@ -22,6 +22,7 @@ signal in_turn()
 ## Emitted when all turn takers say they're finished, and a new turn can be initiated.
 signal out_of_turn()
 
+var disabled := false
 var state: int = OUT_OF_TURN
 
 var _turn_takers := {}
@@ -47,7 +48,7 @@ func finish_turn(node: Node2D) -> void:
 	_turn_takers.erase(node)
 
 func can_initiate_turn() -> bool:
-	return state == OUT_OF_TURN
+	return not disabled and state == OUT_OF_TURN
 
 func initiate_turn() -> void:
 	assert(can_initiate_turn())
