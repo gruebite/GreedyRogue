@@ -15,8 +15,12 @@ enum {
 	IN_TURN,
 }
 
-signal out_of_turn()
+## Emitted when the turn is first initiated, before signaling turn takers.
+signal initiated_turn()
+## Emitted after all the turn takers have been signaled.
 signal in_turn()
+## Emitted when all turn takers say they're finished, and a new turn can be initiated.
+signal out_of_turn()
 
 var state: int = OUT_OF_TURN
 
@@ -48,6 +52,7 @@ func can_initiate_turn() -> bool:
 func initiate_turn() -> void:
 	assert(can_initiate_turn())
 	state = IN_TURN
-	emit_signal("in_turn")
+	emit_signal("initiated_turn")
 	for tt in get_tree().get_nodes_in_group(TURN_TAKER_GROUP_NAME):
 		tt.emit_signal("take_turn")
+	emit_signal("in_turn")

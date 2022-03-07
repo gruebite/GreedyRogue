@@ -9,14 +9,13 @@ export var damage := 1
 
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
 onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
-onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 
 onready var animated: Animated = entity.get_component(Animated.NAME)
 
 func _ready() -> void:
-	var _ignore = turn_system.connect("out_of_turn", self, "_on_out_of_turn")
+	var _ignore = entity.get_component("TurnTaker").connect("take_turn", self, "_on_take_turn")
 
-func _on_out_of_turn() -> void:
+func _on_take_turn() -> void:
 	time -= 1
 	if animated:
 		animated.frame += 1

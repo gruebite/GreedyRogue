@@ -10,10 +10,12 @@ export var max_anxiety := 200
 var panic := 1
 var anxiety := 0 setget set_anxiety
 
-func _ready() -> void:
-	var _ignore = entity.connect("moved", self, "_on_entity_moved")
+onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 
-func _on_entity_moved(_from: Vector2, _to: Vector2) -> void:
+func _ready() -> void:
+	var _ignore = turn_system.connect("in_turn", self, "_on_in_turn")
+
+func _on_in_turn() -> void:
 	self.anxiety += panic
 	panic = normal_panic
 
