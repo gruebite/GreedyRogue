@@ -32,8 +32,8 @@ region_rect = Rect2( 0, 256, 16, 16 )
 
 [node name="Bright" parent="." instance=ExtResource( 6 )]
 dynamic = true
-lit_radius = 4
-dim_radius = 20
+lit_radius = 3
+dim_radius = 12
 
 [node name="Health" parent="." instance=ExtResource( 10 )]
 

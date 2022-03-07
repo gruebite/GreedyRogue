@@ -1,8 +1,8 @@
 extends Component
 class_name Antimatter
 
-export(int, FLAGS, "LAVA", "FIRE") var free_self_mask := 0
-export(int, FLAGS, "LAVA", "FIRE") var mask := 0
+export(int, FLAGS, "LAVA", "FIRE", "GOLD") var free_self_mask := 0
+export(int, FLAGS, "LAVA", "FIRE", "GOLD") var mask := 0
 
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)

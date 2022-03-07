@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/animated/animated.tscn" type="PackedScene" id=2]
@@ -8,18 +8,7 @@
 [ext_resource path="res://components/lifetime/lifetime.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/matter/matter.tscn" type="PackedScene" id=8]
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 384, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 5 )
-region = Rect2( 16, 384, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 5 )
-region = Rect2( 32, 384, 16, 16 )
+[ext_resource path="res://components/antimatter/antimatter.tscn" type="PackedScene" id=9]
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 5 )
@@ -33,16 +22,28 @@ region = Rect2( 80, 384, 16, 16 )
 atlas = ExtResource( 5 )
 region = Rect2( 96, 384, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 384, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 5 )
+region = Rect2( 16, 384, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 5 )
+region = Rect2( 32, 384, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
-"loop": true,
-"name": "dim",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "lit",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "dim",
 "speed": 5.0
 } ]
 
@@ -63,4 +64,8 @@ time = 8
 [node name="Matter" parent="." instance=ExtResource( 8 )]
 mask = 2
 
+[node name="Antimatter" parent="." instance=ExtResource( 9 )]
+mask = 4
+
 [node name="Flaming" parent="." instance=ExtResource( 4 )]
+heat = 2

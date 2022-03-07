@@ -18,6 +18,7 @@ lit_pos = Vector2( 0, 288 )
 [node name="Presence" parent="." instance=ExtResource( 5 )]
 
 [node name="Flaming" parent="." instance=ExtResource( 6 )]
+heat = 3
 
 [node name="Bright" parent="." instance=ExtResource( 4 )]
 dim_radius = 5

@@ -41,13 +41,11 @@ func _on_player_died(by: Node2D) -> void:
 func _on_gold_changed(to: int) -> void:
 	$UI/HUD/VBoxContainer/Gold/Value.text = str(to)
 
-func _on_health_changed(to: int, _mx: int) -> void:
-	$UI/HUD/VBoxContainer/Health/Value.text = "♥".repeat(ceil(to))
+func _on_health_changed(to: int, mx: int) -> void:
+	$UI/HUD/VBoxContainer/Health/Value.value = (float(to) / mx) * 100
 
 func _on_anxiety_changed(to: int, mx: int) -> void:
-	var slots := 10
-	var p := to / float(mx)
-	$UI/HUD/VBoxContainer/Anxiety/Value.text = "‼".repeat(ceil(p * slots))
+	$UI/HUD/VBoxContainer/Anxiety/Value.value = (float(to)) / mx * 100
 
 func _on_found_exit() -> void:
 	print("you win")

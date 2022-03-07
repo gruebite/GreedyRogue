@@ -8,12 +8,15 @@ onready var entity_system: EntitySystem = get_node("../EntitySystem")
 onready var bright_system: BrightSystem = get_node("../BrightSystem")
 onready var navigation_system: NavigationSystem = get_node("../NavigationSystem")
 
+var gold_remaining: int
+
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 
 func generate() -> void:
 	entity_system.clear()
+	gold_remaining = 0
 
 	var walker := Walker.new()
 	walker.start(Constants.MAP_COLUMNS - 2, Constants.MAP_ROWS - 2)

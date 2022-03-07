@@ -13,7 +13,9 @@ enum {
 signal woke_up()
 
 export var awake_dist := 3
-export var sight_range := 3
+export var sight_range := 6
+export var dim_range := 4
+export var lit_range := 1
 export var breath_weapon_chance := 0.1
 export var breath_weapon_time := 2
 export var breath_weapon_range := 4
@@ -30,6 +32,7 @@ onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
 onready var navigation_system: NavigationSystem = find_system(NavigationSystem.GROUP_NAME)
 onready var security_system: SecuritySystem = find_system(SecuritySystem.GROUP_NAME)
+onready var player_anxiety: Anxiety = entity_system.player.get_component(Anxiety.NAME)
 
 onready var breathing_node: Node2D = get_node(breathing_node_path)
 
@@ -69,7 +72,7 @@ func _on_take_turn() -> void:
 			else:
 				breath_timer -= 1
 		PURSUING:
-			if randi() % 2:
+			if randi() % 5:
 				var dv: Vector2 = entity_system.player.grid_position - entity.grid_position
 				dv.x = sign(dv.x)
 				dv.y = sign(dv.y)
@@ -81,6 +84,13 @@ func _on_take_turn() -> void:
 				var desired := entity.grid_position + dv
 				if navigation_system.can_move_to(entity, desired):
 					navigation_system.move_to(entity, desired)
+			else:
+				var dv := Direction.delta(Direction.CARDINALS[randi() % 4])
+				var desired := entity.grid_position + dv
+				if navigation_system.can_move_to(entity, desired):
+					navigation_system.move_to(entity, desired)
+			player_anxiety.panic = 2
+
 
 func check_transitions():
 	match state:
@@ -109,7 +119,8 @@ func wake_up() -> void:
 	state = WANDERING
 	var bright: Bright = preload("res://components/bright/bright.tscn").instance()
 	bright.dynamic = true
-	bright.dim_radius = sight_range
+	bright.lit_radius = lit_range
+	bright.dim_radius = dim_range
 	entity.add_child(bright)
 	emit_signal("woke_up")
 
