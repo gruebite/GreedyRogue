@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://screens/lair/lair.gd" type="Script" id=1]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_system.tscn" type="PackedScene" id=2]
 [ext_resource path="res://systems/tile_system/tile_system.tscn" type="PackedScene" id=3]
 [ext_resource path="res://systems/entity_system/entity_system.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/artifact_container/artifact_container.tscn" type="PackedScene" id=5]
 [ext_resource path="res://systems/generator_system/generator_system.tscn" type="PackedScene" id=6]
 [ext_resource path="res://systems/navigation_system/navigation_system.tscn" type="PackedScene" id=7]
 [ext_resource path="res://systems/bright_system/bright_system.tscn" type="PackedScene" id=8]
@@ -13,6 +14,7 @@
 [ext_resource path="res://assets/textures/white_border.png" type="Texture" id=12]
 [ext_resource path="res://systems/effect_system/effect_system.tscn" type="PackedScene" id=13]
 [ext_resource path="res://systems/hoard_system/hoard_system.tscn" type="PackedScene" id=14]
+[ext_resource path="res://ui/artifact_picker/artifact_picker.tscn" type="PackedScene" id=15]
 
 [node name="Lair" type="Node2D"]
 script = ExtResource( 1 )
@@ -157,7 +159,42 @@ margin_top = 165.0
 margin_right = 320.0
 margin_bottom = 720.0
 size_flags_vertical = 3
-custom_constants/separation = 10
+custom_constants/separation = 16
+
+[node name="ArtifactContainer0" parent="UI/HUD/VBoxContainer/Treasures" instance=ExtResource( 5 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 320.0
+margin_bottom = 80.0
+
+[node name="ArtifactContainer1" parent="UI/HUD/VBoxContainer/Treasures" instance=ExtResource( 5 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 320.0
+margin_bottom = 80.0
+
+[node name="ArtifactContainer2" parent="UI/HUD/VBoxContainer/Treasures" instance=ExtResource( 5 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 320.0
+margin_bottom = 80.0
+
+[node name="ArtifactContainer3" parent="UI/HUD/VBoxContainer/Treasures" instance=ExtResource( 5 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 320.0
+margin_bottom = 80.0
+
+[node name="ArtifactContainer4" parent="UI/HUD/VBoxContainer/Treasures" instance=ExtResource( 5 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 320.0
+margin_bottom = 80.0
 
 [node name="Loading" type="Control" parent="UI"]
 visible = false
@@ -171,24 +208,25 @@ anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Message" type="CenterContainer" parent="UI"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 9 )
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Message"]
-margin_left = 390.0
-margin_top = 301.0
-margin_right = 890.0
-margin_bottom = 418.0
+margin_left = 614.0
+margin_top = 341.0
+margin_right = 666.0
+margin_bottom = 378.0
 
 [node name="ColorRect" type="ColorRect" parent="UI/Message/MarginContainer"]
-margin_right = 500.0
-margin_bottom = 117.0
+margin_right = 52.0
+margin_bottom = 37.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Message/MarginContainer"]
-margin_right = 500.0
-margin_bottom = 117.0
+margin_right = 52.0
+margin_bottom = 37.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
@@ -197,12 +235,13 @@ custom_constants/margin_bottom = 10
 [node name="Label" type="Label" parent="UI/Message/MarginContainer/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 490.0
-margin_bottom = 107.0
-text = "Heye
-What upasdasdakhdsljahslhdalhd
-dsfas
-adf
-sadfadsfasdfadf"
+margin_right = 42.0
+margin_bottom = 27.0
+text = "Yo"
 align = 1
 valign = 1
+
+[node name="ArtifactPicker" parent="UI" instance=ExtResource( 15 )]
+visible = false
+
+[connection signal="picked" from="UI/ArtifactPicker" to="." method="_on_artifact_picked"]

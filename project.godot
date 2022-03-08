@@ -29,6 +29,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://components/backpack/artifacts/artifact.gd"
 }, {
+"base": "TextureButton",
+"class": "ArtifactContainer",
+"language": "GDScript",
+"path": "res://ui/artifact_container/artifact_container.gd"
+}, {
+"base": "Reference",
+"class": "Artifacts",
+"language": "GDScript",
+"path": "res://components/backpack/artifacts/artifacts.gd"
+}, {
 "base": "Component",
 "class": "Attack",
 "language": "GDScript",
@@ -349,6 +359,8 @@ _global_script_class_icons={
 "Antimatter": "",
 "Anxiety": "",
 "Artifact": "",
+"ArtifactContainer": "",
+"Artifacts": "",
 "Attack": "",
 "Backpack": "",
 "Bright": "",

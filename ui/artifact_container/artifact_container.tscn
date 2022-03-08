@@ -1,0 +1,116 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ui/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/textures/white.png" type="Texture" id=3]
+[ext_resource path="res://assets/textures/white_border.png" type="Texture" id=4]
+[ext_resource path="res://ui/artifact_container/artifact_container.gd" type="Script" id=5]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 0, 0, 0, 1, 0.282353, 0.67451, 0.878431, 1 )
+
+[node name="ArtifactContainer" type="TextureButton"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -960.0
+margin_bottom = -640.0
+rect_min_size = Vector2( 320, 80 )
+theme = ExtResource( 1 )
+expand = true
+script = ExtResource( 5 )
+input_gradient = SubResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_right = 1
+custom_constants/margin_top = 1
+custom_constants/margin_left = 1
+custom_constants/margin_bottom = 1
+
+[node name="Foreground" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 319.0
+margin_bottom = 79.0
+
+[node name="EntityContainer" type="Control" parent="MarginContainer/Foreground"]
+margin_right = 32.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 32, 32 )
+mouse_filter = 2
+size_flags_horizontal = 0
+
+[node name="DescriptionContainer" type="VBoxContainer" parent="MarginContainer/Foreground"]
+margin_left = 32.0
+margin_right = 318.0
+margin_bottom = 78.0
+size_flags_horizontal = 3
+
+[node name="Title" type="HBoxContainer" parent="MarginContainer/Foreground/DescriptionContainer"]
+margin_right = 286.0
+margin_bottom = 17.0
+
+[node name="Name" type="Label" parent="MarginContainer/Foreground/DescriptionContainer/Title"]
+modulate = Color( 1, 0.956863, 0.690196, 1 )
+margin_right = 192.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Winged Boots"
+
+[node name="Level" type="Label" parent="MarginContainer/Foreground/DescriptionContainer/Title"]
+modulate = Color( 1, 0.956863, 0.690196, 1 )
+margin_left = 192.0
+margin_right = 286.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "♦♦"
+align = 2
+
+[node name="Description" type="Label" parent="MarginContainer/Foreground/DescriptionContainer"]
+modulate = Color( 0.588235, 0.439216, 0.352941, 1 )
+margin_top = 17.0
+margin_right = 286.0
+margin_bottom = 54.0
+text = "You can fly!
+"
+autowrap = true
+
+[node name="ChargeContainer" type="HBoxContainer" parent="MarginContainer/Foreground/DescriptionContainer"]
+margin_top = 54.0
+margin_right = 286.0
+margin_bottom = 71.0
+
+[node name="Label" type="Label" parent="MarginContainer/Foreground/DescriptionContainer/ChargeContainer"]
+modulate = Color( 0.282353, 0.67451, 0.878431, 1 )
+margin_right = 143.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Charge"
+
+[node name="TextureProgress" type="TextureProgress" parent="MarginContainer/Foreground/DescriptionContainer/ChargeContainer"]
+modulate = Color( 0.282353, 0.67451, 0.878431, 1 )
+margin_left = 143.0
+margin_right = 286.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+texture_under = ExtResource( 4 )
+texture_over = ExtResource( 3 )
+nine_patch_stretch = true
+stretch_margin_left = 1
+stretch_margin_top = 1
+stretch_margin_right = 1
+stretch_margin_bottom = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 320, 80 )
+size_flags_horizontal = 3
+texture = ExtResource( 4 )
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1

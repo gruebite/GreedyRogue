@@ -48,6 +48,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				entity_system.add_entity(preload("res://entities/falling_rock/falling_rock.tscn").instance(), entity.grid_position)
 			KEY_R:
 				entity_system.add_entity(preload("res://entities/rock/rock.tscn").instance(), entity.grid_position)
+			KEY_T:
+				entity_system.add_entity(preload("res://entities/treasure_chest/treasure_chest.tscn").instance(), entity.grid_position)
 
 	# Hacky mouse detection.
 	if event is InputEventMouseButton:

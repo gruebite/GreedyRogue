@@ -1,15 +1,18 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://components/backpack/artifacts/winged_boots/winged_boots.gd" type="Script" id=1]
+[ext_resource path="res://components/backpack/artifacts/golden_chalice/golden_chalice.gd" type="Script" id=1]
 [ext_resource path="res://components/display/display.tscn" type="PackedScene" id=2]
 
-[node name="Winged Boots" type="Node2D"]
+[node name="Golden Chalice" type="Node2D"]
 script = ExtResource( 1 )
 layer = 0
-description = "You can fly!"
+description = "Valuable."
+max_charges = PoolIntArray( 200 )
+consumed = true
+charge = 200
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 visible = false
 position = Vector2( 16, 16 )
 scale = Vector2( 2, 2 )
-lit_pos = Vector2( 16, 480 )
+lit_pos = Vector2( 48, 480 )
