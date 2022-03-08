@@ -35,11 +35,13 @@ func _on_action_pressed(index: int) -> void:
 	emit_signal("picked", art_name)
 
 func _on_considering(index: int) -> void:
-	artifact_picks[index].mode = ArtifactContainer.Mode.SELECTED
+	artifact_picks[index].toggle_mode = true
+	artifact_picks[index].set_pressed_no_signal(true)
 	artifact_actions[index].toggle_mode = true
 	artifact_actions[index].set_pressed_no_signal(true)
 
 func _on_unconsidering(index: int) -> void:
-	artifact_picks[index].mode = ArtifactContainer.Mode.UNSELECTED
+	artifact_picks[index].set_pressed_no_signal(false)
+	artifact_picks[index].toggle_mode = false
 	artifact_actions[index].set_pressed_no_signal(false)
 	artifact_actions[index].toggle_mode = false

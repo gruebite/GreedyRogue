@@ -1,26 +1,48 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/textures/white.png" type="Texture" id=3]
 [ext_resource path="res://assets/textures/white_border.png" type="Texture" id=4]
 [ext_resource path="res://ui/artifact_container/artifact_container.gd" type="Script" id=5]
 
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 16, 16 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+modulate_color = Color( 1, 0.956863, 0.690196, 1 )
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 16, 16 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+modulate_color = Color( 1, 0.956863, 0.690196, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0, 0, 0, 1, 0.282353, 0.67451, 0.878431, 1 )
 
-[node name="ArtifactContainer" type="TextureButton"]
-self_modulate = Color( 1, 1, 1, 0 )
+[node name="ArtifactContainer" type="Button"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -960.0
 margin_bottom = -640.0
 rect_min_size = Vector2( 320, 80 )
 theme = ExtResource( 1 )
-expand = true
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 3 )
 script = ExtResource( 5 )
 input_gradient = SubResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -103,15 +125,3 @@ stretch_margin_left = 1
 stretch_margin_top = 1
 stretch_margin_right = 1
 stretch_margin_bottom = 1
-
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 320, 80 )
-size_flags_horizontal = 3
-texture = ExtResource( 4 )
-patch_margin_left = 1
-patch_margin_top = 1
-patch_margin_right = 1
-patch_margin_bottom = 1
