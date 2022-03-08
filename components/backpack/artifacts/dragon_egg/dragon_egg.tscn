@@ -7,6 +7,8 @@
 script = ExtResource( 1 )
 layer = 0
 description = "It glows."
+max_charges = PoolIntArray( 100, 200, 300 )
+passive = true
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 visible = false

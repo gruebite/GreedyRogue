@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://components/display/display.tscn" type="PackedScene" id=1]
+[ext_resource path="res://components/backpack/artifacts/dragon_egg/dragon_egg.gd" type="Script" id=2]
+
+[node name="Liquid Courage" type="Node2D"]
+script = ExtResource( 2 )
+layer = 0
+description = "Handle more stress."
+consumed = true
+
+[node name="Display" parent="." instance=ExtResource( 1 )]
+visible = false
+position = Vector2( 16, 16 )
+scale = Vector2( 2, 2 )
+lit_pos = Vector2( 80, 480 )

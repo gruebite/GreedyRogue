@@ -33,31 +33,24 @@ func _process(_delta: float) -> void:
 	var p := (sin(OS.get_ticks_msec() / 100.0) + 1) * 0.5
 	$NinePatchRect.modulate = input_gradient.interpolate(p)
 
-func update_artifact(artifact: Artifact, duplicate: bool=false) -> void:
-	var own := artifact.duplicate() if duplicate else artifact
-	own.get_component(Display.NAME).show()
+func present_artifact(artifact: Artifact) -> void:
+	artifact.get_component(Display.NAME).show()
 	for c in $MarginContainer/Foreground/EntityContainer.get_children():
 		c.queue_free()
 	yield(get_tree(), "idle_frame")
-	artifact_name = own.name
-	$MarginContainer/Foreground/EntityContainer.add_child(own)
+	artifact_name = artifact.name
+	$MarginContainer/Foreground/EntityContainer.add_child(artifact)
 
-	var _ignore
-	_ignore = own.connect("level_changed", self, "_on_level_chaned")
-	_ignore = own.connect("charge_changed", self, "_on_charge_chaned")
+	selectable = not artifact.passive
 
-	selectable = not own.passive
+	$MarginContainer/Foreground/DescriptionContainer/Title/Name.text = artifact.name
+	$MarginContainer/Foreground/DescriptionContainer/Description.text = artifact.description
+	update_artifact(artifact)
 
-	$MarginContainer/Foreground/DescriptionContainer/Title/Name.text = own.name
-	$MarginContainer/Foreground/DescriptionContainer/Title/Level.text = str("♦").repeat(own.level + 1)
-	$MarginContainer/Foreground/DescriptionContainer/Description.text = own.description
-	$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.value = 100.0
-
-func _on_level_changed(to: int) -> void:
-	$MarginContainer/Foreground/DescriptionContainer/Title/Level.text = str(to)
-
-func _on_charge_changed() -> void:
-	$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.value = 100.0
+func update_artifact(artifact: Artifact) -> void:
+	$MarginContainer/Foreground/DescriptionContainer/Title/Level.text = str("♦").repeat(artifact.level + 1)
+	var cp := artifact.charge_p * 100.0
+	$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.value = cp
 
 func set_mode(m: int) -> void:
 	if not selectable and not always_selectabled:

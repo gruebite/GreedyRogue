@@ -76,7 +76,7 @@ func can_see(from: Entity, to: Entity, dist: int) -> bool:
 			return false
 	return true
 
-func on_lava(x: int, y: int) -> bool:
+func is_lava(x: int, y: int) -> bool:
 	if out_of_bounds(x, y):
 		return false
 	var yep := false

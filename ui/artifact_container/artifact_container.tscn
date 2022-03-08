@@ -70,17 +70,18 @@ align = 2
 
 [node name="Description" type="Label" parent="MarginContainer/Foreground/DescriptionContainer"]
 modulate = Color( 0.588235, 0.439216, 0.352941, 1 )
-margin_top = 17.0
+margin_top = 20.0
 margin_right = 286.0
-margin_bottom = 54.0
+margin_bottom = 57.0
+size_flags_vertical = 6
 text = "You can fly!
 "
 autowrap = true
 
 [node name="ChargeContainer" type="HBoxContainer" parent="MarginContainer/Foreground/DescriptionContainer"]
-margin_top = 54.0
+margin_top = 61.0
 margin_right = 286.0
-margin_bottom = 71.0
+margin_bottom = 78.0
 
 [node name="Label" type="Label" parent="MarginContainer/Foreground/DescriptionContainer/ChargeContainer"]
 modulate = Color( 0.282353, 0.67451, 0.878431, 1 )
@@ -96,7 +97,7 @@ margin_right = 286.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 texture_under = ExtResource( 4 )
-texture_over = ExtResource( 3 )
+texture_progress = ExtResource( 3 )
 nine_patch_stretch = true
 stretch_margin_left = 1
 stretch_margin_top = 1

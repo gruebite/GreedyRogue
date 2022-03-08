@@ -6,7 +6,7 @@ const NAME := "Health"
 signal health_changed(to, mx)
 
 export var flashing_node_path := NodePath("../Display")
-export var max_health := 10
+export var max_health := 10 setget set_max_health
 var health := max_health setget set_health
 
 export var transparency: float = 0 setget set_transparency
@@ -21,6 +21,15 @@ func _ready() -> void:
 
 func _exit_tree() -> void:
 	turn_system.finish_turn(self)
+
+func set_max_health(to: int) -> void:
+	if to < 0: to = 0
+	max_health = to
+	if max_health < health:
+		health = max_health
+	if health == 0:
+		entity.kill(self)
+	emit_signal("health_changed", health, max_health)
 
 func set_health(to: int) -> void:
 	if to < 0: to = 0

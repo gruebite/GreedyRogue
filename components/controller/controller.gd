@@ -70,9 +70,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_out_of_turn() -> void:
 	var gpos := entity.grid_position
 	if navigation_system.is_edge(gpos.x, gpos.y):
-		var on_lava := navigation_system.on_lava(gpos.x, gpos.y)
+		var is_lava := navigation_system.is_lava(gpos.x, gpos.y)
 		# Can't exit through lava.
-		if not on_lava:
+		if not is_lava:
 			emit_signal("found_exit")
 
 func _on_pickup(ent: Entity) -> void:

@@ -19,7 +19,7 @@ onready var artifact_actions := [
 
 func present_picks(arts: Array) -> void:
 	for i in 3:
-		artifact_picks[i].update_artifact(Artifacts.TABLE[arts[i]].instance())
+		artifact_picks[i].present_artifact(Artifacts.TABLE[arts[i]].instance())
 
 func level_picks(lvls: Array) -> void:
 	for i in 3:

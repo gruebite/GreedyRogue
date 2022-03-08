@@ -25,9 +25,13 @@ func add_artifact(n: String) -> void:
 		match n:
 			"Health Potion":
 				health.health += 100
+			"Heart Piece":
+				health.max_health *= 1.5
 			"Golden Chalice":
 				self.gold += 100
 				anxiety.anxiety -= 100
+			"Liquid Courage":
+				anxiety.max_anxiety *= 1.2
 		return
 
 	var existing := find_node(n, false, false)
@@ -66,8 +70,8 @@ func artifact_level(n: String) -> int:
 	else:
 		return art.level
 
-func _on_level_changed(artifact, to, mx) -> void:
+func _on_level_changed(to, mx, artifact) -> void:
 	emit_signal("artifact_level_changed", artifact, to, mx)
 
-func _on_charge_changed(artifact, to, mx) -> void:
+func _on_charge_changed(to, mx, artifact) -> void:
 	emit_signal("artifact_charge_changed", artifact, to, mx)

@@ -17,20 +17,21 @@ var max_level: int setget , get_max_level
 var charge_p: float setget , get_charge_p
 
 ## Null if somewhere else.
-var backpack = get_parent() as Component
+onready var backpack = get_parent() as Component
 
 func _ready() -> void:
 	if backpack:
 		var _ignore
 		var ts: TurnSystem = backpack.turn_system
-		_ignore = ts.connect("turn_initiated", self, "_on_turn_initiated")
+		_ignore = ts.connect("initiated_turn", self, "_on_initiated_turn")
 		_ignore = ts.connect("in_turn", self, "_on_in_turn")
-		_ignore = ts.connect("out_of_turn", self, "_out_of_turn")
-		var tt: TurnTaker = backpack.entity.get_component(TurnTaker.NAME)
-		_ignore = tt.connect("take_turn", self, "_on_take_turn")
-		_ignore = backpack.entity.connect("moved", self, "_on_moved")
+		_ignore = ts.connect("out_of_turn", self, "_on_out_of_turn")
+		var tt: TurnTaker = backpack.entity.get_component("TurnTaker")
+		if tt:
+			_ignore = tt.connect("take_turn", self, "_on_take_turn")
+			_ignore = backpack.entity.connect("moved", self, "_on_moved")
 
-func _on_turn_initiated() -> void:
+func _on_initiated_turn() -> void:
 	pass
 
 func _on_take_turn() -> void:
@@ -39,7 +40,7 @@ func _on_take_turn() -> void:
 func _on_in_turn() -> void:
 	pass
 
-func _out_of_turn() -> void:
+func _on_out_of_turn() -> void:
 	pass
 
 func _on_moved() -> void:
@@ -58,10 +59,10 @@ func set_charge(to: int) -> void:
 	if to < 0: to = 0
 	if to > max_charges[level]: to = max_charges[level]
 	charge = to
-	emit_signal("charge_changed", to, max_charges[level])
+	emit_signal("charge_changed", to, int(max_charges[level]))
 
 func get_charge_p() -> float:
 	if max_charges[level] == 0:
 		return 1.0
 	else:
-		return self.charge / max_charges[level]
+		return float(charge) / max_charges[level]

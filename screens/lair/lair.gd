@@ -66,15 +66,25 @@ func _on_gained_artifact(artifact: Artifact) -> void:
 	for i in treasures.get_child_count():
 		var t := treasures.get_child(i)
 		if not t.visible:
-			t.update_artifact(Artifacts.TABLE[artifact.name].instance())
+			t.present_artifact(Artifacts.TABLE[artifact.name].instance())
 			t.show()
 			break
 
-func _on_artifact_level_changed(artifact: Artifact, to: int, mx: int) -> void:
-	pass
+func _on_artifact_level_changed(artifact: Artifact, _to: int, _mx: int) -> void:
+	var treasures := $UI/HUD/VBoxContainer/Treasures
+	for i in treasures.get_child_count():
+		var t := treasures.get_child(i)
+		if t.artifact_name == artifact.name:
+			t.update_artifact(artifact)
+			break
 
-func _on_artifact_charge_changed(artifact: Artifact, to: int, mx: int) -> void:
-	pass
+func _on_artifact_charge_changed(artifact: Artifact, _to: int, _mx: int) -> void:
+	var treasures := $UI/HUD/VBoxContainer/Treasures
+	for i in treasures.get_child_count():
+		var t := treasures.get_child(i)
+		if t.artifact_name == artifact.name:
+			t.update_artifact(artifact)
+			break
 
 func _on_health_changed(to: int, mx: int) -> void:
 	$UI/HUD/VBoxContainer/Health/Value.value = (float(to) / mx) * 100
