@@ -195,6 +195,11 @@ _global_script_classes=[ {
 "path": "res://addons/rlgd/hex.gd"
 }, {
 "base": "Node2D",
+"class": "HoardSystem",
+"language": "GDScript",
+"path": "res://systems/hoard_system/hoard_system.gd"
+}, {
+"base": "Node2D",
 "class": "Lair",
 "language": "GDScript",
 "path": "res://screens/lair/lair.gd"
@@ -367,6 +372,7 @@ _global_script_class_icons={
 "Harmful": "",
 "Health": "",
 "Hex": "",
+"HoardSystem": "",
 "Lair": "",
 "Lifetime": "",
 "Matter": "",

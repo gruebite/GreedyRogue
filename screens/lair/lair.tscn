@@ -4,7 +4,6 @@
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_system.tscn" type="PackedScene" id=2]
 [ext_resource path="res://systems/tile_system/tile_system.tscn" type="PackedScene" id=3]
 [ext_resource path="res://systems/entity_system/entity_system.tscn" type="PackedScene" id=4]
-[ext_resource path="res://entities/player/player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://systems/generator_system/generator_system.tscn" type="PackedScene" id=6]
 [ext_resource path="res://systems/navigation_system/navigation_system.tscn" type="PackedScene" id=7]
 [ext_resource path="res://systems/bright_system/bright_system.tscn" type="PackedScene" id=8]
@@ -13,6 +12,7 @@
 [ext_resource path="res://assets/textures/white.png" type="Texture" id=11]
 [ext_resource path="res://assets/textures/white_border.png" type="Texture" id=12]
 [ext_resource path="res://systems/effect_system/effect_system.tscn" type="PackedScene" id=13]
+[ext_resource path="res://systems/hoard_system/hoard_system.tscn" type="PackedScene" id=14]
 
 [node name="Lair" type="Node2D"]
 script = ExtResource( 1 )
@@ -20,6 +20,8 @@ script = ExtResource( 1 )
 [node name="TurnSystem" parent="." instance=ExtResource( 2 )]
 
 [node name="TileSystem" parent="." instance=ExtResource( 3 )]
+
+[node name="HoardSystem" parent="." instance=ExtResource( 14 )]
 
 [node name="EntitySystem" parent="." instance=ExtResource( 4 )]
 
@@ -34,8 +36,6 @@ script = ExtResource( 1 )
 [node name="EffectSystem" parent="." instance=ExtResource( 13 )]
 
 [node name="Entities" type="YSort" parent="."]
-
-[node name="Player" parent="Entities" instance=ExtResource( 5 )]
 
 [node name="Effects" type="Node2D" parent="."]
 

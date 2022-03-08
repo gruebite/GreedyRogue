@@ -1,23 +1,11 @@
 extends Node2D
 class_name Lair
 
-onready var player: Entity = $EntitySystem.player
-
 var loading = null
 var game_over := false
-var gold_p := 0.0
 var panicking := false
 
 func _ready() -> void:
-	var _ignore
-	_ignore = player.connect("died", self, "_on_player_died")
-	_ignore = player.get_component(Backpack.NAME).connect("gold_changed", self, "_on_gold_changed")
-	_ignore = player.get_component(Health.NAME).connect("health_changed", self, "_on_health_changed")
-	_ignore = player.get_component(Anxiety.NAME).connect("anxiety_changed", self, "_on_anxiety_changed")
-	_ignore = player.get_component(Anxiety.NAME).connect("panicking", self, "_on_panicking")
-	_ignore = player.get_component(Anxiety.NAME).connect("calmed_down", self, "_on_calmed_down")
-	_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
-
 	regenerate()
 
 func _process(_delta: float) -> void:
@@ -35,6 +23,15 @@ func _process(_delta: float) -> void:
 	if not loading:
 		hide_message()
 		$UI/Loading.hide()
+		var player = $EntitySystem.player
+		var _ignore
+		_ignore = player.connect("died", self, "_on_player_died")
+		_ignore = player.get_component(Backpack.NAME).connect("gold_changed", self, "_on_gold_changed")
+		_ignore = player.get_component(Health.NAME).connect("health_changed", self, "_on_health_changed")
+		_ignore = player.get_component(Anxiety.NAME).connect("anxiety_changed", self, "_on_anxiety_changed")
+		_ignore = player.get_component(Anxiety.NAME).connect("panicking", self, "_on_panicking")
+		_ignore = player.get_component(Anxiety.NAME).connect("calmed_down", self, "_on_calmed_down")
+		_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
 
 func _input(event: InputEvent) -> void:
 	if not $UI/Message.visible:
@@ -51,13 +48,12 @@ func _input(event: InputEvent) -> void:
 				regenerate()
 
 func _on_player_died(_by: Node2D) -> void:
-	show_message("Died\nCollected %.2f%% of the gold" % [gold_p * 100])
+	show_message("Died\nCollected %.2f%% of the gold" % [$HoardSystem.gold_p * 100])
 	game_over = true
 
 func _on_gold_changed(to: int) -> void:
-	gold_p = (float(to) / max(1, $GeneratorSystem.gold_total))
-	print("Gold percentage: " + str(gold_p * 100))
-	$SecuritySystem.gold_p = gold_p
+	$HoardSystem.gold_collected = to
+	print("Gold percentage: %0.2f%%" % [$HoardSystem.gold_p * 100])
 	$UI/HUD/VBoxContainer/Gold/Value.text = str(to)
 
 func _on_health_changed(to: int, mx: int) -> void:
@@ -74,10 +70,10 @@ func _on_calmed_down() -> void:
 	$UI/HUD/VBoxContainer/Anxiety/Value/Progress.rect_position = Vector2.ZERO
 
 func _on_found_exit() -> void:
-	if gold_p < 0.5:
-		show_message("Refuse to leave with less than 50%% of the gold\nCollected %.2f%%" % (gold_p * 100))
+	if $HoardSystem.gold_p < 0.5:
+		show_message("Refuse to leave with less than 50%% of the gold\nCollected %.2f%%" % ($HoardSystem.gold_p * 100))
 		return
-	show_message("Found an escape!\nCollected %.2f%% of the gold" % (gold_p * 100))
+	show_message("Found an escape!\nCollected %.2f%% of the gold" % ($HoardSystem.gold_p * 100))
 	game_over = true
 
 func regenerate() -> void:

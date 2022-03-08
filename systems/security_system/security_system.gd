@@ -10,11 +10,14 @@ const GROUP_NAME := "security_system"
 var total_dragons := 0
 var asleep_dragons := {}
 var awake_dragons := {}
-var gold_p := 0.0 setget set_gold_p
+
+onready var hoard_system: HoardSystem = $"../HoardSystem"
 
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
+	
+	var _ignore = hoard_system.connect("treasure_removed", self, "_on_treasure_removed")
 
 func _on_dragon_woke_up(dragon) -> void:
 	var _ignore
@@ -31,8 +34,8 @@ func remove_dragon(dragon) -> void:
 	_ignore = asleep_dragons.erase(dragon)
 	_ignore = awake_dragons.erase(dragon)
 
-func set_gold_p(value: float) -> void:
-	gold_p = value
+func _on_treasure_removed() -> void:
+	var gold_p: float = hoard_system.gold_p
 	var asleep := asleep_dragons.keys()
 	asleep.shuffle()
 	var dragons_p: float = 1 - (asleep.size() / float(total_dragons))

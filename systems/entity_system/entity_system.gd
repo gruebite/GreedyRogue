@@ -3,6 +3,7 @@ class_name EntitySystem
 
 const GROUP_NAME := "entity_system"
 
+export(PackedScene) var player_scene := load("res://entities/player/player.tscn")
 export var entities_node_path := NodePath("../Entities")
 
 # Vector2 -> {Entity}
@@ -11,7 +12,7 @@ var entity_grid := {}
 var entity_positions := {}
 
 onready var entities_node: Node2D = get_node(entities_node_path)
-onready var player: Entity = entities_node.get_node("Player")
+var player: Entity
 
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
@@ -21,11 +22,11 @@ func _ready() -> void:
 		for y in Constants.MAP_ROWS:
 			entity_grid[Vector2(x, y)] = {}
 
-func clear() -> void:
+func reset() -> void:
 	for ent in entities_node.get_children():
-		# Kinda hacky.
-		if ent.name != "Player":
-			ent.queue_free()
+		ent.queue_free()
+	spawn_entity(player_scene, Vector2.ZERO)
+	player = entities_node.get_child(0)
 
 func spawn_entity(escene: PackedScene, gpos: Vector2) -> void:
 	var ent: Entity = escene.instance()
