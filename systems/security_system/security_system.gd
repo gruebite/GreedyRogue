@@ -17,7 +17,7 @@ func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 	
-	var _ignore = hoard_system.connect("treasure_removed", self, "_on_treasure_removed")
+	var _ignore = hoard_system.connect("gold_removed", self, "_on_gold_removed")
 
 func _on_dragon_woke_up(dragon) -> void:
 	var _ignore
@@ -34,7 +34,7 @@ func remove_dragon(dragon) -> void:
 	_ignore = asleep_dragons.erase(dragon)
 	_ignore = awake_dragons.erase(dragon)
 
-func _on_treasure_removed() -> void:
+func _on_gold_removed() -> void:
 	var gold_p: float = hoard_system.gold_p
 	var asleep := asleep_dragons.keys()
 	asleep.shuffle()

@@ -89,7 +89,7 @@ func update_brights() -> void:
 func update_tiles() -> void:
 	for x in Constants.MAP_COLUMNS:
 		for y in Constants.MAP_ROWS:
-			var brightness := get_brightness(x, y)
+			var brightness := Brightness.LIT#get_brightness(x, y)
 			tile_system.set_brightness(x, y, brightness)
 			entity_system.set_brightness(x, y, brightness)
 

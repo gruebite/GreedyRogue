@@ -13,7 +13,7 @@ enum {
 signal woke_up()
 
 export var awake_dist := 3
-export var sight_range := 6
+export var sight_range := 9
 export var dim_range := 4
 export var lit_range := 1
 export var breath_weapon_chance := 0.1
@@ -25,6 +25,7 @@ export var breathing_node_path := NodePath("../Display")
 export var breath := 1.0 setget set_breath
 
 var state: int = SLEEPING
+var breath_dir: int = 0
 var breath_timer: int = 0
 
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
@@ -61,20 +62,13 @@ func _on_take_turn() -> void:
 				$AnimationPlayer.play("breath_in")
 			if breath_timer == 0:
 				$AnimationPlayer.play("breath_out")
-				breath_fire(Direction.CARDINALS[randi() % 4])
+				breath_fire(breath_dir)
 				state = WANDERING
 			else:
 				breath_timer -= 1
 		PURSUING:
 			if randi() % 5:
-				var dv: Vector2 = entity_system.player.grid_position - entity.grid_position
-				dv.x = sign(dv.x)
-				dv.y = sign(dv.y)
-				if dv.x != 0 and dv.y != 0:
-					if randi() % 2 == 0:
-						dv.x = 0
-					else:
-						dv.y = 0
+				var dv := Direction.delta(cardinal_to_player())
 				var desired := entity.grid_position + dv
 				if navigation_system.can_move_to(entity, desired):
 					navigation_system.move_to(entity, desired)
@@ -99,6 +93,7 @@ func check_transitions():
 			else:
 				if randf() <= breath_weapon_chance:
 					state = BREATHING
+					breath_dir = Direction.CARDINALS[randi() % 4]
 					breath_timer = breath_weapon_time
 		BREATHING:
 			pass
@@ -106,6 +101,10 @@ func check_transitions():
 			var v: Vector2 = (entity_system.player.grid_position - entity.grid_position).abs()
 			if v.x + v.y > sight_range:
 				state = WANDERING
+			elif randf() <= breath_weapon_chance:
+				state = BREATHING
+				breath_dir = cardinal_to_player()
+				breath_timer = breath_weapon_time
 
 func wake_up() -> void:
 	if state != SLEEPING:
@@ -132,3 +131,20 @@ func set_breath(value: float) -> void:
 	if breathing_node:
 		breathing_node.scale = Vector2(breath, breath)
 
+func cardinal_to_player() -> int:
+	var vec := entity_system.player.grid_position - entity.grid_position
+	vec.x = sign(vec.x)
+	vec.y = sign(vec.y)
+	if vec.x != 0 and vec.y != 0:
+		if randi() % 2 == 0:
+			vec.x = 0
+		else:
+			vec.y = 0
+	if vec.x == 1:
+		return Direction.EAST
+	elif vec.y == 1:
+		return Direction.SOUTH
+	elif vec.x == -1:
+		return Direction.WEST
+	else:
+		return Direction.NORTH

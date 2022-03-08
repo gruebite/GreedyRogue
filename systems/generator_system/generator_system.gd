@@ -84,30 +84,6 @@ func generate() -> void:
 		walker.commit()
 
 	yield()
-	# Gold
-
-	var piles := walker.rng.randi_range(10, 30)
-	var small_piles := walker.rng.randi_range(piles * 3 / 2, piles)
-	var medium_piles := walker.rng.randi_range(0, piles - small_piles)
-	var large_piles := walker.rng.randi_range(0, piles - medium_piles)
-	for i in piles:
-		walker.goto_random_opened()
-		var size: int
-		if small_piles > 0:
-			small_piles -= 1
-			size = 3
-		elif medium_piles > 0:
-			medium_piles -= 1
-			size = 8
-		elif large_piles > 0:
-			large_piles -= 1
-			size = 10
-		for s in size:
-			walker.step_random()
-			walker.mark_point_set(plus, tile_to_walker_tile(Tile.GOLD))
-		walker.commit(Walker.COMMIT_OPENED_OVER_OPENED)
-
-	yield()
 	# Lava pools.
 
 	var pools := walker.rng.randi_range(1, 10)
@@ -145,6 +121,38 @@ func generate() -> void:
 	walker.forget()
 
 	yield()
+	# Gold
+
+	var small_piles := 10
+	var medium_piles := 3
+	var large_piles := 1
+	var piles := small_piles + medium_piles + large_piles
+	for i in piles:
+		walker.goto_random_opened()
+		var size: int
+		if small_piles > 0:
+			small_piles -= 1
+			size = 3
+		elif medium_piles > 0:
+			medium_piles -= 1
+			size = 8
+		elif large_piles > 0:
+			large_piles -= 1
+			size = 10
+		for s in size:
+			walker.step_random()
+			walker.mark_point_set(plus, tile_to_walker_tile(Tile.GOLD_PILE))
+		walker.commit(Walker.COMMIT_OPENED_OVER_OPENED)
+
+	yield()
+	# Treasure Chests
+	var treasures := 3
+	for i in treasures:
+		walker.goto_random_opened()
+		walker.mark(tile_to_walker_tile(Tile.TREASURE_CHEST))
+		walker.commit()
+
+	yield()
 	# Entities
 
 	var to_add := []
@@ -163,9 +171,12 @@ func generate() -> void:
 					if tile == Tile.ROCK:
 						tile_system.set_tile(x, y, Tile.FLOOR)
 						ent = Entities.ROCK.instance()
-					elif tile == Tile.GOLD:
+					elif tile == Tile.GOLD_PILE:
 						tile_system.set_tile(x, y, Tile.FLOOR)
-						ent = Entities.GOLD.instance()
+						ent = Entities.GOLD_PILE.instance()
+					elif tile == Tile.TREASURE_CHEST:
+						tile_system.set_tile(x, y, Tile.FLOOR)
+						ent = Entities.TREASURE_CHEST.instance()
 					elif tile == Tile.STALAGMITE:
 						tile_system.set_tile(x, y, Tile.FLOOR)
 						ent = Entities.STALAGMITE.instance()

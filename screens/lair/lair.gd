@@ -32,6 +32,8 @@ func _process(_delta: float) -> void:
 		_ignore = player.get_component(Anxiety.NAME).connect("panicking", self, "_on_panicking")
 		_ignore = player.get_component(Anxiety.NAME).connect("calmed_down", self, "_on_calmed_down")
 		_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
+		_ignore = player.get_component(Controller.NAME).connect("picked_up_gold", self, "_on_picked_up_gold")
+		_ignore = player.get_component(Controller.NAME).connect("picked_up_treasure", self, "_on_picked_up_treasure")
 
 func _input(event: InputEvent) -> void:
 	if not $UI/Message.visible:
@@ -52,7 +54,6 @@ func _on_player_died(_by: Node2D) -> void:
 	game_over = true
 
 func _on_gold_changed(to: int) -> void:
-	$HoardSystem.gold_collected = to
 	print("Gold percentage: %0.2f%%" % [$HoardSystem.gold_p * 100])
 	$UI/HUD/VBoxContainer/Gold/Value.text = str(to)
 
@@ -75,6 +76,12 @@ func _on_found_exit() -> void:
 		return
 	show_message("Found an escape!\nCollected %.2f%% of the gold" % ($HoardSystem.gold_p * 100))
 	game_over = true
+
+func _on_picked_up_gold() -> void:
+	$HoardSystem.collect_gold()
+
+func _on_picked_up_treasure() -> void:
+	print("got treasure")
 
 func regenerate() -> void:
 	game_over = false

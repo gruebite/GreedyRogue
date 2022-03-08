@@ -3,34 +3,34 @@ class_name HoardSystem
 
 const GROUP_NAME := "hoard_system"
 
-signal treasure_added()
-signal treasure_removed()
+signal gold_added()
+signal gold_removed()
 
 var gold_p setget , get_gold_p
-var gold_remaining := 0
-var gold_collected := 0
+var gold_piles_remaining := 0
+var gold_piles_collected := 0
 
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 
 func reset() -> void:
-	gold_remaining = 0
-	gold_collected = 0
+	gold_piles_remaining = 0
+	gold_piles_collected = 0
 
-func add_treasure(t) -> void:
-	gold_remaining += t.gold
-	emit_signal("treasure_added")
+func add_gold() -> void:
+	gold_piles_remaining += 1
+	emit_signal("gold_added")
 
-func remove_treasure(t) -> void:
-	gold_remaining -= t.gold
-	emit_signal("treasure_removed")
+func remove_gold() -> void:
+	gold_piles_remaining -= 1
+	emit_signal("gold_removed")
 
-func collect_gold(amount: int) -> void:
-	gold_collected += amount
+func collect_gold() -> void:
+	gold_piles_collected += 1
 
 func get_gold_p() -> float:
-	var total_gold := gold_remaining + gold_collected
+	var total_gold := gold_piles_remaining + gold_piles_collected
 	if total_gold == 0:
 		return 1.0
-	return float(gold_collected) / total_gold
+	return float(gold_piles_collected) / total_gold

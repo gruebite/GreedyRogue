@@ -4,6 +4,8 @@ class_name Controller
 const NAME := "Controller"
 
 signal found_exit()
+signal picked_up_gold()
+signal picked_up_treasure()
 
 onready var bright_sytem: BrightSystem = find_system(BrightSystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
@@ -73,8 +75,10 @@ func _on_out_of_turn() -> void:
 			emit_signal("found_exit")
 
 func _on_pickup(ent: Entity) -> void:
-	var treasure: Treasure = ent.get_component(Treasure.NAME)
-	if treasure:
-		backpack.gold += treasure.gold
-		anxiety.anxiety -= treasure.gold
+	if ent.get_component(Gold.NAME):
+		backpack.gold += (randi() % 5) + 5
+		anxiety.anxiety -= 10
 		effect_system.spawn_effect(preload("res://effects/collect_gold/collect_gold.tscn").instance(), entity.position)
+		emit_signal("picked_up_gold")
+	if ent.get_component(Treasure.NAME):
+		emit_signal("picked_up_treasure")
