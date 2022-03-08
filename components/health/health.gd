@@ -3,7 +3,7 @@ class_name Health
 
 const NAME := "Health"
 
-signal health_changed(to)
+signal health_changed(to, mx)
 
 export var flashing_node_path := NodePath("../Display")
 export var max_health := 10
@@ -16,6 +16,9 @@ onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
 
 onready var flashing_node := get_node(flashing_node_path)
 
+func _ready() -> void:
+	emit_signal("health_changed", health, max_health)
+
 func _exit_tree() -> void:
 	turn_system.finish_turn(self)
 
@@ -23,7 +26,7 @@ func set_health(to: int) -> void:
 	if to < 0: to = 0
 	if to > max_health: to = max_health
 	if to < health:
-		effect_system.spawn_effect(preload("res://effects/blood/blood.tscn"), entity.position)
+		effect_system.spawn_effect(preload("res://effects/blood/blood.tscn").instance(), entity.position)
 		flash()
 	health = to
 	if health == 0:

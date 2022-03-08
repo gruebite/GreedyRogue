@@ -18,6 +18,8 @@ func _ready() -> void:
 	var _ignore
 	_ignore = turn_system.connect("in_turn", self, "_on_in_turn")
 
+	emit_signal("anxiety_changed", anxiety, max_anxiety)
+
 func _on_in_turn() -> void:
 	# Check if we panicked this turn.
 	if panic > normal_panic:

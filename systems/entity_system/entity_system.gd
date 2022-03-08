@@ -25,11 +25,10 @@ func _ready() -> void:
 func reset() -> void:
 	for ent in entities_node.get_children():
 		ent.queue_free()
-	spawn_entity(player_scene, Vector2.ZERO)
-	player = entities_node.get_child(0)
+	player = player_scene.instance()
+	spawn_entity(player, Vector2.ZERO)
 
-func spawn_entity(escene: PackedScene, gpos: Vector2) -> void:
-	var ent: Entity = escene.instance()
+func spawn_entity(ent: Node2D, gpos: Vector2) -> void:
 	ent.grid_position = gpos
 	add_entity(ent)
 

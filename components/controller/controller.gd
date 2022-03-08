@@ -42,11 +42,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event is InputEventKey and event.pressed:
 		match event.scancode:
 			KEY_F:
-				entity_system.spawn_entity(preload("res://entities/fire/fire.tscn"), entity.grid_position)
+				entity_system.spawn_entity(preload("res://entities/fire/fire.tscn").instance(), entity.grid_position)
 			KEY_A:
-				entity_system.spawn_entity(preload("res://entities/falling_rock/falling_rock.tscn"), entity.grid_position)
+				entity_system.spawn_entity(preload("res://entities/falling_rock/falling_rock.tscn").instance(), entity.grid_position)
 			KEY_R:
-				entity_system.spawn_entity(preload("res://entities/rock/rock.tscn"), entity.grid_position)
+				entity_system.spawn_entity(preload("res://entities/rock/rock.tscn").instance(), entity.grid_position)
 
 	# Hacky mouse detection.
 	if event is InputEventMouseButton:
@@ -77,4 +77,4 @@ func _on_pickup(ent: Entity) -> void:
 	if treasure:
 		backpack.gold += treasure.gold
 		anxiety.anxiety -= treasure.gold
-		effect_system.spawn_effect(preload("res://effects/collect_gold/collect_gold.tscn"), entity.position)
+		effect_system.spawn_effect(preload("res://effects/collect_gold/collect_gold.tscn").instance(), entity.position)

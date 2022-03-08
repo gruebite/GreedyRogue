@@ -14,6 +14,7 @@ func _ready() -> void:
 	add_to_group(GROUP_NAME)
 
 func generate() -> void:
+	bright_system.reset()
 	entity_system.reset()
 	hoard_system.reset()
 

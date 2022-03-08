@@ -20,5 +20,5 @@ func _on_bumped(by: Entity) -> void:
 		if tile_system.blocks_movement(desired.x, desired.y):
 			break
 		if spawns:
-			entity_system.spawn_entity(spawns, desired)
+			entity_system.spawn_entity(spawns.instance(), desired)
 	entity.kill(self)

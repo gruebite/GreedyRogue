@@ -22,6 +22,12 @@ func _ready() -> void:
 	add_to_group(GROUP_NAME)
 	var _ignore = turn_system.connect("out_of_turn", self, "_on_out_of_turn")
 
+func reset() -> void:
+	blocking_grid.clear()
+	static_light_grid.clear()
+	dynamic_light_grid.clear()
+	brights.clear()
+
 func get_brightness(x: int, y: int) -> int:
 	var s = static_light_grid.get_cell(x, y)
 	if s == null:
