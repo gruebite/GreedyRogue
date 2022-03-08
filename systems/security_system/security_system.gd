@@ -16,7 +16,7 @@ onready var hoard_system: HoardSystem = $"../HoardSystem"
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
-	
+
 	var _ignore = hoard_system.connect("gold_removed", self, "_on_gold_removed")
 
 func _on_dragon_woke_up(dragon) -> void:

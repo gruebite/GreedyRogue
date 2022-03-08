@@ -23,9 +23,11 @@ func _on_take_turn() -> void:
 		var gpos := entity.grid_position
 		var ents := entity_system.get_entities(gpos.x, gpos.y)
 		for ent in ents:
+			if ent == entity:
+				continue
 			var health: Health = ent.get_component(Health.NAME)
 			if health:
 				health.health -= damage
 		if spawns:
-			entity_system.spawn_entity(spawns.instance(), entity.grid_position)
+			entity_system.add_entity(spawns.instance(), entity.grid_position)
 		entity.kill(self)

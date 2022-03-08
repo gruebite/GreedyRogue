@@ -15,6 +15,6 @@ func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 
-func spawn_effect(effect: Node2D, pos: Vector2) -> void:
+func add_effect(effect: Node2D, pos: Vector2) -> void:
 	effect.position = pos
 	effects_node.add_child(effect)

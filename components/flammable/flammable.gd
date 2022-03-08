@@ -15,6 +15,8 @@ func _on_in_turn() -> void:
 	var gpos := entity.grid_position
 	var ents := entity_system.get_entities(gpos.x, gpos.y)
 	for ent in ents:
+		if ent == entity:
+			continue
 		var fire: Flaming = ent.get_component(Flaming.NAME)
 		if fire:
 			health.health -= fire.heat

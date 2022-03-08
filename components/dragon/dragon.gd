@@ -124,7 +124,7 @@ func breath_fire(dir: int) -> void:
 		var gpos: Vector2 = entity.grid_position + dv + dirv
 		if tile_system.blocks_movement(gpos.x, gpos.y):
 			continue
-		entity_system.spawn_entity(preload("res://entities/fire/fire.tscn").instance(), gpos)
+		entity_system.add_entity(preload("res://entities/fire/fire.tscn").instance(), gpos)
 
 func set_breath(value: float) -> void:
 	breath = value

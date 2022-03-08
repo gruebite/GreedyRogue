@@ -11,6 +11,8 @@ func _ready() -> void:
 func _on_entity_moved(_from: Vector2, to: Vector2) -> void:
 	var ents := entity_system.get_entities(to.x, to.y)
 	for ent in ents:
+		if ent == entity:
+			continue
 		var tripwire: Tripwire = ent.get_component(Tripwire.NAME)
 		if tripwire:
 			tripwire.trip(entity)

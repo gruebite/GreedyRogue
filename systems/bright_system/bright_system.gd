@@ -54,7 +54,7 @@ func cast_light(x: int, y: int, lit_radius: int, dim_radius: int) -> void:
 	_scratch_grid.clear()
 
 # Dynamic
-func add_bright(bright: Node2D) -> void:
+func register_bright(bright: Node2D) -> void:
 	if bright.dynamic:
 		brights[bright] = true
 	else:
@@ -63,7 +63,7 @@ func add_bright(bright: Node2D) -> void:
 		cast_light(gpos.x, gpos.y, bright.lit_radius, bright.dim_radius)
 		update_tiles()
 
-func remove_bright(bright: Node2D) -> void:
+func unregister_bright(bright: Node2D) -> void:
 	var _ignore = brights.erase(bright)
 
 func update_brights() -> void:
@@ -89,7 +89,7 @@ func update_brights() -> void:
 func update_tiles() -> void:
 	for x in Constants.MAP_COLUMNS:
 		for y in Constants.MAP_ROWS:
-			var brightness := Brightness.LIT#get_brightness(x, y)
+			var brightness := get_brightness(x, y)
 			tile_system.set_brightness(x, y, brightness)
 			entity_system.set_brightness(x, y, brightness)
 

@@ -12,4 +12,4 @@ func _ready() -> void:
 
 func _on_died(_by: Node2D) -> void:
 	if spawns:
-		entity_system.spawn_entity(spawns.instance(), entity.grid_position)
+		entity_system.add_entity(spawns.instance(), entity.grid_position)

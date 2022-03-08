@@ -23,7 +23,6 @@ func _ready() -> void:
 	_ignore = entity.get_component(Pickup.NAME).connect("picked_up", self, "_on_pickup")
 
 	entity.grid_position = Vector2(Constants.MAP_COLUMNS / 2, Constants.MAP_ROWS / 2).floor()
-	entity_system.update_entity(entity)
 
 func _exit_tree() -> void:
 	pass
@@ -44,11 +43,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event is InputEventKey and event.pressed:
 		match event.scancode:
 			KEY_F:
-				entity_system.spawn_entity(preload("res://entities/fire/fire.tscn").instance(), entity.grid_position)
+				entity_system.add_entity(preload("res://entities/fire/fire.tscn").instance(), entity.grid_position)
 			KEY_A:
-				entity_system.spawn_entity(preload("res://entities/falling_rock/falling_rock.tscn").instance(), entity.grid_position)
+				entity_system.add_entity(preload("res://entities/falling_rock/falling_rock.tscn").instance(), entity.grid_position)
 			KEY_R:
-				entity_system.spawn_entity(preload("res://entities/rock/rock.tscn").instance(), entity.grid_position)
+				entity_system.add_entity(preload("res://entities/rock/rock.tscn").instance(), entity.grid_position)
 
 	# Hacky mouse detection.
 	if event is InputEventMouseButton:
@@ -78,7 +77,7 @@ func _on_pickup(ent: Entity) -> void:
 	if ent.get_component(Gold.NAME):
 		backpack.gold += (randi() % 5) + 5
 		anxiety.anxiety -= 10
-		effect_system.spawn_effect(preload("res://effects/collect_gold/collect_gold.tscn").instance(), entity.position)
+		effect_system.add_effect(preload("res://effects/collect_gold/collect_gold.tscn").instance(), entity.position)
 		emit_signal("picked_up_gold")
 	if ent.get_component(Treasure.NAME):
 		emit_signal("picked_up_treasure")

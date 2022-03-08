@@ -26,14 +26,11 @@ func reset() -> void:
 	for ent in entities_node.get_children():
 		ent.queue_free()
 	player = player_scene.instance()
-	spawn_entity(player, Vector2.ZERO)
+	add_entity(player, Vector2.ZERO)
 
-func spawn_entity(ent: Node2D, gpos: Vector2) -> void:
-	ent.grid_position = gpos
-	add_entity(ent)
-
-func add_entity(entity: Entity) -> void:
-	#print("[entity_system.add] " + entity.name)
+func add_entity(entity: Node2D, gpos=null) -> void:
+	if gpos:
+		entity.grid_position = gpos
 	entities_node.add_child(entity)
 
 func update_entity(entity: Entity) -> void:
@@ -44,7 +41,7 @@ func update_entity(entity: Entity) -> void:
 	entity_positions[entity] = entity.grid_position
 	entity_grid[entity.grid_position][entity] = true
 
-func remove_entity(entity: Entity) -> void:
+func unregister_entity(entity: Entity) -> void:
 	#print("[entity_system.remove] " + entity.name)
 	if entity_positions.has(entity):
 		var old_position: Vector2 = entity_positions[entity]

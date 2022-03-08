@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://components/anxiety/anxiety.gd"
 }, {
+"base": "Entity",
+"class": "Artifact",
+"language": "GDScript",
+"path": "res://components/backpack/artifacts/artifact.gd"
+}, {
 "base": "Component",
 "class": "Attack",
 "language": "GDScript",
@@ -343,6 +348,7 @@ _global_script_class_icons={
 "Animated": "",
 "Antimatter": "",
 "Anxiety": "",
+"Artifact": "",
 "Attack": "",
 "Backpack": "",
 "Bright": "",

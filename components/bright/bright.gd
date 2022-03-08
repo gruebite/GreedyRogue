@@ -11,7 +11,7 @@ export var dim_radius := 3
 onready var bright_system: BrightSystem = find_system(BrightSystem.GROUP_NAME)
 
 func _ready() -> void:
-	bright_system.add_bright(self)
-	
+	bright_system.register_bright(self)
+
 func _exit_tree() -> void:
-	bright_system.remove_bright(self)
+	bright_system.unregister_bright(self)

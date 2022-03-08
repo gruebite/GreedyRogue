@@ -15,6 +15,8 @@ func _on_in_turn() -> void:
 	var epos := entity.grid_position
 	var ents := entity_system.get_entities(epos.x, epos.y)
 	for ent in ents:
+		if ent == entity:
+			continue
 		if ent.get_component(Pickupable.NAME):
 			emit_signal("picked_up", ent)
 			ent.queue_free()

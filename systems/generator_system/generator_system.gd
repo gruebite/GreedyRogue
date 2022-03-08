@@ -205,6 +205,7 @@ func generate() -> void:
 
 	var player_spawn := walker.exit_tiles.random(walker.rng) + Vector2(1, 1)
 	entity_system.player.grid_position = player_spawn
+	# XXX: Kinda hacky.  Should be handled by "move", but we don't want to trigger components.
 	entity_system.update_entity(entity_system.player)
 
 	var farthest_exit := player_spawn

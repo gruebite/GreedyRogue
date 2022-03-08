@@ -64,7 +64,6 @@ func move_to(ent: Entity, desired: Vector2) -> void:
 			return
 
 	ent.move(desired)
-	entity_system.update_entity(ent)
 
 func can_see(from: Entity, to: Entity, dist: int) -> bool:
 	var fpos := from.grid_position
@@ -78,6 +77,8 @@ func can_see(from: Entity, to: Entity, dist: int) -> bool:
 	return true
 
 func on_lava(x: int, y: int) -> bool:
+	if out_of_bounds(x, y):
+		return false
 	var yep := false
 	for matter in entity_system.get_components(x, y, Matter.NAME):
 		if Matter.LAVA & matter.mask:

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://components/backpack/artifacts/dragon_egg/dragon_egg.gd" type="Script" id=1]
+[ext_resource path="res://components/display/display.tscn" type="PackedScene" id=2]
+
+[node name="DragonEgg" type="Node2D"]
+script = ExtResource( 1 )
+description = "A large dragon egg that glows."
+
+[node name="Display" parent="." instance=ExtResource( 2 )]
+lit_pos = Vector2( 0, 480 )

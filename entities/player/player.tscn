@@ -54,12 +54,12 @@ bump_mask = 30
 
 [node name="Flammable" parent="." instance=ExtResource( 5 )]
 
-[node name="Presence" parent="." instance=ExtResource( 4 )]
-
 [node name="Backpack" parent="." instance=ExtResource( 8 )]
 
 [node name="Pickup" parent="." instance=ExtResource( 7 )]
 
 [node name="Controller" parent="." instance=ExtResource( 3 )]
+
+[node name="Presence" parent="." instance=ExtResource( 4 )]
 
 [editable path="Display"]

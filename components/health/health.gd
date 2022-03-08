@@ -26,7 +26,7 @@ func set_health(to: int) -> void:
 	if to < 0: to = 0
 	if to > max_health: to = max_health
 	if to < health:
-		effect_system.spawn_effect(preload("res://effects/blood/blood.tscn").instance(), entity.position)
+		effect_system.add_effect(preload("res://effects/blood/blood.tscn").instance(), entity.position)
 		flash()
 	health = to
 	if health == 0:
