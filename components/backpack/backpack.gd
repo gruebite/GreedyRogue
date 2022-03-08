@@ -47,6 +47,11 @@ func add_artifact(n: String) -> void:
 	artifact.connect("charge_changed", self, "_on_charge_changed", [artifact])
 	emit_signal("gained_artifact", artifact)
 
+func get_artifact(index: int) -> Node2D:
+	if index < 0 or index >= get_child_count():
+		return null
+	return get_child(index) as Node2D
+
 func get_artifacts() -> Array:
 	return get_children()
 

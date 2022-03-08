@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/display/display.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://components/bumpable/bumpable.tscn" type="PackedScene" id=13]
 [ext_resource path="res://components/attack/attack.tscn" type="PackedScene" id=14]
 [ext_resource path="res://components/defend/defend.tscn" type="PackedScene" id=15]
+[ext_resource path="res://components/arrows/arrows.tscn" type="PackedScene" id=16]
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -31,10 +32,13 @@ region_rect = Rect2( 64, 256, 16, 16 )
 [node name="Dim" parent="Display" index="2"]
 region_rect = Rect2( 0, 256, 16, 16 )
 
+[node name="Arrows" parent="." instance=ExtResource( 16 )]
+visible = false
+
 [node name="Bright" parent="." instance=ExtResource( 6 )]
 dynamic = true
-lit_radius = 3
 dim_radius = 12
+lit_radius = 3
 
 [node name="Health" parent="." instance=ExtResource( 10 )]
 

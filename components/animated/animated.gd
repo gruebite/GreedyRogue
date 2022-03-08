@@ -12,6 +12,8 @@ export(Brightness.Enum) var brightness: int = Brightness.LIT setget set_brightne
 export var frame: int = 0 setget set_frame
 export var playing: bool = false setget set_playing
 
+export var force_sprite := false
+
 func _ready() -> void:
 	# Order matters here (because AnimatedSprite), can't rely on idle frames.
 	self.ascii_frames = ascii_frames
@@ -45,13 +47,13 @@ func set_brightness(to: int) -> void:
 func set_ascii_frames(frames: SpriteFrames) -> void:
 	ascii_frames = frames
 	if not is_inside_tree(): yield(self, "ready")
-	if Constants.ASCII:
+	if Constants.ASCII and not force_sprite:
 		$Sprite.frames = frames
 
 func set_sprite_frames(frames: SpriteFrames) -> void:
 	sprite_frames = frames
 	if not is_inside_tree(): yield(self, "ready")
-	if not Constants.ASCII:
+	if not Constants.ASCII or force_sprite:
 		$Sprite.frames = frames
 
 func set_frame(f: int) -> void:

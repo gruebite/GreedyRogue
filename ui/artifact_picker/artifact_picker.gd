@@ -30,6 +30,20 @@ func level_picks(lvls: Array) -> void:
 		else:
 			artifact_actions[i].text = UPGRADE + "[" + str(i + 1) + "]"
 
+func _gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		_on_action_pressed(-1)
+		accept_event()
+	elif event.is_action_pressed("ui_1"):
+		_on_action_pressed(0)
+		accept_event()
+	elif event.is_action_pressed("ui_2"):
+		_on_action_pressed(1)
+		accept_event()
+	elif event.is_action_pressed("ui_3"):
+		_on_action_pressed(2)
+		accept_event()
+
 func _on_action_pressed(index: int) -> void:
 	var art_name: String = "" if index == -1 else artifact_picks[index].artifact_name
 	emit_signal("picked", art_name)

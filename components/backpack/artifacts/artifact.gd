@@ -10,6 +10,7 @@ export(String, MULTILINE) var description := ""
 export(PoolIntArray) var max_charges := [0]
 export var consumed := false
 export var passive := false
+export var directional := false
 
 export var level: int = 0 setget set_level
 export var charge: int = 0 setget set_charge
@@ -45,6 +46,13 @@ func _on_out_of_turn() -> void:
 
 func _on_moved() -> void:
 	pass
+
+# Override.
+func use(_dir: int) -> bool:
+	return true
+
+func usable() -> bool:
+	return not passive and self.charge_p == 1.0
 
 func get_max_level() -> int:
 	return max_charges.size() - 1

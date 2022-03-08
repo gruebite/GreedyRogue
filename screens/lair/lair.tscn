@@ -243,5 +243,11 @@ valign = 1
 
 [node name="ArtifactPicker" parent="UI" instance=ExtResource( 15 )]
 visible = false
+focus_mode = 2
 
+[connection signal="pressed" from="UI/HUD/VBoxContainer/Treasures/ArtifactContainer0" to="." method="_on_use_artifact" binds= [ 0 ]]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/Treasures/ArtifactContainer1" to="." method="_on_use_artifact" binds= [ 1 ]]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/Treasures/ArtifactContainer2" to="." method="_on_use_artifact" binds= [ 2 ]]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/Treasures/ArtifactContainer3" to="." method="_on_use_artifact" binds= [ 3 ]]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/Treasures/ArtifactContainer4" to="." method="_on_use_artifact" binds= [ 4 ]]
 [connection signal="picked" from="UI/ArtifactPicker" to="." method="_on_artifact_picked"]

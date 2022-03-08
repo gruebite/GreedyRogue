@@ -7,6 +7,8 @@
 script = ExtResource( 1 )
 layer = 0
 description = "You can fly!"
+max_charges = PoolIntArray( 100, 80, 60 )
+directional = true
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 visible = false

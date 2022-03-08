@@ -6,6 +6,7 @@ export var hide_charge := false
 export var hide_level := false
 export var always_selectabled := false
 
+var activated := false
 var artifact_name := ""
 
 func _ready() -> void:
@@ -13,6 +14,15 @@ func _ready() -> void:
 		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.hide()
 	if hide_level:
 		$MarginContainer/Foreground/DescriptionContainer/Title/Level.hide()
+
+func _process(_delta: float) -> void:
+	if not activated:
+		$NinePatchRect.hide()
+		return
+
+	var p := (sin(OS.get_ticks_msec() / 300.0) + 1) * 0.5
+	$NinePatchRect.modulate = input_gradient.interpolate(p)
+	$NinePatchRect.show()
 
 func present_artifact(artifact: Artifact) -> void:
 	artifact.get_component(Display.NAME).show()
@@ -30,5 +40,9 @@ func present_artifact(artifact: Artifact) -> void:
 
 func update_artifact(artifact: Artifact) -> void:
 	$MarginContainer/Foreground/DescriptionContainer/Title/Level.text = str("♦").repeat(artifact.level + 1)
+	if artifact.charge_p < 1 and not artifact.passive:
+		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.modulate = Color(1, 1, 1, 0.5)
+	else:
+		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.modulate = Color(1, 1, 1, 1)
 	var cp := artifact.charge_p * 100.0
 	$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.value = cp

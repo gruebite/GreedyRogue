@@ -37,7 +37,8 @@ func _process(_delta: float) -> void:
 		_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
 		_ignore = player.get_component(Controller.NAME).connect("picked_up_gold", self, "_on_picked_up_gold")
 		_ignore = player.get_component(Controller.NAME).connect("picked_up_treasure", self, "_on_picked_up_treasure")
-
+		_ignore = player.get_component(Controller.NAME).connect("activated_artifact", self, "_on_activated_artifact")
+		_ignore = player.get_component(Controller.NAME).connect("deactivated_artifact", self, "_on_deactivated_artifact")
 
 func _input(event: InputEvent) -> void:
 	if not $UI/Message.visible:
@@ -113,6 +114,17 @@ func _on_picked_up_treasure() -> void:
 	var arts = Artifacts.random_treasures($EntitySystem.player.get_component(Backpack.NAME))
 	pick_artifact(arts)
 
+func _on_use_artifact(index: int) -> void:
+	$EntitySystem.player.get_component(Controller.NAME).use_artifact(index)
+
+func _on_activated_artifact(index: int) -> void:
+	var treasures := $UI/HUD/VBoxContainer/Treasures
+	treasures.get_child(index).activated = true
+
+func _on_deactivated_artifact(index: int) -> void:
+	var treasures := $UI/HUD/VBoxContainer/Treasures
+	treasures.get_child(index).activated = false
+
 func regenerate() -> void:
 	game_over = false
 	show_message("Loading")
@@ -135,6 +147,7 @@ func hide_message() -> void:
 func pick_artifact(arts: Array) -> void:
 	var backpack: Backpack = $EntitySystem.player.get_component(Backpack.NAME)
 	$UI/ArtifactPicker.show()
+	$UI/ArtifactPicker.grab_focus()
 	$UI/ArtifactPicker.present_picks(arts)
 	var lvls := []
 	for i in 3:

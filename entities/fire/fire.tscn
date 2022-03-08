@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/animated/animated.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://components/matter/matter.tscn" type="PackedScene" id=8]
 [ext_resource path="res://components/antimatter/antimatter.tscn" type="PackedScene" id=9]
 [ext_resource path="res://components/bright/bright.tscn" type="PackedScene" id=10]
+[ext_resource path="res://components/jumpable/jumpable.tscn" type="PackedScene" id=11]
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 5 )
@@ -56,6 +57,8 @@ ascii_frames = SubResource( 1 )
 playing = true
 
 [node name="Presence" parent="." instance=ExtResource( 3 )]
+
+[node name="Jumpable" parent="." instance=ExtResource( 11 )]
 
 [node name="Bright" parent="." instance=ExtResource( 10 )]
 dynamic = true

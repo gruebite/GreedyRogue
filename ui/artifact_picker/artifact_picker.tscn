@@ -1,32 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/artifact_picker/artifact_picker.gd" type="Script" id=1]
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=2]
 [ext_resource path="res://ui/artifact_container/artifact_container.tscn" type="PackedScene" id=3]
-
-[sub_resource type="InputEventKey" id=4]
-scancode = 49
-
-[sub_resource type="ShortCut" id=5]
-shortcut = SubResource( 4 )
-
-[sub_resource type="InputEventKey" id=6]
-scancode = 50
-
-[sub_resource type="ShortCut" id=7]
-shortcut = SubResource( 6 )
-
-[sub_resource type="InputEventKey" id=8]
-scancode = 51
-
-[sub_resource type="ShortCut" id=3]
-shortcut = SubResource( 8 )
-
-[sub_resource type="InputEventKey" id=1]
-scancode = 16777217
-
-[sub_resource type="ShortCut" id=2]
-shortcut = SubResource( 1 )
 
 [node name="ArtifactPicker" type="CenterContainer"]
 margin_left = 7.0
@@ -80,6 +56,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 320.0
 margin_bottom = 80.0
+focus_mode = 0
 hide_charge = true
 hide_level = true
 always_selectabled = true
@@ -118,7 +95,6 @@ margin_left = 96.0
 margin_right = 298.0
 margin_bottom = 19.0
 size_flags_horizontal = 3
-shortcut = SubResource( 5 )
 text = "Upgrade! [1]"
 
 [node name="Action2" type="Button" parent="Panel/MarginContainer/VBoxContainer/Actions"]
@@ -126,7 +102,6 @@ margin_left = 394.0
 margin_right = 597.0
 margin_bottom = 19.0
 size_flags_horizontal = 3
-shortcut = SubResource( 7 )
 text = "New! [2]"
 
 [node name="Action3" type="Button" parent="Panel/MarginContainer/VBoxContainer/Actions"]
@@ -134,7 +109,6 @@ margin_left = 693.0
 margin_right = 896.0
 margin_bottom = 19.0
 size_flags_horizontal = 3
-shortcut = SubResource( 3 )
 text = "Consume! [3]"
 
 [node name="Control2" type="Control" parent="Panel/MarginContainer/VBoxContainer/Actions"]
@@ -149,7 +123,6 @@ margin_right = 613.0
 margin_bottom = 183.0
 rect_min_size = Vector2( 235, 0 )
 size_flags_horizontal = 4
-shortcut = SubResource( 2 )
 text = "Discard [Esc]"
 
 [connection signal="mouse_entered" from="Panel/MarginContainer/VBoxContainer/Artifacts/ArtifactContainer1" to="." method="_on_considering" binds= [ 0 ]]
