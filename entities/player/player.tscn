@@ -1,21 +1,22 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
-[ext_resource path="res://components/display/display.tscn" type="PackedScene" id=2]
-[ext_resource path="res://components/controller/controller.tscn" type="PackedScene" id=3]
-[ext_resource path="res://components/presence/presence.tscn" type="PackedScene" id=4]
-[ext_resource path="res://components/flammable/flammable.tscn" type="PackedScene" id=5]
-[ext_resource path="res://components/bright/bright.tscn" type="PackedScene" id=6]
-[ext_resource path="res://components/pickup/pickup.tscn" type="PackedScene" id=7]
-[ext_resource path="res://components/backpack/backpack.tscn" type="PackedScene" id=8]
-[ext_resource path="res://components/anxiety/anxiety.tscn" type="PackedScene" id=9]
-[ext_resource path="res://components/health/health.tscn" type="PackedScene" id=10]
-[ext_resource path="res://components/grounded/grounded.tscn" type="PackedScene" id=11]
-[ext_resource path="res://components/bumper/bumper.tscn" type="PackedScene" id=12]
-[ext_resource path="res://components/bumpable/bumpable.tscn" type="PackedScene" id=13]
-[ext_resource path="res://components/attack/attack.tscn" type="PackedScene" id=14]
-[ext_resource path="res://components/defend/defend.tscn" type="PackedScene" id=15]
-[ext_resource path="res://components/arrows/arrows.tscn" type="PackedScene" id=16]
+[ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
+[ext_resource path="res://components/thinking/controller/controller.tscn" type="PackedScene" id=3]
+[ext_resource path="res://components/reactive/presence/presence.tscn" type="PackedScene" id=4]
+[ext_resource path="res://components/passive/flammable/flammable.tscn" type="PackedScene" id=5]
+[ext_resource path="res://components/reactive/bright/bright.tscn" type="PackedScene" id=6]
+[ext_resource path="res://components/active/pickup/pickup.tscn" type="PackedScene" id=7]
+[ext_resource path="res://components/reactive/backpack/backpack.tscn" type="PackedScene" id=8]
+[ext_resource path="res://components/reactive/anxiety/anxiety.tscn" type="PackedScene" id=9]
+[ext_resource path="res://components/reactive/health/health.tscn" type="PackedScene" id=10]
+[ext_resource path="res://components/active/tripper/tripper.tscn" type="PackedScene" id=11]
+[ext_resource path="res://components/active/bumper/bumper.tscn" type="PackedScene" id=12]
+[ext_resource path="res://components/passive/bumpable/bumpable.tscn" type="PackedScene" id=13]
+[ext_resource path="res://components/coactive/attacker/attacker.tscn" type="PackedScene" id=14]
+[ext_resource path="res://components/reactive/defender/defender.tscn" type="PackedScene" id=15]
+[ext_resource path="res://components/visual/arrows/arrows.tscn" type="PackedScene" id=16]
+[ext_resource path="res://components/coactive/toppler/toppler.tscn" type="PackedScene" id=17]
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -35,35 +36,37 @@ region_rect = Rect2( 0, 256, 16, 16 )
 [node name="Arrows" parent="." instance=ExtResource( 16 )]
 visible = false
 
-[node name="Bright" parent="." instance=ExtResource( 6 )]
-dynamic = true
-dim_radius = 12
-lit_radius = 3
+[node name="Bumpable" parent="." instance=ExtResource( 13 )]
+bump_mask = 1
+
+[node name="Flammable" parent="." instance=ExtResource( 5 )]
+
+[node name="Defender" parent="." instance=ExtResource( 15 )]
+
+[node name="Tripper" parent="." instance=ExtResource( 11 )]
+
+[node name="Bumper" parent="." instance=ExtResource( 12 )]
+bump_mask = 30
+
+[node name="Toppler" parent="." instance=ExtResource( 17 )]
+
+[node name="Attacker" parent="." instance=ExtResource( 14 )]
+
+[node name="Presence" parent="." instance=ExtResource( 4 )]
 
 [node name="Health" parent="." instance=ExtResource( 10 )]
 
 [node name="Anxiety" parent="." instance=ExtResource( 9 )]
 
-[node name="Bumpable" parent="." instance=ExtResource( 13 )]
-bump_mask = 1
-
-[node name="Bumper" parent="." instance=ExtResource( 12 )]
-bump_mask = 30
-
-[node name="Defend" parent="." instance=ExtResource( 15 )]
-
-[node name="Attack" parent="." instance=ExtResource( 14 )]
-
-[node name="Grounded" parent="." instance=ExtResource( 11 )]
-
-[node name="Flammable" parent="." instance=ExtResource( 5 )]
+[node name="Bright" parent="." instance=ExtResource( 6 )]
+dynamic = true
+dim_radius = 12
+lit_radius = 3
 
 [node name="Backpack" parent="." instance=ExtResource( 8 )]
 
 [node name="Pickup" parent="." instance=ExtResource( 7 )]
 
 [node name="Controller" parent="." instance=ExtResource( 3 )]
-
-[node name="Presence" parent="." instance=ExtResource( 4 )]
 
 [editable path="Display"]

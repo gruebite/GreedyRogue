@@ -151,7 +151,7 @@ modulate = Color( 1, 0.741176, 0.25098, 1 )
 margin_top = 132.0
 margin_right = 320.0
 margin_bottom = 149.0
-text = "Treasures"
+text = "Artifacts"
 align = 1
 
 [node name="Treasures" type="VBoxContainer" parent="UI/HUD/VBoxContainer"]
