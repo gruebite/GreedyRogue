@@ -65,6 +65,7 @@ func add_artifact(n: String) -> void:
 	artifact.connect("level_changed", self, "_on_level_changed", [artifact])
 	artifact.connect("charge_changed", self, "_on_charge_changed", [artifact])
 	emit_signal("gained_artifact", artifact)
+	artifact.charge = artifact.max_charge
 
 func get_artifact(index: int) -> Node2D:
 	if index < 0 or index >= get_child_count():

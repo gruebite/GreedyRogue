@@ -24,17 +24,17 @@ func _process(_delta: float) -> void:
 	$NinePatchRect.modulate = input_gradient.interpolate(p)
 	$NinePatchRect.show()
 
-func present_artifact(artifact: Artifact) -> void:
+func present_artifact(art_name: String) -> void:
+	var artifact: Artifact = Artifacts.TABLE[art_name].instance()
+	artifact_name = art_name
 	artifact.get_component(Display.NAME).show()
 	for c in $MarginContainer/Foreground/EntityContainer.get_children():
 		c.queue_free()
-	yield(get_tree(), "idle_frame")
-	artifact_name = artifact.name
 	$MarginContainer/Foreground/EntityContainer.add_child(artifact)
 
 	disabled = artifact.passive and not always_selectabled
 
-	$MarginContainer/Foreground/DescriptionContainer/Title/Name.text = artifact.name
+	$MarginContainer/Foreground/DescriptionContainer/Title/Name.text = art_name
 	$MarginContainer/Foreground/DescriptionContainer/Description.text = artifact.description
 	update_artifact(artifact)
 

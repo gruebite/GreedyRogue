@@ -2,11 +2,13 @@ extends Artifact
 
 onready var tile_system: TileSystem
 onready var entity_system: EntitySystem
+onready var navigation_system: NavigationSystem
 
 func _ready() -> void:
 	if backpack:
 		tile_system = backpack.find_system(TileSystem.GROUP_NAME)
 		entity_system = backpack.find_system(EntitySystem.GROUP_NAME)
+		navigation_system = backpack.find_system(NavigationSystem.GROUP_NAME)
 
 func _on_out_of_turn() -> void:
 	self.charge += 1
@@ -19,22 +21,25 @@ func use(dir: int) -> bool:
 	while true:
 		var gpos = backpack.entity.grid_position + dv * dist
 		if tile_system.blocks_movement(gpos.x, gpos.y):
-			break
+			return false
+		# Can jump over jumpables, a place is clear if we're not a bumper or there isn't a
+		# bumpable we can bump.
 		var entities := entity_system.get_entities(gpos.x, gpos.y)
-		var clear := true
+		# We assume to land.  If there are entities we check if they can be jumped, or it's not
+		# clear to land.
+		var landing := true
 		for ent in entities:
 			var bumpable = ent.get_component(Bumpable.NAME)
 			var jumpable = ent.get_component(Jumpable.NAME)
-			# Entities must be jumpable.
-			if not jumpable:
-				return false
-			# Okay, they're jumpable.  If they're bumpable and must be bumped but can't, we also fail.
-			if bumpable:
-				clear = false
+			# We jumping or landing?
+			if jumpable:
+				landing = false
+			# Can we pass?
+			if bumper and bumpable:
 				if bumpable.must_bump and not bumper.does_bump(bumpable):
 					return false
 
-		if clear:
+		if landing:
 			self.charge = 0
 			backpack.entity.move(gpos)
 			return true

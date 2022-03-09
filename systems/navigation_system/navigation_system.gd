@@ -18,31 +18,35 @@ func is_edge(x: int, y: int) -> bool:
 
 ## An entity can move into a place if:
 ## - Not out of bounds
-## - The tile doesn't block movement
-## - Entity is not a Bumper
-## - There are no Bumpable entities we must bump (on same layer or flag), but can't
+## - If entity is a bumper:
+## 	- There are entities to bump
+##  - There are no entities that must be bumped (on same player), but can't
+## - The tile doesn't block movement (checked last to allow in-wall bumps, if entity)
+##
+## Note: Capability to move to a position doesn't imply you'll end up there.
 func can_move_to(ent: Entity, desired: Vector2) -> bool:
 	# OOB.
 	if out_of_bounds(desired.x, desired.y):
 		return false
 
+	var bumper: Bumper = ent.get_component(Bumper.NAME)
+	if bumper:
+		# Check bumpables.
+		var bumpables := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
+		var can_bump := false
+		for bumpable in bumpables:
+			var must_bump = bumpable.must_bump or bumpable.entity.layer == ent.layer
+			if bumper.bump_mask & bumpable.bump_mask > 0:
+				can_bump = true
+			elif must_bump:
+				return false
+		if can_bump:
+			return true
+
 	# Tile blocks movement?
 	var tile := tile_system.get_tile(desired.x, desired.y)
 	if Tile.LIST[tile][Tile.Property.BLOCKS_MOVEMENT]:
 		return false
-
-	# We don't bump.
-	var bumper: Bumper = ent.get_component(Bumper.NAME)
-	if not bumper:
-		return true
-
-	# Check bumpables.
-	var bumpables := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
-	for bumpable in bumpables:
-		var must_bump = bumpable.must_bump or bumpable.entity.layer == ent.layer
-		# At least one is bumpable that we can't bump.
-		if must_bump and (bumper.bump_mask & bumpable.bump_mask) == 0:
-			return false
 	return true
 
 func move_to(ent: Entity, desired: Vector2) -> void:

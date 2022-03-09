@@ -15,6 +15,7 @@ export var directional := false
 export var level: int = 0 setget set_level
 export var charge: int = 0 setget set_charge
 var max_level: int setget , get_max_level
+var max_charge: int setget , get_max_charge
 var charge_p: float setget , get_charge_p
 
 ## Null if somewhere else.
@@ -56,6 +57,9 @@ func usable() -> bool:
 
 func get_max_level() -> int:
 	return max_charges.size() - 1
+
+func get_max_charge() -> int:
+	return max_charges[level]
 
 func set_level(to: int) -> void:
 	if to < 0: to = 0

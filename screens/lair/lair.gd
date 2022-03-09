@@ -39,6 +39,10 @@ func _process(_delta: float) -> void:
 		_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
 		_ignore = player.get_component(Controller.NAME).connect("activated_artifact", self, "_on_activated_artifact")
 		_ignore = player.get_component(Controller.NAME).connect("deactivated_artifact", self, "_on_deactivated_artifact")
+		# Kinda hacky.
+		_on_health_changed(1, 1)
+		_on_anxiety_changed(0, 1)
+		_on_gold_changed(0)
 
 func _input(event: InputEvent) -> void:
 	if not $UI/Message.visible:
@@ -67,7 +71,7 @@ func _on_gained_artifact(artifact: Artifact) -> void:
 	for i in treasures.get_child_count():
 		var t := treasures.get_child(i)
 		if not t.visible:
-			t.present_artifact(Artifacts.TABLE[artifact.name].instance())
+			t.present_artifact(artifact.name)
 			t.show()
 			break
 
@@ -75,6 +79,8 @@ func _on_artifact_level_changed(artifact: Artifact, _to: int, _mx: int) -> void:
 	var treasures := $UI/HUD/VBoxContainer/Treasures
 	for i in treasures.get_child_count():
 		var t := treasures.get_child(i)
+		if not t.visible:
+			break
 		if t.artifact_name == artifact.name:
 			t.update_artifact(artifact)
 			break
@@ -83,6 +89,8 @@ func _on_artifact_charge_changed(artifact: Artifact, _to: int, _mx: int) -> void
 	var treasures := $UI/HUD/VBoxContainer/Treasures
 	for i in treasures.get_child_count():
 		var t := treasures.get_child(i)
+		if not t.visible:
+			break
 		if t.artifact_name == artifact.name:
 			t.update_artifact(artifact)
 			break
@@ -129,6 +137,10 @@ func regenerate() -> void:
 	game_over = false
 	show_message("Loading")
 	$UI/Loading.show()
+
+	var treasures := $UI/HUD/VBoxContainer/Treasures
+	for t in treasures.get_children():
+		t.hide()
 	loading = $GeneratorSystem.generate()
 
 func show_message(msg: String) -> void:
