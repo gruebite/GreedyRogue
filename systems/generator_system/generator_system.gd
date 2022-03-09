@@ -14,9 +14,10 @@ func _ready() -> void:
 	add_to_group(GROUP_NAME)
 
 func generate() -> void:
+	# Reset bright first because entity_system reset will add the player.
+	bright_system.reset()
 	entity_system.reset()
 	hoard_system.reset()
-	bright_system.reset()
 
 	var walker := Walker.new()
 	walker.start(Constants.MAP_COLUMNS - 2, Constants.MAP_ROWS - 2)

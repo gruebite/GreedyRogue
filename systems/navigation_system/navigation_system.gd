@@ -89,3 +89,14 @@ func is_lava(x: int, y: int) -> bool:
 			yep = true
 			break
 	return yep
+
+# Should be able to do this smarter with the generation info.
+func find_random_unblocked() -> Vector2:
+	var tries := 50
+	while tries > 0:
+		var gpos := Vector2(randi() % Constants.MAP_COLUMNS, randi() % Constants.MAP_ROWS)
+		if not tile_system.blocks_movement(gpos.x, gpos.y):
+			return gpos
+		tries -= 1
+	# Default to center.
+	return Constants.MAP_SIZE / 2

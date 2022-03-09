@@ -13,6 +13,4 @@ charge = 200
 
 [node name="Display" parent="." instance=ExtResource( 1 )]
 visible = false
-position = Vector2( 16, 16 )
-scale = Vector2( 2, 2 )
 lit_pos = Vector2( 48, 480 )

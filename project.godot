@@ -165,11 +165,6 @@ _global_script_classes=[ {
 "path": "res://systems/entity_system/entity_system.gd"
 }, {
 "base": "Component",
-"class": "Falling",
-"language": "GDScript",
-"path": "res://components/reactive/falling/falling.gd"
-}, {
-"base": "Component",
 "class": "Flaming",
 "language": "GDScript",
 "path": "res://components/active/flaming/flaming.gd"
@@ -406,7 +401,6 @@ _global_script_class_icons={
 "Entity": "",
 "EntityStack": "",
 "EntitySystem": "",
-"Falling": "",
 "Flaming": "",
 "Flammable": "",
 "Fov": "",
