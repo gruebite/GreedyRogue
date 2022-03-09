@@ -6,7 +6,7 @@ const NAME := "Health"
 signal health_changed(to, mx)
 
 export var flashing_node_path := NodePath("../Display")
-export var max_health := 10 setget set_max_health
+export var max_health := 12 setget set_max_health
 var health := max_health setget set_health
 
 export var transparency: float = 0 setget set_transparency
@@ -14,13 +14,14 @@ export var transparency: float = 0 setget set_transparency
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
 
+onready var defender := entity.get_component(Defender.NAME)
+
 onready var flashing_node := get_node(flashing_node_path)
 
 func _ready() -> void:
 	var flammable := entity.get_component(Flammable.NAME)
 	if flammable:
 		var _ignore = flammable.connect("burned", self, "_on_burned")
-	var defender := entity.get_component(Defender.NAME)
 	if defender:
 		var _ignore = defender.connect("attacked", self, "_on_attacked")
 	emit_signal("health_changed", health, max_health)
@@ -32,7 +33,11 @@ func _on_burned(amount: int) -> void:
 	self.health -= amount
 
 func _on_attacked(by: Entity) -> void:
-	self.health -= by.get_component(Attacker.NAME).damage
+	var attacker: Attacker = by.get_component(Attacker.NAME)
+	var dmg: int = attacker.damage - defender.armor
+	if dmg <= 0:
+		return
+	self.health -= dmg
 
 func set_max_health(to: int) -> void:
 	if to < 0: to = 0

@@ -37,6 +37,6 @@ bump_mask = 3
 [node name="Presence" parent="." instance=ExtResource( 4 )]
 
 [node name="Health" parent="." instance=ExtResource( 10 )]
-max_health = 2
+max_health = 3
 
 [node name="Dragon" parent="." instance=ExtResource( 5 )]
