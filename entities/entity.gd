@@ -20,6 +20,9 @@ export(Layer) var layer := Layer.GROUND setget set_layer
 var dead := false
 var grid_position: Vector2 setget set_grid_position, get_grid_position
 
+func _ready() -> void:
+	self.layer = layer
+
 func set_grid_position(value: Vector2) -> void:
 	position = value * Constants.CELL_SIZE
 
