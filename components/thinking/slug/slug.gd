@@ -40,7 +40,7 @@ func _on_take_turn() -> void:
 				if navigation_system.can_move_to(entity, desired):
 					navigation_system.move_to(entity, desired)
 		PURSUING:
-			if randi() % 5:
+			if randi() % 3:
 				var dv := Direction.delta(navigation_system.cardinal_to(entity, entity_system.player))
 				var desired := entity.grid_position + dv
 				if navigation_system.can_move_to(entity, desired):
