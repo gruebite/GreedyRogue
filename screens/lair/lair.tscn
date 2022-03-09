@@ -157,7 +157,7 @@ align = 1
 [node name="Treasures" type="VBoxContainer" parent="UI/HUD/VBoxContainer"]
 margin_top = 165.0
 margin_right = 320.0
-margin_bottom = 720.0
+margin_bottom = 687.0
 size_flags_vertical = 3
 custom_constants/separation = 16
 
@@ -195,6 +195,12 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 320.0
 margin_bottom = 80.0
+
+[node name="Info" type="Label" parent="UI/HUD/VBoxContainer"]
+margin_top = 703.0
+margin_right = 320.0
+margin_bottom = 720.0
+align = 1
 
 [node name="Loading" type="Control" parent="UI"]
 visible = false

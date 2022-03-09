@@ -5,7 +5,10 @@ var loading = null
 var game_over := false
 var panicking := false
 
+var name_regex := RegEx.new()
+
 func _ready() -> void:
+	assert(name_regex.compile("([^@\\d]+)") == OK)
 	regenerate()
 
 func _process(_delta: float) -> void:
@@ -13,7 +16,25 @@ func _process(_delta: float) -> void:
 		$UI/HUD/VBoxContainer/Anxiety/Value/Progress.rect_position = Vector2(
 			randf() * 5 - 2.5, randf() * 5 - 2.5)
 
+	$UI/HUD/VBoxContainer/Info.text = ""
 	if not loading:
+		var mouse_pos := get_global_mouse_position()
+		if not Rect2(Vector2.ZERO, Constants.MAP_RESOLUTION).has_point(mouse_pos):
+			return
+		var mouse_grid_pos := (mouse_pos / Constants.CELL_VECTOR).floor()
+		if $BrightSystem.get_brightness(mouse_grid_pos.x, mouse_grid_pos.y) <= Brightness.DIM:
+			return
+		var top: Entity = $EntitySystem.get_first_top_entity(mouse_grid_pos.x, mouse_grid_pos.y)
+		if top:
+			$UI/HUD/VBoxContainer/Info.text = name_regex.search(top.name).get_string()
+		else:
+			match $TileSystem.get_tile(mouse_grid_pos.x, mouse_grid_pos.y):
+				Tile.WALL:
+					$UI/HUD/VBoxContainer/Info.text = "Wall"
+				Tile.EXIT:
+					$UI/HUD/VBoxContainer/Info.text = "Exit"
+				_:
+					$UI/HUD/VBoxContainer/Info.text = "Floor"
 		return
 
 	if loading is GDScriptFunctionState and loading.is_valid():
