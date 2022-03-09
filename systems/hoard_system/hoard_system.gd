@@ -15,7 +15,7 @@ func _ready() -> void:
 	add_to_group(GROUP_NAME)
 
 func reset() -> void:
-	gold_piles_remaining = 0
+	# We don't reset remaining because it should be managed automatically via `add_gold/remove_gold`
 	gold_piles_collected = 0
 
 func add_gold() -> void:
