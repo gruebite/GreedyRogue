@@ -7,6 +7,7 @@
 script = ExtResource( 2 )
 description = "Perfectly balanced"
 max_charges = PoolIntArray( 4, 2, 1 )
+directional = true
 
 [node name="Display" parent="." instance=ExtResource( 1 )]
 lit_pos = Vector2( 64, 496 )

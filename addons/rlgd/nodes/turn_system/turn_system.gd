@@ -55,6 +55,9 @@ func will_initiate_turn() -> void:
 	assert(can_initiate_turn())
 	state = IN_TURN
 
+func will_not_initiate_turn() -> void:
+	state = OUT_OF_TURN
+
 func initiate_turn() -> void:
 	emit_signal("initiated_turn")
 	taking_turn(self)

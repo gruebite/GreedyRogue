@@ -120,15 +120,19 @@ func use_artifact(index: int) -> void:
 		entity.get_component(Arrows.NAME).show()
 		emit_signal("activated_artifact", index)
 		return
+	turn_system.will_initiate_turn()
 	if artifact.use(-1):
-		turn_system.will_initiate_turn()
 		turn_system.initiate_turn()
+	else:
+		turn_system.will_not_initiate_turn()
 
 func chose_artifact_direction(dir: int) -> void:
 	assert(using_artifact != -1)
 	entity.get_component(Arrows.NAME).hide()
+	turn_system.will_initiate_turn()
 	if dir != -1 and backpack.get_artifact(using_artifact).use(dir):
-		turn_system.will_initiate_turn()
 		turn_system.initiate_turn()
+	else:
+		turn_system.will_not_initiate_turn()
 	emit_signal("deactivated_artifact", using_artifact)
 	using_artifact = -1
