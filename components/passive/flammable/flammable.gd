@@ -5,5 +5,8 @@ const NAME := "Flammable"
 
 signal burned(amount)
 
+var immune := false
+
 func burn(amount: int) -> void:
-	emit_signal("burned", amount)
+	if not immune:
+		emit_signal("burned", amount)

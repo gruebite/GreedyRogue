@@ -17,9 +17,11 @@ const NAMES := [
 	"Golden Chalice",
 	"Health Potion",
 	"Heart Piece",
+	#"Laser Gun",
 	"Liquid Courage",
 	"Power Bracelet",
-	"Sandglass",
+	#"Sandglass",
+	"Star in a Bottle",
 	"Winged Boots",
 ]
 
@@ -34,6 +36,7 @@ const TABLE := {
 	"Liquid Courage": preload("res://components/reactive/backpack/artifacts/liquid_courage/liquid_courage.tscn"),
 	"Power Bracelet": preload("res://components/reactive/backpack/artifacts/power_bracelet/power_bracelet.tscn"),
 	"Sandglass": preload("res://components/reactive/backpack/artifacts/sandglass/sandglass.tscn"),
+	"Star in a Bottle": preload("res://components/reactive/backpack/artifacts/star_in_a_bottle/star_in_a_bottle.tscn"),
 	"Winged Boots": preload("res://components/reactive/backpack/artifacts/winged_boots/winged_boots.tscn"),
 }
 
