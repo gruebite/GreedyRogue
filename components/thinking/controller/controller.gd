@@ -4,8 +4,6 @@ class_name Controller
 const NAME := "Controller"
 
 signal found_exit()
-signal picked_up_gold()
-signal picked_up_treasure()
 # Used visually.
 signal activated_artifact(index)
 signal deactivated_artifact(index)
@@ -14,7 +12,6 @@ onready var bright_sytem: BrightSystem = find_system(BrightSystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
-onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
 onready var navigation_system: NavigationSystem = find_system(NavigationSystem.GROUP_NAME)
 
 onready var backpack: Backpack = entity.get_component(Backpack.NAME)
@@ -26,7 +23,6 @@ var using_artifact := -1
 func _ready() -> void:
 	var _ignore
 	_ignore = turn_system.connect("out_of_turn", self, "_on_out_of_turn")
-	_ignore = entity.get_component(Pickup.NAME).connect("picked_up", self, "_on_pickup")
 
 	entity.grid_position = Vector2(Constants.MAP_COLUMNS / 2, Constants.MAP_ROWS / 2).floor()
 
@@ -111,15 +107,6 @@ func _on_out_of_turn() -> void:
 		# Can't exit through lava.
 		if not is_lava:
 			emit_signal("found_exit")
-
-func _on_pickup(ent: Entity) -> void:
-	if ent.get_component(Gold.NAME):
-		backpack.gold += (randi() % 5) + 5
-		anxiety.anxiety -= 10
-		effect_system.add_effect(preload("res://effects/collect_gold/collect_gold.tscn").instance(), entity.position)
-		emit_signal("picked_up_gold")
-	if ent.get_component(Treasure.NAME):
-		emit_signal("picked_up_treasure")
 
 func use_artifact(index: int) -> void:
 	var artifact: Artifact = backpack.get_artifact(index)

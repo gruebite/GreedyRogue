@@ -265,9 +265,9 @@ _global_script_classes=[ {
 "path": "res://addons/rlgd/pathing.gd"
 }, {
 "base": "Component",
-"class": "Pickup",
+"class": "Pickerupper",
 "language": "GDScript",
-"path": "res://components/active/pickup/pickup.gd"
+"path": "res://components/active/pickerupper/pickerupper.gd"
 }, {
 "base": "Component",
 "class": "Pickupable",
@@ -426,7 +426,7 @@ _global_script_class_icons={
 "NavigationSystem": "",
 "Palette": "",
 "Pathing": "",
-"Pickup": "",
+"Pickerupper": "",
 "Pickupable": "",
 "PointSet": "",
 "PointSets": "",

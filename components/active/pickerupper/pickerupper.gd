@@ -1,7 +1,7 @@
 extends Component
-class_name Pickup
+class_name Pickerupper
 
-const NAME := "Pickup"
+const NAME := "Pickerupper"
 
 signal picked_up(entity)
 
@@ -17,6 +17,9 @@ func _on_in_turn() -> void:
 	for ent in ents:
 		if ent == entity:
 			continue
-		if ent.get_component(Pickupable.NAME):
+		var pickupable: Pickupable = ent.get_component(Pickupable.NAME)
+		if pickupable:
+			pickupable.pickup(entity)
 			emit_signal("picked_up", ent)
+			# TODO: Is this necessary?  Can we have something else handle this?
 			ent.queue_free()

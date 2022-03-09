@@ -34,9 +34,9 @@ func _process(_delta: float) -> void:
 		_ignore = player.get_component(Anxiety.NAME).connect("anxiety_changed", self, "_on_anxiety_changed")
 		_ignore = player.get_component(Anxiety.NAME).connect("panicking", self, "_on_panicking")
 		_ignore = player.get_component(Anxiety.NAME).connect("calmed_down", self, "_on_calmed_down")
+		_ignore = player.get_component(Backpack.NAME).connect("picked_up_gold", self, "_on_picked_up_gold")
+		_ignore = player.get_component(Backpack.NAME).connect("picked_up_treasure", self, "_on_picked_up_treasure")
 		_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
-		_ignore = player.get_component(Controller.NAME).connect("picked_up_gold", self, "_on_picked_up_gold")
-		_ignore = player.get_component(Controller.NAME).connect("picked_up_treasure", self, "_on_picked_up_treasure")
 		_ignore = player.get_component(Controller.NAME).connect("activated_artifact", self, "_on_activated_artifact")
 		_ignore = player.get_component(Controller.NAME).connect("deactivated_artifact", self, "_on_deactivated_artifact")
 

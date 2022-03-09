@@ -6,7 +6,7 @@
 [ext_resource path="res://components/reactive/presence/presence.tscn" type="PackedScene" id=4]
 [ext_resource path="res://components/passive/flammable/flammable.tscn" type="PackedScene" id=5]
 [ext_resource path="res://components/reactive/bright/bright.tscn" type="PackedScene" id=6]
-[ext_resource path="res://components/active/pickup/pickup.tscn" type="PackedScene" id=7]
+[ext_resource path="res://components/active/pickerupper/pickerupper.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/reactive/backpack/backpack.tscn" type="PackedScene" id=8]
 [ext_resource path="res://components/reactive/anxiety/anxiety.tscn" type="PackedScene" id=9]
 [ext_resource path="res://components/reactive/health/health.tscn" type="PackedScene" id=10]
@@ -43,6 +43,8 @@ bump_mask = 1
 
 [node name="Defender" parent="." instance=ExtResource( 15 )]
 
+[node name="Pickerupper" parent="." instance=ExtResource( 7 )]
+
 [node name="Tripper" parent="." instance=ExtResource( 11 )]
 
 [node name="Bumper" parent="." instance=ExtResource( 12 )]
@@ -64,8 +66,7 @@ dim_radius = 12
 lit_radius = 3
 
 [node name="Backpack" parent="." instance=ExtResource( 8 )]
-
-[node name="Pickup" parent="." instance=ExtResource( 7 )]
+gold = null
 
 [node name="Controller" parent="." instance=ExtResource( 3 )]
 

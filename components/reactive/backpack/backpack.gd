@@ -5,6 +5,8 @@ const NAME := "Backpack"
 
 const MAX_ARTIFACTS := 5
 
+signal picked_up_gold()
+signal picked_up_treasure()
 signal gold_changed(to)
 signal gained_artifact(artifact)
 signal artifact_level_changed(artifact, to, mx)
@@ -12,9 +14,26 @@ signal artifact_charge_changed(artifact, to, mx)
 
 export var gold := 0 setget set_gold
 
+onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
+
 onready var health: Health = entity.get_component(Health.NAME)
 onready var anxiety: Anxiety = entity.get_component(Anxiety.NAME)
+
+func _ready() -> void:
+	var _ignore
+	var pickerupper: Pickerupper = entity.get_component(Pickerupper.NAME)
+	if pickerupper:
+		_ignore = pickerupper.connect("picked_up", self, "_on_picked_up")
+
+func _on_picked_up(ent: Entity) -> void:
+	if ent.get_component(Gold.NAME):
+		self.gold += (randi() % 5) + 5
+		anxiety.anxiety -= 10
+		effect_system.add_effect(preload("res://effects/collect_gold/collect_gold.tscn").instance(), entity.position)
+		emit_signal("picked_up_gold")
+	if ent.get_component(Treasure.NAME):
+		emit_signal("picked_up_treasure")
 
 func set_gold(to: int) -> void:
 	gold = to
@@ -39,7 +58,7 @@ func add_artifact(n: String) -> void:
 		existing.level += 1
 		existing.charge += 999
 		return
-	
+
 	assert(get_child_count() < MAX_ARTIFACTS)
 	var artifact = Artifacts.TABLE[n].instance()
 	add_child(artifact)
