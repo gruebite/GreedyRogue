@@ -1,0 +1,46 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=1]
+[ext_resource path="res://components/active/flaming/flaming.tscn" type="PackedScene" id=2]
+[ext_resource path="res://components/passive/jumpable/jumpable.tscn" type="PackedScene" id=3]
+[ext_resource path="res://components/active/antimatter/antimatter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://components/reactive/presence/presence.tscn" type="PackedScene" id=5]
+[ext_resource path="res://components/reactive/matter/matter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://components/reactive/bright/bright.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/entity.gd" type="Script" id=8]
+[ext_resource path="res://components/thinking/slug/slug.tscn" type="PackedScene" id=9]
+[ext_resource path="res://components/reactive/spawner/spawner.tscn" type="PackedScene" id=10]
+[ext_resource path="res://entities/lava/lava.tscn" type="PackedScene" id=11]
+[ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=12]
+
+[node name="MagmaSlug" type="Node2D"]
+script = ExtResource( 8 )
+layer = 0
+
+[node name="TurnTaker" parent="." instance=ExtResource( 12 )]
+
+[node name="Display" parent="." instance=ExtResource( 1 )]
+dim_pos = Vector2( 0, 272 )
+lit_pos = Vector2( 64, 272 )
+
+[node name="Jumpable" parent="." instance=ExtResource( 3 )]
+
+[node name="Antimatter" parent="." instance=ExtResource( 4 )]
+mask = 6
+
+[node name="Flaming" parent="." instance=ExtResource( 2 )]
+heat = 3
+
+[node name="Presence" parent="." instance=ExtResource( 5 )]
+
+[node name="Spawner" parent="." instance=ExtResource( 10 )]
+spawns = ExtResource( 11 )
+on_initiated_turn = true
+
+[node name="Matter" parent="." instance=ExtResource( 6 )]
+mask = 1
+
+[node name="Bright" parent="." instance=ExtResource( 7 )]
+dynamic = true
+
+[node name="Slug" parent="." instance=ExtResource( 9 )]

@@ -10,5 +10,4 @@ description = "More life."
 consumed = true
 
 [node name="Display" parent="." instance=ExtResource( 1 )]
-visible = false
 lit_pos = Vector2( 96, 480 )

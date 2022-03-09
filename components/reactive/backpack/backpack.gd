@@ -66,6 +66,7 @@ func add_artifact(n: String) -> void:
 	artifact.connect("charge_changed", self, "_on_charge_changed", [artifact])
 	emit_signal("gained_artifact", artifact)
 	artifact.charge = artifact.max_charge
+	artifact.get_component(Display.NAME).hide()
 
 func get_artifact(index: int) -> Node2D:
 	if index < 0 or index >= get_child_count():

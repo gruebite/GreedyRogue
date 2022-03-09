@@ -9,5 +9,4 @@ description = "Controls time."
 passive = true
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
-visible = false
 lit_pos = Vector2( 112, 480 )

@@ -53,4 +53,6 @@ func use(dir: int) -> bool:
 				at_least_1 = true
 		dist -= 1
 
+	if at_least_1:
+		self.charge = 0
 	return at_least_1

@@ -10,5 +10,4 @@ description = "Restores health."
 consumed = true
 
 [node name="Display" parent="." instance=ExtResource( 1 )]
-visible = false
 lit_pos = Vector2( 64, 480 )

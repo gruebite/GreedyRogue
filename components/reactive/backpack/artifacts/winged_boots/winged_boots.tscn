@@ -11,5 +11,4 @@ max_charges = PoolIntArray( 100, 80, 60 )
 directional = true
 
 [node name="Display" parent="." instance=ExtResource( 1 )]
-visible = false
 lit_pos = Vector2( 16, 480 )

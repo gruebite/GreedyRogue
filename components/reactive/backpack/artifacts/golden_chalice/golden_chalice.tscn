@@ -12,5 +12,4 @@ consumed = true
 charge = 200
 
 [node name="Display" parent="." instance=ExtResource( 1 )]
-visible = false
 lit_pos = Vector2( 48, 480 )

@@ -11,5 +11,4 @@ max_charges = PoolIntArray( 100, 200, 300 )
 passive = true
 
 [node name="Display" parent="." instance=ExtResource( 1 )]
-visible = false
 lit_pos = Vector2( 0, 480 )

@@ -14,4 +14,5 @@ func use(_dir: int) -> bool:
 	if health.health == health.max_health:
 		return false
 	health.health += 999
+	self.charge = 0
 	return true

@@ -18,6 +18,7 @@ enum {
 
 	# Tiles used only for generation.
 	LAVA_CARVING,
+	SLUG,
 	GOLD_PILE,
 	TREASURE_CHEST,
 	ROCK,

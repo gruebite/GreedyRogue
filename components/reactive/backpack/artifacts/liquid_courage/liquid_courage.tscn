@@ -10,5 +10,4 @@ description = "Handle more stress."
 consumed = true
 
 [node name="Display" parent="." instance=ExtResource( 1 )]
-visible = false
 lit_pos = Vector2( 80, 480 )

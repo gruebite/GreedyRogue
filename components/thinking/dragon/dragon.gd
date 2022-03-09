@@ -68,7 +68,7 @@ func _on_take_turn() -> void:
 				breath_timer -= 1
 		PURSUING:
 			if randi() % 5:
-				var dv := Direction.delta(cardinal_to_player())
+				var dv := Direction.delta(navigation_system.cardinal_to(entity, entity_system.player))
 				var desired := entity.grid_position + dv
 				if navigation_system.can_move_to(entity, desired):
 					navigation_system.move_to(entity, desired)
@@ -103,7 +103,7 @@ func check_transitions():
 				state = WANDERING
 			elif randf() <= breath_weapon_chance:
 				state = BREATHING
-				breath_dir = cardinal_to_player()
+				breath_dir = navigation_system.cardinal_to(entity, entity_system.player)
 				breath_timer = breath_weapon_time
 
 func wake_up() -> void:
@@ -130,21 +130,3 @@ func set_breath(value: float) -> void:
 	breath = value
 	if breathing_node:
 		breathing_node.scale = Vector2(breath, breath)
-
-func cardinal_to_player() -> int:
-	var vec := entity_system.player.grid_position - entity.grid_position
-	vec.x = sign(vec.x)
-	vec.y = sign(vec.y)
-	if vec.x != 0 and vec.y != 0:
-		if randi() % 2 == 0:
-			vec.x = 0
-		else:
-			vec.y = 0
-	if vec.x == 1:
-		return Direction.EAST
-	elif vec.y == 1:
-		return Direction.SOUTH
-	elif vec.x == -1:
-		return Direction.WEST
-	else:
-		return Direction.NORTH

@@ -11,4 +11,5 @@ func _on_out_of_turn() -> void:
 
 func use(_dir: int) -> bool:
 	navigation_system.move_to(backpack.entity, navigation_system.find_random_unblocked())
+	self.charge = 0
 	return true

@@ -62,11 +62,10 @@ bump_mask = 30
 
 [node name="Bright" parent="." instance=ExtResource( 6 )]
 dynamic = true
-dim_radius = 12
+dim_radius = 9
 lit_radius = 3
 
 [node name="Backpack" parent="." instance=ExtResource( 8 )]
-gold = null
 
 [node name="Controller" parent="." instance=ExtResource( 3 )]
 

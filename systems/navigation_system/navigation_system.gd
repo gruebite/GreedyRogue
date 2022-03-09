@@ -100,3 +100,21 @@ func find_random_unblocked() -> Vector2:
 		tries -= 1
 	# Default to center.
 	return Constants.MAP_SIZE / 2
+
+func cardinal_to(from: Entity, to: Entity) -> int:
+	var vec := to.grid_position - from.grid_position
+	vec.x = sign(vec.x)
+	vec.y = sign(vec.y)
+	if vec.x != 0 and vec.y != 0:
+		if randi() % 2 == 0:
+			vec.x = 0
+		else:
+			vec.y = 0
+	if vec.x == 1:
+		return Direction.EAST
+	elif vec.y == 1:
+		return Direction.SOUTH
+	elif vec.x == -1:
+		return Direction.WEST
+	else:
+		return Direction.NORTH

@@ -10,6 +10,13 @@ class_name TurnSystem
 const GROUP_NAME := "turn_system"
 const TURN_TAKER_GROUP_NAME := "turn_taker"
 
+enum Step {
+	INITIATED_TURN,
+	TAKE_TURN,
+	IN_TURN,
+	OUT_OF_TURN,
+}
+
 enum {
 	OUT_OF_TURN,
 	IN_TURN,

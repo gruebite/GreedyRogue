@@ -299,6 +299,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/rlgd/shadow_cast.gd"
 }, {
+"base": "Component",
+"class": "Slug",
+"language": "GDScript",
+"path": "res://components/thinking/slug/slug.gd"
+}, {
 "base": "Grid",
 "class": "SparseGrid",
 "language": "GDScript",
@@ -308,6 +313,11 @@ _global_script_classes=[ {
 "class": "SpawnOnDeath",
 "language": "GDScript",
 "path": "res://components/reactive/spawn_on_death/spawn_on_death.gd"
+}, {
+"base": "Component",
+"class": "Spawner",
+"language": "GDScript",
+"path": "res://components/reactive/spawner/spawner.gd"
 }, {
 "base": "Node2D",
 "class": "State",
@@ -428,8 +438,10 @@ _global_script_class_icons={
 "Quasi": "",
 "SecuritySystem": "",
 "ShadowCast": "",
+"Slug": "",
 "SparseGrid": "",
 "SpawnOnDeath": "",
+"Spawner": "",
 "State": "",
 "StateMachine": "",
 "Tile": "",

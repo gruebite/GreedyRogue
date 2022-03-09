@@ -21,6 +21,7 @@ func generate() -> void:
 
 	var walker := Walker.new()
 	walker.start(Constants.MAP_COLUMNS - 2, Constants.MAP_ROWS - 2)
+	walker.pin(tile_to_walker_tile(Tile.LAVA_CARVING))
 
 	var center := Vector2(Constants.MAP_COLUMNS / 2, Constants.MAP_ROWS / 2)
 
@@ -154,6 +155,15 @@ func generate() -> void:
 		walker.commit()
 
 	yield()
+	# Slugs
+
+	var slugs := 10
+	for i in slugs:
+		walker.goto_random_pinned(tile_to_walker_tile(Tile.LAVA_CARVING))
+		walker.mark(tile_to_walker_tile(Tile.SLUG))
+		walker.commit()
+
+	yield()
 	# Entities
 
 	var to_add := []
@@ -191,6 +201,16 @@ func generate() -> void:
 						walker.goto(x - 1, y - 1)
 						walker.mark(tile_to_walker_tile(Tile.LAVA_SETTLED))
 						ent = Entities.LAVA.instance()
+					elif tile == Tile.SLUG:
+						# Abyss blocks light, optimizes lava casts.
+						tile_system.set_tile(x, y, Tile.ABYSS_WALL)
+						# Set lava to a closed variant, so we have accurate map info.
+						walker.goto(x - 1, y - 1)
+						walker.mark(tile_to_walker_tile(Tile.LAVA_SETTLED))
+						ent = Entities.LAVA.instance()
+						ent.grid_position = Vector2(x, y)
+						to_add.append(ent)
+						ent = Entities.MAGMA_SLUG.instance()
 					ent.grid_position = Vector2(x, y)
 					to_add.append(ent)
 	walker.commit()

@@ -27,7 +27,6 @@ func _process(_delta: float) -> void:
 func present_artifact(art_name: String) -> void:
 	var artifact: Artifact = Artifacts.TABLE[art_name].instance()
 	artifact_name = art_name
-	artifact.get_component(Display.NAME).show()
 	for c in $MarginContainer/Foreground/EntityContainer.get_children():
 		c.queue_free()
 	$MarginContainer/Foreground/EntityContainer.add_child(artifact)

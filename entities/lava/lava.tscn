@@ -31,4 +31,3 @@ heat = 3
 mask = 1
 
 [node name="Bright" parent="." instance=ExtResource( 4 )]
-dim_radius = 5
