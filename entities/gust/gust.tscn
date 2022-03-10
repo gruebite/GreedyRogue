@@ -41,12 +41,12 @@ region = Rect2( 96, 448, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 7 ), SubResource( 3 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 7 ) ],
 "loop": true,
 "name": "dim",
 "speed": 15.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 5 ) ],
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "lit",
 "speed": 15.0
@@ -59,9 +59,9 @@ layer = 3
 [node name="TurnTaker" parent="." instance=ExtResource( 3 )]
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
+background_color = Color( 0, 0, 0, 1 )
 frames = SubResource( 1 )
-frame = 1
-playing = true
+jitter = false
 
 [node name="Flammable" parent="." instance=ExtResource( 13 )]
 
@@ -88,5 +88,6 @@ max_health = 1
 
 [node name="Elemental" parent="." instance=ExtResource( 10 )]
 fleeting = true
+idle_chance = 0.3
 
 [node name="GustBehavior" parent="." instance=ExtResource( 14 )]

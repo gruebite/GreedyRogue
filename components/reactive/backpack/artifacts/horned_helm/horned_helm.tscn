@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://components/reactive/backpack/artifacts/horned_helm/horned_helm.gd" type="Script" id=1]
+[ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/textures/ascii.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 112, 496, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "lit",
+"speed": 5.0
+} ]
+
+[node name="Horned Helm" type="Node2D"]
+script = ExtResource( 1 )
+layer = 0
+description = "Like a bull's horns"
+max_charges = PoolIntArray( 50, 20, 10 )
+directional = true
+
+[node name="Display" parent="." instance=ExtResource( 2 )]
+frames = SubResource( 2 )

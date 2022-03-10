@@ -51,13 +51,13 @@ animations = [ {
 
 [node name="Tornado" type="Node2D"]
 script = ExtResource( 1 )
-layer = 4
+layer = 5
 
 [node name="TurnTaker" parent="." instance=ExtResource( 3 )]
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
+background_color = Color( 0, 0, 0, 0 )
 frames = SubResource( 1 )
-frame = 1
 playing = true
 
 [node name="Harmer" parent="." instance=ExtResource( 5 )]
@@ -66,9 +66,10 @@ playing = true
 bump_mask = 4
 
 [node name="Spawner" parent="." instance=ExtResource( 11 )]
-count = 3
+unique = false
 spawns = ExtResource( 12 )
 on_initiated_turn = true
+on_in_turn = true
 
 [node name="Presence" parent="." instance=ExtResource( 7 )]
 

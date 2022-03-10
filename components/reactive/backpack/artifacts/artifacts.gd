@@ -17,6 +17,7 @@ const NAMES := [
 	"Golden Chalice",
 	"Health Potion",
 	"Heart Piece",
+	#"Horned Helm",
 	#"Laser Gun",
 	"Liquid Courage",
 	"Power Bracelet",
