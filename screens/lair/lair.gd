@@ -91,7 +91,7 @@ func _input(event: InputEvent) -> void:
 
 func _on_player_died(source: String) -> void:
 	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
-	show_message("Died from %s\nCollected %.0f%% of the gold" % [source, total_gold_p * 100])
+	show_message("Died from %s\nCollected %.0f%% of the gold" % [source, total_gold_p])
 	game_over = true
 
 func _on_picked_up_gold() -> void:

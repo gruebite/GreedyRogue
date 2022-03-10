@@ -20,6 +20,7 @@ enum Step {
 enum {
 	OUT_OF_TURN,
 	IN_TURN,
+	CANCEL_TURN,
 }
 
 ## Emitted when the turn is first initiated, before signaling turn takers.
@@ -28,6 +29,10 @@ signal initiated_turn()
 signal in_turn()
 ## Emitted when all turn takers say they're finished, and a new turn can be initiated.
 signal out_of_turn()
+## Emitted when the player initiates a turn but doesn't follow through.
+## If you're listening on out_of_turn to finish the turn, you should also
+## listen to this one.
+signal canceled_turn()
 
 var disabled := false
 var state: int = OUT_OF_TURN
@@ -44,9 +49,14 @@ func taking_turn(node: Node2D) -> void:
 
 func finish_turn(node: Node2D) -> void:
 	var _ignore = _turn_takers.erase(node)
-	if state == IN_TURN and _turn_takers.size() == 0:
-		state = OUT_OF_TURN
-		emit_signal("out_of_turn")
+	if _turn_takers.size() == 0:
+		match state:
+			IN_TURN:
+				state = OUT_OF_TURN
+				emit_signal("out_of_turn")
+			CANCEL_TURN:
+				state = OUT_OF_TURN
+				emit_signal("canceled_turn")
 
 func can_initiate_turn() -> bool:
 	return not disabled and state == OUT_OF_TURN
@@ -56,7 +66,8 @@ func will_initiate_turn() -> void:
 	state = IN_TURN
 
 func will_not_initiate_turn() -> void:
-	state = OUT_OF_TURN
+	state = CANCEL_TURN
+	finish_turn(self)
 
 func initiate_turn() -> void:
 	emit_signal("initiated_turn")

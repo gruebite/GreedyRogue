@@ -20,7 +20,10 @@ var _scratch_grid := SparseGrid.new()
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
-	var _ignore = turn_system.connect("out_of_turn", self, "_on_out_of_turn")
+	var _ignore
+	_ignore = turn_system.connect("out_of_turn", self, "_on_out_of_turn")
+	# We need to listen to cancels, because state can still change (mostly the player).
+	_ignore = turn_system.connect("canceled_turn", self, "_on_out_of_turn")
 
 func reset(keep_player: bool) -> void:
 	blocking_grid.clear()
