@@ -42,8 +42,8 @@ script = ExtResource( 1 )
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 frames = SubResource( 1 )
-frame = 1
 playing = true
+frame = 2
 
 [node name="Jumpable" parent="." instance=ExtResource( 11 )]
 
