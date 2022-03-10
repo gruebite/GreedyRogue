@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/reactive/defender/defender.tscn" type="PackedScene" id=2]
@@ -11,25 +11,26 @@
 [ext_resource path="res://components/coactive/attacker/attacker.tscn" type="PackedScene" id=9]
 [ext_resource path="res://components/reactive/health/health.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=11]
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 11 )
-region = Rect2( 64, 384, 16, 16 )
+[ext_resource path="res://components/passive/harmable/harmable.tscn" type="PackedScene" id=12]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 11 )
 region = Rect2( 0, 384, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 11 )
+region = Rect2( 64, 384, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 2 ) ],
-"loop": true,
-"name": "lit",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 3 ) ],
 "loop": true,
 "name": "dim",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "lit",
 "speed": 5.0
 } ]
 
@@ -42,6 +43,8 @@ layer = 4
 [node name="Display" parent="." instance=ExtResource( 3 )]
 background_color = Color( 0, 0, 0, 1 )
 frames = SubResource( 1 )
+
+[node name="Harmable" parent="." instance=ExtResource( 12 )]
 
 [node name="Bumpable" parent="." instance=ExtResource( 7 )]
 must_bump = true

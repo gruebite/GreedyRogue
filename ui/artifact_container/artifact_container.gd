@@ -26,6 +26,7 @@ func _process(_delta: float) -> void:
 
 func present_artifact(art_name: String) -> void:
 	var artifact: Artifact = Artifacts.TABLE[art_name].instance()
+	artifact.get_component(Display.NAME).brightness = Brightness.LIT
 	artifact_name = art_name
 	for c in $MarginContainer/Foreground/EntityContainer.get_children():
 		c.queue_free()

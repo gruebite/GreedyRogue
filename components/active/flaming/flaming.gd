@@ -19,4 +19,4 @@ func _on_in_turn() -> void:
 			continue
 		var flammable: Flammable = ent.get_component(Flammable.NAME)
 		if flammable:
-			flammable.burn(heat)
+			flammable.burn(entity)

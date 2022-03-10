@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -18,25 +18,26 @@
 [ext_resource path="res://components/visual/arrows/arrows.tscn" type="PackedScene" id=16]
 [ext_resource path="res://components/coactive/toppler/toppler.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=18]
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 18 )
-region = Rect2( 64, 256, 16, 16 )
+[ext_resource path="res://components/passive/harmable/harmable.tscn" type="PackedScene" id=19]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 18 )
 region = Rect2( 0, 256, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 18 )
+region = Rect2( 64, 256, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 2 ) ],
-"loop": true,
-"name": "lit",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ) ],
 "loop": true,
 "name": "dim",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "lit",
 "speed": 5.0
 } ]
 
@@ -56,6 +57,8 @@ visible = false
 
 [node name="Bumpable" parent="." instance=ExtResource( 13 )]
 bump_mask = 1
+
+[node name="Harmable" parent="." instance=ExtResource( 19 )]
 
 [node name="Flammable" parent="." instance=ExtResource( 5 )]
 

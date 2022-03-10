@@ -216,8 +216,8 @@ func generate() -> void:
 	walker.commit()
 
 	var dragon_count := 5
-	var golem_count := 20
-	var tornado_count := 1
+	var golem_count := 1
+	var tornado_count := 20
 	while true:
 		var pos := walker.opened_tiles.random(walker.rng) + Vector2(1, 1)
 		var ent: Entity

@@ -8,24 +8,24 @@
 [ext_resource path="res://components/passive/pickupable/pickupable.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=7]
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 7 )
-region = Rect2( 64, 320, 16, 16 )
-
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 7 )
 region = Rect2( 0, 320, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 320, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 4 ) ],
-"loop": true,
-"name": "lit",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 5 ) ],
 "loop": true,
 "name": "dim",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "lit",
 "speed": 5.0
 } ]
 

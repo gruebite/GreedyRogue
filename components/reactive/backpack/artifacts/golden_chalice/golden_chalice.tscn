@@ -1,7 +1,20 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=1]
 [ext_resource path="res://components/reactive/backpack/artifacts/golden_chalice/golden_chalice.gd" type="Script" id=2]
+[ext_resource path="res://assets/textures/ascii.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 480, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "lit",
+"speed": 5.0
+} ]
 
 [node name="Golden Chalice" type="Node2D"]
 script = ExtResource( 2 )
@@ -12,4 +25,4 @@ consumed = true
 charge = 200
 
 [node name="Display" parent="." instance=ExtResource( 1 )]
-lit_pos = Vector2( 48, 480 )
+frames = SubResource( 2 )

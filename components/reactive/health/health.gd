@@ -6,6 +6,10 @@ const NAME := "Health"
 signal health_changed(to, mx)
 
 export var flashing_node_path := NodePath("../Display")
+export var flaming_immune := false
+export var harm_immune := false
+export var attack_immune := false
+
 export var max_health := 12 setget set_max_health
 var health := max_health setget set_health
 
@@ -22,6 +26,9 @@ func _ready() -> void:
 	var flammable := entity.get_component(Flammable.NAME)
 	if flammable:
 		var _ignore = flammable.connect("burned", self, "_on_burned")
+	var harmable := entity.get_component(Harmable.NAME)
+	if harmable:
+		var _ignore = harmable.connect("harmed", self, "_on_harmed")
 	if defender:
 		var _ignore = defender.connect("attacked", self, "_on_attacked")
 	emit_signal("health_changed", health, max_health)
@@ -29,10 +36,19 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	turn_system.finish_turn(self)
 
-func _on_burned(amount: int) -> void:
-	self.health -= amount
+func _on_burned(by: Entity) -> void:
+	if flaming_immune:
+		return
+	self.health -= by.get_component(Flaming.NAME).heat
+
+func _on_harmed(by: Entity) -> void:
+	if harm_immune:
+		return
+	self.health -= by.get_component(Harmer.NAME).damage
 
 func _on_attacked(by: Entity) -> void:
+	if attack_immune:
+		return
 	var attacker: Attacker = by.get_component(Attacker.NAME)
 	var dmg: int = attacker.damage - defender.armor
 	if dmg <= 0:

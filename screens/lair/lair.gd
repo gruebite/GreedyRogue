@@ -18,6 +18,9 @@ func _process(_delta: float) -> void:
 
 	$UI/HUD/VBoxContainer/Info.text = ""
 	if not loading:
+		# We have a menu up or something.
+		if $TurnSystem.disabled:
+			return
 		var mouse_pos := get_global_mouse_position()
 		if not Rect2(Vector2.ZERO, Constants.MAP_RESOLUTION).has_point(mouse_pos):
 			return

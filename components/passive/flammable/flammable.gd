@@ -3,10 +3,10 @@ class_name Flammable
 
 const NAME := "Flammable"
 
-signal burned(amount)
+signal burned(by)
 
 var immune := false
 
-func burn(amount: int) -> void:
+func burn(entity: Entity) -> void:
 	if not immune:
-		emit_signal("burned", amount)
+		emit_signal("burned", entity)

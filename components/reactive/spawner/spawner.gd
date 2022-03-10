@@ -4,6 +4,7 @@ class_name Spawner
 const NAME := "Spawner"
 
 export var unique := true
+export var count := 1
 export(PackedScene) var spawns
 export var on_ready := false
 export var on_initiated_turn := false
@@ -47,4 +48,6 @@ func spawn() -> void:
 			if ent.filename == spawns.resource_path:
 				return
 
-	entity_system.add_entity(spawns.instance(), gpos)
+	var c := 1 if unique else count
+	for i in c:
+		entity_system.add_entity(spawns.instance(), gpos)
