@@ -7,6 +7,9 @@ class_name PointSet
 
 var array := []
 
+func _init(arr: Array=[]) -> void:
+	array = arr
+
 func has(x: int, y: int) -> bool:
 	return hasv(Vector2(x, y))
 

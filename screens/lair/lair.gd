@@ -5,6 +5,8 @@ var loading = null
 var game_over := false
 var panicking := false
 
+var gold_ps := 0.0
+
 var name_regex := RegEx.new()
 
 func _ready() -> void:
@@ -62,14 +64,16 @@ func _process(_delta: float) -> void:
 		_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
 		_ignore = player.get_component(Controller.NAME).connect("activated_artifact", self, "_on_activated_artifact")
 		_ignore = player.get_component(Controller.NAME).connect("deactivated_artifact", self, "_on_deactivated_artifact")
-		# Kinda hacky.
-		_on_health_changed(1, 1)
-		_on_anxiety_changed(0, 1)
-		$UI/HUD/VBoxContainer/Gold/Value.text = "0%"
 		if $GeneratorSystem.generated_level == 0:
-			show_message(
-				"Collect \n" +
-				"")
+			var treasures := $UI/HUD/VBoxContainer/Treasures
+			for t in treasures.get_children():
+				t.hide()
+			# Kinda hacky.
+			_on_health_changed(1, 1)
+			_on_anxiety_changed(0, 1)
+			gold_ps = 0.0
+			$UI/HUD/VBoxContainer/Gold/Value.text = "0%"
+		show_message(GeneratorSystem.LEVEL_MESSAGES[$GeneratorSystem.generated_level])
 
 func _input(event: InputEvent) -> void:
 	if not $UI/Message.visible:
@@ -91,9 +95,9 @@ func _on_player_died(_by: Node2D) -> void:
 
 func _on_picked_up_gold() -> void:
 	$HoardSystem.collect_gold()
-	var gold_p: float = $HoardSystem.gold_p * 100
-	print("Gold percentage: %0.2f%%" % [gold_p])
-	$UI/HUD/VBoxContainer/Gold/Value.text = "%0.0f%%" % [gold_p]
+	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
+	print("Gold percentage: %0.2f%%" % [total_gold_p])
+	$UI/HUD/VBoxContainer/Gold/Value.text = "%0.0f%%" % [total_gold_p]
 
 func _on_picked_up_treasure() -> void:
 	var arts = Artifacts.random_treasures($EntitySystem.player.get_component(Backpack.NAME))
@@ -142,11 +146,14 @@ func _on_calmed_down() -> void:
 	$UI/HUD/VBoxContainer/Anxiety/Value/Progress.rect_position = Vector2.ZERO
 
 func _on_found_exit() -> void:
-	if $HoardSystem.gold_p < 0.5:
-		show_message("Refuse to leave with less than 50%% of the gold\nCollected %.2f%%" % ($HoardSystem.gold_p * 100))
-		return
-	show_message("Found an escape!\nCollected %.2f%% of the gold" % ($HoardSystem.gold_p * 100))
-	game_over = true
+	gold_ps += $HoardSystem.gold_p
+	var lvl: int = $GeneratorSystem.generated_level
+	if lvl == GeneratorSystem.LEVEL_COUNT - 1:
+		var total_gold_ps: float = gold_ps / GeneratorSystem.LEVEL_COUNT
+		show_message("Found an escape!\nCollected %.2f%% of the gold" % (total_gold_ps * 100))
+		game_over = true
+	else:
+		regenerate(lvl + 1, true)
 
 func _on_use_artifact(index: int) -> void:
 	$EntitySystem.player.get_component(Controller.NAME).use_artifact(index)
@@ -159,15 +166,11 @@ func _on_deactivated_artifact(index: int) -> void:
 	var treasures := $UI/HUD/VBoxContainer/Treasures
 	treasures.get_child(index).activated = false
 
-func regenerate() -> void:
+func regenerate(level: int=0, keep_player: bool=false) -> void:
 	game_over = false
 	show_message("Loading")
 	$UI/Loading.show()
-
-	var treasures := $UI/HUD/VBoxContainer/Treasures
-	for t in treasures.get_children():
-		t.hide()
-	loading = $GeneratorSystem.generate()
+	loading = $GeneratorSystem.generate(level, keep_player)
 
 func show_message(msg: String) -> void:
 	$UI/Message/MarginContainer/MarginContainer/Label.text = msg

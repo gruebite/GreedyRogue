@@ -22,11 +22,14 @@ func _ready() -> void:
 	add_to_group(GROUP_NAME)
 	var _ignore = turn_system.connect("out_of_turn", self, "_on_out_of_turn")
 
-func reset() -> void:
+func reset(keep_player: bool) -> void:
 	blocking_grid.clear()
 	static_light_grid.clear()
 	dynamic_light_grid.clear()
 	brights.clear()
+	# This would work anyway, but here we document it.
+	if keep_player:
+		brights[entity_system.player.get_component("Bright")] = true
 
 func get_brightness(x: int, y: int) -> int:
 	var s = static_light_grid.get_cell(x, y)

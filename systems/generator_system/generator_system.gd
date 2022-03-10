@@ -3,6 +3,96 @@ class_name GeneratorSystem
 
 const GROUP_NAME := "generator_system"
 
+const LEVEL_COUNT := 3
+const LEVEL_MESSAGES := [
+	"Entrance Chamber of the Dragon's Lair\n\nYou're here for the gold",
+	"Random Chamer of the Dragon's Lair",
+	"Center Chamber of the Dragon's Lair",
+]
+const LEVEL_SETTINGS := [
+	{
+		"initial_open_p": 0.8,
+		"initial_goto_edge_p": 0.25,
+		"initial_random_walk_weight": 0.6,
+		"secondary_open_p": 0.0,
+		"secondary_open_radius": 0.0,
+		"secondary_random_walk_weight": 0.0,
+
+		"rock_count": 40,
+		"pitfall_count": 5,
+		"pitfall_size": 3,
+		"stalagmite_count": 10,
+		"small_lava_pool_count": 8,
+		"small_lava_pool_size": 4,
+		"large_lava_pool_count": 1,
+		"large_lava_pool_size": 15,
+		"lava_river_count": 0,
+		"small_gold_pile_count": 5,
+		"small_gold_pile_size": 3,
+		"large_gold_pile_count": 3,
+		"large_gold_pile_size": 10,
+		"treasure_chest_count": 3,
+		"dragonling_count": 3,
+		"magma_slug_count": 4,
+		"golem_count": 1,
+		"tornado_count": 0,
+	},
+	{
+		"initial_open_p": 0.7,
+		"initial_goto_edge_p": 0.5,
+		"initial_random_walk_weight": 0.6,
+		"secondary_open_p": 0.8,
+		"secondary_open_radius": 10.0,
+		"secondary_random_walk_weight": 0.7,
+
+		"rock_count": 40,
+		"pitfall_count": 5,
+		"pitfall_size": 3,
+		"stalagmite_count": 10,
+		"small_lava_pool_count": 8,
+		"small_lava_pool_size": 4,
+		"large_lava_pool_count": 1,
+		"large_lava_pool_size": 15,
+		"lava_river_count": 1,
+		"small_gold_pile_count": 5,
+		"small_gold_pile_size": 3,
+		"large_gold_pile_count": 3,
+		"large_gold_pile_size": 10,
+		"treasure_chest_count": 3,
+		"dragonling_count": 3,
+		"magma_slug_count": 4,
+		"golem_count": 1,
+		"tornado_count": 0,
+	},
+	{
+		"initial_open_p": 0.7,
+		"initial_goto_edge_p": 0.5,
+		"initial_random_walk_weight": 0.6,
+		"secondary_open_p": 0.8,
+		"secondary_open_radius": 10.0,
+		"secondary_random_walk_weight": 0.7,
+
+		"rock_count": 40,
+		"pitfall_count": 5,
+		"pitfall_size": 3,
+		"stalagmite_count": 10,
+		"small_lava_pool_count": 8,
+		"small_lava_pool_size": 4,
+		"large_lava_pool_count": 1,
+		"large_lava_pool_size": 15,
+		"lava_river_count": 0,
+		"small_gold_pile_count": 5,
+		"small_gold_pile_size": 3,
+		"large_gold_pile_count": 3,
+		"large_gold_pile_size": 10,
+		"treasure_chest_count": 3,
+		"dragonling_count": 3,
+		"magma_slug_count": 4,
+		"golem_count": 1,
+		"tornado_count": 0,
+	},
+]
+
 onready var tile_system: TileSystem = get_node("../TileSystem")
 onready var entity_system: EntitySystem = get_node("../EntitySystem")
 onready var hoard_system: HoardSystem = get_node("../HoardSystem")
@@ -15,10 +105,10 @@ func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 
-func generate(level: int=0) -> void:
+func generate(level: int=0, keep_player: bool=false) -> void:
 	# Reset bright first because entity_system reset will add the player.
-	bright_system.reset()
-	entity_system.reset()
+	bright_system.reset(keep_player)
+	entity_system.reset(keep_player)
 	hoard_system.reset()
 
 	var walker := Walker.new()
@@ -35,28 +125,38 @@ func generate(level: int=0) -> void:
 	yield()
 	# Cavern structure.
 
+	# Carves a general cave structure with a seed center by choosing random points on map
+	# or on the edge.
 	var plus := PointSets.plus()
-	while walker.percent_opened() < 0.7:
+	var initial_open_p: float = LEVEL_SETTINGS[level]["initial_open_p"]
+	var initial_goto_edge_p: float = LEVEL_SETTINGS[level]["initial_goto_edge_p"]
+	var initial_random_walk_weight: float = LEVEL_SETTINGS[level]["initial_random_walk_weight"]
+	while walker.percent_opened() < initial_open_p:
 		walker.goto_random_opened()
 		walker.remember()
-		if walker.rng.randf() < 0.5:
+		if walker.rng.randf() < initial_goto_edge_p:
 			walker.goto_random_edge()
 		else:
 			walker.goto_random_closed()
 		while walker.is_on_closed():
-			walker.step_weighted_last_remembered(0.6)
+			walker.step_weighted_last_remembered(initial_random_walk_weight)
 			walker.mark_point_set(plus, tile_to_walker_tile(Tile.FLOOR))
 		walker.commit()
 		walker.forget()
+
+	# Carves more of an open center, but leaving variance by spawning a bunch in a radius
+	var secondary_open_p: float = LEVEL_SETTINGS[level]["secondary_open_p"]
+	var secondary_open_radius: float = LEVEL_SETTINGS[level]["secondary_open_radius"]
+	var secondary_random_walk_weight: float = LEVEL_SETTINGS[level]["secondary_random_walk_weight"]
 	var tries := 100
-	while walker.percent_opened() < 0.8 and tries > 0:
+	while walker.percent_opened() < secondary_open_p and tries > 0:
 		tries -= 1
-		var start := center + (Vector2.LEFT.rotated(walker.rng.randf() * TAU) * 10).floor()
+		var start := center + (Vector2.LEFT.rotated(walker.rng.randf() * TAU) * secondary_open_radius).floor()
 		walker.goto(start.x, start.y)
 		walker.remember()
 		walker.gotov(center)
 		while not walker.is_on_last_remembered():
-			walker.step_weighted_last_remembered(0.7)
+			walker.step_weighted_last_remembered(secondary_random_walk_weight)
 			walker.mark_point_set(plus, tile_to_walker_tile(Tile.FLOOR))
 		walker.commit()
 		walker.forget()
@@ -64,17 +164,17 @@ func generate(level: int=0) -> void:
 	yield()
 	# Rocks
 
-	for i in 40:
+	for i in LEVEL_SETTINGS[level]["rock_count"]:
 		walker.goto_random_opened()
 		walker.mark(tile_to_walker_tile(Tile.ROCK))
 		walker.commit()
 
 	yield()
-	# Pits
+	# Pitfalls
 
-	for i in 10:
+	for i in LEVEL_SETTINGS[level]["pitfall_count"]:
 		walker.goto_random_opened()
-		for s in 10:
+		for s in LEVEL_SETTINGS[level]["pitfall_size"]:
 			walker.step_random()
 			walker.mark(tile_to_walker_tile(Tile.PITFALL))
 		walker.commit()
@@ -82,7 +182,7 @@ func generate(level: int=0) -> void:
 	yield()
 	# Stalagmites
 
-	for i in 20:
+	for i in LEVEL_SETTINGS[level]["stalagmite_count"]:
 		walker.goto_random_opened()
 		walker.mark(tile_to_walker_tile(Tile.STALAGMITE))
 		walker.commit()
@@ -90,18 +190,21 @@ func generate(level: int=0) -> void:
 	yield()
 	# Lava pools.
 
-	var pools := walker.rng.randi_range(1, 10)
-	var small_pools := walker.rng.randi_range(pools / 2, pools)
-	var large_pools := walker.rng.randi_range(0, pools - small_pools)
-	for i in pools:
+	var small_pools: int = LEVEL_SETTINGS[level]["small_lava_pool_count"]
+	var small_pool_size: int = LEVEL_SETTINGS[level]["small_lava_pool_size"]
+	var large_pools: int = LEVEL_SETTINGS[level]["large_lava_pool_count"]
+	var large_pool_size: int = LEVEL_SETTINGS[level]["large_lava_pool_size"]
+	while true:
 		walker.goto_random_opened()
 		var size: int
 		if small_pools > 0:
 			small_pools -= 1
-			size = 5
+			size = small_pool_size
 		elif large_pools > 0:
 			large_pools -= 1
-			size = 15
+			size = large_pool_size
+		else:
+			break
 		for s in size:
 			walker.step_random()
 			walker.mark_point_set(plus, tile_to_walker_tile(Tile.LAVA_CARVING))
@@ -114,7 +217,7 @@ func generate(level: int=0) -> void:
 
 	walker.goto_random_edge()
 	walker.remember()
-	for i in 2:
+	for i in LEVEL_SETTINGS[level]["lava_river_count"]:
 		walker.goto_random_edge()
 		while not walker.is_on_last_remembered():
 			walker.step_weighted_last_remembered(0.6)
@@ -124,25 +227,25 @@ func generate(level: int=0) -> void:
 			walker.commit()
 	walker.forget()
 
+	# Save lava info.
+	var lava_tiles := PointSets.copy(walker.pinned_tiles[tile_to_walker_tile(Tile.LAVA_CARVING)])
+
 	yield()
 	# Gold
 
-	var small_piles := 10
-	var medium_piles := 3
-	var large_piles := 1
-	var piles := small_piles + medium_piles + large_piles
-	for i in piles:
+	var small_piles: int = LEVEL_SETTINGS[level]["small_gold_pile_count"]
+	var large_piles: int = LEVEL_SETTINGS[level]["large_gold_pile_count"]
+	while true:
 		walker.goto_random_opened()
 		var size: int
 		if small_piles > 0:
 			small_piles -= 1
-			size = 3
-		elif medium_piles > 0:
-			medium_piles -= 1
-			size = 8
+			size = LEVEL_SETTINGS[level]["small_gold_pile_size"]
 		elif large_piles > 0:
 			large_piles -= 1
-			size = 10
+			size = LEVEL_SETTINGS[level]["large_gold_pile_size"]
+		else:
+			break
 		for s in size:
 			walker.step_random()
 			walker.mark_point_set(plus, tile_to_walker_tile(Tile.GOLD_PILE))
@@ -150,19 +253,10 @@ func generate(level: int=0) -> void:
 
 	yield()
 	# Treasure Chests
-	var treasures := 3
+	var treasures: int = LEVEL_SETTINGS[level]["treasure_chest_count"]
 	for i in treasures:
 		walker.goto_random_opened()
 		walker.mark(tile_to_walker_tile(Tile.TREASURE_CHEST))
-		walker.commit()
-
-	yield()
-	# Slugs
-
-	var slugs := 10
-	for i in slugs:
-		walker.goto_random_pinned(tile_to_walker_tile(Tile.LAVA_CARVING))
-		walker.mark(tile_to_walker_tile(Tile.SLUG))
 		walker.commit()
 
 	yield()
@@ -203,29 +297,24 @@ func generate(level: int=0) -> void:
 						walker.goto(x - 1, y - 1)
 						walker.mark(tile_to_walker_tile(Tile.LAVA_SETTLED))
 						ent = Entities.LAVA.instance()
-					elif tile == Tile.SLUG:
-						# Abyss blocks light, optimizes lava casts.
-						tile_system.set_tile(x, y, Tile.ABYSS_WALL)
-						# Set lava to a closed variant, so we have accurate map info.
-						walker.goto(x - 1, y - 1)
-						walker.mark(tile_to_walker_tile(Tile.LAVA_SETTLED))
-						ent = Entities.LAVA.instance()
-						ent.grid_position = Vector2(x, y)
-						to_add.append(ent)
-						ent = Entities.MAGMA_SLUG.instance()
 					ent.grid_position = Vector2(x, y)
 					to_add.append(ent)
 	walker.commit()
 
-	var dragon_count := 5
-	var golem_count := 1
-	var tornado_count := 20
+	var dragonling_count: int = LEVEL_SETTINGS[level]["dragonling_count"]
+	var magma_slug_count: int = LEVEL_SETTINGS[level]["magma_slug_count"]
+	var golem_count: int = LEVEL_SETTINGS[level]["golem_count"]
+	var tornado_count: int = LEVEL_SETTINGS[level]["tornado_count"]
 	while true:
 		var pos := walker.opened_tiles.random(walker.rng) + Vector2(1, 1)
 		var ent: Entity
-		if dragon_count > 0:
+		if dragonling_count > 0:
 			ent = Entities.DRAGONLING.instance()
-			dragon_count -= 1
+			dragonling_count -= 1
+		elif magma_slug_count > 0:
+			pos = lava_tiles.random(walker.rng) + Vector2(1, 1)
+			ent = Entities.MAGMA_SLUG.instance()
+			magma_slug_count -= 1
 		elif golem_count > 0:
 			ent = Entities.GOLEM.instance()
 			golem_count -= 1

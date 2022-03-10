@@ -307,6 +307,8 @@ func check_point_set(ps: PointSet, mode: int) -> bool:
 	return true
 
 func mark(tile: int=Tile.OPENED) -> void:
+	if out_of_bounds(position):
+		return
 	marked[position] = tile
 
 func mark_point_set(ps: PointSet, tile: int=Tile.OPENED) -> void:

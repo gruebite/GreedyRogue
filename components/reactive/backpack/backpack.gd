@@ -37,12 +37,11 @@ func add_artifact(n: String) -> void:
 			"Health Potion":
 				health.health += 100
 			"Heart Piece":
-				health.max_health *= 1.5
+				health.max_health += 5
 			"Golden Chalice":
-				self.gold += 100
 				anxiety.anxiety -= 100
 			"Liquid Courage":
-				anxiety.max_anxiety *= 1.2
+				anxiety.max_anxiety += 50
 		return
 
 	var existing := find_node(n, false, false)

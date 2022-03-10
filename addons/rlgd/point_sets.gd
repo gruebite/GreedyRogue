@@ -1,6 +1,9 @@
 extends Reference
 class_name PointSets
 
+static func copy(ps: PointSet) -> PointSet:
+	return PointSet.new(ps.array.duplicate())
+
 ##
 ## Generator functions
 ##

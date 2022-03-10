@@ -22,11 +22,14 @@ func _ready() -> void:
 		for y in Constants.MAP_ROWS:
 			entity_grid[Vector2(x, y)] = {}
 
-func reset() -> void:
+func reset(keep_player: bool) -> void:
 	for ent in entities_node.get_children():
+		if ent == player and keep_player:
+			continue
 		ent.queue_free()
-	player = player_scene.instance()
-	add_entity(player, Vector2.ZERO)
+	if not keep_player:
+		player = player_scene.instance()
+		add_entity(player, Vector2.ZERO)
 
 func spawn_entity(scene: PackedScene, gpos: Vector2, unique: bool=true) -> void:
 	var entity: Entity = scene.instance()
