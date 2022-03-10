@@ -344,6 +344,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/rlgd/nodes/state_machine/state_machine.gd"
 }, {
+"base": "Component",
+"class": "Terrorize",
+"language": "GDScript",
+"path": "res://components/behavior/terrorize/terrorize.gd"
+}, {
 "base": "Reference",
 "class": "Tile",
 "language": "GDScript",
@@ -462,6 +467,7 @@ _global_script_class_icons={
 "Spawner": "",
 "State": "",
 "StateMachine": "",
+"Terrorize": "",
 "Tile": "",
 "TileSystem": "",
 "Toppleable": "",

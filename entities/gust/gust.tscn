@@ -83,7 +83,7 @@ mask = 8
 time = 3
 
 [node name="Health" parent="." instance=ExtResource( 6 )]
-flaming_immune = true
+flame_immune = true
 max_health = 1
 
 [node name="Elemental" parent="." instance=ExtResource( 10 )]

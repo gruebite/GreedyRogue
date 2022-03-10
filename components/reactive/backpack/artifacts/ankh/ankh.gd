@@ -13,6 +13,6 @@ func use(_dir: int) -> bool:
 	assert(health)
 	if health.health == health.max_health:
 		return false
-	health.health += 999
+	health.take_damage(-999)
 	self.charge = 0
 	return true

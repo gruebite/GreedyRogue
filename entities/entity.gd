@@ -11,7 +11,7 @@ enum Layer {
 }
 
 signal moved(from, to)
-signal died(by)
+signal died(source)
 
 export var invincible := false
 export(Layer) var layer := Layer.GROUND setget set_layer
@@ -36,11 +36,11 @@ func move(value: Vector2) -> void:
 	self.grid_position = value
 	emit_signal("moved", from, value)
 
-func kill(by: Node2D) -> void:
+func kill(source: String="unknown") -> void:
 	if dead:
 		return
 	dead = true
-	emit_signal("died", by)
+	emit_signal("died", source)
 	if not invincible:
 		queue_free()
 

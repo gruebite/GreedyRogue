@@ -25,4 +25,4 @@ func _on_toppled(by: Entity) -> void:
 		if spawns:
 			entity_system.add_entity(spawns.instance(), desired)
 	if one_shot:
-		entity.kill(self)
+		entity.kill("toppling over")

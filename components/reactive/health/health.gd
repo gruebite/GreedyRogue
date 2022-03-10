@@ -6,14 +6,12 @@ const NAME := "Health"
 signal health_changed(to, mx)
 
 export var flashing_node_path := NodePath("../Display")
-export var flaming_immune := false
+export var flame_immune := false
 export var harm_immune := false
 export var attack_immune := false
 
 export var max_health := 12 setget set_max_health
-var health := max_health setget set_health
-
-export var transparency: float = 0 setget set_transparency
+var health := max_health
 
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
@@ -21,6 +19,8 @@ onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
 onready var defender := entity.get_component(Defender.NAME)
 
 onready var flashing_node := get_node(flashing_node_path)
+
+var transparency: float = 0 setget set_transparency
 
 func _ready() -> void:
 	var flammable := entity.get_component(Flammable.NAME)
@@ -37,14 +37,14 @@ func _exit_tree() -> void:
 	turn_system.finish_turn(self)
 
 func _on_burned(by: Entity) -> void:
-	if flaming_immune:
+	if flame_immune:
 		return
-	self.health -= by.get_component(Flaming.NAME).heat
+	deal_damage(by.get_component(Flaming.NAME).heat, "burns")
 
 func _on_harmed(by: Entity) -> void:
 	if harm_immune:
 		return
-	self.health -= by.get_component(Harmer.NAME).damage
+	deal_damage(by.get_component(Harmer.NAME).damage, "trauma")
 
 func _on_attacked(by: Entity) -> void:
 	if attack_immune:
@@ -53,7 +53,7 @@ func _on_attacked(by: Entity) -> void:
 	var dmg: int = attacker.damage - defender.armor
 	if dmg <= 0:
 		return
-	self.health -= dmg
+	deal_damage(dmg, "trauma")
 
 func set_max_health(to: int) -> void:
 	if to < 0: to = 0
@@ -61,10 +61,11 @@ func set_max_health(to: int) -> void:
 	if max_health < health:
 		health = max_health
 	if health == 0:
-		entity.kill(self)
+		entity.kill("max health too low")
 	emit_signal("health_changed", health, max_health)
 
-func set_health(to: int) -> void:
+func deal_damage(amount: int, source: String="unknown") -> void:
+	var to := health - amount
 	if to < 0: to = 0
 	if to > max_health: to = max_health
 	if to < health:
@@ -72,7 +73,7 @@ func set_health(to: int) -> void:
 		flash()
 	health = to
 	if health == 0:
-		entity.kill(self)
+		entity.kill(source)
 	emit_signal("health_changed", health, max_health)
 
 func set_transparency(value: float) -> void:

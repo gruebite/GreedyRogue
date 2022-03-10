@@ -89,15 +89,15 @@ func _input(event: InputEvent) -> void:
 			if game_over:
 				regenerate()
 
-func _on_player_died(_by: Node2D) -> void:
-	show_message("Died\nCollected %.2f%% of the gold" % [$HoardSystem.gold_p * 100])
+func _on_player_died(source: String) -> void:
+	show_message("Died from %s\nCollected %.0f%% of the gold" % [source, $HoardSystem.gold_p * 100])
 	game_over = true
 
 func _on_picked_up_gold() -> void:
 	$HoardSystem.collect_gold()
 	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
 	print("Gold percentage: %0.2f%%" % [total_gold_p])
-	$UI/HUD/VBoxContainer/Gold/Value.text = "%0.0f%%" % [total_gold_p]
+	$UI/HUD/VBoxContainer/Gold/Value.text = "%.0f%%" % [total_gold_p]
 
 func _on_picked_up_treasure() -> void:
 	var arts = Artifacts.random_treasures($EntitySystem.player.get_component(Backpack.NAME))

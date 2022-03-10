@@ -35,7 +35,7 @@ func add_artifact(n: String) -> void:
 	if n in Artifacts.CONSUMED:
 		match n:
 			"Health Potion":
-				health.health += 100
+				health.take_damage(-100)
 			"Heart Piece":
 				health.max_health += 5
 			"Golden Chalice":

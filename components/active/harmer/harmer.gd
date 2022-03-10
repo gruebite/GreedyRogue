@@ -27,4 +27,4 @@ func _on_in_turn() -> void:
 		if harmable:
 			harmable.harm(entity)
 			if triggers_death:
-				entity.kill(self)
+				entity.kill("kamakazee")

@@ -77,7 +77,6 @@ func _on_take_turn() -> void:
 				var desired := entity.grid_position + dv
 				if navigation_system.can_move_to(entity, desired):
 					navigation_system.move_to(entity, desired)
-			player_anxiety.panic = 2
 
 
 func check_transitions():
@@ -105,6 +104,9 @@ func check_transitions():
 				state = BREATHING
 				breath_dir = navigation_system.cardinal_to(entity, entity_system.player)
 				breath_timer = breath_weapon_time
+			# TODO: Move to using terrorize and generic elemental AI
+			# with breath weapon and sleeping behaviors.
+			player_anxiety.panic = 2
 
 func wake_up() -> void:
 	if state != SLEEPING:

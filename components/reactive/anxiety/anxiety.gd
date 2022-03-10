@@ -34,7 +34,7 @@ func set_anxiety(to: int) -> void:
 	if to > max_anxiety: to = max_anxiety
 	anxiety = to
 	if anxiety >= max_anxiety:
-		entity.kill(self)
+		entity.kill("anxiety")
 	emit_signal("anxiety_changed", anxiety, max_anxiety)
 
 func set_max_anxiety(to: int) -> void:
@@ -43,5 +43,5 @@ func set_max_anxiety(to: int) -> void:
 	if max_anxiety < anxiety:
 		anxiety = max_anxiety
 	if anxiety >= max_anxiety:
-		entity.kill(self)
+		entity.kill("anxiety")
 	emit_signal("anxiety_changed", anxiety, max_anxiety)
