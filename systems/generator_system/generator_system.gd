@@ -31,9 +31,9 @@ const LEVEL_SETTINGS := [
 		"small_gold_pile_size": 3,
 		"large_gold_pile_count": 3,
 		"large_gold_pile_size": 10,
-		"treasure_chest_count": 5,
+		"treasure_chest_count": 3,
 		"dragonling_count": 3,
-		"magma_slug_count": 4,
+		"magma_slug_count": 1,
 		"golem_count": 1,
 		"tornado_count": 0,
 	},
@@ -192,6 +192,27 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 		walker.commit()
 
 	yield()
+	# Gold comes before lava because we want lava to be a specific obstacle.
+
+	var small_piles: int = LEVEL_SETTINGS[level]["small_gold_pile_count"]
+	var large_piles: int = LEVEL_SETTINGS[level]["large_gold_pile_count"]
+	while true:
+		walker.goto_random_opened()
+		var size: int
+		if small_piles > 0:
+			small_piles -= 1
+			size = LEVEL_SETTINGS[level]["small_gold_pile_size"]
+		elif large_piles > 0:
+			large_piles -= 1
+			size = LEVEL_SETTINGS[level]["large_gold_pile_size"]
+		else:
+			break
+		for s in size:
+			walker.step_random()
+			walker.mark_point_set(plus, tile_to_walker_tile(Tile.GOLD_PILE))
+		walker.commit(Walker.COMMIT_OPENED_OVER_OPENED)
+
+	yield()
 	# Lava pools.
 
 	var small_pools: int = LEVEL_SETTINGS[level]["small_lava_pool_count"]
@@ -233,27 +254,6 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 
 	# Save lava info.
 	var lava_tiles := PointSets.copy(walker.pinned_tiles[tile_to_walker_tile(Tile.LAVA_CARVING)])
-
-	yield()
-	# Gold
-
-	var small_piles: int = LEVEL_SETTINGS[level]["small_gold_pile_count"]
-	var large_piles: int = LEVEL_SETTINGS[level]["large_gold_pile_count"]
-	while true:
-		walker.goto_random_opened()
-		var size: int
-		if small_piles > 0:
-			small_piles -= 1
-			size = LEVEL_SETTINGS[level]["small_gold_pile_size"]
-		elif large_piles > 0:
-			large_piles -= 1
-			size = LEVEL_SETTINGS[level]["large_gold_pile_size"]
-		else:
-			break
-		for s in size:
-			walker.step_random()
-			walker.mark_point_set(plus, tile_to_walker_tile(Tile.GOLD_PILE))
-		walker.commit(Walker.COMMIT_OPENED_OVER_OPENED)
 
 	yield()
 	# Treasure Chests
