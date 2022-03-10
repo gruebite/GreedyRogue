@@ -1,12 +1,8 @@
 
 # TODO
 
-- Add more effects for feedback
 - Add more artifacts that interact with the existing elements
-    - Laser Gun that charges by lava, releasing strong blast, destroying things
-    - Horned Helm that allows you to charge up to sight range, dealing damage
     - Dragon Claw that make you punch rocks until they hit something or fall in lava
-    - Ancient War Mask makes you recover anxiety from attacking
     - The One Ring makes you instantly win if you die from lava
     - **Unnamed** Something that makes time skip, at the cost of extra anxiety (caffeine?)
     - **Unnamed** Something that creates rocks
@@ -18,3 +14,10 @@
 - Add title screen
 
 # DONE
+
+- Add more effects for feedback
+- Add more artifacts that interact with the existing elements
+    - Laser Gun that charges by lava, releasing strong blast, destroying things
+    - Horned Helm that allows you to charge up to sight range, dealing damage
+    - Sandtimer that freezes time.
+    - Ancient War Mask makes you recover anxiety from attacking

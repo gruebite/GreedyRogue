@@ -10,6 +10,7 @@ const CONSUMED := [
 ]
 
 const NAMES := [
+	"Ancient War Mask",
 	"Ankh",
 	"Balanced Stick",
 	"Chaos Shard",
@@ -27,6 +28,7 @@ const NAMES := [
 ]
 
 const TABLE := {
+	"Ancient War Mask": preload("res://components/reactive/backpack/artifacts/ancient_war_mask/ancient_war_mask.tscn"),
 	"Ankh": preload("res://components/reactive/backpack/artifacts/ankh/ankh.tscn"),
 	"Balanced Stick": preload("res://components/reactive/backpack/artifacts/balanced_stick/balanced_stick.tscn"),
 	"Chaos Shard": preload("res://components/reactive/backpack/artifacts/chaos_shard/chaos_shard.tscn"),

@@ -20,7 +20,7 @@ animations = [ {
 script = ExtResource( 1 )
 layer = 0
 description = "Grants strength"
-max_charges = PoolIntArray( 15, 7, 2 )
+max_charges = PoolIntArray( 4, 3, 2 )
 directional = true
 
 [node name="Display" parent="." instance=ExtResource( 2 )]

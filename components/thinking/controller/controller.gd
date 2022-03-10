@@ -37,6 +37,7 @@ func _exit_tree() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 
+	var action := false
 	var delta := Vector2.ZERO
 	if event.is_action_pressed("ui_accept"):
 		pass
@@ -48,22 +49,28 @@ func _unhandled_input(event: InputEvent) -> void:
 		if using_artifact != -1:
 			chose_artifact_direction(Direction.NORTH)
 			return
+		action = true
 		delta = Vector2.UP
 	elif event.is_action_pressed("ui_down", true):
 		if using_artifact != -1:
 			chose_artifact_direction(Direction.SOUTH)
 			return
+		action = true
 		delta = Vector2.DOWN
 	elif event.is_action_pressed("ui_left", true):
 		if using_artifact != -1:
 			chose_artifact_direction(Direction.WEST)
 			return
+		action = true
 		delta = Vector2.LEFT
 	elif event.is_action_pressed("ui_right", true):
 		if using_artifact != -1:
 			chose_artifact_direction(Direction.EAST)
 			return
+		action = true
 		delta = Vector2.RIGHT
+	elif event.is_action_pressed("ui_wait"):
+		action = true
 	elif event.is_action_pressed("ui_1"):
 		use_artifact(0)
 		return
@@ -100,18 +107,26 @@ func _unhandled_input(event: InputEvent) -> void:
 			var angle: float = (event.position - center).angle()
 			delta = Direction.delta(Direction.angle_to_cardinal_direction(angle))
 
-	if delta != Vector2.ZERO and turn_system.can_initiate_turn():
-		var desired := entity.grid_position + delta
-		if navigation_system.can_move_to(entity, desired):
+	if action and turn_system.can_initiate_turn():
+		if delta == Vector2.ZERO:
 			turn_system.will_initiate_turn()
-			navigation_system.move_to(entity, desired)
-			bright_sytem.update_brights()
-			bright_sytem.update_tiles()
 			if skip_turns > 0:
 				skip_turns -= 1
 				turn_system.will_not_initiate_turn()
 			else:
 				turn_system.initiate_turn()
+		else:
+			var desired := entity.grid_position + delta
+			if navigation_system.can_move_to(entity, desired):
+				turn_system.will_initiate_turn()
+				navigation_system.move_to(entity, desired)
+				bright_sytem.update_brights()
+				bright_sytem.update_tiles()
+				if skip_turns > 0:
+					skip_turns -= 1
+					turn_system.will_not_initiate_turn()
+				else:
+					turn_system.initiate_turn()
 
 func _on_entered_level(_lvl: int) -> void:
 	effect_system.add_effect(preload("res://effects/ping/ping.tscn"), entity.position)
