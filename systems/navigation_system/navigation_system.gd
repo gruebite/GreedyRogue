@@ -36,7 +36,7 @@ func can_move_to(ent: Entity, desired: Vector2) -> bool:
 		var can_bump := false
 		for bumpable in bumpables:
 			var must_bump = bumpable.must_bump or bumpable.entity.layer == ent.layer
-			if bumper.bump_mask & bumpable.bump_mask > 0:
+			if bumper.does_bump(bumpable):
 				can_bump = true
 			elif must_bump:
 				return false
@@ -56,9 +56,8 @@ func move_to(ent: Entity, desired: Vector2) -> void:
 		var bumpables := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
 		var bumped := 0
 		for bumpable in bumpables:
-			if (bumper.bump_mask & bumpable.bump_mask) != 0:
-				bumpable.bump(ent)
-				bumper.bump(bumpable.entity)
+			if bumper.does_bump(bumpable):
+				bumper.do_bump(bumpable)
 				bumped += 1
 			# If we couldn't bump, but had to, we will not move.
 			elif bumpable.must_bump:
@@ -89,6 +88,14 @@ func is_lava(x: int, y: int) -> bool:
 			yep = true
 			break
 	return yep
+
+func is_near_lava(x: int, y: int) -> bool:
+	for dir in Direction.COMPASS:
+		var dv := Direction.delta(dir)
+		var gpos: Vector2 = Vector2(x, y) + dv
+		if is_lava(gpos.x, gpos.y):
+			return true
+	return false
 
 # Should be able to do this smarter with the generation info.
 func find_random_unblocked() -> Vector2:

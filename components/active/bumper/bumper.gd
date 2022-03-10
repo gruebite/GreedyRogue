@@ -15,11 +15,13 @@ signal bumped(other)
 
 export(int, FLAGS, "PLAYER", "ENVIRONMENT", "OBJECTS", "DRAGONS", "ELEMENTALS") var bump_mask = 0
 
-func does_bump(other: Entity) -> bool:
-	var bumpable = other.get_component(Bumpable.NAME)
+func does_bump(bumpable: Bumpable) -> bool:
+	if not bumpable:
+		return false
 	if bump_mask & bumpable.bump_mask != 0:
 		return true
 	return false
 
-func bump(other: Entity) -> void:
-	emit_signal("bumped", other)
+func do_bump(bumpable: Bumpable) -> void:
+	emit_signal("bumped", bumpable.entity)
+	bumpable.bump(entity)

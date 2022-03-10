@@ -10,12 +10,9 @@ func _ready() -> void:
 		bright = backpack.entity.get_component(Bright.NAME)
 
 func _on_out_of_turn() -> void:
-	for dir in Direction.COMPASS:
-		var dv := Direction.delta(dir)
-		var gpos: Vector2 = backpack.entity.grid_position + dv
-		if navigation_system.is_lava(gpos.x, gpos.y):
-			charge += max_charges[level] * 0.1
-			break
+	var gpos: Vector2 = backpack.entity.grid_position
+	if navigation_system.is_near_lava(gpos.x, gpos.y):
+		charge += max_charges[level] * 0.1
 	
 	self.charge -= 1
 	
