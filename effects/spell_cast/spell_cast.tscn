@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://effects/effect.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/pixel2.png" type="Texture" id=2]
+
+[node name="SpellCast" type="Node2D"]
+script = ExtResource( 1 )
+lifetime = 0.6
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+modulate = Color( 0.839216, 0.388235, 0.843137, 1 )
+position = Vector2( 8, 8 )
+amount = 32
+lifetime = 0.6
+explosiveness = 1.0
+texture = ExtResource( 2 )
+emission_shape = 1
+emission_sphere_radius = 4.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 60.0

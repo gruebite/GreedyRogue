@@ -17,7 +17,7 @@ func _on_tripped(by: Entity) -> void:
 	integrity -= 1
 	if display:
 		display.frame += 1
-		effect_system.add_effect(preload("res://effects/cracking/cracking.tscn").instance(), entity.position)
+		effect_system.add_effect(preload("res://effects/cracking/cracking.tscn"), entity.position)
 	if integrity <= 0:
 		var gpos := entity.grid_position
 		tile_system.set_tile(gpos.x, gpos.y, Tile.CHASM)

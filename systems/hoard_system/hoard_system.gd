@@ -5,6 +5,7 @@ const GROUP_NAME := "hoard_system"
 
 signal gold_added()
 signal gold_removed()
+signal gold_collected()
 
 var gold_p setget , get_gold_p
 var gold_piles_remaining := 0
@@ -28,6 +29,7 @@ func remove_gold() -> void:
 
 func collect_gold() -> void:
 	gold_piles_collected += 1
+	emit_signal("gold_collected")
 
 func get_gold_p() -> float:
 	var total_gold := gold_piles_remaining + gold_piles_collected

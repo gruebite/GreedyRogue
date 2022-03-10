@@ -1,12 +1,14 @@
 extends Artifact
 
 onready var tile_system: TileSystem
+onready var effect_system: EffectSystem
 onready var entity_system: EntitySystem
 onready var navigation_system: NavigationSystem
 
 func _ready() -> void:
 	if backpack:
 		tile_system = backpack.find_system(TileSystem.GROUP_NAME)
+		effect_system = backpack.find_system(EffectSystem.GROUP_NAME)
 		entity_system = backpack.find_system(EntitySystem.GROUP_NAME)
 		navigation_system = backpack.find_system(NavigationSystem.GROUP_NAME)
 
@@ -41,6 +43,7 @@ func use(dir: int) -> bool:
 
 		if landing:
 			self.charge = 0
+			effect_system.add_effect(preload("res://effects/spell_cast/spell_cast.tscn"), backpack.entity.position)
 			backpack.entity.move(gpos)
 			return true
 		dist += 1

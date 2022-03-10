@@ -26,7 +26,7 @@ func _ready() -> void:
 func _on_picked_up(ent: Entity) -> void:
 	if ent.get_component(Gold.NAME):
 		anxiety.anxiety -= 10
-		effect_system.add_effect(preload("res://effects/collect_gold/collect_gold.tscn").instance(), entity.position)
+		effect_system.add_effect(preload("res://effects/collect_gold/collect_gold.tscn"), entity.position)
 		emit_signal("picked_up_gold")
 	if ent.get_component(Treasure.NAME):
 		emit_signal("picked_up_treasure")
@@ -35,7 +35,7 @@ func add_artifact(n: String) -> void:
 	if n in Artifacts.CONSUMED:
 		match n:
 			"Health Potion":
-				health.take_damage(-100)
+				health.deal_damage(-100)
 			"Heart Piece":
 				health.max_health += 5
 			"Golden Chalice":

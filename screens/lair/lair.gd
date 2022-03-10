@@ -50,21 +50,21 @@ func _process(_delta: float) -> void:
 		hide_message()
 		$UI/Loading.hide()
 		var player = $EntitySystem.player
-		var _ignore
-		_ignore = player.connect("died", self, "_on_player_died")
-		_ignore = player.get_component(Backpack.NAME).connect("gained_artifact", self, "_on_gained_artifact")
-		_ignore = player.get_component(Backpack.NAME).connect("artifact_level_changed", self, "_on_artifact_level_changed")
-		_ignore = player.get_component(Backpack.NAME).connect("artifact_charge_changed", self, "_on_artifact_charge_changed")
-		_ignore = player.get_component(Backpack.NAME).connect("picked_up_gold", self, "_on_picked_up_gold")
-		_ignore = player.get_component(Backpack.NAME).connect("picked_up_treasure", self, "_on_picked_up_treasure")
-		_ignore = player.get_component(Health.NAME).connect("health_changed", self, "_on_health_changed")
-		_ignore = player.get_component(Anxiety.NAME).connect("anxiety_changed", self, "_on_anxiety_changed")
-		_ignore = player.get_component(Anxiety.NAME).connect("panicking", self, "_on_panicking")
-		_ignore = player.get_component(Anxiety.NAME).connect("calmed_down", self, "_on_calmed_down")
-		_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
-		_ignore = player.get_component(Controller.NAME).connect("activated_artifact", self, "_on_activated_artifact")
-		_ignore = player.get_component(Controller.NAME).connect("deactivated_artifact", self, "_on_deactivated_artifact")
 		if $GeneratorSystem.generated_level == 0:
+			var _ignore
+			_ignore = player.connect("died", self, "_on_player_died")
+			_ignore = player.get_component(Backpack.NAME).connect("gained_artifact", self, "_on_gained_artifact")
+			_ignore = player.get_component(Backpack.NAME).connect("artifact_level_changed", self, "_on_artifact_level_changed")
+			_ignore = player.get_component(Backpack.NAME).connect("artifact_charge_changed", self, "_on_artifact_charge_changed")
+			_ignore = player.get_component(Backpack.NAME).connect("picked_up_gold", self, "_on_picked_up_gold")
+			_ignore = player.get_component(Backpack.NAME).connect("picked_up_treasure", self, "_on_picked_up_treasure")
+			_ignore = player.get_component(Health.NAME).connect("health_changed", self, "_on_health_changed")
+			_ignore = player.get_component(Anxiety.NAME).connect("anxiety_changed", self, "_on_anxiety_changed")
+			_ignore = player.get_component(Anxiety.NAME).connect("panicking", self, "_on_panicking")
+			_ignore = player.get_component(Anxiety.NAME).connect("calmed_down", self, "_on_calmed_down")
+			_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
+			_ignore = player.get_component(Controller.NAME).connect("activated_artifact", self, "_on_activated_artifact")
+			_ignore = player.get_component(Controller.NAME).connect("deactivated_artifact", self, "_on_deactivated_artifact")
 			var treasures := $UI/HUD/VBoxContainer/Treasures
 			for t in treasures.get_children():
 				t.hide()
@@ -90,7 +90,8 @@ func _input(event: InputEvent) -> void:
 				regenerate()
 
 func _on_player_died(source: String) -> void:
-	show_message("Died from %s\nCollected %.0f%% of the gold" % [source, $HoardSystem.gold_p * 100])
+	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
+	show_message("Died from %s\nCollected %.0f%% of the gold" % [source, total_gold_p * 100])
 	game_over = true
 
 func _on_picked_up_gold() -> void:

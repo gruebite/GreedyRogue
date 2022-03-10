@@ -51,7 +51,6 @@ script = ExtResource( 9 )
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 frames = SubResource( 3 )
-frame = 1
 
 [node name="Bumpable" parent="." instance=ExtResource( 4 )]
 bump_mask = 16

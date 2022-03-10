@@ -5,7 +5,7 @@ const GROUP_NAME := "generator_system"
 
 const LEVEL_COUNT := 3
 const LEVEL_MESSAGES := [
-	"Entrance Chamber of the Dragon's Lair\n\nYou're here for the gold",
+	"Entrance Chamber of the Dragon's Lair\n\nThis place is known for the piles of gold and powerful artifacts",
 	"Random Chamer of the Dragon's Lair",
 	"Center Chamber of the Dragon's Lair",
 ]
@@ -80,7 +80,7 @@ const LEVEL_SETTINGS := [
 		"small_lava_pool_size": 4,
 		"large_lava_pool_count": 1,
 		"large_lava_pool_size": 15,
-		"lava_river_count": 0,
+		"lava_river_count": 2,
 		"small_gold_pile_count": 5,
 		"small_gold_pile_size": 3,
 		"large_gold_pile_count": 3,
@@ -92,6 +92,8 @@ const LEVEL_SETTINGS := [
 		"tornado_count": 0,
 	},
 ]
+
+signal entered_level(lvl)
 
 onready var tile_system: TileSystem = get_node("../TileSystem")
 onready var entity_system: EntitySystem = get_node("../EntitySystem")
@@ -391,6 +393,7 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 	bright_system.update_blocking_grid()
 
 	generated_level = level
+	emit_signal("entered_level", level)
 
 func tile_to_walker_tile(tile: int) -> int:
 	return tile - Tile.WALL

@@ -8,9 +8,11 @@ signal found_exit()
 signal activated_artifact(index)
 signal deactivated_artifact(index)
 
+onready var generator_system: GeneratorSystem = find_system(GeneratorSystem.GROUP_NAME)
 onready var bright_sytem: BrightSystem = find_system(BrightSystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
+onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
 onready var navigation_system: NavigationSystem = find_system(NavigationSystem.GROUP_NAME)
 
@@ -22,6 +24,7 @@ var using_artifact := -1
 
 func _ready() -> void:
 	var _ignore
+	_ignore = generator_system.connect("entered_level", self, "_on_entered_level")
 	_ignore = turn_system.connect("out_of_turn", self, "_on_out_of_turn")
 
 	entity.grid_position = Vector2(Constants.MAP_COLUMNS / 2, Constants.MAP_ROWS / 2).floor()
@@ -83,6 +86,9 @@ func _unhandled_input(event: InputEvent) -> void:
 				entity_system.add_entity(preload("res://entities/rock/rock.tscn").instance(), entity.grid_position)
 			KEY_T:
 				entity_system.add_entity(preload("res://entities/treasure_chest/treasure_chest.tscn").instance(), entity.grid_position)
+			KEY_Z:
+				for art in backpack.get_artifacts():
+					art.charge += 999
 
 	# Hacky mouse detection.
 	if event is InputEventMouseButton:
@@ -99,6 +105,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			bright_sytem.update_brights()
 			bright_sytem.update_tiles()
 			turn_system.initiate_turn()
+
+func _on_entered_level(_lvl: int) -> void:
+	effect_system.add_effect(preload("res://effects/ping/ping.tscn"), entity.position)
 
 func _on_out_of_turn() -> void:
 	var gpos := entity.grid_position
