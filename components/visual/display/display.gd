@@ -7,13 +7,19 @@ const NAME := "Display"
 export var background_color := Color.transparent setget set_background_color
 
 export(Brightness.Enum) var brightness: int = Brightness.LIT setget set_brightness
-export var ascii_texture: Texture setget set_ascii_texture
-export var sprite_texture: Texture setget set_sprite_texture
-export var dim_pos: Vector2 setget set_dim_pos
-export var lit_pos: Vector2 setget set_lit_pos
+export var frames: SpriteFrames setget set_frames
+
+export var frame := 0 setget set_frame
+export var playing := false setget set_playing
+
+export var jitter := true
 
 func _ready() -> void:
-	pass
+	if jitter:
+		if frames.has_animation("dim"):
+			frame = randi() % frames.get_frame_count("dim")
+		elif  frames.has_animation("lit"):
+			frame = randi() % frames.get_frame_count("lit")
 
 func set_background_color(c: Color) -> void:
 	background_color = c
@@ -28,33 +34,34 @@ func set_brightness(to: int) -> void:
 			hide()
 		Brightness.LIT:
 			show()
-			$Lit.show()
-			$Dim.hide()
+			if $Foreground.frames.has_animation("lit"):
+				$Foreground.show()
+				$Foreground.animation = "lit"
+				$Foreground.frame = playing
+				$Foreground.frame = frame
+			else:
+				$Foreground.hide()
 		Brightness.DIM:
 			show()
-			$Lit.hide()
-			$Dim.show()
+			if $Foreground.frames.has_animation("dim"):
+				$Foreground.show()
+				$Foreground.animation = "dim"
+				$Foreground.frame = playing
+				$Foreground.frame = frame
+			else:
+				$Foreground.hide()
 
-func set_ascii_texture(tex: Texture) -> void:
-	ascii_texture = tex
+func set_frames(fs: SpriteFrames) -> void:
+	frames = fs
 	if not is_inside_tree(): yield(self, 'ready')
-	if Constants.ASCII:
-		$Lit.texture = tex
-		$Dim.texture = tex
+	$Foreground.frames = fs
 
-func set_sprite_texture(tex: Texture) -> void:
-	sprite_texture = tex
+func set_frame(f: int) -> void:
+	frame = f
 	if not is_inside_tree(): yield(self, 'ready')
-	if not Constants.ASCII:
-		$Lit.texture = tex
-		$Dim.texture = tex
+	$Foreground.frame = f
 
-func set_lit_pos(pos: Vector2) -> void:
-	lit_pos = pos
+func set_playing(p: bool) -> void:
+	playing = p
 	if not is_inside_tree(): yield(self, 'ready')
-	$Lit.region_rect = Rect2(pos, Constants.CELL_VECTOR)
-
-func set_dim_pos(pos: Vector2) -> void:
-	dim_pos = pos
-	if not is_inside_tree(): yield(self, 'ready')
-	$Dim.region_rect = Rect2(pos, Constants.CELL_VECTOR)
+	$Foreground.playing = p

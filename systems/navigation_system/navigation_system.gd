@@ -116,5 +116,7 @@ func cardinal_to(from: Entity, to: Entity) -> int:
 		return Direction.SOUTH
 	elif vec.x == -1:
 		return Direction.WEST
-	else:
+	elif vec.y == -1:
 		return Direction.NORTH
+	else:
+		return -1

@@ -47,5 +47,4 @@ func spawn() -> void:
 			if ent.filename == spawns.resource_path:
 				return
 
-	print("SPAWNED")
 	entity_system.add_entity(spawns.instance(), gpos)

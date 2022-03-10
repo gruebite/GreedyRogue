@@ -1,0 +1,73 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://entities/entity.gd" type="Script" id=1]
+[ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/textures/ascii.png" type="Texture" id=4]
+[ext_resource path="res://components/active/harmer/harmer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://components/reactive/health/health.tscn" type="PackedScene" id=6]
+[ext_resource path="res://components/reactive/presence/presence.tscn" type="PackedScene" id=7]
+[ext_resource path="res://components/active/bumper/bumper.gd" type="Script" id=8]
+[ext_resource path="res://components/coactive/attacker/attacker.gd" type="Script" id=9]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 64, 432, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 4 )
+region = Rect2( 80, 432, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 4 )
+region = Rect2( 96, 432, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 4 )
+region = Rect2( 112, 432, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 432, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 4 )
+region = Rect2( 48, 432, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "lit",
+"speed": 30.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 9 ) ],
+"loop": true,
+"name": "dim",
+"speed": 15.0
+} ]
+
+[node name="Tornado" type="Node2D"]
+script = ExtResource( 1 )
+layer = 3
+
+[node name="TurnTaker" parent="." instance=ExtResource( 3 )]
+
+[node name="Display" parent="." instance=ExtResource( 2 )]
+frames = SubResource( 1 )
+frame = 3
+playing = true
+
+[node name="Harmer" parent="." instance=ExtResource( 5 )]
+
+[node name="Bumper" type="Node2D" parent="."]
+script = ExtResource( 8 )
+bump_mask = 5
+
+[node name="Attacker" type="Node2D" parent="."]
+script = ExtResource( 9 )
+
+[node name="Presence" parent="." instance=ExtResource( 7 )]
+
+[node name="Health" parent="." instance=ExtResource( 6 )]
+max_health = 1

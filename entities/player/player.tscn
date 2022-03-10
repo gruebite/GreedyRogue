@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -17,21 +17,39 @@
 [ext_resource path="res://components/reactive/defender/defender.tscn" type="PackedScene" id=15]
 [ext_resource path="res://components/visual/arrows/arrows.tscn" type="PackedScene" id=16]
 [ext_resource path="res://components/coactive/toppler/toppler.tscn" type="PackedScene" id=17]
+[ext_resource path="res://assets/textures/ascii.png" type="Texture" id=18]
 
-[node name="Player" type="Node2D"]
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 18 )
+region = Rect2( 64, 256, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 256, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "lit",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "dim",
+"speed": 5.0
+} ]
+
+[node name="Greedy Rogue" type="Node2D"]
 script = ExtResource( 1 )
 invincible = true
 layer = 2
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
-dim_pos = Vector2( 0, 256 )
-lit_pos = Vector2( 64, 256 )
+frames = SubResource( 3 )
 
-[node name="Lit" parent="Display" index="1"]
-region_rect = Rect2( 64, 256, 16, 16 )
-
-[node name="Dim" parent="Display" index="2"]
-region_rect = Rect2( 0, 256, 16, 16 )
+[node name="Foreground" parent="Display" index="1"]
+frames = SubResource( 3 )
 
 [node name="Arrows" parent="." instance=ExtResource( 16 )]
 visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=1]
 [ext_resource path="res://components/active/flaming/flaming.tscn" type="PackedScene" id=2]
@@ -6,11 +6,24 @@
 [ext_resource path="res://components/active/antimatter/antimatter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://components/reactive/presence/presence.tscn" type="PackedScene" id=5]
 [ext_resource path="res://components/reactive/matter/matter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/textures/ascii.png" type="Texture" id=7]
 [ext_resource path="res://entities/entity.gd" type="Script" id=8]
-[ext_resource path="res://components/thinking/slug/slug.tscn" type="PackedScene" id=9]
+[ext_resource path="res://components/thinking/elemental/elemental.tscn" type="PackedScene" id=9]
 [ext_resource path="res://components/reactive/spawner/spawner.tscn" type="PackedScene" id=10]
 [ext_resource path="res://entities/lava/lava.tscn" type="PackedScene" id=11]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=12]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 400, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "lit",
+"speed": 5.0
+} ]
 
 [node name="Magma Slug" type="Node2D"]
 script = ExtResource( 8 )
@@ -20,8 +33,7 @@ layer = 0
 
 [node name="Display" parent="." instance=ExtResource( 1 )]
 background_color = Color( 1, 0.568627, 0.188235, 1 )
-dim_pos = Vector2( 0, 272 )
-lit_pos = Vector2( 64, 272 )
+frames = SubResource( 3 )
 
 [node name="Jumpable" parent="." instance=ExtResource( 3 )]
 
@@ -40,4 +52,7 @@ on_died = true
 [node name="Matter" parent="." instance=ExtResource( 6 )]
 mask = 1
 
-[node name="Slug" parent="." instance=ExtResource( 9 )]
+[node name="Elemental" parent="." instance=ExtResource( 9 )]
+idle_chance = 0.98
+bias = true
+distracted_chance = 0.5

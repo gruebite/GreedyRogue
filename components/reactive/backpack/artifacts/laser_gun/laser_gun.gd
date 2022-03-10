@@ -14,5 +14,5 @@ func _on_out_of_turn() -> void:
 			charge += 1
 			break
 
-func use(dir: int) -> bool:
+func use(_dir: int) -> bool:
 	return true

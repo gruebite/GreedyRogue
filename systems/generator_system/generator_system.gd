@@ -215,9 +215,23 @@ func generate() -> void:
 					to_add.append(ent)
 	walker.commit()
 
-	for i in 10:
+	var dragon_count := 5
+	var golem_count := 20
+	var tornado_count := 1
+	while true:
 		var pos := walker.opened_tiles.random(walker.rng) + Vector2(1, 1)
-		var ent: Entity = Entities.DRAGONLING.instance()
+		var ent: Entity
+		if dragon_count > 0:
+			ent = Entities.DRAGONLING.instance()
+			dragon_count -= 1
+		elif golem_count > 0:
+			ent = Entities.GOLEM.instance()
+			golem_count -= 1
+		elif tornado_count > 0:
+			ent = Entities.TORNADO.instance()
+			tornado_count -= 1
+		else:
+			break
 		ent.grid_position = Vector2(pos.x, pos.y)
 		to_add.append(ent)
 
