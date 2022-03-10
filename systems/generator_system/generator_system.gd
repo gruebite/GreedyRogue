@@ -9,11 +9,13 @@ onready var hoard_system: HoardSystem = get_node("../HoardSystem")
 onready var bright_system: BrightSystem = get_node("../BrightSystem")
 onready var navigation_system: NavigationSystem = get_node("../NavigationSystem")
 
+var generated_level := -1
+
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
 
-func generate() -> void:
+func generate(level: int=0) -> void:
 	# Reset bright first because entity_system reset will add the player.
 	bright_system.reset()
 	entity_system.reset()
@@ -298,6 +300,8 @@ func generate() -> void:
 
 	yield()
 	bright_system.update_blocking_grid()
+
+	generated_level = level
 
 func tile_to_walker_tile(tile: int) -> int:
 	return tile - Tile.WALL

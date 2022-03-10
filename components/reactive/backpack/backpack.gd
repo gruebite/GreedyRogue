@@ -7,12 +7,9 @@ const MAX_ARTIFACTS := 5
 
 signal picked_up_gold()
 signal picked_up_treasure()
-signal gold_changed(to)
 signal gained_artifact(artifact)
 signal artifact_level_changed(artifact, to, mx)
 signal artifact_charge_changed(artifact, to, mx)
-
-export var gold := 0 setget set_gold
 
 onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
@@ -28,16 +25,11 @@ func _ready() -> void:
 
 func _on_picked_up(ent: Entity) -> void:
 	if ent.get_component(Gold.NAME):
-		self.gold += (randi() % 5) + 5
 		anxiety.anxiety -= 10
 		effect_system.add_effect(preload("res://effects/collect_gold/collect_gold.tscn").instance(), entity.position)
 		emit_signal("picked_up_gold")
 	if ent.get_component(Treasure.NAME):
 		emit_signal("picked_up_treasure")
-
-func set_gold(to: int) -> void:
-	gold = to
-	emit_signal("gold_changed", to)
 
 func add_artifact(n: String) -> void:
 	if n in Artifacts.CONSUMED:

@@ -50,23 +50,26 @@ func _process(_delta: float) -> void:
 		var player = $EntitySystem.player
 		var _ignore
 		_ignore = player.connect("died", self, "_on_player_died")
-		_ignore = player.get_component(Backpack.NAME).connect("gold_changed", self, "_on_gold_changed")
 		_ignore = player.get_component(Backpack.NAME).connect("gained_artifact", self, "_on_gained_artifact")
 		_ignore = player.get_component(Backpack.NAME).connect("artifact_level_changed", self, "_on_artifact_level_changed")
 		_ignore = player.get_component(Backpack.NAME).connect("artifact_charge_changed", self, "_on_artifact_charge_changed")
+		_ignore = player.get_component(Backpack.NAME).connect("picked_up_gold", self, "_on_picked_up_gold")
+		_ignore = player.get_component(Backpack.NAME).connect("picked_up_treasure", self, "_on_picked_up_treasure")
 		_ignore = player.get_component(Health.NAME).connect("health_changed", self, "_on_health_changed")
 		_ignore = player.get_component(Anxiety.NAME).connect("anxiety_changed", self, "_on_anxiety_changed")
 		_ignore = player.get_component(Anxiety.NAME).connect("panicking", self, "_on_panicking")
 		_ignore = player.get_component(Anxiety.NAME).connect("calmed_down", self, "_on_calmed_down")
-		_ignore = player.get_component(Backpack.NAME).connect("picked_up_gold", self, "_on_picked_up_gold")
-		_ignore = player.get_component(Backpack.NAME).connect("picked_up_treasure", self, "_on_picked_up_treasure")
 		_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
 		_ignore = player.get_component(Controller.NAME).connect("activated_artifact", self, "_on_activated_artifact")
 		_ignore = player.get_component(Controller.NAME).connect("deactivated_artifact", self, "_on_deactivated_artifact")
 		# Kinda hacky.
 		_on_health_changed(1, 1)
 		_on_anxiety_changed(0, 1)
-		_on_gold_changed(0)
+		$UI/HUD/VBoxContainer/Gold/Value.text = "0%"
+		if $GeneratorSystem.generated_level == 0:
+			show_message(
+				"Collect \n" +
+				"")
 
 func _input(event: InputEvent) -> void:
 	if not $UI/Message.visible:
@@ -86,9 +89,15 @@ func _on_player_died(_by: Node2D) -> void:
 	show_message("Died\nCollected %.2f%% of the gold" % [$HoardSystem.gold_p * 100])
 	game_over = true
 
-func _on_gold_changed(to: int) -> void:
-	print("Gold percentage: %0.2f%%" % [$HoardSystem.gold_p * 100])
-	$UI/HUD/VBoxContainer/Gold/Value.text = str(to)
+func _on_picked_up_gold() -> void:
+	$HoardSystem.collect_gold()
+	var gold_p: float = $HoardSystem.gold_p * 100
+	print("Gold percentage: %0.2f%%" % [gold_p])
+	$UI/HUD/VBoxContainer/Gold/Value.text = "%0.0f%%" % [gold_p]
+
+func _on_picked_up_treasure() -> void:
+	var arts = Artifacts.random_treasures($EntitySystem.player.get_component(Backpack.NAME))
+	pick_artifact(arts)
 
 func _on_gained_artifact(artifact: Artifact) -> void:
 	var treasures := $UI/HUD/VBoxContainer/Treasures
@@ -138,13 +147,6 @@ func _on_found_exit() -> void:
 		return
 	show_message("Found an escape!\nCollected %.2f%% of the gold" % ($HoardSystem.gold_p * 100))
 	game_over = true
-
-func _on_picked_up_gold() -> void:
-	$HoardSystem.collect_gold()
-
-func _on_picked_up_treasure() -> void:
-	var arts = Artifacts.random_treasures($EntitySystem.player.get_component(Backpack.NAME))
-	pick_artifact(arts)
 
 func _on_use_artifact(index: int) -> void:
 	$EntitySystem.player.get_component(Controller.NAME).use_artifact(index)

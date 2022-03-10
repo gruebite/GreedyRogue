@@ -41,13 +41,6 @@ func spawn() -> void:
 		return
 
 	var gpos := entity.grid_position
-	if unique:
-		var entities := entity_system.get_entities(gpos.x, gpos.y)
-		# This should work for everything that is instantiated in code (not in-scene).
-		for ent in entities:
-			if ent.filename == spawns.resource_path:
-				return
-
 	var c := 1 if unique else count
 	for i in c:
-		entity_system.add_entity(spawns.instance(), gpos)
+		entity_system.spawn_entity(spawns, gpos, unique)

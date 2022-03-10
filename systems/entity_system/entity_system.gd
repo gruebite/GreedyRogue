@@ -28,6 +28,16 @@ func reset() -> void:
 	player = player_scene.instance()
 	add_entity(player, Vector2.ZERO)
 
+func spawn_entity(scene: PackedScene, gpos: Vector2, unique: bool=true) -> void:
+	var entity: Entity = scene.instance()
+	if unique:
+		var entities := get_entities(gpos.x, gpos.y)
+		# This should work for everything that is instantiated in code (not in-scene).
+		for ent in entities:
+			if ent.filename == scene.resource_path:
+				return
+	add_entity(entity, gpos)
+
 func add_entity(entity: Node2D, gpos=null) -> void:
 	if gpos:
 		entity.grid_position = gpos

@@ -32,7 +32,7 @@ script = ExtResource( 1 )
 [node name="Display" parent="." instance=ExtResource( 2 )]
 background_color = Color( 0.74902, 0.168627, 0.160784, 1 )
 frames = SubResource( 2 )
-frame = 2
+frame = 18
 playing = true
 
 [node name="Jumpable" parent="." instance=ExtResource( 8 )]
@@ -49,3 +49,4 @@ heat = 3
 mask = 1
 
 [node name="Bright" parent="." instance=ExtResource( 4 )]
+dim_radius = 5
