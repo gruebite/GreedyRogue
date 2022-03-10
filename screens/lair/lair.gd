@@ -101,7 +101,7 @@ func _on_picked_up_gold() -> void:
 	$UI/HUD/VBoxContainer/Gold/Value.text = "%.0f%%" % [total_gold_p]
 
 func _on_picked_up_treasure() -> void:
-	var arts = Artifacts.random_treasures($EntitySystem.player.get_component(Backpack.NAME))
+	var arts = Artifacts.random_artifacts($EntitySystem.player.get_component(Backpack.NAME))
 	pick_artifact(arts)
 
 func _on_gained_artifact(artifact: Artifact) -> void:

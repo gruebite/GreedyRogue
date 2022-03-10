@@ -2,7 +2,6 @@
 # TODO
 
 - Add more artifacts that interact with the existing elements
-    - Dragon Claw that make you punch rocks until they hit something or fall in lava
     - The One Ring makes you instantly win if you die from lava
     - **Unnamed** Something that makes time skip, at the cost of extra anxiety (caffeine?)
     - **Unnamed** Something that creates rocks

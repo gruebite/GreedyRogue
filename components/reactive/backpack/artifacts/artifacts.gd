@@ -45,7 +45,7 @@ const TABLE := {
 	"Winged Boots": preload("res://components/reactive/backpack/artifacts/winged_boots/winged_boots.tscn"),
 }
 
-static func random_treasures(backpack) -> Array:
+static func random_artifacts(backpack) -> Array:
 	var pool: Array
 	if backpack.is_full():
 		pool = CONSUMED.duplicate()
