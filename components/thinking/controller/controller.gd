@@ -22,6 +22,9 @@ onready var anxiety: Anxiety = entity.get_component(Anxiety.NAME)
 # Only used for direction select.
 var using_artifact := -1
 
+# Used for time freeze effects.
+var skip_turns := 0
+
 func _ready() -> void:
 	var _ignore
 	_ignore = generator_system.connect("entered_level", self, "_on_entered_level")
@@ -104,7 +107,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			navigation_system.move_to(entity, desired)
 			bright_sytem.update_brights()
 			bright_sytem.update_tiles()
-			turn_system.initiate_turn()
+			if skip_turns > 0:
+				skip_turns -= 1
+				turn_system.will_not_initiate_turn()
+			else:
+				turn_system.initiate_turn()
 
 func _on_entered_level(_lvl: int) -> void:
 	effect_system.add_effect(preload("res://effects/ping/ping.tscn"), entity.position)
@@ -131,7 +138,11 @@ func use_artifact(index: int) -> void:
 		return
 	turn_system.will_initiate_turn()
 	if artifact.use(-1):
-		turn_system.initiate_turn()
+		if skip_turns > 0:
+			skip_turns -= 1
+			turn_system.will_not_initiate_turn()
+		else:
+			turn_system.initiate_turn()
 	else:
 		turn_system.will_not_initiate_turn()
 

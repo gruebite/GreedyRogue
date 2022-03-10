@@ -21,7 +21,7 @@ const NAMES := [
 	"Laser Gun",
 	"Liquid Courage",
 	"Power Bracelet",
-	#"Sandglass",
+	"Sandglass",
 	"Star in a Bottle",
 	"Winged Boots",
 ]
