@@ -1,12 +1,14 @@
 extends Artifact
 
 onready var tile_system: TileSystem
+onready var effect_system: EffectSystem
 onready var entity_system: EntitySystem
 onready var navigation_system: NavigationSystem
 
 func _ready() -> void:
 	if backpack:
 		tile_system = backpack.find_system(TileSystem.GROUP_NAME)
+		effect_system = backpack.find_system(EffectSystem.GROUP_NAME)
 		entity_system = backpack.find_system(EntitySystem.GROUP_NAME)
 		navigation_system = backpack.find_system(NavigationSystem.GROUP_NAME)
 
@@ -30,29 +32,52 @@ func use(dir: int) -> bool:
 			return false
 		# Check entities that are bumpable and moveable and add them to the stack.
 		var entities := entity_system.get_entities(gpos.x, gpos.y)
-		# No entities, we're clear.
-		if entities.size() == 0:
-			break
 		var eligible_ents := []
 		for ent in entities:
 			var bumpable = ent.get_component(Bumpable.NAME)
 			var moveable = ent.get_component(Moveable.NAME)
 			if bumpable and moveable:
 				eligible_ents.append(ent)
+		# No bumpables, we're clear.
+		if eligible_ents.size() == 0:
+			break
 		ent_spot_stack.append(eligible_ents)
 		dist += 1
 
-	var at_least_1 := false
-	# Backtrack, pull entities that can move.
-	while ent_spot_stack.size() > 0:
-		var eligible_ents: Array = ent_spot_stack.pop_back()
-		var dest = backpack.entity.grid_position + dv * dist
-		for ent in eligible_ents:
-			if navigation_system.can_move_to(ent, dest):
-				navigation_system.move_to(ent, dest)
-				at_least_1 = true
-		dist -= 1
-
-	if at_least_1:
+	# Two paths, one to check if we're dealing with one bumpable, the other to push multiple.
+	if ent_spot_stack.size() == 1:
+		var pushing: Array = ent_spot_stack.pop_back()
+		# Push until we hit a wall, or get freed somehow.
+		dist = 2
+		while true:
+			var gpos = backpack.entity.grid_position + dv * dist
+			var i := pushing.size()
+			while i > 0:
+				i -= 1
+				var pushing_ent = pushing[i]
+				if not is_instance_valid(pushing_ent) or not navigation_system.can_move_to(pushing_ent, gpos):
+					# Done pushing.
+					pushing.remove(i)
+				else:
+					navigation_system.move_to(pushing_ent, gpos)
+			if pushing.size() == 0:
+				break
+			effect_system.add_effect(preload("res://effects/cracking/cracking.tscn"), gpos * Constants.CELL_SIZE)
+			dist += 1
 		self.charge = 0
-	return at_least_1
+	else:
+		var at_least_1 := false
+		# Backtrack, pull entities that can move.
+		while ent_spot_stack.size() > 0:
+			var eligible_ents: Array = ent_spot_stack.pop_back()
+			var dest = backpack.entity.grid_position + dv * dist
+			for ent in eligible_ents:
+				if navigation_system.can_move_to(ent, dest):
+					navigation_system.move_to(ent, dest)
+					at_least_1 = true
+			dist -= 1
+
+		if at_least_1:
+			self.charge = 0
+
+	return true
