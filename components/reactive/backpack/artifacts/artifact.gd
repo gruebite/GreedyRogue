@@ -39,7 +39,7 @@ func _on_in_turn() -> void:
 func _on_out_of_turn() -> void:
 	pass
 
-func _on_moved(_from: Vector2, _to: Vector2) -> void:
+func _on_moved(_from: Vector2) -> void:
 	pass
 
 # Override.

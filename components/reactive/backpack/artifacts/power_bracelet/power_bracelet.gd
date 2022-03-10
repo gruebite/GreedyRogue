@@ -55,11 +55,18 @@ func use(dir: int) -> bool:
 			while i > 0:
 				i -= 1
 				var pushing_ent = pushing[i]
-				if not is_instance_valid(pushing_ent) or not navigation_system.can_move_to(pushing_ent, gpos):
+				if pushing_ent.dead or not navigation_system.can_move_to(pushing_ent, gpos):
 					# Done pushing.
 					pushing.remove(i)
 				else:
 					navigation_system.move_to(pushing_ent, gpos)
+					# Manually do an in turn update.
+					var turn_taker: TurnTaker = pushing_ent.get_component("TurnTaker")
+					if turn_taker:
+						turn_taker.emit_signal("manual_turn")
+					# Gotta check again.
+					if pushing_ent.dead:
+						pushing.remove(i)
 			if pushing.size() == 0:
 				break
 			effect_system.add_effect(preload("res://effects/cracking/cracking.tscn"), gpos * Constants.CELL_SIZE)

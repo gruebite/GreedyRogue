@@ -13,7 +13,10 @@ onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var turn_taker: TurnTaker = entity.get_component("TurnTaker")
 
 func _ready() -> void:
-	var _ignore = turn_system.connect("in_turn", self, "_on_in_turn")
+	var _ignore
+	_ignore = turn_system.connect("in_turn", self, "_on_in_turn")
+	if turn_taker:
+		_ignore = turn_taker.connect("manual_turn", self, "_on_in_turn")
 	if immediate:
 		_on_in_turn()
 

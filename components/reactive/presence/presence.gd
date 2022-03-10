@@ -12,5 +12,5 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	entity_system.unregister_entity(entity)
 
-func _on_moved(_from: Vector2, _to: Vector2) -> void:
+func _on_moved(_from: Vector2) -> void:
 	entity_system.update_entity(entity)

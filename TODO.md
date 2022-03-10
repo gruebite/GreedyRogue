@@ -1,8 +1,11 @@
 
 # TODO
 
+- More interactions between objects
+    - Lasers should be environment antimatter, and other artifact behaviors
+    - Golems should throw rocks, and other elemental behaviors
+    - More environment interactions, pitfalls are negelected
 - Add more artifacts that interact with the existing elements
-    - The One Ring makes you instantly win if you die from lava
     - **Unnamed** Something that makes time skip, at the cost of extra anxiety (caffeine?)
     - **Unnamed** Something that creates rocks
     - **Unnamed** Something that removes fire
@@ -16,6 +19,7 @@
 
 - Add more effects for feedback
 - Add more artifacts that interact with the existing elements
+    - The One Ring makes you instantly win if you die from lava
     - Laser Gun that charges by lava, releasing strong blast, destroying things
     - Horned Helm that allows you to charge up to sight range, dealing damage
     - Sandtimer that freezes time.

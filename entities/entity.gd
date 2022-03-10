@@ -10,7 +10,7 @@ enum Layer {
 	AIR,
 }
 
-signal moved(from, to)
+signal moved(from)
 signal died(source)
 
 export var invincible := false
@@ -34,7 +34,7 @@ func get_component(path: String) -> Node2D:
 func move(value: Vector2) -> void:
 	var from := self.grid_position
 	self.grid_position = value
-	emit_signal("moved", from, value)
+	emit_signal("moved", from)
 
 func kill(source: String="unknown") -> void:
 	if dead:
