@@ -91,8 +91,16 @@ func _input(event: InputEvent) -> void:
 
 func _on_player_died(source: String) -> void:
 	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
-	show_message("Died from %s\nCollected %.0f%% of the gold" % [source, total_gold_p])
+
+	# Easter egg.
+	var one_ring: bool = $EntitySystem.player.get_component(Backpack.NAME).has_artifact("Ring of Power")
+	var ppos: Vector2 = $EntitySystem.player.grid_position
+	if one_ring and $NavigationSystem.is_lava(ppos.x, ppos.y):
+		show_message("You destroyed the One Ring\nCollected %.0f%% of the gold" % [total_gold_p])
+	else:
+		show_message("Died from %s\nCollected %.0f%% of the gold" % [source, total_gold_p])
 	game_over = true
+
 
 func _on_picked_up_gold() -> void:
 	$HoardSystem.collect_gold()

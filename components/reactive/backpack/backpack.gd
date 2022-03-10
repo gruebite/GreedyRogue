@@ -73,6 +73,9 @@ func get_artifact_count() -> int:
 func is_full() -> bool:
 	return get_artifact_count() == MAX_ARTIFACTS
 
+func has_artifact(n: String) -> bool:
+	return not not find_node(n, false, false)
+
 func artifact_at_max_level(n: String) -> bool:
 	var art := find_node(n, false, false)
 	if not art:

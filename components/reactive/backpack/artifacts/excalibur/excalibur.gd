@@ -23,13 +23,13 @@ func use(dir: int) -> bool:
 		return false
 	var entities := entity_system.get_entities(gpos.x, gpos.y)
 	var attacked := false
-	attacker.powerup(1)
+	attacker.powerup(3)
 	for ent in entities:
 		var defender: Defender = ent.get_component(Defender.NAME)
 		if defender:
 			attacked = true
 			defender.attack(backpack.entity)
-	attacker.powerdown(1)
+	attacker.powerdown(3)
 	if attacked:
 		self.charge = 0
 	return attacked

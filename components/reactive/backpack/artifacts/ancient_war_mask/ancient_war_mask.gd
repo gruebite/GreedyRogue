@@ -9,4 +9,4 @@ func _ready() -> void:
 		_ignore = backpack.entity.get_component(Attacker.NAME).connect("attacked", self, "_on_attacked")
 
 func _on_attacked(_other) -> void:
-	anxiety.anxiety += (level + 1) * 5
+	anxiety.anxiety -= (level + 1) * 5
