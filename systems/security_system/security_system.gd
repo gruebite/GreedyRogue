@@ -19,6 +19,11 @@ func _ready() -> void:
 
 	var _ignore = hoard_system.connect("gold_removed", self, "_on_gold_removed")
 
+func reset() -> void:
+	total_dragons = 0
+	asleep_dragons.clear()
+	awake_dragons.clear()
+
 func _on_dragon_woke_up(dragon) -> void:
 	var _ignore
 	_ignore = asleep_dragons.erase(dragon)
@@ -37,6 +42,8 @@ func remove_dragon(dragon) -> void:
 func _on_gold_removed() -> void:
 	var gold_p: float = hoard_system.gold_p
 	var asleep := asleep_dragons.keys()
+	if asleep.size() == 0:
+		return
 	asleep.shuffle()
 	var dragons_p: float = 1 - (asleep.size() / float(total_dragons))
 	while dragons_p < gold_p:

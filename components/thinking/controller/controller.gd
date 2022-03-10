@@ -100,8 +100,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				for art in backpack.get_artifacts():
 					art.charge += 999
 
-	# Hacky mouse detection.
-	if event is InputEventMouseButton:
+	# Hacky mouse detection.  Disabled for now.
+	if false and event is InputEventMouseButton:
 		if event.pressed:
 			var center := Constants.MAP_RESOLUTION / 2
 			var angle: float = (event.position - center).angle()

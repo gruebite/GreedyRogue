@@ -12,9 +12,10 @@ const CONSUMED := [
 const NAMES := [
 	"Ancient War Mask",
 	"Ankh",
-	"Balanced Stick",
+	"Balanced Staff",
 	"Chaos Shard",
 	"Dragon Egg",
+	"Fire Stone",
 	"Golden Chalice",
 	"Health Potion",
 	"Heart Piece",
@@ -30,9 +31,10 @@ const NAMES := [
 const TABLE := {
 	"Ancient War Mask": preload("res://components/reactive/backpack/artifacts/ancient_war_mask/ancient_war_mask.tscn"),
 	"Ankh": preload("res://components/reactive/backpack/artifacts/ankh/ankh.tscn"),
-	"Balanced Stick": preload("res://components/reactive/backpack/artifacts/balanced_stick/balanced_stick.tscn"),
+	"Balanced Staff": preload("res://components/reactive/backpack/artifacts/balanced_staff/balanced_staff.tscn"),
 	"Chaos Shard": preload("res://components/reactive/backpack/artifacts/chaos_shard/chaos_shard.tscn"),
 	"Dragon Egg": preload("res://components/reactive/backpack/artifacts/dragon_egg/dragon_egg.tscn"),
+	"Fire Stone": preload("res://components/reactive/backpack/artifacts/fire_stone/fire_stone.tscn"),
 	"Golden Chalice": preload("res://components/reactive/backpack/artifacts/golden_chalice/golden_chalice.tscn"),
 	"Health Potion": preload("res://components/reactive/backpack/artifacts/health_potion/health_potion.tscn"),
 	"Heart Piece": preload("res://components/reactive/backpack/artifacts/heart_piece/heart_piece.tscn"),

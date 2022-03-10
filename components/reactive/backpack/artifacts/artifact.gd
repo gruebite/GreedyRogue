@@ -28,15 +28,9 @@ func _ready() -> void:
 		_ignore = ts.connect("initiated_turn", self, "_on_initiated_turn")
 		_ignore = ts.connect("in_turn", self, "_on_in_turn")
 		_ignore = ts.connect("out_of_turn", self, "_on_out_of_turn")
-		var tt: TurnTaker = backpack.entity.get_component("TurnTaker")
-		if tt:
-			_ignore = tt.connect("take_turn", self, "_on_take_turn")
-			_ignore = backpack.entity.connect("moved", self, "_on_moved")
+		_ignore = backpack.entity.connect("moved", self, "_on_moved")
 
 func _on_initiated_turn() -> void:
-	pass
-
-func _on_take_turn() -> void:
 	pass
 
 func _on_in_turn() -> void:
@@ -45,7 +39,7 @@ func _on_in_turn() -> void:
 func _on_out_of_turn() -> void:
 	pass
 
-func _on_moved() -> void:
+func _on_moved(_from: Vector2, _to: Vector2) -> void:
 	pass
 
 # Override.

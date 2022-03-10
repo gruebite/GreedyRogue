@@ -6,7 +6,7 @@ func _ready() -> void:
 	if backpack:
 		controller = backpack.entity.get_component("Controller")
 
-func _on_take_turn() -> void:
+func _on_out_of_turn() -> void:
 	self.charge += 1
 
 func use(_dir) -> bool:

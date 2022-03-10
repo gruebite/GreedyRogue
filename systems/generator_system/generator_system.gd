@@ -100,6 +100,7 @@ onready var entity_system: EntitySystem = get_node("../EntitySystem")
 onready var hoard_system: HoardSystem = get_node("../HoardSystem")
 onready var bright_system: BrightSystem = get_node("../BrightSystem")
 onready var navigation_system: NavigationSystem = get_node("../NavigationSystem")
+onready var security_system: SecuritySystem = get_node("../SecuritySystem")
 
 var generated_level := -1
 
@@ -112,6 +113,7 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 	bright_system.reset(keep_player)
 	entity_system.reset(keep_player)
 	hoard_system.reset()
+	security_system.reset()
 
 	var walker := Walker.new()
 	walker.start(Constants.MAP_COLUMNS - 2, Constants.MAP_ROWS - 2)

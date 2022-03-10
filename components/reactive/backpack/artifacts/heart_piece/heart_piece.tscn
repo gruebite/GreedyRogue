@@ -19,7 +19,7 @@ animations = [ {
 [node name="Heart Piece" type="Node2D"]
 script = ExtResource( 2 )
 layer = 0
-description = "More life."
+description = "Grants more health"
 consumed = true
 
 [node name="Display" parent="." instance=ExtResource( 1 )]

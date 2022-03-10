@@ -19,7 +19,7 @@ animations = [ {
 [node name="Horned Helm" type="Node2D"]
 script = ExtResource( 1 )
 layer = 0
-description = "Like a bull's horns"
+description = "Made from a bull's horns"
 max_charges = PoolIntArray( 50, 20, 10 )
 directional = true
 
