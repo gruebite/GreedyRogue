@@ -5,7 +5,9 @@ var anxiety: Anxiety
 func _ready() -> void:
 	if backpack:
 		var _ignore
-		_ignore = anxiety.connect("panicking", self, "_on_panicking")
+		anxiety = backpack.entity.get_component(Anxiety.NAME)
+		_ignore = anxiety.connect("mindful", self, "_on_mindful")
 
-func _on_panicking(amount: int) -> void:
-	anxiety.panic = -amount * level
+func _on_mindful() -> void:
+	if anxiety.panic > anxiety.normal_panic:
+		anxiety.panic *= -1

@@ -10,8 +10,7 @@ var activated := false
 var artifact_name := ""
 
 func _ready() -> void:
-	if hide_charge:
-		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.hide()
+	update_charge()
 	if hide_level:
 		$MarginContainer/Foreground/DescriptionContainer/Title/Level.hide()
 
@@ -39,6 +38,7 @@ func present_artifact(art_name: String) -> void:
 	$MarginContainer/Foreground/DescriptionContainer/Title/Name.text = art_name
 	$MarginContainer/Foreground/DescriptionContainer/Description.text = artifact.description
 	update_artifact(artifact)
+	update_charge(artifact.no_charge)
 
 func update_artifact(artifact: Artifact) -> void:
 	$MarginContainer/Foreground/DescriptionContainer/Title/Level.text = str("♦").repeat(artifact.level + 1)
@@ -48,3 +48,9 @@ func update_artifact(artifact: Artifact) -> void:
 		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.modulate = Color(1, 1, 1, 1)
 	var cp := artifact.charge_p * 100.0
 	$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.value = cp
+
+func update_charge(no_charge: bool=false) -> void:
+	if hide_charge or no_charge:
+		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.hide()
+	else:
+		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.show()

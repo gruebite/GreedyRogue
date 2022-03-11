@@ -56,6 +56,7 @@ layer = 4
 [node name="Display" parent="." instance=ExtResource( 3 )]
 background_color = Color( 0, 0, 0, 1 )
 frames = SubResource( 1 )
+jitter = false
 
 [node name="Bumpable" parent="." instance=ExtResource( 7 )]
 must_bump = true

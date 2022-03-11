@@ -3,6 +3,7 @@ class_name Anxiety
 
 const NAME := "Anxiety"
 
+signal mindful()
 signal anxiety_changed(to, mx)
 signal panicking(amount)
 signal calmed_down()
@@ -22,6 +23,7 @@ func _ready() -> void:
 	emit_signal("anxiety_changed", anxiety, max_anxiety)
 
 func _on_in_turn() -> void:
+	emit_signal("mindful")
 	# Check if we panicked this turn.
 	if panic > normal_panic:
 		emit_signal("panicking", panic)

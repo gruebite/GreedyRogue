@@ -16,7 +16,7 @@ func _on_out_of_turn() -> void:
 	self.charge += 1
 
 func use(dir: int) -> bool:
-	var bumper: Component = backpack.entity.get_component(Bumpable.NAME)
+	var bumper: Component = backpack.entity.get_component(Bumper.NAME)
 	var dv := Direction.delta(dir)
 	var dist := 1
 	# Find first free square.

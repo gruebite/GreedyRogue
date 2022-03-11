@@ -10,6 +10,7 @@ export(String, MULTILINE) var description := ""
 export(PoolIntArray) var max_charges := [0]
 export var consumed := false
 export var passive := false
+export var no_charge := false
 export var directional := false
 
 export var level: int = 0 setget set_level
