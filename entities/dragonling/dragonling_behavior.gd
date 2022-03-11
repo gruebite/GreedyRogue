@@ -35,6 +35,9 @@ onready var display: Display = entity.get_component(Display.NAME)
 onready var elemental: Elemental = entity.get_component(Elemental.NAME)
 onready var player_anxiety: Anxiety = entity_system.player.get_component(Anxiety.NAME)
 
+# TODO: Used for "stealth".  If bright is disabled, player is stealthy.
+onready var player_bright: Bright = entity_system.player.get_component(Bright.NAME)
+
 func _ready() -> void:
 	security_system.add_dragon(self)
 	var _ignore
@@ -90,7 +93,7 @@ func check_transitions() -> void:
 	match state:
 		State.SLEEPING:
 			var v: Vector2 = (entity_system.player.grid_position - entity.grid_position).abs()
-			if v.x + v.y <= awake_dist:
+			if v.x + v.y <= awake_dist and not player_bright.disabled:
 				wake_up()
 			else:
 				# Do nothing, we asleep.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/passive/attackable/attackable.tscn" type="PackedScene" id=2]
@@ -16,14 +16,7 @@
 [ext_resource path="res://components/reactive/bright/bright.tscn" type="PackedScene" id=14]
 [ext_resource path="res://components/behavior/terrorize/terrorize.tscn" type="PackedScene" id=15]
 [ext_resource path="res://components/passive/knockbackable/knockbackable.tscn" type="PackedScene" id=16]
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 11 )
-region = Rect2( 64, 384, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 11 )
-region = Rect2( 80, 384, 16, 16 )
+[ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=17]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 11 )
@@ -33,16 +26,24 @@ region = Rect2( 0, 384, 16, 16 )
 atlas = ExtResource( 11 )
 region = Rect2( 16, 384, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 11 )
+region = Rect2( 64, 384, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 11 )
+region = Rect2( 80, 384, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "lit",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
 "name": "dim",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "lit",
 "speed": 5.0
 } ]
 
@@ -55,7 +56,6 @@ layer = 4
 [node name="Display" parent="." instance=ExtResource( 3 )]
 background_color = Color( 0, 0, 0, 1 )
 frames = SubResource( 1 )
-frame = 1
 
 [node name="Bumpable" parent="." instance=ExtResource( 7 )]
 must_bump = true
@@ -66,6 +66,9 @@ bump_mask = 8
 [node name="Attackable" parent="." instance=ExtResource( 2 )]
 
 [node name="Knockbackable" parent="." instance=ExtResource( 16 )]
+
+[node name="Moveable" parent="." instance=ExtResource( 17 )]
+on_knockback = true
 
 [node name="Bumper" parent="." instance=ExtResource( 8 )]
 bump_mask = 3
@@ -82,7 +85,6 @@ dynamic = true
 max_health = 3
 
 [node name="Elemental" parent="." instance=ExtResource( 5 )]
-fleeting = null
 notice_range = 6
 pursue_range = 9
 idle_chance = 0.33
@@ -91,12 +93,5 @@ distracted_chance = 0.2
 state = 0
 
 [node name="DragonlingBehavior" parent="." instance=ExtResource( 13 )]
-awake_dist = null
-dim_range = null
-lit_range = null
-breath_weapon_chance = null
-breath_weapon_time = null
-breath_weapon_range = null
-breath = null
 
 [node name="Terrorize" parent="." instance=ExtResource( 15 )]

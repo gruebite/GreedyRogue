@@ -3,6 +3,8 @@ class_name Moveable
 
 const NAME := "Moveable"
 
+export var inverse := false
+
 export var on_bump := false
 export var on_attack := false
 export var on_knockback := false
@@ -30,6 +32,6 @@ func _on_kocked_back(by: Knockbacker) -> void:
 
 func make_move(by: Entity) -> void:
 	var dv := entity.grid_position - by.grid_position
-	var desired := entity.grid_position + dv
+	var desired := entity.grid_position + dv * (-1 if inverse else 1)
 	if navigation_system.can_move_to(entity, desired):
 		navigation_system.move_to(entity, desired)

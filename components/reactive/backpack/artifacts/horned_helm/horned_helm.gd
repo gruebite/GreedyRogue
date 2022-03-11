@@ -20,6 +20,7 @@ func _on_out_of_turn() -> void:
 	self.charge += 1
 
 func use(dir: int) -> bool:
+	var knockbacker: Knockbacker = backpack.entity.get_component(Knockbacker.NAME)
 	var bumper: Bumper = backpack.entity.get_component(Bumper.NAME)
 	var i := 1
 	var startv: Vector2 = backpack.entity.grid_position
@@ -35,6 +36,9 @@ func use(dir: int) -> bool:
 			if bumper.does_bump(bumpable):
 				bumper.do_bump(bumpable)
 				hit = true
+			var knockbackable: Knockbackable = ent.get_component(Knockbackable.NAME)
+			if knockbackable:
+				knockbacker.knockback(knockbackable)
 		if hit:
 			break
 		else:

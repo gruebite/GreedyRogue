@@ -82,12 +82,7 @@ func can_see(from: Entity, to: Entity, dist: int) -> bool:
 func is_lava(x: int, y: int) -> bool:
 	if out_of_bounds(x, y):
 		return false
-	var yep := false
-	for matter in entity_system.get_components(x, y, Matter.NAME):
-		if Matter.LAVA & matter.mask:
-			yep = true
-			break
-	return yep
+	return entity_system.get_components(x, y, Molten.NAME).size() > 0
 
 func is_near_lava(x: int, y: int) -> bool:
 	for dir in Direction.COMPASS:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -12,6 +12,15 @@
 [ext_resource path="res://components/thinking/elemental/elemental.tscn" type="PackedScene" id=10]
 [ext_resource path="res://components/reactive/spawner/spawner.tscn" type="PackedScene" id=11]
 [ext_resource path="res://entities/gust/gust.tscn" type="PackedScene" id=12]
+[ext_resource path="res://components/coactive/knockbacker/knockbacker.tscn" type="PackedScene" id=13]
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 432, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 4 )
+region = Rect2( 48, 432, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 4 )
@@ -29,25 +38,17 @@ region = Rect2( 96, 432, 16, 16 )
 atlas = ExtResource( 4 )
 region = Rect2( 112, 432, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 4 )
-region = Rect2( 16, 432, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 4 )
-region = Rect2( 48, 432, 16, 16 )
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
-"loop": true,
-"name": "lit",
-"speed": 30.0
-}, {
 "frames": [ SubResource( 7 ), SubResource( 9 ) ],
 "loop": true,
 "name": "dim",
 "speed": 15.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "lit",
+"speed": 30.0
 } ]
 
 [node name="Tornado" type="Node2D"]
@@ -60,11 +61,15 @@ layer = 5
 background_color = Color( 0, 0, 0, 0 )
 frames = SubResource( 1 )
 playing = true
+frame = 1
 
 [node name="Harming" parent="." instance=ExtResource( 5 )]
 
 [node name="Bumper" parent="." instance=ExtResource( 8 )]
-bump_mask = 4
+bump_mask = 22
+
+[node name="Knockbacker" parent="." instance=ExtResource( 13 )]
+on_bump = true
 
 [node name="Spawner" parent="." instance=ExtResource( 11 )]
 unique = false

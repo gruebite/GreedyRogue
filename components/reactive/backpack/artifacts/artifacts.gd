@@ -10,6 +10,7 @@ const CONSUMED := [
 ]
 
 const NAMES := [
+	"Amulet of Resolve",
 	"Ancient War Mask",
 	"Ankh",
 	"Balanced Staff",
@@ -32,6 +33,7 @@ const NAMES := [
 ]
 
 const TABLE := {
+	"Amulet of Resolve": preload("res://components/reactive/backpack/artifacts/amulet_of_resolve/amulet_of_resolve.tscn"),
 	"Ancient War Mask": preload("res://components/reactive/backpack/artifacts/ancient_war_mask/ancient_war_mask.tscn"),
 	"Ankh": preload("res://components/reactive/backpack/artifacts/ankh/ankh.tscn"),
 	"Balanced Staff": preload("res://components/reactive/backpack/artifacts/balanced_staff/balanced_staff.tscn"),

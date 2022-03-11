@@ -13,6 +13,9 @@ export var frame: int setget set_frame, get_frame
 
 export var jitter := true
 
+# TODO: Kinda hacky.
+var force_brightness: int = -1 setget set_force_brightness
+
 func _ready() -> void:
 	self.frames = frames
 	self.playing = playing
@@ -28,7 +31,10 @@ func set_background_color(c: Color) -> void:
 	$Background.modulate = c
 
 func set_brightness(to: int) -> void:
-	brightness = to
+	if force_brightness == -1:
+		brightness = to
+	else:
+		brightness = force_brightness
 	if not is_inside_tree(): yield(self, 'ready')
 	match brightness:
 		Brightness.NONE:
@@ -51,6 +57,10 @@ func set_brightness(to: int) -> void:
 				$Foreground.frame = f
 			else:
 				$Foreground.hide()
+
+func set_force_brightness(to: int) -> void:
+	self.brightness = to
+	force_brightness = to
 
 func set_frames(fs: SpriteFrames) -> void:
 	frames = fs

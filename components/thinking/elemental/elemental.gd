@@ -34,6 +34,9 @@ onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
 onready var navigation_system: NavigationSystem = find_system(NavigationSystem.GROUP_NAME)
 
+# TODO: Used for "stealth".  If bright is disabled, player is stealthy.
+onready var player_bright: Bright = entity_system.player.get_component(Bright.NAME)
+
 export(State) var state: int = State.WANDERING
 var last_dir := Vector2.ZERO
 
@@ -91,9 +94,9 @@ func check_transitions():
 	match state:
 		State.WANDERING:
 			var v: Vector2 = (entity_system.player.grid_position - entity.grid_position).abs()
-			if v.x + v.y <= notice_range:
+			if v.x + v.y <= notice_range and not player_bright.disabled:
 				state = State.PURSUING
 		State.PURSUING:
 			var v: Vector2 = (entity_system.player.grid_position - entity.grid_position).abs()
-			if v.x + v.y > pursue_range:
+			if v.x + v.y > pursue_range and not player_bright.disabled:
 				state = State.WANDERING

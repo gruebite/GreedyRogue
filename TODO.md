@@ -1,7 +1,7 @@
 
 # Quick
 
-- Make horned helm knockback
+
 
 # TODO
 
@@ -11,9 +11,9 @@
     - More environment interactions, pitfalls are negelected
     - More environment hazards to bump into, one time effects
 - Add more artifacts that interact with the existing elements
-    - An artifact that turns rock into time bombs (explosion entity, timebomb component)
-    - An artifact that knocks back entities (knockbackabble component)
-    - An artifact that pulls the first entity to you (knockbackabble component)
+- An artifact that turns rock into time bombs (explosion entity, timebomb component)
+    - An artifact that knocks back entities
+    - An artifact that pulls the first entity to you
     - **Unnamed** Something that makes time skip, at the cost of extra anxiety (caffeine?)
     - **Unnamed** Something that creates rocks
     - **Unnamed** Something that removes fire
@@ -27,6 +27,7 @@
 
 - Add more effects for feedback
 - Add more artifacts that interact with the existing elements
+    - An artifact the prevents panicing completely, and may even start to enjoy it (amulet of resolve)
     - The One Ring makes you instantly win if you die from lava
     - Laser Gun that charges by lava, releasing strong blast, destroying things
     - Horned Helm that allows you to charge up to sight range, dealing damage

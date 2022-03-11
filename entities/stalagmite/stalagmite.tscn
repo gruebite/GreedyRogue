@@ -1,14 +1,16 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
 [ext_resource path="res://components/reactive/presence/presence.tscn" type="PackedScene" id=3]
 [ext_resource path="res://components/passive/bumpable/bumpable.tscn" type="PackedScene" id=4]
+[ext_resource path="res://components/passive/knockbackable/knockbackable.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/falling_rock/falling_rock.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/passive/jumpable/jumpable.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/reactive/entity_stack/entity_stack.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=9]
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=10]
+[ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=11]
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 9 )
@@ -41,6 +43,11 @@ frames = SubResource( 3 )
 
 [node name="Bumpable" parent="." instance=ExtResource( 4 )]
 bump_mask = 2
+
+[node name="Knockbackable" parent="." instance=ExtResource( 5 )]
+
+[node name="Moveable" parent="." instance=ExtResource( 11 )]
+on_knockback = true
 
 [node name="Presence" parent="." instance=ExtResource( 3 )]
 

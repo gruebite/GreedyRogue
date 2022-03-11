@@ -19,6 +19,6 @@ func _on_out_of_turn() -> void:
 	if charge == 0:
 		bright.unglow()
 	else:
-		var dim := (level + 1) * 3
-		var lit := (level + 1) * 1
+		var dim := (level + 2) * 3
+		var lit := (level + 2) * 1
 		bright.glow(dim, lit)

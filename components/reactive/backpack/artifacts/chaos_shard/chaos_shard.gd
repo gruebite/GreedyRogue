@@ -16,4 +16,4 @@ func use(_dir: int) -> bool:
 	navigation_system.move_to(backpack.entity, navigation_system.find_random_unblocked())
 	effect_system.add_effect(preload("res://effects/spell_cast/spell_cast.tscn"), backpack.entity.position)
 	self.charge = 0
-	return true
+	return false

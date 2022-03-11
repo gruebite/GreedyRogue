@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -15,18 +15,9 @@
 [ext_resource path="res://components/passive/flammable/flammable.tscn" type="PackedScene" id=13]
 [ext_resource path="res://entities/gust/gust_behavior.tscn" type="PackedScene" id=14]
 [ext_resource path="res://components/reactive/wind/wind.tscn" type="PackedScene" id=15]
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 4 )
-region = Rect2( 64, 448, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 4 )
-region = Rect2( 80, 448, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 4 )
-region = Rect2( 96, 448, 16, 16 )
+[ext_resource path="res://components/coactive/knockbacker/knockbacker.tscn" type="PackedScene" id=16]
+[ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=17]
+[ext_resource path="res://components/passive/knockbackable/knockbackable.tscn" type="PackedScene" id=18]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 4 )
@@ -40,16 +31,28 @@ region = Rect2( 16, 448, 16, 16 )
 atlas = ExtResource( 4 )
 region = Rect2( 32, 448, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 4 )
+region = Rect2( 64, 448, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 4 )
+region = Rect2( 80, 448, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 4 )
+region = Rect2( 96, 448, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
-"loop": true,
-"name": "lit",
-"speed": 15.0
-}, {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 7 ) ],
 "loop": true,
 "name": "dim",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "lit",
 "speed": 15.0
 } ]
 
@@ -67,6 +70,8 @@ jitter = false
 [node name="Flammable" parent="." instance=ExtResource( 13 )]
 resistance = 999
 
+[node name="Knockbackable" parent="." instance=ExtResource( 18 )]
+
 [node name="Ignitable" parent="." instance=ExtResource( 12 )]
 eternal = true
 
@@ -74,7 +79,13 @@ eternal = true
 triggers_death = true
 
 [node name="Bumper" parent="." instance=ExtResource( 8 )]
-bump_mask = 6
+bump_mask = 22
+
+[node name="Knockbacker" parent="." instance=ExtResource( 16 )]
+on_bump = true
+
+[node name="Moveable" parent="." instance=ExtResource( 17 )]
+on_knockback = true
 
 [node name="Presence" parent="." instance=ExtResource( 7 )]
 
@@ -90,11 +101,6 @@ max_health = 1
 
 [node name="Elemental" parent="." instance=ExtResource( 10 )]
 fleeting = true
-notice_range = null
-pursue_range = null
 idle_chance = 0.3
-bias = null
-distracted_chance = null
-state = null
 
 [node name="GustBehavior" parent="." instance=ExtResource( 14 )]

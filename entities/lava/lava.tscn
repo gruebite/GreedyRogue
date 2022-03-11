@@ -35,7 +35,7 @@ script = ExtResource( 1 )
 background_color = Color( 0.74902, 0.168627, 0.160784, 1 )
 frames = SubResource( 3 )
 playing = true
-frame = 6
+frame = 1
 
 [node name="Jumpable" parent="." instance=ExtResource( 8 )]
 
