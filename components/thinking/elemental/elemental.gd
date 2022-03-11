@@ -4,13 +4,13 @@ class_name Elemental
 const NAME := "Elemental"
 
 enum State {
-	STILL,
+	BLANKING,
 	WANDERING,
 	PURSUING,
 }
 
 signal thinking()
-signal still()
+signal blanking()
 signal wandering()
 signal idling()
 signal pursuing()
@@ -53,8 +53,8 @@ func _on_take_turn() -> void:
 		skip_this_turn = false
 	else:
 		match state:
-			State.STILL:
-				emit_signal("still")
+			State.BLANKING:
+				emit_signal("blanking")
 			State.WANDERING:
 				if randf() <= idle_chance:
 					emit_signal("idling")

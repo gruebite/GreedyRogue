@@ -1,10 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/reactive/defender/defender.tscn" type="PackedScene" id=2]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=3]
 [ext_resource path="res://components/reactive/presence/presence.tscn" type="PackedScene" id=4]
-[ext_resource path="res://components/thinking/dragon/dragon.tscn" type="PackedScene" id=5]
+[ext_resource path="res://components/thinking/elemental/elemental.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/passive/bumpable/bumpable.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/active/bumper/bumper.tscn" type="PackedScene" id=8]
@@ -12,25 +12,36 @@
 [ext_resource path="res://components/reactive/health/health.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=11]
 [ext_resource path="res://components/passive/harmable/harmable.tscn" type="PackedScene" id=12]
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 11 )
-region = Rect2( 0, 384, 16, 16 )
+[ext_resource path="res://entities/dragonling/dragonling_behavior.tscn" type="PackedScene" id=13]
+[ext_resource path="res://components/reactive/bright/bright.tscn" type="PackedScene" id=14]
+[ext_resource path="res://components/behavior/terrorize/terrorize.tscn" type="PackedScene" id=15]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 11 )
 region = Rect2( 64, 384, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 11 )
+region = Rect2( 80, 384, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 384, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 11 )
+region = Rect2( 16, 384, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 3 ) ],
-"loop": true,
-"name": "dim",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 2 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "lit",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "dim",
 "speed": 5.0
 } ]
 
@@ -43,6 +54,7 @@ layer = 4
 [node name="Display" parent="." instance=ExtResource( 3 )]
 background_color = Color( 0, 0, 0, 1 )
 frames = SubResource( 1 )
+frame = 1
 
 [node name="Harmable" parent="." instance=ExtResource( 12 )]
 
@@ -59,7 +71,31 @@ bump_mask = 3
 
 [node name="Presence" parent="." instance=ExtResource( 4 )]
 
+[node name="Bright" parent="." instance=ExtResource( 14 )]
+disabled = true
+dynamic = true
+
 [node name="Health" parent="." instance=ExtResource( 10 )]
 max_health = 3
 
-[node name="Dragon" parent="." instance=ExtResource( 5 )]
+[node name="Elemental" parent="." instance=ExtResource( 5 )]
+fleeting = null
+notice_range = 6
+pursue_range = 9
+idle_chance = 0.33
+bias = true
+distracted_chance = 0.2
+state = 0
+
+[node name="DragonlingBehavior" parent="." instance=ExtResource( 13 )]
+awake_dist = null
+sight_range = null
+dim_range = null
+lit_range = null
+breath_weapon_chance = null
+breath_weapon_time = null
+breath_weapon_range = null
+breathing_node_path = null
+breath = null
+
+[node name="Terrorize" parent="." instance=ExtResource( 15 )]

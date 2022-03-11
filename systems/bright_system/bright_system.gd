@@ -76,7 +76,7 @@ func update_brights() -> void:
 	dynamic_light_grid.clear()
 
 	for b in brights:
-		if b.dim_radius == 0:
+		if b.dim_radius == 0 or b.disabled:
 			continue
 		var origin: Vector2 = b.entity.grid_position
 		var lit_radius2: int = b.lit_radius * b.lit_radius

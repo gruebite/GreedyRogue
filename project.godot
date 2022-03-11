@@ -125,9 +125,9 @@ _global_script_classes=[ {
 "path": "res://components/visual/display/display.gd"
 }, {
 "base": "Component",
-"class": "Dragon",
+"class": "DragonlingBehavior",
 "language": "GDScript",
-"path": "res://components/thinking/dragon/dragon.gd"
+"path": "res://entities/dragonling/dragonling_behavior.gd"
 }, {
 "base": "Node2D",
 "class": "Effect",
@@ -428,7 +428,7 @@ _global_script_class_icons={
 "DenseGrid": "",
 "Direction": "",
 "Display": "",
-"Dragon": "",
+"DragonlingBehavior": "",
 "Effect": "",
 "EffectPlayer": "",
 "EffectSystem": "",

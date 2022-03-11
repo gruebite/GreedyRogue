@@ -73,10 +73,13 @@ damage = 2
 max_health = 3
 
 [node name="Elemental" parent="." instance=ExtResource( 11 )]
+fleeting = null
 notice_range = 1
 pursue_range = 2
 idle_chance = 1.0
+bias = null
 distracted_chance = 0.02
+state = null
 
 [node name="GolemBehavior" parent="." instance=ExtResource( 12 )]
 

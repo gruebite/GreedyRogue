@@ -88,6 +88,11 @@ max_health = 1
 
 [node name="Elemental" parent="." instance=ExtResource( 10 )]
 fleeting = true
+notice_range = null
+pursue_range = null
 idle_chance = 0.3
+bias = null
+distracted_chance = null
+state = null
 
 [node name="GustBehavior" parent="." instance=ExtResource( 14 )]

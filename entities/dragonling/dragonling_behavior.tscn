@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://components/thinking/dragon/dragon.gd" type="Script" id=1]
+[ext_resource path="res://entities/dragonling/dragonling_behavior.gd" type="Script" id=1]
 
 [sub_resource type="Animation" id=1]
 resource_name = "breath_in"
@@ -36,9 +36,9 @@ tracks/0/keys = {
 "values": [ 1.2, 1.0 ]
 }
 
-[node name="Dragon" type="Node2D"]
+[node name="DragonlingBehavior" type="Node2D"]
 script = ExtResource( 1 )
-breath = 1.2
+breath = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/breath_in = SubResource( 1 )

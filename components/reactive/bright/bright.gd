@@ -3,6 +3,7 @@ class_name Bright
 
 const NAME := "Bright"
 
+export var disabled := false
 export var dynamic := false
 
 export var dim_radius := 3 setget , get_dim_radius
