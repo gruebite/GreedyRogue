@@ -31,7 +31,7 @@ func use(dir: int) -> bool:
 			backpack.entity.move(gpos)
 			break
 		else:
-			effect_system.add_effect(preload("res://effects/cracking/cracking.tscn"), gpos * Constants.CELL_SIZE)
+			effect_system.add_effect(preload("res://effects/cracking/cracking.tscn"), gpos)
 		dist += 1
 	self.charge = 0
 	# We return false because this is a free action.

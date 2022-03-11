@@ -12,8 +12,8 @@ func _on_out_of_turn() -> void:
 	self.charge += 1
 
 func use(_dir: int) -> bool:
-	effect_system.add_effect(preload("res://effects/spell_cast/spell_cast.tscn"), backpack.entity.position)
+	effect_system.add_effect(preload("res://effects/spell_cast/spell_cast.tscn"), backpack.entity.grid_position)
 	navigation_system.move_to(backpack.entity, navigation_system.find_random_unblocked())
-	effect_system.add_effect(preload("res://effects/spell_cast/spell_cast.tscn"), backpack.entity.position)
+	effect_system.add_effect(preload("res://effects/spell_cast/spell_cast.tscn"), backpack.entity.grid_position)
 	self.charge = 0
 	return false

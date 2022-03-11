@@ -1,7 +1,9 @@
 
 # Quick
 
-
+- Ping after closing message.
+- [Space] below messages.
+- Map fragment artifact that reveals the exit
 
 # TODO
 

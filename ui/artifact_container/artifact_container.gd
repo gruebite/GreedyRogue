@@ -11,8 +11,7 @@ var artifact_name := ""
 
 func _ready() -> void:
 	update_charge()
-	if hide_level:
-		$MarginContainer/Foreground/DescriptionContainer/Title/Level.hide()
+	update_level()
 
 func _process(_delta: float) -> void:
 	if not activated:
@@ -39,6 +38,7 @@ func present_artifact(art_name: String) -> void:
 	$MarginContainer/Foreground/DescriptionContainer/Description.text = artifact.description
 	update_artifact(artifact)
 	update_charge(artifact.no_charge)
+	update_level(artifact.max_level == 0)
 
 func update_artifact(artifact: Artifact) -> void:
 	$MarginContainer/Foreground/DescriptionContainer/Title/Level.text = str("♦").repeat(artifact.level + 1)
@@ -54,3 +54,9 @@ func update_charge(no_charge: bool=false) -> void:
 		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.hide()
 	else:
 		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.show()
+
+func update_level(no_level: bool=false) -> void:
+	if hide_level or no_level:
+		$MarginContainer/Foreground/DescriptionContainer/Title/Level.hide()
+	else:
+		$MarginContainer/Foreground/DescriptionContainer/Title/Level.show()

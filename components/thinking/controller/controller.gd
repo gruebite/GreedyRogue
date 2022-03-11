@@ -121,7 +121,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				do_initiate_turn()
 
 func _on_entered_level(_lvl: int) -> void:
-	effect_system.add_effect(preload("res://effects/ping/ping.tscn"), entity.position)
+	effect_system.add_effect(preload("res://effects/ping/ping.tscn"), entity.grid_position)
 
 func _on_out_of_turn() -> void:
 	var gpos := entity.grid_position

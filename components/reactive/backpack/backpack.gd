@@ -11,6 +11,7 @@ signal gained_artifact(artifact)
 signal artifact_level_changed(artifact, to, mx)
 signal artifact_charge_changed(artifact, to, mx)
 
+onready var generator_system: GeneratorSystem = find_system(GeneratorSystem.GROUP_NAME)
 onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 
@@ -25,8 +26,8 @@ func _ready() -> void:
 
 func _on_picked_up(pickup: Pickupable) -> void:
 	if pickup.entity.get_component(Gold.NAME):
-		anxiety.anxiety -= 10
-		effect_system.add_effect(preload("res://effects/collect_gold/collect_gold.tscn"), entity.position)
+		anxiety.anxiety -= 15
+		effect_system.add_effect(preload("res://effects/collect_gold/collect_gold.tscn"), entity.grid_position)
 		emit_signal("picked_up_gold")
 	if pickup.entity.get_component(Treasure.NAME):
 		emit_signal("picked_up_treasure")
@@ -34,14 +35,18 @@ func _on_picked_up(pickup: Pickupable) -> void:
 func add_artifact(n: String) -> void:
 	if n in Artifacts.CONSUMED:
 		match n:
+			"Golden Chalice":
+				anxiety.anxiety -= 100
 			"Health Potion":
 				health.deal_damage(-100)
 			"Heart Piece":
 				health.max_health += 5
-			"Golden Chalice":
-				anxiety.anxiety -= 100
 			"Liquid Courage":
 				anxiety.max_anxiety += 50
+			"Map Fragment":
+				effect_system.add_effect(
+					preload("res://effects/ping/ping.tscn"),
+					generator_system.exit_position)
 		return
 
 	var existing := find_node(n, false, false)

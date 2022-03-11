@@ -11,6 +11,8 @@ var gold_p setget , get_gold_p
 var gold_piles_remaining := 0
 var gold_piles_collected := 0
 
+var piles := {}
+
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
@@ -18,12 +20,15 @@ func _ready() -> void:
 func reset() -> void:
 	# We don't reset remaining because it should be managed automatically via `add_gold/remove_gold`
 	gold_piles_collected = 0
+	piles.clear()
 
-func add_gold() -> void:
+func add_gold(pile) -> void:
+	piles[pile] = true
 	gold_piles_remaining += 1
 	emit_signal("gold_added")
 
-func remove_gold() -> void:
+func remove_gold(pile) -> void:
+	var _ignore = piles.erase(pile)
 	gold_piles_remaining -= 1
 	emit_signal("gold_removed")
 

@@ -29,24 +29,24 @@ func _ready() -> void:
 	if on_died:
 		_ignore = entity.connect("died", self, "_on_died")
 	if on_ready and effect:
-		effect_system.add_effect(effect, entity.position)
+		effect_system.add_effect(effect, entity.grid_position)
 
 func _on_turn_initiated() -> void:
 	if not effect: return
-	effect_system.add_effect(effect, entity.position)
+	effect_system.add_effect(effect, entity.grid_position)
 
 func _on_take_turn() -> void:
 	if not effect: return
-	effect_system.add_effect(effect, entity.position)
+	effect_system.add_effect(effect, entity.grid_position)
 
 func _on_in_turn() -> void:
 	if not effect: return
-	effect_system.add_effect(effect, entity.position)
+	effect_system.add_effect(effect, entity.grid_position)
 
 func _on_out_of_turn() -> void:
 	if not effect: return
-	effect_system.add_effect(effect, entity.position)
+	effect_system.add_effect(effect, entity.grid_position)
 
 func _on_died(_by: Node2D) -> void:
 	if not effect: return
-	effect_system.add_effect(effect, entity.position)
+	effect_system.add_effect(effect, entity.grid_position)

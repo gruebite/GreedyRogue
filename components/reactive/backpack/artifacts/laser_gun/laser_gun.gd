@@ -34,7 +34,7 @@ func use(dir: int) -> bool:
 		if hit:
 			break
 		else:
-			effect_system.add_effect(preload("res://effects/laser/laser.tscn"), gpos * Constants.CELL_SIZE)
+			effect_system.add_effect(preload("res://effects/laser/laser.tscn"), gpos)
 		i += 1
 	self.charge = 0
 	return true

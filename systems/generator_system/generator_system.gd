@@ -102,6 +102,7 @@ onready var bright_system: BrightSystem = get_node("../BrightSystem")
 onready var navigation_system: NavigationSystem = get_node("../NavigationSystem")
 onready var security_system: SecuritySystem = get_node("../SecuritySystem")
 
+var exit_position := Vector2()
 var generated_level := -1
 
 func _ready() -> void:
@@ -350,6 +351,8 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 		var pd: Vector2 = p + farthest_exit
 		if navigation_system.is_edge(pd.x, pd.y):
 			tile_system.set_tile(pd.x, pd.y, Tile.EXIT)
+
+	exit_position = farthest_exit
 
 	yield()
 	# Make lava come from somewhere.

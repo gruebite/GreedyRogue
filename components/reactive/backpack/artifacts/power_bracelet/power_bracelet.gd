@@ -69,7 +69,7 @@ func use(dir: int) -> bool:
 						pushing.remove(i)
 			if pushing.size() == 0:
 				break
-			effect_system.add_effect(preload("res://effects/cracking/cracking.tscn"), gpos * Constants.CELL_SIZE)
+			effect_system.add_effect(preload("res://effects/cracking/cracking.tscn"), gpos)
 			dist += 1
 		self.charge = 0
 	else:

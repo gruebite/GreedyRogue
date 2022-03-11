@@ -15,7 +15,7 @@ func use(_dir: int) -> bool:
 	assert(health)
 	if health.health == health.max_health:
 		return false
-	effect_system.add_effect(preload("res://effects/healed/healed.tscn"), backpack.entity.position)
+	effect_system.add_effect(preload("res://effects/healed/healed.tscn"), backpack.entity.grid_position)
 	health.deal_damage(-999)
 	self.charge = 0
 	return true

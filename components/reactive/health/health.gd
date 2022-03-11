@@ -69,7 +69,7 @@ func deal_damage(amount: int, source: String="unknown") -> void:
 	if to < 0: to = 0
 	if to > max_health: to = max_health
 	if to < health:
-		effect_system.add_effect(preload("res://effects/blood/blood.tscn"), entity.position)
+		effect_system.add_effect(preload("res://effects/blood/blood.tscn"), entity.grid_position)
 		flash()
 	health = to
 	if health == 0:

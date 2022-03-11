@@ -7,6 +7,7 @@ const CONSUMED := [
 	"Health Potion",
 	"Heart Piece",
 	"Liquid Courage",
+	"Map Fragment",
 ]
 
 const NAMES := [
@@ -14,6 +15,7 @@ const NAMES := [
 	"Ancient War Mask",
 	"Ankh",
 	"Balanced Staff",
+	"Broken Compass",
 	"Chaos Shard",
 	"Dragon Egg",
 	"Ethereal Cloak",
@@ -25,6 +27,7 @@ const NAMES := [
 	"Horned Helm",
 	"Laser Gun",
 	"Liquid Courage",
+	"Map Fragment",
 	"Power Bracelet",
 	"Ring of Power",
 	"Sandglass",
@@ -37,6 +40,7 @@ const TABLE := {
 	"Ancient War Mask": preload("res://components/reactive/backpack/artifacts/ancient_war_mask/ancient_war_mask.tscn"),
 	"Ankh": preload("res://components/reactive/backpack/artifacts/ankh/ankh.tscn"),
 	"Balanced Staff": preload("res://components/reactive/backpack/artifacts/balanced_staff/balanced_staff.tscn"),
+	"Broken Compass": preload("res://components/reactive/backpack/artifacts/broken_compass/broken_compass.tscn"),
 	"Chaos Shard": preload("res://components/reactive/backpack/artifacts/chaos_shard/chaos_shard.tscn"),
 	"Dragon Egg": preload("res://components/reactive/backpack/artifacts/dragon_egg/dragon_egg.tscn"),
 	"Ethereal Cloak": preload("res://components/reactive/backpack/artifacts/ethereal_cloak/ethereal_cloak.tscn"),
@@ -48,6 +52,7 @@ const TABLE := {
 	"Horned Helm": preload("res://components/reactive/backpack/artifacts/horned_helm/horned_helm.tscn"),
 	"Laser Gun": preload("res://components/reactive/backpack/artifacts/laser_gun/laser_gun.tscn"),
 	"Liquid Courage": preload("res://components/reactive/backpack/artifacts/liquid_courage/liquid_courage.tscn"),
+	"Map Fragment": preload("res://components/reactive/backpack/artifacts/map_fragment/map_fragment.tscn"),
 	"Power Bracelet": preload("res://components/reactive/backpack/artifacts/power_bracelet/power_bracelet.tscn"),
 	"Ring of Power": preload("res://components/reactive/backpack/artifacts/ring_of_power/ring_of_power.tscn"),
 	"Sandglass": preload("res://components/reactive/backpack/artifacts/sandglass/sandglass.tscn"),

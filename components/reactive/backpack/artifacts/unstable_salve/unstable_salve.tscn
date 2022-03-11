@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://components/reactive/backpack/artifacts/unstable_salve/unstable_salve.gd" type="Script" id=1]
+[ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/textures/ascii.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 464, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "lit",
+"speed": 5.0
+} ]
+
+[node name="Unstable Salve" type="Node2D"]
+script = ExtResource( 1 )
+layer = 0
+description = "The bubbling is unnerving"
+max_charges = PoolIntArray( 120, 80, 40 )
+directional = true
+
+[node name="Display" parent="." instance=ExtResource( 2 )]
+frames = SubResource( 2 )
