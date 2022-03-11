@@ -3,7 +3,7 @@ class_name Pickerupper
 
 const NAME := "Pickerupper"
 
-signal picked_up(entity)
+signal picked_up(other)
 
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
@@ -23,7 +23,7 @@ func _on_in_turn() -> void:
 			continue
 		var pickupable: Pickupable = ent.get_component(Pickupable.NAME)
 		if pickupable:
-			pickupable.pickup(entity)
-			emit_signal("picked_up", ent)
+			emit_signal("picked_up", pickupable)
+			pickupable.pickup(self)
 			# TODO: Is this necessary?  Can we have something else handle this?
 			ent.queue_free()

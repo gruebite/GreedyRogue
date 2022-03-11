@@ -37,24 +37,23 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	turn_system.finish_turn(self)
 
-func _on_burned(by: Entity) -> void:
+func _on_burned(by: Flaming) -> void:
 	if flame_immune:
 		return
-	deal_damage(by.get_component(Flaming.NAME).heat, "burns")
+	deal_damage(by.heat, "burns")
 
-func _on_harmed(by: Entity) -> void:
+func _on_harmed(by: Harming) -> void:
 	if harm_immune:
 		return
-	deal_damage(by.get_component(Harmer.NAME).damage, "trauma")
+	deal_damage(by.damage, "sustained harm")
 
-func _on_attacked(by: Entity) -> void:
+func _on_attacked(by: Attacker) -> void:
 	if attack_immune:
 		return
-	var attacker: Attacker = by.get_component(Attacker.NAME)
-	var dmg: int = attacker.damage - defender.armor
+	var dmg: int = by.damage - defender.armor
 	if dmg <= 0:
 		return
-	deal_damage(dmg, "trauma")
+	deal_damage(dmg, "an intense blow")
 
 func set_max_health(to: int) -> void:
 	if to < 0: to = 0

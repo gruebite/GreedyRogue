@@ -107,7 +107,7 @@ _global_script_classes=[ {
 "base": "Component",
 "class": "Defender",
 "language": "GDScript",
-"path": "res://components/reactive/defender/defender.gd"
+"path": "res://components/passive/defender/defender.gd"
 }, {
 "base": "Grid",
 "class": "DenseGrid",
@@ -225,9 +225,9 @@ _global_script_classes=[ {
 "path": "res://components/passive/harmable/harmable.gd"
 }, {
 "base": "Component",
-"class": "Harmer",
+"class": "Harming",
 "language": "GDScript",
-"path": "res://components/active/harmer/harmer.gd"
+"path": "res://components/active/harming/harming.gd"
 }, {
 "base": "Component",
 "class": "Health",
@@ -267,7 +267,7 @@ _global_script_classes=[ {
 "base": "Component",
 "class": "Matter",
 "language": "GDScript",
-"path": "res://components/reactive/matter/matter.gd"
+"path": "res://components/passive/matter/matter.gd"
 }, {
 "base": "Component",
 "class": "Moveable",
@@ -453,7 +453,7 @@ _global_script_class_icons={
 "Grid": "",
 "GustBehavior": "",
 "Harmable": "",
-"Harmer": "",
+"Harming": "",
 "Health": "",
 "Hex": "",
 "HoardSystem": "",

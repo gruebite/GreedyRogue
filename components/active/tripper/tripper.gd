@@ -3,6 +3,8 @@ class_name Tripper
 
 const NAME := "Tripper"
 
+signal tripped(other)
+
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
 
 func _ready() -> void:
@@ -23,4 +25,5 @@ func _on_in_turn() -> void:
 			continue
 		var trippable: Trippable = ent.get_component(Trippable.NAME)
 		if trippable:
-			trippable.trip(entity)
+			emit_signal("tripped", trippable)
+			trippable.trip(self)

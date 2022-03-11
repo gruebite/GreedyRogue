@@ -17,8 +17,8 @@ func _ready() -> void:
 func _on_bumped(other: Bumpable) -> void:
 	var defender: Defender = other.entity.get_component(Defender.NAME)
 	if defender:
-		emit_signal("attacked", self)
-		defender.attack(defender)
+		emit_signal("attacked", defender)
+		defender.attack(self)
 
 func get_damage() -> int:
 	return damage + power

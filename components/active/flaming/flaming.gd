@@ -3,6 +3,8 @@ class_name Flaming
 
 const NAME := "Flaming"
 
+signal burned(other)
+
 export var heat := 1
 
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
@@ -23,4 +25,5 @@ func _on_in_turn() -> void:
 			continue
 		var flammable: Flammable = ent.get_component(Flammable.NAME)
 		if flammable:
-			flammable.burn(entity)
+			emit_signal("burned", flammable)
+			flammable.burn(self)

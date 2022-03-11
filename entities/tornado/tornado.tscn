@@ -4,7 +4,7 @@
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=4]
-[ext_resource path="res://components/active/harmer/harmer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://components/active/harming/harming.tscn" type="PackedScene" id=5]
 [ext_resource path="res://components/reactive/health/health.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/reactive/presence/presence.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/active/bumper/bumper.tscn" type="PackedScene" id=8]
@@ -62,7 +62,7 @@ frames = SubResource( 1 )
 playing = true
 frame = 1
 
-[node name="Harmer" parent="." instance=ExtResource( 5 )]
+[node name="Harming" parent="." instance=ExtResource( 5 )]
 
 [node name="Bumper" parent="." instance=ExtResource( 8 )]
 bump_mask = 4

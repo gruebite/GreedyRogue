@@ -5,5 +5,5 @@ const NAME := "Trippable"
 
 signal tripped(by)
 
-func trip(by: Entity) -> void:
+func trip(by) -> void:
 	emit_signal("tripped", by)

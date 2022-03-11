@@ -7,6 +7,6 @@ signal harmed(by)
 
 export var immune := false
 
-func harm(by: Entity) -> void:
+func harm(by) -> void:
 	if not immune:
 		emit_signal("harmed", by)

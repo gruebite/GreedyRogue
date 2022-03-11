@@ -7,6 +7,6 @@ signal burned(by)
 
 var immune := false
 
-func burn(entity: Entity) -> void:
+func burn(by) -> void:
 	if not immune:
-		emit_signal("burned", entity)
+		emit_signal("burned", by)

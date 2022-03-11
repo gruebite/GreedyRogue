@@ -5,5 +5,5 @@ const NAME := "Jumpable"
 
 signal jumped(by)
 
-func jump(by: Entity) -> void:
+func jump(by) -> void:
 	emit_signal("jumped", by)

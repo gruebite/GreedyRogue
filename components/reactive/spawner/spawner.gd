@@ -33,7 +33,7 @@ func _ready() -> void:
 	if on_ready:
 		spawn()
 
-func _on_died(_by: Entity) -> void:
+func _on_died(_source: String) -> void:
 	spawn()
 
 func spawn() -> void:

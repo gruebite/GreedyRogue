@@ -5,5 +5,5 @@ const NAME := "Pickupable"
 
 signal picked_up(by)
 
-func pickup(by: Entity) -> void:
+func pickup(by) -> void:
 	emit_signal("picked_up", by)

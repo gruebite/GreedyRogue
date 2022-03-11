@@ -1,7 +1,9 @@
 extends Component
-class_name Harmer
+class_name Harming
 
-const NAME := "Harmer"
+const NAME := "Harming"
+
+signal harmed(other)
 
 export var immediate := false
 export var triggers_death := false
@@ -28,6 +30,7 @@ func _on_in_turn() -> void:
 			continue
 		var harmable: Harmable = ent.get_component(Harmable.NAME)
 		if harmable:
-			harmable.harm(entity)
+			emit_signal("harmed", harmable)
+			harmable.harm(self)
 			if triggers_death:
 				entity.kill("kamakazee")
