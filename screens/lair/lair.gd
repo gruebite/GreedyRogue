@@ -1,6 +1,8 @@
 extends Node2D
 class_name Lair
 
+const STAT_BLINKIING_THRESHOLD := 0.33
+
 var loading = null
 var game_over := false
 var panicking := false
@@ -9,17 +11,35 @@ var gold_ps := 0.0
 
 var name_regex := RegEx.new()
 
+var player_health: Health
+var player_anxiety: Anxiety
+
 func _ready() -> void:
 	assert(name_regex.compile("([^@\\d]+)") == OK)
 	regenerate()
 
 func _process(_delta: float) -> void:
-	if panicking:
-		$UI/HUD/VBoxContainer/Anxiety/Value/Progress.rect_position = Vector2(
-			randf() * 5 - 2.5, randf() * 5 - 2.5)
 
 	$UI/HUD/VBoxContainer/Info.text = ""
+	# We're done loading.
 	if not loading:
+		if panicking:
+			$UI/HUD/VBoxContainer/Anxiety/Value/Progress.rect_position = Vector2(
+				randf() * 5 - 2.5, randf() * 5 - 2.5)
+		else:
+			$UI/HUD/VBoxContainer/Anxiety/Value/Progress.rect_position = Vector2.ZERO
+
+		var dt: float = (OS.get_ticks_msec() / 1000.0) * 20
+		if player_health.health_p <= STAT_BLINKIING_THRESHOLD:
+			$UI/HUD/VBoxContainer/Health/Value/Progress.modulate = Color.white.linear_interpolate(Color.transparent, sin(dt))
+		else:
+			$UI/HUD/VBoxContainer/Health/Value/Progress.modulate = Color.white
+		if player_anxiety.anxiety_p >= 1 - STAT_BLINKIING_THRESHOLD:
+			$UI/HUD/VBoxContainer/Anxiety/Value/Progress.modulate = Color.white.linear_interpolate(Color.transparent, sin(dt))
+		else:
+			$UI/HUD/VBoxContainer/Anxiety/Value/Progress.modulate = Color.white
+
+
 		# We have a menu up or something.
 		if $TurnSystem.disabled:
 			return
@@ -46,6 +66,7 @@ func _process(_delta: float) -> void:
 		loading = loading.resume()
 		append_message(".")
 
+	# We just finished loading.
 	if not loading:
 		hide_message()
 		$UI/Loading.hide()
@@ -58,10 +79,12 @@ func _process(_delta: float) -> void:
 			_ignore = player.get_component(Backpack.NAME).connect("artifact_charge_changed", self, "_on_artifact_charge_changed")
 			_ignore = player.get_component(Backpack.NAME).connect("picked_up_gold", self, "_on_picked_up_gold")
 			_ignore = player.get_component(Backpack.NAME).connect("picked_up_treasure", self, "_on_picked_up_treasure")
-			_ignore = player.get_component(Health.NAME).connect("health_changed", self, "_on_health_changed")
-			_ignore = player.get_component(Anxiety.NAME).connect("anxiety_changed", self, "_on_anxiety_changed")
-			_ignore = player.get_component(Anxiety.NAME).connect("panicking", self, "_on_panicking")
-			_ignore = player.get_component(Anxiety.NAME).connect("calmed_down", self, "_on_calmed_down")
+			player_health = player.get_component(Health.NAME)
+			_ignore = player_health.connect("health_changed", self, "_on_health_changed")
+			player_anxiety = player.get_component(Anxiety.NAME)
+			_ignore = player_anxiety.connect("anxiety_changed", self, "_on_anxiety_changed")
+			_ignore = player_anxiety.connect("panicking", self, "_on_panicking")
+			_ignore = player_anxiety.connect("calmed_down", self, "_on_calmed_down")
 			_ignore = player.get_component(Controller.NAME).connect("found_exit", self, "_on_found_exit")
 			_ignore = player.get_component(Controller.NAME).connect("activated_artifact", self, "_on_activated_artifact")
 			_ignore = player.get_component(Controller.NAME).connect("deactivated_artifact", self, "_on_deactivated_artifact")
@@ -142,7 +165,7 @@ func _on_artifact_charge_changed(artifact: Artifact, _to: int, _mx: int) -> void
 			break
 
 func _on_health_changed(to: int, mx: int) -> void:
-	$UI/HUD/VBoxContainer/Health/Value.value = (float(to) / mx) * 100
+	$UI/HUD/VBoxContainer/Health/Value/Progress.value = (float(to) / mx) * 100
 
 func _on_anxiety_changed(to: int, mx: int) -> void:
 	$UI/HUD/VBoxContainer/Anxiety/Value/Progress.value = (float(to)) / mx * 100

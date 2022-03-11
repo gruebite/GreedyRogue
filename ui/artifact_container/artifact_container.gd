@@ -20,7 +20,9 @@ func _process(_delta: float) -> void:
 		$NinePatchRect.hide()
 		return
 
-	var p := (sin(OS.get_ticks_msec() / 300.0) + 1) * 0.5
+	# 0.5 = TAU
+	var y := (OS.get_ticks_msec() / 500.0) * TAU
+	var p := (sin(y) + 1) * 0.5
 	$NinePatchRect.modulate = input_gradient.interpolate(p)
 	$NinePatchRect.show()
 

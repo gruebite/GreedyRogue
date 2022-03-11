@@ -11,6 +11,7 @@ export var normal_panic := 1
 export var max_anxiety := 200 setget set_max_anxiety
 var panic := 1
 var anxiety := 0 setget set_anxiety
+var anxiety_p: float setget , get_anxiety_p
 
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 
@@ -45,3 +46,6 @@ func set_max_anxiety(to: int) -> void:
 	if anxiety >= max_anxiety:
 		entity.kill("anxiety")
 	emit_signal("anxiety_changed", anxiety, max_anxiety)
+
+func get_anxiety_p() -> float:
+	return float(anxiety) / max_anxiety

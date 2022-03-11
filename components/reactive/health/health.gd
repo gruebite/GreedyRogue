@@ -12,6 +12,7 @@ export var attack_immune := false
 
 export var max_health := 12 setget set_max_health
 var health := max_health
+var health_p: float setget , get_health_p
 
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
@@ -63,6 +64,9 @@ func set_max_health(to: int) -> void:
 	if health == 0:
 		entity.kill("max health too low")
 	emit_signal("health_changed", health, max_health)
+
+func get_health_p() -> float:
+	return float(health) / max_health
 
 func deal_damage(amount: int, source: String="unknown") -> void:
 	var to := health - amount
