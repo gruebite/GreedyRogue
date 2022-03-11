@@ -17,15 +17,16 @@ static func plus() -> PointSet:
 	ps.add(0, 1)
 	return ps
 
-static func circle(radius: int) -> PointSet:
+static func circle(radius: int, inclusive: bool=true) -> PointSet:
 	var ps := PointSet.new()
-	for x in radius * 2:
-		for y in radius * 2:
+	var radius2: int = radius * radius - (0 if inclusive else 1)
+	for x in radius * 2 + 1:
+		for y in radius * 2 + 1:
 			var dx: int = x - radius
 			var dy: int = y - radius
-			if dx * dx + dy * dy >= radius * radius:
-				continue
-			ps.add(dx, dy)
+			var d: int = dx * dx + dy * dy
+			if d <= radius2:
+				ps.add(dx, dy)
 	return ps
 
 static func ellipse(xradius: int, yradius: int) -> PointSet:

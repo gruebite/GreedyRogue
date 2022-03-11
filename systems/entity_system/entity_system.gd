@@ -32,6 +32,8 @@ func reset(keep_player: bool) -> void:
 		add_entity(player, Vector2.ZERO)
 
 func spawn_entity(scene: PackedScene, gpos: Vector2, unique: bool=true) -> void:
+	if gpos.x < 0 or gpos.y < 0 or gpos.x >= Constants.MAP_COLUMNS or gpos.y >= Constants.MAP_ROWS:
+		return
 	var entity: Entity = scene.instance()
 	if unique:
 		var entities := get_entities(gpos.x, gpos.y)

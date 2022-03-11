@@ -55,6 +55,11 @@ _global_script_classes=[ {
 "path": "res://components/reactive/backpack/backpack.gd"
 }, {
 "base": "Component",
+"class": "Bomb",
+"language": "GDScript",
+"path": "res://components/reactive/bomb/bomb.gd"
+}, {
+"base": "Component",
 "class": "Bright",
 "language": "GDScript",
 "path": "res://components/reactive/bright/bright.gd"
@@ -429,6 +434,7 @@ _global_script_class_icons={
 "Attackable": "",
 "Attacker": "",
 "Backpack": "",
+"Bomb": "",
 "Bright": "",
 "BrightSystem": "",
 "Brightness": "",

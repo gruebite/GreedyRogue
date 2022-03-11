@@ -13,15 +13,11 @@
 script = ExtResource( 3 )
 layer = 5
 
-[node name="Spawner" parent="." instance=ExtResource( 2 )]
-spawns = ExtResource( 7 )
-on_died = true
-
-[node name="TurnTaker" parent="." instance=ExtResource( 5 )]
-
 [node name="EffectPlayer" parent="." instance=ExtResource( 4 )]
 effect = ExtResource( 8 )
 on_died = true
+
+[node name="TurnTaker" parent="." instance=ExtResource( 5 )]
 
 [node name="Harming" parent="." instance=ExtResource( 6 )]
 immediate = true
@@ -29,3 +25,7 @@ damage = 5
 
 [node name="Lifetime" parent="." instance=ExtResource( 1 )]
 time = 0
+
+[node name="Spawner" parent="." instance=ExtResource( 2 )]
+spawns = ExtResource( 7 )
+on_died = true

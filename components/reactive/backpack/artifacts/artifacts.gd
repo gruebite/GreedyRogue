@@ -32,6 +32,7 @@ const NAMES := [
 	"Ring of Power",
 	"Sandglass",
 	"Star in a Bottle",
+	"Unstable Salve",
 	"Winged Boots",
 ]
 
@@ -57,6 +58,7 @@ const TABLE := {
 	"Ring of Power": preload("res://components/reactive/backpack/artifacts/ring_of_power/ring_of_power.tscn"),
 	"Sandglass": preload("res://components/reactive/backpack/artifacts/sandglass/sandglass.tscn"),
 	"Star in a Bottle": preload("res://components/reactive/backpack/artifacts/star_in_a_bottle/star_in_a_bottle.tscn"),
+	"Unstable Salve": preload("res://components/reactive/backpack/artifacts/unstable_salve/unstable_salve.tscn"),
 	"Winged Boots": preload("res://components/reactive/backpack/artifacts/winged_boots/winged_boots.tscn"),
 }
 
