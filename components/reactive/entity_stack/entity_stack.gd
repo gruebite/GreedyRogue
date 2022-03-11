@@ -13,11 +13,11 @@ onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
 onready var navigation_system: NavigationSystem = find_system(NavigationSystem.GROUP_NAME)
 
 func _ready() -> void:
-	var toppleable: Toppleable = entity.get_component(Toppleable.NAME)
-	if toppleable:
-		var _ignore = toppleable.connect("toppled", self, "_on_toppled")
+	var bumpable: Bumpable = entity.get_component(Bumpable.NAME)
+	if bumpable:
+		var _ignore = bumpable.connect("bumped", self, "_on_bumped")
 
-func _on_toppled(by: Toppler) -> void:
+func _on_bumped(by: Bumper) -> void:
 	var dv := entity.grid_position - by.entity.grid_position
 	for i in height:
 		var desired: Vector2 = entity.grid_position + dv * i
@@ -28,4 +28,4 @@ func _on_toppled(by: Toppler) -> void:
 		if spawns:
 			entity_system.add_entity(spawns.instance(), desired)
 	if one_shot:
-		entity.kill("toppling over")
+		entity.kill("toppled")

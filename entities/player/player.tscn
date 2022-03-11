@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -16,26 +16,12 @@
 [ext_resource path="res://components/coactive/attacker/attacker.tscn" type="PackedScene" id=14]
 [ext_resource path="res://components/passive/attackable/attackable.tscn" type="PackedScene" id=15]
 [ext_resource path="res://components/visual/arrows/arrows.tscn" type="PackedScene" id=16]
-[ext_resource path="res://components/coactive/toppler/toppler.tscn" type="PackedScene" id=17]
+[ext_resource path="res://components/passive/knockbackable/knockbackable.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=18]
 [ext_resource path="res://components/passive/harmable/harmable.tscn" type="PackedScene" id=19]
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=20]
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 18 )
-region = Rect2( 64, 256, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 18 )
-region = Rect2( 80, 256, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 18 )
-region = Rect2( 96, 256, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 18 )
-region = Rect2( 112, 256, 16, 16 )
+[ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=21]
+[ext_resource path="res://components/coactive/knockbacker/knockbacker.tscn" type="PackedScene" id=22]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 18 )
@@ -53,16 +39,32 @@ region = Rect2( 32, 256, 16, 16 )
 atlas = ExtResource( 18 )
 region = Rect2( 48, 256, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 18 )
+region = Rect2( 64, 256, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 18 )
+region = Rect2( 80, 256, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 18 )
+region = Rect2( 96, 256, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 18 )
+region = Rect2( 112, 256, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
-"loop": true,
-"name": "lit",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
 "name": "dim",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "lit",
 "speed": 5.0
 } ]
 
@@ -73,17 +75,19 @@ layer = 2
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 frames = SubResource( 3 )
-frame = 2
+frame = 3
 
 [node name="Foreground" parent="Display" index="1"]
 frames = SubResource( 3 )
-frame = 2
+frame = 3
 
 [node name="Arrows" parent="." instance=ExtResource( 16 )]
 visible = false
 
 [node name="Bumpable" parent="." instance=ExtResource( 13 )]
 bump_mask = 1
+
+[node name="Knockbackable" parent="." instance=ExtResource( 17 )]
 
 [node name="Harmable" parent="." instance=ExtResource( 19 )]
 
@@ -98,11 +102,14 @@ bump_mask = 1
 [node name="Bumper" parent="." instance=ExtResource( 12 )]
 bump_mask = 30
 
-[node name="Toppler" parent="." instance=ExtResource( 17 )]
-
 [node name="Attacker" parent="." instance=ExtResource( 14 )]
 
+[node name="Knockbacker" parent="." instance=ExtResource( 22 )]
+
 [node name="Presence" parent="." instance=ExtResource( 4 )]
+
+[node name="Moveable" parent="." instance=ExtResource( 21 )]
+on_knockback = true
 
 [node name="Faller" parent="." instance=ExtResource( 20 )]
 

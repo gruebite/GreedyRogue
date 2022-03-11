@@ -385,16 +385,6 @@ _global_script_classes=[ {
 "path": "res://systems/tile_system/tile_system.gd"
 }, {
 "base": "Component",
-"class": "Toppleable",
-"language": "GDScript",
-"path": "res://components/passive/toppleable/toppleable.gd"
-}, {
-"base": "Component",
-"class": "Toppler",
-"language": "GDScript",
-"path": "res://components/coactive/toppler/toppler.gd"
-}, {
-"base": "Component",
 "class": "Treasure",
 "language": "GDScript",
 "path": "res://components/reactive/treasure/treasure.gd"
@@ -505,8 +495,6 @@ _global_script_class_icons={
 "Terrorize": "",
 "Tile": "",
 "TileSystem": "",
-"Toppleable": "",
-"Toppler": "",
 "Treasure": "",
 "Trippable": "",
 "Tripper": "",

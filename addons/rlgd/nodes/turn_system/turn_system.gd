@@ -64,6 +64,7 @@ func can_initiate_turn() -> bool:
 func will_initiate_turn() -> void:
 	assert(can_initiate_turn())
 	state = IN_TURN
+	taking_turn(self)
 
 func will_not_initiate_turn() -> void:
 	state = CANCEL_TURN
@@ -71,6 +72,7 @@ func will_not_initiate_turn() -> void:
 
 func initiate_turn() -> void:
 	emit_signal("initiated_turn")
+	# Redundant if we did will_initiate_turn
 	taking_turn(self)
 	# We yield to allow some effects to get processed if necessary (like queue_free)
 	yield(get_tree(), "idle_frame")

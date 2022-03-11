@@ -110,11 +110,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if action and turn_system.can_initiate_turn():
 		if delta == Vector2.ZERO:
 			turn_system.will_initiate_turn()
-			if skip_turns > 0:
-				skip_turns -= 1
-				turn_system.will_not_initiate_turn()
-			else:
-				turn_system.initiate_turn()
+			do_initiate_turn()
 		else:
 			var desired := entity.grid_position + delta
 			if navigation_system.can_move_to(entity, desired):
@@ -122,11 +118,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				navigation_system.move_to(entity, desired)
 				bright_sytem.update_brights()
 				bright_sytem.update_tiles()
-				if skip_turns > 0:
-					skip_turns -= 1
-					turn_system.will_not_initiate_turn()
-				else:
-					turn_system.initiate_turn()
+				do_initiate_turn()
 
 func _on_entered_level(_lvl: int) -> void:
 	effect_system.add_effect(preload("res://effects/ping/ping.tscn"), entity.position)
@@ -140,6 +132,7 @@ func _on_out_of_turn() -> void:
 			emit_signal("found_exit")
 
 func use_artifact(index: int) -> void:
+	assert(turn_system.can_initiate_turn())
 	var artifact: Artifact = backpack.get_artifact(index)
 	if not artifact:
 		return
@@ -153,21 +146,26 @@ func use_artifact(index: int) -> void:
 		return
 	turn_system.will_initiate_turn()
 	if artifact.use(-1):
-		if skip_turns > 0:
-			skip_turns -= 1
-			turn_system.will_not_initiate_turn()
-		else:
-			turn_system.initiate_turn()
+		do_initiate_turn()
 	else:
 		turn_system.will_not_initiate_turn()
 
 func chose_artifact_direction(dir: int) -> void:
 	assert(using_artifact != -1)
+	assert(turn_system.can_initiate_turn())
 	entity.get_component(Arrows.NAME).hide()
 	turn_system.will_initiate_turn()
 	if dir != -1 and backpack.get_artifact(using_artifact).use(dir):
-		turn_system.initiate_turn()
+		do_initiate_turn()
 	else:
 		turn_system.will_not_initiate_turn()
 	emit_signal("deactivated_artifact", using_artifact)
 	using_artifact = -1
+
+func do_initiate_turn() -> void:
+	if skip_turns > 0:
+		skip_turns -= 1
+		turn_system.will_not_initiate_turn()
+	else:
+		yield(get_tree().create_timer(0.1), "timeout")
+		turn_system.initiate_turn()

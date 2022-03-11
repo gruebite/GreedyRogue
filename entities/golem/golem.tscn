@@ -18,14 +18,6 @@
 [ext_resource path="res://components/passive/harmable/harmable.tscn" type="PackedScene" id=16]
 [ext_resource path="res://components/coactive/knockbacker/knockbacker.tscn" type="PackedScene" id=17]
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 10 )
-region = Rect2( 64, 416, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 10 )
-region = Rect2( 80, 416, 16, 16 )
-
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 416, 16, 16 )
@@ -34,16 +26,24 @@ region = Rect2( 0, 416, 16, 16 )
 atlas = ExtResource( 10 )
 region = Rect2( 16, 416, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 10 )
+region = Rect2( 64, 416, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 10 )
+region = Rect2( 80, 416, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 6 ), SubResource( 7 ) ],
-"loop": true,
-"name": "lit",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
 "name": "dim",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "lit",
 "speed": 5.0
 } ]
 
@@ -73,6 +73,7 @@ resistance = 2
 damage = 2
 
 [node name="Knockbacker" parent="." instance=ExtResource( 17 )]
+on_attack = true
 
 [node name="Presence" parent="." instance=ExtResource( 7 )]
 
