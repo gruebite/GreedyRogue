@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://components/passive/jumpable/jumpable.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=9]
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=10]
+[ext_resource path="res://components/reactive/molten/molten.tscn" type="PackedScene" id=11]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 9 )
@@ -34,22 +35,22 @@ script = ExtResource( 1 )
 background_color = Color( 0.74902, 0.168627, 0.160784, 1 )
 frames = SubResource( 3 )
 playing = true
-frame = 3
+frame = 6
 
 [node name="Jumpable" parent="." instance=ExtResource( 8 )]
 
 [node name="Antimatter" parent="." instance=ExtResource( 7 )]
-mask = 6
 
 [node name="Flaming" parent="." instance=ExtResource( 6 )]
 heat = 3
 
 [node name="Presence" parent="." instance=ExtResource( 5 )]
 
-[node name="Faller" parent="." instance=ExtResource( 10 )]
+[node name="Molten" parent="." instance=ExtResource( 11 )]
 
 [node name="Matter" parent="." instance=ExtResource( 3 )]
-mask = 1
+
+[node name="Faller" parent="." instance=ExtResource( 10 )]
 
 [node name="Bright" parent="." instance=ExtResource( 4 )]
 dim_radius = 5

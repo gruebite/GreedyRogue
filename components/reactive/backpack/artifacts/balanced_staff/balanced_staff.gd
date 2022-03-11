@@ -28,7 +28,7 @@ func use(dir: int) -> bool:
 		var defender: Defender = ent.get_component(Defender.NAME)
 		if defender:
 			attacked = true
-			defender.attack(backpack.entity)
+			attacker.attack(defender)
 	attacker.powerdown(1)
 	if attacked:
 		self.charge = 0

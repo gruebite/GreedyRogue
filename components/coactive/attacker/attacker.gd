@@ -28,3 +28,7 @@ func powerup(by: int) -> void:
 
 func powerdown(by: int) -> void:
 	power -= by
+
+func attack(defender: Defender) -> void:
+	emit_signal("attacked", defender)
+	defender.attack(self)

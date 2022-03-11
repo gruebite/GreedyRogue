@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=1]
 [ext_resource path="res://components/active/flaming/flaming.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=12]
 [ext_resource path="res://components/behavior/terrorize/terrorize.tscn" type="PackedScene" id=13]
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=14]
+[ext_resource path="res://components/reactive/molten/molten.tscn" type="PackedScene" id=15]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 7 )
@@ -40,11 +41,14 @@ frames = SubResource( 3 )
 [node name="Jumpable" parent="." instance=ExtResource( 3 )]
 
 [node name="Antimatter" parent="." instance=ExtResource( 4 )]
-mask = 6
 
 [node name="Flaming" parent="." instance=ExtResource( 2 )]
 
 [node name="Presence" parent="." instance=ExtResource( 5 )]
+
+[node name="Molten" parent="." instance=ExtResource( 15 )]
+
+[node name="Matter" parent="." instance=ExtResource( 6 )]
 
 [node name="Faller" parent="." instance=ExtResource( 14 )]
 
@@ -52,9 +56,6 @@ mask = 6
 spawns = ExtResource( 11 )
 on_initiated_turn = true
 on_died = true
-
-[node name="Matter" parent="." instance=ExtResource( 6 )]
-mask = 1
 
 [node name="Elemental" parent="." instance=ExtResource( 9 )]
 idle_chance = 0.98

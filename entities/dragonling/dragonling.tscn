@@ -54,7 +54,6 @@ layer = 4
 [node name="Display" parent="." instance=ExtResource( 3 )]
 background_color = Color( 0, 0, 0, 1 )
 frames = SubResource( 1 )
-frame = 1
 
 [node name="Harmable" parent="." instance=ExtResource( 12 )]
 
@@ -89,13 +88,11 @@ state = 0
 
 [node name="DragonlingBehavior" parent="." instance=ExtResource( 13 )]
 awake_dist = null
-sight_range = null
 dim_range = null
 lit_range = null
 breath_weapon_chance = null
 breath_weapon_time = null
 breath_weapon_range = null
-breathing_node_path = null
 breath = null
 
 [node name="Terrorize" parent="." instance=ExtResource( 15 )]

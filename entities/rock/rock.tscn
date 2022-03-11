@@ -13,24 +13,24 @@
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=11]
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=12]
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 11 )
-region = Rect2( 0, 320, 16, 16 )
-
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 11 )
 region = Rect2( 0, 352, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 320, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 5 ) ],
-"loop": true,
-"name": "dim",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 4 ) ],
 "loop": true,
 "name": "lit",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ) ],
+"loop": true,
+"name": "dim",
 "speed": 5.0
 } ]
 
@@ -52,8 +52,8 @@ bump_mask = 4
 [node name="Bumper" parent="." instance=ExtResource( 9 )]
 
 [node name="Antimatter" parent="." instance=ExtResource( 6 )]
-free_self_mask = 1
-mask = 10
+self_annihilate = PoolStringArray( "Molten" )
+anticomponents = PoolStringArray( "Molten", "Flaming", "Wind" )
 
 [node name="Presence" parent="." instance=ExtResource( 5 )]
 

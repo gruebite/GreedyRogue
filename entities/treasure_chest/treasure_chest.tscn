@@ -43,6 +43,5 @@ frames = SubResource( 3 )
 [node name="Faller" parent="." instance=ExtResource( 8 )]
 
 [node name="Matter" parent="." instance=ExtResource( 4 )]
-mask = 4
 
 [node name="Treasure" parent="." instance=ExtResource( 5 )]
