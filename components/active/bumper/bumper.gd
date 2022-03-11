@@ -23,5 +23,5 @@ func does_bump(bumpable: Bumpable) -> bool:
 	return false
 
 func do_bump(bumpable: Bumpable) -> void:
-	emit_signal("bumped", bumpable.entity)
-	bumpable.bump(entity)
+	emit_signal("bumped", bumpable)
+	bumpable.bump(self)

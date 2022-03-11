@@ -9,5 +9,5 @@ signal bumped(by)
 export var must_bump := false
 export(int, FLAGS, "PLAYER", "ENVIRONMENT", "OBJECTS", "DRAGONS", "ELEMENTALS") var bump_mask = 0
 
-func bump(by: Entity) -> void:
+func bump(by) -> void:
 	emit_signal("bumped", by)

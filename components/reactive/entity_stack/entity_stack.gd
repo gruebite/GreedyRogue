@@ -16,8 +16,8 @@ func _ready() -> void:
 	if toppleable:
 		var _ignore = toppleable.connect("toppled", self, "_on_toppled")
 
-func _on_toppled(by: Entity) -> void:
-	var dv := entity.grid_position - by.grid_position
+func _on_toppled(by: Toppler) -> void:
+	var dv := entity.grid_position - by.entity.grid_position
 	for i in height:
 		var desired: Vector2 = entity.grid_position + dv * i
 		if tile_system.blocks_movement(desired.x, desired.y):

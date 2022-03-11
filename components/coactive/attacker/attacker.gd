@@ -14,17 +14,17 @@ func _ready() -> void:
 	if bumper:
 		var _ignore = bumper.connect("bumped", self, "_on_bumped")
 
-func _on_bumped(other: Entity) -> void:
-	var defender: Defender = other.get_component(Defender.NAME)
+func _on_bumped(other: Bumpable) -> void:
+	var defender: Defender = other.entity.get_component(Defender.NAME)
 	if defender:
-		defender.attack(entity)
-		emit_signal("attacked", defender)
+		emit_signal("attacked", self)
+		defender.attack(defender)
 
 func get_damage() -> int:
 	return damage + power
 
 func powerup(by: int) -> void:
 	power += by
-	
+
 func powerdown(by: int) -> void:
 	power -= by

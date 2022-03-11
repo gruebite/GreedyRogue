@@ -23,12 +23,12 @@ func _ready() -> void:
 	if pickerupper:
 		_ignore = pickerupper.connect("picked_up", self, "_on_picked_up")
 
-func _on_picked_up(ent: Entity) -> void:
-	if ent.get_component(Gold.NAME):
+func _on_picked_up(pickup: Pickupable) -> void:
+	if pickup.entity.get_component(Gold.NAME):
 		anxiety.anxiety -= 10
 		effect_system.add_effect(preload("res://effects/collect_gold/collect_gold.tscn"), entity.position)
 		emit_signal("picked_up_gold")
-	if ent.get_component(Treasure.NAME):
+	if pickup.entity.get_component(Treasure.NAME):
 		emit_signal("picked_up_treasure")
 
 func add_artifact(n: String) -> void:

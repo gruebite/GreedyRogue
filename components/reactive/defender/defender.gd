@@ -7,5 +7,5 @@ signal attacked(by)
 
 export var armor := 0
 
-func attack(by: Entity) -> void:
+func attack(by) -> void:
 	emit_signal("attacked", by)

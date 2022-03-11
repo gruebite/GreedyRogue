@@ -20,7 +20,7 @@ func _ready() -> void:
 	_ignore = entity.get_component(Flammable.NAME).connect("burned", self, "_on_burned")
 	_ignore = turn_system.connect("initiated_turn", self, "_on_initiated_turn")
 
-func _on_burned(by: Entity) -> void:
+func _on_burned(by: Flaming) -> void:
 	if not immune and not ignited:
 		ignited = true
 		emit_signal("ignited", by)

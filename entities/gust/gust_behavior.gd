@@ -10,7 +10,7 @@ func _ready() -> void:
 	_ignore = entity.get_component(Ignitable.NAME).connect("ignited", self, "_on_ignited")
 	_ignore = turn_system.connect("initiated_turn", self, "_on_initiated_turn")
 
-func _on_ignited(_by: Entity) -> void:
+func _on_ignited(_by: Flaming) -> void:
 	display.modulate = Palette.LIST[Palette.RED_1]
 
 func _on_initiated_turn() -> void:
