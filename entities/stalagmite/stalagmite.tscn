@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -9,25 +9,26 @@
 [ext_resource path="res://components/passive/jumpable/jumpable.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/reactive/entity_stack/entity_stack.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=9]
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 9 )
-region = Rect2( 0, 336, 16, 16 )
+[ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=10]
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 9 )
 region = Rect2( 0, 320, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 336, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 4 ) ],
-"loop": true,
-"name": "lit",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 5 ) ],
 "loop": true,
 "name": "dim",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "lit",
 "speed": 5.0
 } ]
 
@@ -38,6 +39,8 @@ script = ExtResource( 1 )
 frames = SubResource( 3 )
 
 [node name="Presence" parent="." instance=ExtResource( 3 )]
+
+[node name="Faller" parent="." instance=ExtResource( 10 )]
 
 [node name="Jumpable" parent="." instance=ExtResource( 7 )]
 

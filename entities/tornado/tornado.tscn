@@ -59,8 +59,8 @@ layer = 5
 [node name="Display" parent="." instance=ExtResource( 2 )]
 background_color = Color( 0, 0, 0, 0 )
 frames = SubResource( 1 )
-frame = 1
 playing = true
+frame = 1
 
 [node name="Harmer" parent="." instance=ExtResource( 5 )]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://components/reactive/lifetime/lifetime.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/reactive/matter/matter.tscn" type="PackedScene" id=8]
+[ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=9]
 [ext_resource path="res://components/reactive/bright/bright.tscn" type="PackedScene" id=10]
 [ext_resource path="res://components/passive/jumpable/jumpable.tscn" type="PackedScene" id=11]
 
@@ -51,6 +52,8 @@ frame = 2
 heat = 2
 
 [node name="Presence" parent="." instance=ExtResource( 3 )]
+
+[node name="Faller" parent="." instance=ExtResource( 9 )]
 
 [node name="Matter" parent="." instance=ExtResource( 8 )]
 mask = 2

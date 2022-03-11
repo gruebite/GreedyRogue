@@ -6,6 +6,9 @@
     - Golems should throw rocks, and other elemental behaviors
     - More environment interactions, pitfalls are negelected
 - Add more artifacts that interact with the existing elements
+    - An artifact that turns rock into time bombs (explosion entity)
+    - An artifact that knocks back entities (knockbackabble component)
+    - An artifact that pulls the first entity to you (knockbackabble component)
     - **Unnamed** Something that makes time skip, at the cost of extra anxiety (caffeine?)
     - **Unnamed** Something that creates rocks
     - **Unnamed** Something that removes fire
