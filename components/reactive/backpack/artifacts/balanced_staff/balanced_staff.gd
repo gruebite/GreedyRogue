@@ -25,10 +25,10 @@ func use(dir: int) -> bool:
 	var attacked := false
 	attacker.powerup(1)
 	for ent in entities:
-		var defender: Defender = ent.get_component(Defender.NAME)
-		if defender:
+		var attackable: Attackable = ent.get_component(Attackable.NAME)
+		if attackable:
 			attacked = true
-			attacker.attack(defender)
+			attacker.attack(attackable)
 	attacker.powerdown(1)
 	if attacked:
 		self.charge = 0

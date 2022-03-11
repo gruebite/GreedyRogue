@@ -65,6 +65,7 @@ frames = SubResource( 1 )
 jitter = false
 
 [node name="Flammable" parent="." instance=ExtResource( 13 )]
+resistance = 999
 
 [node name="Ignitable" parent="." instance=ExtResource( 12 )]
 eternal = true
@@ -73,7 +74,7 @@ eternal = true
 triggers_death = true
 
 [node name="Bumper" parent="." instance=ExtResource( 8 )]
-bump_mask = 4
+bump_mask = 6
 
 [node name="Presence" parent="." instance=ExtResource( 7 )]
 
@@ -85,7 +86,6 @@ bump_mask = 4
 time = 3
 
 [node name="Health" parent="." instance=ExtResource( 6 )]
-flame_immune = true
 max_health = 1
 
 [node name="Elemental" parent="." instance=ExtResource( 10 )]

@@ -5,9 +5,9 @@ const NAME := "Attacker"
 
 signal attacked(other)
 
-export var damage := 1 setget , get_damage
-
+export var damage := 1
 var power := 0
+var true_damage: int setget , get_true_damage
 
 func _ready() -> void:
 	var bumper: Bumper = entity.get_component(Bumper.NAME)
@@ -15,12 +15,12 @@ func _ready() -> void:
 		var _ignore = bumper.connect("bumped", self, "_on_bumped")
 
 func _on_bumped(other: Bumpable) -> void:
-	var defender: Defender = other.entity.get_component(Defender.NAME)
-	if defender:
-		emit_signal("attacked", defender)
-		defender.attack(self)
+	var attackable: Attackable = other.entity.get_component(Attackable.NAME)
+	if attackable:
+		emit_signal("attacked", attackable)
+		attackable.attack(self)
 
-func get_damage() -> int:
+func get_true_damage() -> int:
 	return damage + power
 
 func powerup(by: int) -> void:
@@ -29,6 +29,6 @@ func powerup(by: int) -> void:
 func powerdown(by: int) -> void:
 	power -= by
 
-func attack(defender: Defender) -> void:
-	emit_signal("attacked", defender)
-	defender.attack(self)
+func attack(attackable: Attackable) -> void:
+	emit_signal("attacked", attackable)
+	attackable.attack(self)

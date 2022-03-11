@@ -6,9 +6,6 @@ const NAME := "Health"
 signal health_changed(to, mx)
 
 export var flashing_node_path := NodePath("../Display")
-export var flame_immune := false
-export var harm_immune := false
-export var attack_immune := false
 
 export var max_health := 12 setget set_max_health
 var health := max_health
@@ -17,40 +14,40 @@ var health_p: float setget , get_health_p
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
 
-onready var defender := entity.get_component(Defender.NAME)
+onready var attackable := entity.get_component(Attackable.NAME)
+onready var harmable := entity.get_component(Harmable.NAME)
+onready var flammable := entity.get_component(Flammable.NAME)
 
 onready var flashing_node := get_node(flashing_node_path)
 
 var transparency: float = 0 setget set_transparency
 
 func _ready() -> void:
-	var flammable := entity.get_component(Flammable.NAME)
 	if flammable:
 		var _ignore = flammable.connect("burned", self, "_on_burned")
-	var harmable := entity.get_component(Harmable.NAME)
 	if harmable:
 		var _ignore = harmable.connect("harmed", self, "_on_harmed")
-	if defender:
-		var _ignore = defender.connect("attacked", self, "_on_attacked")
+	if attackable:
+		var _ignore = attackable.connect("attacked", self, "_on_attacked")
 	emit_signal("health_changed", health, max_health)
 
 func _exit_tree() -> void:
 	turn_system.finish_turn(self)
 
 func _on_burned(by: Flaming) -> void:
-	if flame_immune:
+	var dmg: int = by.damage - flammable.resistance
+	if dmg <= 0:
 		return
-	deal_damage(by.heat, "burns")
+	deal_damage(by.damage, "burns")
 
 func _on_harmed(by: Harming) -> void:
-	if harm_immune:
+	var dmg: int = by.damage - harmable.resistance
+	if dmg <= 0:
 		return
-	deal_damage(by.damage, "sustained harm")
+	deal_damage(by.damage, "trauma")
 
 func _on_attacked(by: Attacker) -> void:
-	if attack_immune:
-		return
-	var dmg: int = by.damage - defender.armor
+	var dmg: int = by.true_damage - attackable.resistance
 	if dmg <= 0:
 		return
 	deal_damage(dmg, "an intense blow")

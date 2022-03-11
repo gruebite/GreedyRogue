@@ -5,7 +5,7 @@ const NAME := "Flaming"
 
 signal burned(other)
 
-export var heat := 1
+export var damage := 1
 
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)

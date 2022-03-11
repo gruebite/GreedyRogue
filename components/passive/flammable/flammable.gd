@@ -5,7 +5,8 @@ const NAME := "Flammable"
 
 signal burned(by)
 
-var immune := false
+export var immune := false
+export var resistance := 0
 
 func burn(by) -> void:
 	if not immune:

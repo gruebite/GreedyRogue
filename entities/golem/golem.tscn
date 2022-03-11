@@ -1,10 +1,10 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
 [ext_resource path="res://components/active/bumper/bumper.tscn" type="PackedScene" id=3]
 [ext_resource path="res://components/passive/bumpable/bumpable.tscn" type="PackedScene" id=4]
-[ext_resource path="res://components/passive/defender/defender.tscn" type="PackedScene" id=5]
+[ext_resource path="res://components/passive/attackable/attackable.tscn" type="PackedScene" id=5]
 [ext_resource path="res://components/coactive/attacker/attacker.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/reactive/presence/presence.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/reactive/health/health.tscn" type="PackedScene" id=8]
@@ -15,6 +15,8 @@
 [ext_resource path="res://components/active/tripper/tripper.tscn" type="PackedScene" id=13]
 [ext_resource path="res://components/behavior/terrorize/terrorize.tscn" type="PackedScene" id=14]
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=15]
+[ext_resource path="res://components/passive/harmable/harmable.tscn" type="PackedScene" id=16]
+[ext_resource path="res://components/coactive/knockbacker/knockbacker.tscn" type="PackedScene" id=17]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 10 )
@@ -52,20 +54,25 @@ script = ExtResource( 9 )
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 frames = SubResource( 3 )
-frame = 1
 
 [node name="Bumpable" parent="." instance=ExtResource( 4 )]
 bump_mask = 16
 
-[node name="Tripper" parent="." instance=ExtResource( 13 )]
+[node name="Attackable" parent="." instance=ExtResource( 5 )]
+resistance = 1
 
-[node name="Defender" parent="." instance=ExtResource( 5 )]
+[node name="Tripper" parent="." instance=ExtResource( 13 )]
 
 [node name="Bumper" parent="." instance=ExtResource( 3 )]
 bump_mask = 1
 
+[node name="Harmable" parent="." instance=ExtResource( 16 )]
+resistance = 2
+
 [node name="Attacker" parent="." instance=ExtResource( 6 )]
 damage = 2
+
+[node name="Knockbacker" parent="." instance=ExtResource( 17 )]
 
 [node name="Presence" parent="." instance=ExtResource( 7 )]
 

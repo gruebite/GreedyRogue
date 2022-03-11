@@ -1,12 +1,17 @@
 
+# Quick
+
+- Make horned helm knockback
+
 # TODO
 
 - More interactions between objects
     - Lasers should be environment antimatter, and other artifact behaviors
     - Golems should throw rocks, and other elemental behaviors
     - More environment interactions, pitfalls are negelected
+    - More environment hazards to bump into, one time effects
 - Add more artifacts that interact with the existing elements
-    - An artifact that turns rock into time bombs (explosion entity)
+    - An artifact that turns rock into time bombs (explosion entity, timebomb component)
     - An artifact that knocks back entities (knockbackabble component)
     - An artifact that pulls the first entity to you (knockbackabble component)
     - **Unnamed** Something that makes time skip, at the cost of extra anxiety (caffeine?)

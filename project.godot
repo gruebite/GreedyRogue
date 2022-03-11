@@ -40,6 +40,11 @@ _global_script_classes=[ {
 "path": "res://components/reactive/backpack/artifacts/artifacts.gd"
 }, {
 "base": "Component",
+"class": "Attackable",
+"language": "GDScript",
+"path": "res://components/passive/attackable/attackable.gd"
+}, {
+"base": "Component",
 "class": "Attacker",
 "language": "GDScript",
 "path": "res://components/coactive/attacker/attacker.gd"
@@ -103,11 +108,6 @@ _global_script_classes=[ {
 "class": "Crack",
 "language": "GDScript",
 "path": "res://components/reactive/crack/crack.gd"
-}, {
-"base": "Component",
-"class": "Defender",
-"language": "GDScript",
-"path": "res://components/passive/defender/defender.gd"
 }, {
 "base": "Grid",
 "class": "DenseGrid",
@@ -253,6 +253,16 @@ _global_script_classes=[ {
 "class": "Jumpable",
 "language": "GDScript",
 "path": "res://components/passive/jumpable/jumpable.gd"
+}, {
+"base": "Component",
+"class": "Knockbackable",
+"language": "GDScript",
+"path": "res://components/passive/knockbackable/knockbackable.gd"
+}, {
+"base": "Component",
+"class": "Knockbacker",
+"language": "GDScript",
+"path": "res://components/coactive/knockbacker/knockbacker.gd"
 }, {
 "base": "Node2D",
 "class": "Lair",
@@ -426,6 +436,7 @@ _global_script_class_icons={
 "Artifact": "",
 "ArtifactContainer": "",
 "Artifacts": "",
+"Attackable": "",
 "Attacker": "",
 "Backpack": "",
 "Bright": "",
@@ -439,7 +450,6 @@ _global_script_class_icons={
 "Controller": "",
 "Cp437": "",
 "Crack": "",
-"Defender": "",
 "DenseGrid": "",
 "Direction": "",
 "Display": "",
@@ -469,6 +479,8 @@ _global_script_class_icons={
 "HoardSystem": "",
 "Ignitable": "",
 "Jumpable": "",
+"Knockbackable": "",
+"Knockbacker": "",
 "Lair": "",
 "Lifetime": "",
 "Matter": "",
