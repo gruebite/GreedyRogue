@@ -20,7 +20,7 @@ animations = [ {
 script = ExtResource( 1 )
 id = "Laser Gun"
 layer = 0
-description = "Alien technology"
+description = "Shoots lasers"
 max_charges = PoolIntArray( 27, 9, 3 )
 directional = true
 

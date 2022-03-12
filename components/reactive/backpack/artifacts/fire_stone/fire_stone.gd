@@ -24,4 +24,6 @@ func _on_initiated_turn() -> void:
 		for art in backpack.get_artifacts():
 			if art == self:
 				continue
-			art.charge += 1
+			if art.passive or art.no_charge:
+				continue
+			art.charge += int(ceil(art.max_charge * 0.05))

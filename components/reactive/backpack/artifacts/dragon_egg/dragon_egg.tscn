@@ -20,7 +20,7 @@ animations = [ {
 script = ExtResource( 2 )
 id = "Dragon Egg"
 layer = 0
-description = "Has a faint glow"
+description = "Glows"
 max_charges = PoolIntArray( 100, 200, 300 )
 passive = true
 

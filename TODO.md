@@ -10,9 +10,6 @@
     - Golems should throw rocks, and other elemental behaviors
     - More environment hazards to bump into, one time effects
 - Add more artifacts that interact with the existing elements
-    - Iridium Fishing Rod that instant kills magma otherwise adds a fish to inventory that
-      heals health and anxiety
-    - Artifact that creates mud
     - An artifact that knocks back entities
     - An artifact that pulls the first entity to you
     - **Unnamed** Something that makes time skip, at the cost of extra anxiety (caffeine?)
@@ -29,6 +26,9 @@
 - More interactions between objects
     - Mud mechanics.  Slidable objects slide along the path.
 - Add more artifacts that interact with the existing elements
+    - Iridium Fishing Rod that instant kills magma otherwise adds a fish to inventory that
+      heals health and anxiety
+    - Artifact that creates mud
     - An artifact that knocks back entities
     - An artifact that turns rock into time bombs (explosion entity, timebomb component)
     - An artifact the prevents panicing completely, and may even start to enjoy it (amulet of resolve)

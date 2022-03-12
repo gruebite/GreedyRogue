@@ -20,7 +20,7 @@ animations = [ {
 script = ExtResource( 1 )
 id = "Excalibur"
 layer = 0
-description = "The sword in the stone"
+description = "Legendary"
 max_charges = PoolIntArray( 10, 8, 6 )
 directional = true
 

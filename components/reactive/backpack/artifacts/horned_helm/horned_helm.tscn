@@ -20,7 +20,7 @@ animations = [ {
 script = ExtResource( 1 )
 id = "Horned Helm"
 layer = 0
-description = "Made from a bull's horns"
+description = "Leads a charge"
 max_charges = PoolIntArray( 50, 20, 10 )
 directional = true
 

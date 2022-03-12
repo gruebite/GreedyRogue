@@ -20,7 +20,7 @@ animations = [ {
 script = ExtResource( 2 )
 id = "Fire Stone"
 layer = 0
-description = "Cool to the touch"
+description = "Absorbs and eminates heat"
 max_charges = PoolIntArray( 2, 4, 8 )
 passive = true
 

@@ -20,7 +20,7 @@ animations = [ {
 script = ExtResource( 1 )
 id = "Ring of Power"
 layer = 0
-description = "The One Ring"
+description = "Enters the wraith-world"
 max_charges = PoolIntArray( 20 )
 
 [node name="Display" parent="." instance=ExtResource( 2 )]

@@ -20,7 +20,7 @@ animations = [ {
 script = ExtResource( 1 )
 id = "Chaos Shard"
 layer = 0
-description = "Looks unstable"
+description = "Phases about randomly"
 max_charges = PoolIntArray( 50, 30, 10 )
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
