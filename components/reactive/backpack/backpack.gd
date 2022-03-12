@@ -63,7 +63,9 @@ func random_artifacts() -> Array:
 			if artifact_at_max_level(name):
 				continue
 			else:
-				pool.append(name)
+				# Add more weight to about a 1 in 10
+				for i in int(floor(Artifacts.NAMES.size() * 0.1)):
+					pool.append(name)
 		elif get_artifact_count() < MAX_ARTIFACTS:
 			pool.append(name)
 	pool.shuffle()
@@ -71,7 +73,10 @@ func random_artifacts() -> Array:
 	for i in 3:
 		if pool.size() == 0:
 			break
-		got.append(pool.pop_back())
+		var cand: String = pool.pop_back()
+		if cand in got:
+			continue
+		got.append(cand)
 	return got
 
 func add_artifact(n: String) -> void:
