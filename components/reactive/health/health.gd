@@ -38,19 +38,19 @@ func _on_burned(by: Flaming) -> void:
 	var dmg: int = by.damage - flammable.resistance
 	if dmg <= 0:
 		return
-	deal_damage(by.damage, "burns")
+	deal_damage(by.damage, by.entity.id)
 
 func _on_harmed(by: Harming) -> void:
 	var dmg: int = by.damage - harmable.resistance
 	if dmg <= 0:
 		return
-	deal_damage(by.damage, "trauma")
+	deal_damage(by.damage, by.entity.id)
 
 func _on_attacked(by: Attacker) -> void:
 	var dmg: int = by.true_damage - attackable.resistance
 	if dmg <= 0:
 		return
-	deal_damage(dmg, "an intense blow")
+	deal_damage(dmg, by.entity.id)
 
 func set_max_health(to: int) -> void:
 	if to < 0: to = 0

@@ -21,4 +21,4 @@ func _on_tripped(_by: Tripper) -> void:
 	if integrity <= 0:
 		var gpos := entity.grid_position
 		tile_system.set_tile(gpos.x, gpos.y, Tile.CHASM)
-		entity.kill("pitfall")
+		entity.kill("breaking")

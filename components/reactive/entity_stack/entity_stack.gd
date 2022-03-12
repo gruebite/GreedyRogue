@@ -29,4 +29,4 @@ func _on_bumped(by: Bumper) -> void:
 		if spawns:
 			entity_system.add_entity(spawns.instance(), desired)
 	if one_shot:
-		entity.kill("toppled")
+		entity.kill("toppling")

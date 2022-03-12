@@ -38,7 +38,7 @@ func try_pickup_gold(pickup: Node2D=null) -> void:
 	emit_signal("picked_up_gold")
 	# TODO: Should we do this here?
 	if pickup:
-		pickup.entity.kill("begin picked up")
+		pickup.entity.kill("being picked up")
 
 func try_pickup_treasure(pickup: Node2D=null) -> void:
 	if is_full():
@@ -51,7 +51,7 @@ func try_pickup_treasure(pickup: Node2D=null) -> void:
 		emit_signal("picked_up_treasure")
 	# TODO: Should we do this here?
 	if pickup:
-		pickup.entity.kill("begin picked up")
+		pickup.entity.kill("being picked up")
 
 func random_artifacts() -> Array:
 	assert(not is_full())

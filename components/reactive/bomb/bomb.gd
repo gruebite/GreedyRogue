@@ -29,7 +29,7 @@ func _on_initiated_turn() -> void:
 		frame += 1
 	else:
 		explode()
-		entity.kill("exploded")
+		entity.kill("exploding")
 
 func _on_died(_source: String) -> void:
 	explode()

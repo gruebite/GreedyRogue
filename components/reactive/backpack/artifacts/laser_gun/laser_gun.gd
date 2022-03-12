@@ -29,7 +29,7 @@ func use(dir: int) -> bool:
 		for ent in entities:
 			var health: Health = ent.get_component(Health.NAME)
 			if health:
-				health.deal_damage(level + 1)
+				health.deal_damage(level + 1, "laser")
 				hit = true
 		if hit:
 			break

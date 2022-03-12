@@ -146,7 +146,7 @@ func _on_player_died(source: String) -> void:
 			"Destroyed the One Ring!", true, true)
 	else:
 		show_message("Collected %.0f%% of the gold" % [total_gold_p],
-			"Died from %s" % [source], true, true)
+			"Died by %s" % [source], true, true)
 	game_over = true
 
 
