@@ -44,7 +44,7 @@ frame = 6
 damage = 3
 
 [node name="Antimatter" parent="." instance=ExtResource( 7 )]
-anticomponents = PoolStringArray( "Flaming" )
+anticomponents = PoolStringArray( "Flaming", "Slippable" )
 
 [node name="Presence" parent="." instance=ExtResource( 5 )]
 

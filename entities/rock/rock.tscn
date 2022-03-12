@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -14,30 +14,7 @@
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=12]
 [ext_resource path="res://components/reactive/bomb/bomb.tscn" type="PackedScene" id=13]
 [ext_resource path="res://entities/explosion/explosion.tscn" type="PackedScene" id=14]
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 11 )
-region = Rect2( 0, 320, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 11 )
-region = Rect2( 16, 352, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 11 )
-region = Rect2( 32, 352, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 11 )
-region = Rect2( 48, 352, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 11 )
-region = Rect2( 64, 352, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 11 )
-region = Rect2( 80, 352, 16, 16 )
+[ext_resource path="res://components/coactive/skidder/skidder.tscn" type="PackedScene" id=15]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 11 )
@@ -63,16 +40,40 @@ region = Rect2( 64, 352, 16, 16 )
 atlas = ExtResource( 11 )
 region = Rect2( 80, 352, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 320, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 11 )
+region = Rect2( 16, 352, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 11 )
+region = Rect2( 32, 352, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 11 )
+region = Rect2( 48, 352, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 11 )
+region = Rect2( 64, 352, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 11 )
+region = Rect2( 80, 352, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
-"loop": true,
-"name": "dim",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 4 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
 "name": "lit",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "dim",
 "speed": 5.0
 } ]
 
@@ -94,6 +95,8 @@ bump_mask = 4
 [node name="Tripper" parent="." instance=ExtResource( 7 )]
 
 [node name="Bumper" parent="." instance=ExtResource( 9 )]
+
+[node name="Skidder" parent="." instance=ExtResource( 15 )]
 
 [node name="Antimatter" parent="." instance=ExtResource( 6 )]
 self_annihilating = PoolStringArray( "Molten" )

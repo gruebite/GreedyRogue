@@ -349,6 +349,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/rlgd/shadow_cast.gd"
 }, {
+"base": "Component",
+"class": "Skidder",
+"language": "GDScript",
+"path": "res://components/coactive/skidder/skidder.gd"
+}, {
+"base": "Component",
+"class": "Slippable",
+"language": "GDScript",
+"path": "res://components/passive/slippable/slippable.gd"
+}, {
 "base": "Grid",
 "class": "SparseGrid",
 "language": "GDScript",
@@ -493,6 +503,8 @@ _global_script_class_icons={
 "Quasi": "",
 "SecuritySystem": "",
 "ShadowCast": "",
+"Skidder": "",
+"Slippable": "",
 "SparseGrid": "",
 "SpawnOnDeath": "",
 "Spawner": "",

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -22,22 +22,8 @@
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=20]
 [ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=21]
 [ext_resource path="res://components/coactive/knockbacker/knockbacker.tscn" type="PackedScene" id=22]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 18 )
-region = Rect2( 0, 256, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 18 )
-region = Rect2( 16, 256, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 18 )
-region = Rect2( 32, 256, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 18 )
-region = Rect2( 48, 256, 16, 16 )
+[ext_resource path="res://components/coactive/skidder/skidder.tscn" type="PackedScene" id=23]
+[ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=24]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 18 )
@@ -55,16 +41,32 @@ region = Rect2( 96, 256, 16, 16 )
 atlas = ExtResource( 18 )
 region = Rect2( 112, 256, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 256, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 18 )
+region = Rect2( 16, 256, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 18 )
+region = Rect2( 32, 256, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 18 )
+region = Rect2( 48, 256, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
-"loop": true,
-"name": "dim",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 2 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "lit",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "dim",
 "speed": 5.0
 } ]
 
@@ -83,6 +85,8 @@ frames = SubResource( 3 )
 [node name="Arrows" parent="." instance=ExtResource( 16 )]
 visible = false
 
+[node name="TurnTaker" parent="." instance=ExtResource( 24 )]
+
 [node name="Bumpable" parent="." instance=ExtResource( 13 )]
 bump_mask = 1
 
@@ -100,6 +104,8 @@ bump_mask = 1
 
 [node name="Bumper" parent="." instance=ExtResource( 12 )]
 bump_mask = 30
+
+[node name="Skidder" parent="." instance=ExtResource( 23 )]
 
 [node name="Attacker" parent="." instance=ExtResource( 14 )]
 

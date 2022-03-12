@@ -21,7 +21,7 @@ on_ready = true
 [node name="TurnTaker" parent="." instance=ExtResource( 2 )]
 
 [node name="Antimatter" parent="." instance=ExtResource( 7 )]
-anticomponents = PoolStringArray( "Flaming", "Wind" )
+anticomponents = PoolStringArray( "Flaming", "Wind", "Slippable" )
 
 [node name="Harming" parent="." instance=ExtResource( 5 )]
 immediate = true
