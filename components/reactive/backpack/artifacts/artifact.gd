@@ -14,13 +14,14 @@ export var passive := false
 export var no_charge := false
 export var directional := false
 
-export var level: int = 0 setget set_level
-export var charge: int = 0 setget set_charge
+export var starting_level := 0
+export var starting_charge := 999
 var max_level: int setget , get_max_level
 var max_charge: int setget , get_max_charge
 var charge_p: float setget , get_charge_p
 
-var starts_empty := false
+var charge: int = 0 setget set_charge
+var level: int = 0 setget set_level
 
 ## Null if somewhere else.
 onready var backpack = get_parent() as Component
@@ -34,7 +35,8 @@ func _ready() -> void:
 		_ignore = ts.connect("out_of_turn", self, "_on_out_of_turn")
 		_ignore = backpack.entity.connect("moved", self, "_on_moved")
 
-		self.charge = self.max_charge if not starts_empty else 0
+		self.level = self.starting_level
+		self.charge = self.starting_charge
 
 func _on_initiated_turn() -> void:
 	pass

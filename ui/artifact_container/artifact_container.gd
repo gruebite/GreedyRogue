@@ -56,7 +56,7 @@ func update_artifact(artifact: Artifact=null) -> void:
 			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.hide()
 			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/Label.text = "Consume"
 			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.modulate = Color(1, 1, 1, 1)
-		elif artifact.passive:
+		elif artifact.no_charge:
 			$MarginContainer/Foreground/VBoxContainer/Hotkey.hide()
 			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.hide()
 		elif artifact.charge_p < 1:

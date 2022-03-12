@@ -12,6 +12,9 @@ func _ready() -> void:
 		entity_system = backpack.find_system(EntitySystem.GROUP_NAME)
 		navigation_system = backpack.find_system(NavigationSystem.GROUP_NAME)
 
+func _on_out_of_turn() -> void:
+	self.charge += 1
+
 func use(dir: int) -> bool:
 	var gpos = backpack.entity.grid_position
 	var dv := Direction.delta(dir)
@@ -20,5 +23,6 @@ func use(dir: int) -> bool:
 		return false
 	if backpack.is_full():
 		return false
+	self.charge = 0
 	backpack.add_artifact("Lava Eel")
 	return true

@@ -25,6 +25,7 @@ description = "Contains things"
 max_charges = PoolIntArray( 4, 6, 8 )
 always_usable = true
 directional = true
+starting_charge = 0
 
 [node name="Display" parent="." instance=ExtResource( 3 )]
 frames = SubResource( 2 )

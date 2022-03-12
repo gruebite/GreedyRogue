@@ -22,7 +22,6 @@ id = "Iridium Rod"
 layer = 0
 description = "Catches fish"
 max_charges = PoolIntArray( 100, 80, 60 )
-always_usable = true
 directional = true
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
