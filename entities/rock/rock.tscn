@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://entities/explosion/explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://components/coactive/skidder/skidder.tscn" type="PackedScene" id=15]
 [ext_resource path="res://components/coactive/attacker/attacker.tscn" type="PackedScene" id=16]
+[ext_resource path="res://components/passive/scoopable/scoopable.tscn" type="PackedScene" id=17]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 11 )
@@ -92,6 +93,8 @@ jitter = false
 
 [node name="Bumpable" parent="." instance=ExtResource( 4 )]
 bump_mask = 4
+
+[node name="Scoopable" parent="." instance=ExtResource( 17 )]
 
 [node name="Tripper" parent="." instance=ExtResource( 7 )]
 

@@ -8,6 +8,7 @@ signal charge_changed(to, mx)
 
 export(String, MULTILINE) var description := ""
 export(PoolIntArray) var max_charges := [0]
+export var always_usable := false
 export var consumed := false
 export var passive := false
 export var no_charge := false
@@ -18,6 +19,8 @@ export var charge: int = 0 setget set_charge
 var max_level: int setget , get_max_level
 var max_charge: int setget , get_max_charge
 var charge_p: float setget , get_charge_p
+
+var starts_empty := false
 
 ## Null if somewhere else.
 onready var backpack = get_parent() as Component
@@ -30,6 +33,8 @@ func _ready() -> void:
 		_ignore = ts.connect("in_turn", self, "_on_in_turn")
 		_ignore = ts.connect("out_of_turn", self, "_on_out_of_turn")
 		_ignore = backpack.entity.connect("moved", self, "_on_moved")
+
+		self.charge = self.max_charge if not starts_empty else 0
 
 func _on_initiated_turn() -> void:
 	pass
@@ -48,7 +53,7 @@ func use(_dir: int) -> bool:
 	return true
 
 func usable() -> bool:
-	return consumed or (not passive and self.charge_p == 1.0)
+	return always_usable or consumed or (not passive and self.charge_p == 1.0)
 
 func get_max_level() -> int:
 	return max_charges.size() - 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=9]
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=10]
 [ext_resource path="res://components/reactive/molten/molten.tscn" type="PackedScene" id=11]
+[ext_resource path="res://components/passive/scoopable/scoopable.tscn" type="PackedScene" id=12]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 9 )
@@ -36,9 +37,11 @@ id = "Lava"
 background_color = Color( 0.74902, 0.168627, 0.160784, 1 )
 frames = SubResource( 3 )
 playing = true
-frame = 5
+frame = 12
 
 [node name="Jumpable" parent="." instance=ExtResource( 8 )]
+
+[node name="Scoopable" parent="." instance=ExtResource( 12 )]
 
 [node name="Flaming" parent="." instance=ExtResource( 6 )]
 damage = 3

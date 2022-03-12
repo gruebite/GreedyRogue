@@ -81,12 +81,13 @@ func add_artifact(n: String) -> void:
 		return
 
 	var artifact = Artifacts.TABLE[n].instance()
-	add_child(artifact)
 	artifact.connect("level_changed", self, "_on_level_changed", [artifact])
 	artifact.connect("charge_changed", self, "_on_charge_changed", [artifact])
 	artifact.connect("tree_exiting", self, "_on_artifact_consuming", [artifact])
+	# Sets up connections with UI
 	emit_signal("gained_artifact", artifact)
-	artifact.charge = artifact.max_charge
+	# This will update UI
+	add_child(artifact)
 	artifact.get_component(Display.NAME).hide()
 
 func find_artifact(n: String) -> Node2D:

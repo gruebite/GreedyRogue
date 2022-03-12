@@ -339,6 +339,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/rlgd/quasi.gd"
 }, {
+"base": "Component",
+"class": "Scoopable",
+"language": "GDScript",
+"path": "res://components/passive/scoopable/scoopable.gd"
+}, {
+"base": "Component",
+"class": "Scooper",
+"language": "GDScript",
+"path": "res://components/coactive/scooper/scooper.gd"
+}, {
 "base": "Node2D",
 "class": "SecuritySystem",
 "language": "GDScript",
@@ -501,6 +511,8 @@ _global_script_class_icons={
 "PointSets": "",
 "Presence": "",
 "Quasi": "",
+"Scoopable": "",
+"Scooper": "",
 "SecuritySystem": "",
 "ShadowCast": "",
 "Skidder": "",

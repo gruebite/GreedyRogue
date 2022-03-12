@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://components/passive/slippable/slippable.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/reactive/lifetime/lifetime.tscn" type="PackedScene" id=7]
 [ext_resource path="res://components/passive/matter/matter.tscn" type="PackedScene" id=8]
+[ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=9]
+[ext_resource path="res://components/passive/scoopable/scoopable.tscn" type="PackedScene" id=10]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
@@ -42,6 +44,10 @@ jitter = false
 [node name="Trippable" parent="." instance=ExtResource( 4 )]
 
 [node name="Slippable" parent="." instance=ExtResource( 6 )]
+
+[node name="Scoopable" parent="." instance=ExtResource( 10 )]
+
+[node name="Faller" parent="." instance=ExtResource( 9 )]
 
 [node name="Presence" parent="." instance=ExtResource( 5 )]
 

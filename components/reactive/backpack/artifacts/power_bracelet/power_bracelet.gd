@@ -1,9 +1,9 @@
 extends Artifact
 
-onready var tile_system: TileSystem
-onready var effect_system: EffectSystem
-onready var entity_system: EntitySystem
-onready var navigation_system: NavigationSystem
+var tile_system: TileSystem
+var effect_system: EffectSystem
+var entity_system: EntitySystem
+var navigation_system: NavigationSystem
 
 func _ready() -> void:
 	if backpack:
