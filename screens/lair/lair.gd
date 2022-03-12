@@ -69,12 +69,12 @@ func _process(_delta: float) -> void:
 
 	if loading is GDScriptFunctionState and loading.is_valid():
 		loading = loading.resume()
-		append_message(".")
+		$UI/Loading/Label.text += "."
 
 	# We just finished loading.
 	if not loading:
 		hide_message()
-		$UI/WashedOut.hide()
+		$UI/Loading.hide()
 		var player = $EntitySystem.player
 		if $GeneratorSystem.generated_level == 0:
 			var _ignore
@@ -240,8 +240,8 @@ func regenerate(level: int=0, keep_player: bool=false) -> void:
 	entered_level = false
 	turn_count = 0
 	game_over = false
-	show_message("Loading")
-	$UI/WashedOut.show()
+	$UI/Loading.show()
+	$UI/Loading/Label.text = "Loading"
 	loading = $GeneratorSystem.generate(level, keep_player)
 
 func show_message(msg: String, title: String="", border: bool=false, hint: bool=false) -> void:
@@ -262,7 +262,7 @@ func append_message(msg: String) -> void:
 	$UI/Message/MarginContainer/MarginContainer/VBoxContainer/Label.text += msg
 
 func hide_message() -> void:
-	$UI/WashedOut.hide()
+	$UI/Loading.hide()
 	$UI/Message.hide()
 	$TurnSystem.disabled = false
 
