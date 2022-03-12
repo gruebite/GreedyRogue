@@ -152,8 +152,10 @@ func _on_picked_up_gold() -> void:
 	$HoardSystem.collect_gold()
 	update_gold()
 
-func _on_picked_up_treasure() -> void:
+func _on_picked_up_treasure(override: String="") -> void:
 	var arts = player_backpack.random_artifacts()
+	if override:
+		arts[0] = override
 	pick_artifact(arts)
 
 func _on_gained_artifact(artifact: Artifact) -> void:

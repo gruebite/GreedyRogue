@@ -25,5 +25,4 @@ func _on_moved(from: Vector2) -> void:
 			effect_system.add_effect(
 				preload("res://effects/cracking/cracking.tscn"),
 				gpos)
-			turn_taker.emit_signal("manual_turn")
 

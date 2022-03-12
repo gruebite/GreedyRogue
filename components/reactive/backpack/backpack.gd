@@ -6,7 +6,7 @@ const NAME := "Backpack"
 const MAX_ARTIFACTS := 5
 
 signal picked_up_gold()
-signal picked_up_treasure()
+signal picked_up_treasure(override)
 signal gained_artifact(artifact)
 signal artifact_level_changed(artifact, to, mx)
 signal artifact_charge_changed(artifact, to, mx)
@@ -40,7 +40,7 @@ func try_pickup_gold(pickup: Node2D=null) -> void:
 	if pickup:
 		pickup.entity.kill("being picked up")
 
-func try_pickup_treasure(pickup: Node2D=null) -> void:
+func try_pickup_treasure(pickup: Node2D=null, override: String="") -> void:
 	if is_full():
 		# Pickup destroys the item.  We need a new one.  Deferred so we don't just iterate to
 		# this one while picking up.
@@ -48,7 +48,7 @@ func try_pickup_treasure(pickup: Node2D=null) -> void:
 			preload("res://entities/treasure_chest/treasure_chest.tscn"),
 			entity.grid_position)
 	else:
-		emit_signal("picked_up_treasure")
+		emit_signal("picked_up_treasure", override)
 	# TODO: Should we do this here?
 	if pickup:
 		pickup.entity.kill("being picked up")

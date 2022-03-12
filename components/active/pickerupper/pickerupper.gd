@@ -13,6 +13,7 @@ onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
 func _ready() -> void:
 	var _ignore
 	_ignore = turn_system.connect("in_turn", self, "_on_in_turn")
+	_ignore = entity.connect("moved", self, "_on_moved")
 	var turn_taker: TurnTaker = entity.get_component("TurnTaker")
 	if turn_taker:
 		_ignore = turn_taker.connect("manual_turn", self, "_on_in_turn")
@@ -27,3 +28,6 @@ func _on_in_turn() -> void:
 		if pickupable:
 			emit_signal("picked_up", pickupable)
 			pickupable.pickup(self)
+
+func _on_moved(_from: Vector2) -> void:
+	_on_in_turn()
