@@ -6,14 +6,14 @@
 # TODO
 
 - More interactions between objects
-    - Oil mechanic.  Ignites and can
+    - Mud mechanics.  Slidable objects slide along the path.
     - Lasers should be environment antimatter, and other artifact behaviors
     - Golems should throw rocks, and other elemental behaviors
-    - More environment interactions, pitfalls are negelected
     - More environment hazards to bump into, one time effects
 - Add more artifacts that interact with the existing elements
     - Iridium Fishing Rod that instant kills magma otherwise adds a fish to inventory that
       heals health and anxiety
+    - Artifact that creates mud
     - An artifact that knocks back entities
     - An artifact that pulls the first entity to you
     - **Unnamed** Something that makes time skip, at the cost of extra anxiety (caffeine?)
@@ -28,12 +28,14 @@
 
 - Add more effects for feedback
 - Add more artifacts that interact with the existing elements
+    - An artifact that knocks back entities
     - An artifact that turns rock into time bombs (explosion entity, timebomb component)
     - An artifact the prevents panicing completely, and may even start to enjoy it (amulet of resolve)
     - The One Ring makes you instantly win if you die from lava
     - Laser Gun that charges by lava, releasing strong blast, destroying things
     - Horned Helm that allows you to charge up to sight range, dealing damage
     - Sandtimer that freezes time.
+    - More environment interactions, pitfalls are negelected
     - Ancient War Mask makes you recover anxiety from attacking
     - Make fire stone charge things if it's hot
 - Add stalagmite groups

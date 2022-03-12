@@ -12,8 +12,7 @@ var artifact_name := ""
 
 func _ready() -> void:
 	$MarginContainer/Foreground/VBoxContainer/Hotkey.text = hotkey
-	update_charge()
-	update_level()
+	update_artifact()
 
 func _process(_delta: float) -> void:
 	if not activated:
@@ -43,33 +42,33 @@ func present_artifact(art_name: String) -> void:
 	$MarginContainer/Foreground/DescriptionContainer/Name.text = art_name
 	$MarginContainer/Foreground/DescriptionContainer/Description.text = artifact.description
 	update_artifact(artifact)
-	update_charge(artifact.no_charge or artifact.consumed)
-	update_level(artifact.max_level == 0 or artifact.consumed)
-	update_hotkey(artifact.passive)
 
-func update_artifact(artifact: Artifact) -> void:
-	$MarginContainer/Foreground/VBoxContainer/Level.text = str("♦").repeat(artifact.level + 1)
-	if artifact.charge_p < 1 and not artifact.passive:
-		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.modulate = Color(1, 1, 1, 0.5)
-	else:
-		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.modulate = Color(1, 1, 1, 1)
-	var cp := artifact.charge_p * 100.0
-	$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.value = cp
+func update_artifact(artifact: Artifact=null) -> void:
 
-func update_charge(no_charge: bool=false) -> void:
-	if hide_charge or no_charge:
+	$MarginContainer/Foreground/VBoxContainer/Hotkey.show()
+	$MarginContainer/Foreground/VBoxContainer/Level.show()
+	$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.show()
+	$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.show()
+
+	if artifact:
+		$MarginContainer/Foreground/VBoxContainer/Level.text = str("♦").repeat(artifact.level + 1)
+		if artifact.consumed:
+			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.hide()
+			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/Label.text = "Consume"
+			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.modulate = Color(1, 1, 1, 1)
+		elif artifact.passive:
+			$MarginContainer/Foreground/VBoxContainer/Hotkey.hide()
+			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.hide()
+		elif artifact.charge_p < 1:
+			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.modulate = Color(1, 1, 1, 0.5)
+			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/Label.text = "Charge"
+		else:
+			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.modulate = Color(1, 1, 1, 1)
+			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/Label.text = "Charge"
+		var cp := artifact.charge_p * 100.0
+		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.value = cp
+
+	if hide_charge:
 		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.hide()
-	else:
-		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.show()
-
-func update_level(no_level: bool=false) -> void:
-	if hide_level or no_level:
+	if hide_level:
 		$MarginContainer/Foreground/VBoxContainer/Level.hide()
-	else:
-		$MarginContainer/Foreground/VBoxContainer/Level.show()
-
-func update_hotkey(no_hotkey: bool=false) -> void:
-	if no_hotkey:
-		$MarginContainer/Foreground/VBoxContainer/Hotkey.hide()
-	else:
-		$MarginContainer/Foreground/VBoxContainer/Hotkey.show()

@@ -36,7 +36,7 @@ id = "Lava"
 background_color = Color( 0.74902, 0.168627, 0.160784, 1 )
 frames = SubResource( 3 )
 playing = true
-frame = 6
+frame = 5
 
 [node name="Jumpable" parent="." instance=ExtResource( 8 )]
 
@@ -45,6 +45,7 @@ damage = 3
 
 [node name="Antimatter" parent="." instance=ExtResource( 7 )]
 anticomponents = PoolStringArray( "Flaming", "Slippable" )
+excluding = PoolStringArray( "Molten" )
 
 [node name="Presence" parent="." instance=ExtResource( 5 )]
 

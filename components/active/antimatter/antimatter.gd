@@ -24,18 +24,23 @@ func _on_in_turn() -> void:
 		# Don't annihilate ourselves.
 		if matter.entity == entity:
 			continue
+		var exclude := false
+		for i in excluding.size():
+			var comp = excluding[i]
+			if matter.entity.get_component(comp):
+				exclude = true
+				break
+		if exclude:
+			continue
 		var do_annihilate := false
 		var will_self_annihilate := false
 		for i in anticomponents.size():
 			var comp = anticomponents[i]
-			if comp in excluding:
-				do_annihilate = false
-				will_self_annihilate = false
-				break
 			if matter.entity.get_component(comp):
 				do_annihilate = true
 				if comp in self_annihilating:
 					will_self_annihilate = true
+					break
 		if do_annihilate:
 			matter.entity.kill("annihilated")
 		self_annihilate = will_self_annihilate
