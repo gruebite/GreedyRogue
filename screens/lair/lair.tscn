@@ -171,6 +171,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 320.0
 margin_bottom = 80.0
+hotkey = "[1]"
 
 [node name="ArtifactContainer1" parent="UI/HUD/VBoxContainer/Treasures" instance=ExtResource( 5 )]
 visible = false
@@ -178,6 +179,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 320.0
 margin_bottom = 80.0
+hotkey = "[2]"
 
 [node name="ArtifactContainer2" parent="UI/HUD/VBoxContainer/Treasures" instance=ExtResource( 5 )]
 visible = false
@@ -185,6 +187,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 320.0
 margin_bottom = 80.0
+hotkey = "[3]"
 
 [node name="ArtifactContainer3" parent="UI/HUD/VBoxContainer/Treasures" instance=ExtResource( 5 )]
 visible = false
@@ -192,6 +195,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 320.0
 margin_bottom = 80.0
+hotkey = "[4]"
 
 [node name="ArtifactContainer4" parent="UI/HUD/VBoxContainer/Treasures" instance=ExtResource( 5 )]
 visible = false
@@ -199,6 +203,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 320.0
 margin_bottom = 80.0
+hotkey = "[5]"
 
 [node name="Info" type="Label" parent="UI/HUD/VBoxContainer"]
 margin_top = 703.0
@@ -206,48 +211,73 @@ margin_right = 320.0
 margin_bottom = 720.0
 align = 1
 
-[node name="Loading" type="Control" parent="UI"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 9 )
-
-[node name="ColorRect" type="ColorRect" parent="UI/Loading"]
+[node name="WashedOut" type="ColorRect" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Message" type="CenterContainer" parent="UI"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 9 )
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Message"]
-margin_left = 614.0
-margin_top = 341.0
-margin_right = 666.0
-margin_bottom = 378.0
+margin_left = 478.0
+margin_top = 308.0
+margin_right = 802.0
+margin_bottom = 411.0
 
 [node name="ColorRect" type="ColorRect" parent="UI/Message/MarginContainer"]
-margin_right = 52.0
-margin_bottom = 37.0
+margin_right = 324.0
+margin_bottom = 103.0
 color = Color( 0, 0, 0, 1 )
 
+[node name="Border" type="NinePatchRect" parent="UI/Message/MarginContainer"]
+margin_right = 324.0
+margin_bottom = 103.0
+texture = ExtResource( 12 )
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="UI/Message/MarginContainer"]
-margin_right = 52.0
-margin_bottom = 37.0
+margin_right = 324.0
+margin_bottom = 103.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="UI/Message/MarginContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Message/MarginContainer/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 42.0
-margin_bottom = 27.0
+margin_right = 314.0
+margin_bottom = 93.0
+custom_constants/separation = 16
+
+[node name="Title" type="Label" parent="UI/Message/MarginContainer/MarginContainer/VBoxContainer"]
+modulate = Color( 1, 0.741176, 0.25098, 1 )
+margin_right = 304.0
+margin_bottom = 17.0
+text = "Title"
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="UI/Message/MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 33.0
+margin_right = 304.0
+margin_bottom = 50.0
 text = "Yo"
+align = 1
+valign = 1
+
+[node name="Hint" type="Label" parent="UI/Message/MarginContainer/MarginContainer/VBoxContainer"]
+modulate = Color( 0.298039, 0.129412, 0.14902, 1 )
+margin_top = 66.0
+margin_right = 304.0
+margin_bottom = 83.0
+text = "[Space] to continue"
 align = 1
 valign = 1
 

@@ -41,3 +41,6 @@ func get_gold_p() -> float:
 	if total_gold == 0:
 		return 1.0
 	return float(gold_piles_collected) / total_gold
+
+func debug_gold() -> void:
+	print("Total gold piles: " + str(piles.size()))

@@ -14,8 +14,13 @@ var name_regex := RegEx.new()
 var player_health: Health
 var player_anxiety: Anxiety
 
+var turn_count := 0
+
 func _ready() -> void:
 	assert(name_regex.compile("([^@\\d]+)") == OK)
+	var _ignore
+	_ignore = $TurnSystem.connect("out_of_turn", self, "_turn_taken")
+	_ignore = $TurnSystem.connect("canceled_turn", self, "_turn_taken")
 	regenerate()
 
 func _process(_delta: float) -> void:
@@ -69,7 +74,7 @@ func _process(_delta: float) -> void:
 	# We just finished loading.
 	if not loading:
 		hide_message()
-		$UI/Loading.hide()
+		$UI/WashedOut.hide()
 		var player = $EntitySystem.player
 		if $GeneratorSystem.generated_level == 0:
 			var _ignore
@@ -95,8 +100,12 @@ func _process(_delta: float) -> void:
 			_on_health_changed(1, 1)
 			_on_anxiety_changed(0, 1)
 			gold_ps = 0.0
-			$UI/HUD/VBoxContainer/Gold/Value.text = "0%"
-		show_message(GeneratorSystem.LEVEL_MESSAGES[$GeneratorSystem.generated_level])
+			update_gold()
+		else:
+			update_gold()
+		show_message(GeneratorSystem.LEVEL_MESSAGES[$GeneratorSystem.generated_level],
+			GeneratorSystem.LEVEL_TITLES[$GeneratorSystem.generated_level], true, true)
+		$HoardSystem.debug_gold()
 
 func _input(event: InputEvent) -> void:
 	if not $UI/Message.visible:
@@ -112,6 +121,9 @@ func _input(event: InputEvent) -> void:
 			if game_over:
 				regenerate()
 
+func _turn_taken() -> void:
+	turn_count += 1
+
 func _on_player_died(source: String) -> void:
 	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
 
@@ -119,17 +131,17 @@ func _on_player_died(source: String) -> void:
 	var one_ring: bool = $EntitySystem.player.get_component(Backpack.NAME).has_artifact("Ring of Power")
 	var ppos: Vector2 = $EntitySystem.player.grid_position
 	if one_ring and $NavigationSystem.is_lava(ppos.x, ppos.y):
-		show_message("You destroyed the One Ring\nCollected %.0f%% of the gold" % [total_gold_p])
+		show_message("Collected %.0f%% of the gold" % [total_gold_p],
+			"Destroyed the One Ring!", true, true)
 	else:
-		show_message("Died from %s\nCollected %.0f%% of the gold" % [source, total_gold_p])
+		show_message("Collected %.0f%% of the gold" % [total_gold_p],
+			"Died from %s" % [source], true, true)
 	game_over = true
 
 
 func _on_picked_up_gold() -> void:
 	$HoardSystem.collect_gold()
-	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
-	print("Gold percentage: %0.2f%%" % [total_gold_p])
-	$UI/HUD/VBoxContainer/Gold/Value.text = "%.0f%%" % [total_gold_p]
+	update_gold()
 
 func _on_picked_up_treasure() -> void:
 	var arts = Artifacts.random_artifacts($EntitySystem.player.get_component(Backpack.NAME))
@@ -182,7 +194,8 @@ func _on_found_exit() -> void:
 	var lvl: int = $GeneratorSystem.generated_level
 	if lvl == GeneratorSystem.LEVEL_COUNT - 1:
 		var total_gold_ps: float = gold_ps / GeneratorSystem.LEVEL_COUNT
-		show_message("Found an escape!\nCollected %.2f%% of the gold" % (total_gold_ps * 100))
+		show_message("Collected %.2f%% of the gold" % (total_gold_ps * 100),
+			"Made it out alive!", true, true)
 		game_over = true
 	else:
 		regenerate(lvl + 1, true)
@@ -198,22 +211,38 @@ func _on_deactivated_artifact(index: int) -> void:
 	var treasures := $UI/HUD/VBoxContainer/Treasures
 	treasures.get_child(index).activated = false
 
+func update_gold() -> void:
+	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
+	print("Gold percentage: %0.2f%%" % [total_gold_p])
+	$UI/HUD/VBoxContainer/Gold/Value.text = "%.0f%%" % [total_gold_p]
+
 func regenerate(level: int=0, keep_player: bool=false) -> void:
+	print("Turns taken: " + str(turn_count))
+	turn_count = 0
 	game_over = false
 	show_message("Loading")
-	$UI/Loading.show()
+	$UI/WashedOut.show()
 	loading = $GeneratorSystem.generate(level, keep_player)
 
-func show_message(msg: String) -> void:
-	$UI/Message/MarginContainer/MarginContainer/Label.text = msg
+func show_message(msg: String, title: String="", border: bool=false, hint: bool=false) -> void:
+	$UI/Message/MarginContainer/MarginContainer/VBoxContainer/Label.text = msg
+	$UI/Message/MarginContainer/MarginContainer/VBoxContainer/Title.text = title
+	if border:
+		$UI/Message/MarginContainer/Border.show()
+	else:
+		$UI/Message/MarginContainer/Border.hide()
+	if hint:
+		$UI/Message/MarginContainer/MarginContainer/VBoxContainer/Hint.show()
+	else:
+		$UI/Message/MarginContainer/MarginContainer/VBoxContainer/Hint.hide()
 	$UI/Message.show()
 	$TurnSystem.disabled = true
 
 func append_message(msg: String) -> void:
-	$UI/Message/MarginContainer/MarginContainer/Label.text += msg
+	$UI/Message/MarginContainer/MarginContainer/VBoxContainer/Label.text += msg
 
 func hide_message() -> void:
-	$UI/Loading.hide()
+	$UI/WashedOut.hide()
 	$UI/Message.hide()
 	$TurnSystem.disabled = false
 

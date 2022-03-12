@@ -16,6 +16,7 @@ func use(_dir: int) -> bool:
 	if health.health == health.max_health:
 		return false
 	effect_system.add_effect(preload("res://effects/healed/healed.tscn"), backpack.entity.grid_position)
-	health.deal_damage(-999)
+	var amount: int = floor(health.max_health * 0.25 * (level + 1))
+	health.deal_damage(-amount)
 	self.charge = 0
 	return true

@@ -4,10 +4,15 @@ class_name GeneratorSystem
 const GROUP_NAME := "generator_system"
 
 const LEVEL_COUNT := 3
+const LEVEL_TITLES := [
+	"Dragon's Lair: Entrance",
+	"Dragon's Lair: Outer Chamber",
+	"Dragon's Lair: Inner Chamber",
+]
 const LEVEL_MESSAGES := [
-	"Entrance Chamber of the Dragon's Lair\n\nKnown for piles of gold and powerful artifacts",
-	"Random Chamer of the Dragon's Lair",
-	"Center Chamber of the Dragon's Lair",
+	"Known for piles of gold and powerful artifacts",
+	"",
+	"",
 ]
 const LEVEL_SETTINGS := [
 	{
@@ -27,11 +32,14 @@ const LEVEL_SETTINGS := [
 		"large_lava_pool_count": 1,
 		"large_lava_pool_size": 15,
 		"lava_river_count": 0,
-		"small_gold_pile_count": 10,
+		"small_gold_pile_count": 15,
 		"small_gold_pile_size": 3,
 		"large_gold_pile_count": 3,
-		"large_gold_pile_size": 10,
+		"large_gold_pile_size": 1,
+		"fake_gold_pile_count": 2,
 		"treasure_chest_count": 3,
+
+		"mud_mephit_count": 10,
 		"dragonling_count": 3,
 		"magma_slug_count": 1,
 		"golem_count": 1,
@@ -54,38 +62,44 @@ const LEVEL_SETTINGS := [
 		"large_lava_pool_count": 2,
 		"large_lava_pool_size": 15,
 		"lava_river_count": 1,
-		"small_gold_pile_count": 8,
+		"small_gold_pile_count": 12,
 		"small_gold_pile_size": 3,
-		"large_gold_pile_count": 3,
+		"large_gold_pile_count": 2,
 		"large_gold_pile_size": 10,
+		"fake_gold_pile_count": 4,
 		"treasure_chest_count": 5,
+
+		"mud_mephit_count": 5,
 		"dragonling_count": 5,
 		"magma_slug_count": 4,
 		"golem_count": 5,
 		"tornado_count": 0,
 	},
 	{
-		"initial_open_p": 0.7,
+		"initial_open_p": 0.3,
 		"initial_goto_edge_p": 0.8,
 		"initial_random_walk_weight": 0.6,
-		"secondary_open_p": 0.8,
-		"secondary_open_radius": 10.0,
+		"secondary_open_p": 1.0,
+		"secondary_open_radius": 20.0,
 		"secondary_random_walk_weight": 0.7,
 
 		"rock_count": 20,
 		"pitfall_count": 5,
 		"pitfall_size": 9,
 		"stalagmite_count": 20,
-		"small_lava_pool_count": 2,
+		"small_lava_pool_count": 9,
 		"small_lava_pool_size": 4,
-		"large_lava_pool_count": 1,
+		"large_lava_pool_count": 3,
 		"large_lava_pool_size": 15,
 		"lava_river_count": 2,
-		"small_gold_pile_count": 10,
+		"small_gold_pile_count": 6,
 		"small_gold_pile_size": 3,
-		"large_gold_pile_count": 1,
+		"large_gold_pile_count": 4,
 		"large_gold_pile_size": 10,
+		"fake_gold_pile_count": 6,
 		"treasure_chest_count": 7,
+
+		"mud_mephit_count": 2,
 		"dragonling_count": 7,
 		"magma_slug_count": 4,
 		"golem_count": 5,
@@ -197,8 +211,10 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 
 	var small_piles: int = LEVEL_SETTINGS[level]["small_gold_pile_count"]
 	var large_piles: int = LEVEL_SETTINGS[level]["large_gold_pile_count"]
+	var fake_piles: int = LEVEL_SETTINGS[level]["fake_gold_pile_count"]
 	while true:
 		walker.goto_random_opened()
+		var fake := false
 		var size: int
 		if small_piles > 0:
 			small_piles -= 1
@@ -206,11 +222,16 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 		elif large_piles > 0:
 			large_piles -= 1
 			size = LEVEL_SETTINGS[level]["large_gold_pile_size"]
+		elif fake_piles > 0:
+			fake_piles -= 1
+			size = LEVEL_SETTINGS[level]["small_gold_pile_size"]
+			fake = true
 		else:
 			break
+		var t := tile_to_walker_tile(Tile.STALAGMITE if fake else Tile.GOLD_PILE)
 		for s in size:
 			walker.step_random()
-			walker.mark_point_set(plus, tile_to_walker_tile(Tile.GOLD_PILE))
+			walker.mark_point_set(plus, t)
 		walker.commit(Walker.COMMIT_OPENED_OVER_OPENED)
 
 	yield()
@@ -244,7 +265,12 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 	walker.goto_random_edge()
 	walker.remember()
 	for i in LEVEL_SETTINGS[level]["lava_river_count"]:
-		walker.goto_random_edge()
+		var find_edge_tries := 100
+		while find_edge_tries > 0:
+			find_edge_tries -= 1
+			walker.goto_random_edge()
+			if walker.position.x != walker.remembered[-1].x and walker.position.y != walker.remembered[-1].y:
+				break
 		while not walker.is_on_last_remembered():
 			walker.step_weighted_last_remembered(0.6)
 			walker.mark_point_set(circle, tile_to_walker_tile(Tile.FLOOR))
@@ -275,7 +301,7 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 				tile_system.set_tile(x, y, Tile.WALL)
 			else:
 				var tile := walker_tile_to_tile(walker.get_tile(x - 1, y - 1))
-				if tile >= Tile.CHASM and tile <= Tile.ABYSS_FLOOR:
+				if tile >= Tile.WALL and tile <= Tile.EXIT:
 					# Regular tiles.
 					tile_system.set_tile(x, y, tile)
 				else:
@@ -306,6 +332,7 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 					to_add.append(ent)
 	walker.commit()
 
+	var mud_mephit_count: int = LEVEL_SETTINGS[level]["mud_mephit_count"]
 	var dragonling_count: int = LEVEL_SETTINGS[level]["dragonling_count"]
 	var magma_slug_count: int = LEVEL_SETTINGS[level]["magma_slug_count"]
 	var golem_count: int = LEVEL_SETTINGS[level]["golem_count"]
@@ -313,7 +340,10 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 	while true:
 		var pos := walker.opened_tiles.random(walker.rng) + Vector2(1, 1)
 		var ent: Entity
-		if dragonling_count > 0:
+		if mud_mephit_count > 0:
+			ent = Entities.MUD_MEPHIT.instance()
+			mud_mephit_count -= 1
+		elif dragonling_count > 0:
 			ent = Entities.DRAGONLING.instance()
 			dragonling_count -= 1
 		elif magma_slug_count > 0:

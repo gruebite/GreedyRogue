@@ -35,14 +35,15 @@ script = ExtResource( 1 )
 background_color = Color( 0.74902, 0.168627, 0.160784, 1 )
 frames = SubResource( 3 )
 playing = true
-frame = 1
+frame = 5
 
 [node name="Jumpable" parent="." instance=ExtResource( 8 )]
 
-[node name="Antimatter" parent="." instance=ExtResource( 7 )]
-
 [node name="Flaming" parent="." instance=ExtResource( 6 )]
 damage = 3
+
+[node name="Antimatter" parent="." instance=ExtResource( 7 )]
+anticomponents = PoolStringArray( "Flaming" )
 
 [node name="Presence" parent="." instance=ExtResource( 5 )]
 

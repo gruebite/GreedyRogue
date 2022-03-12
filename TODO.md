@@ -1,12 +1,15 @@
 
 # Quick
 
-- Ping after closing message.
-- [Space] below messages.
+- Add stalagmite groups
+- Ping after closing message
+- [Space] below messages
+- Calc gold p on new level
 
 # TODO
 
 - More interactions between objects
+    - Oil mechanic.  Ignites and can
     - Lasers should be environment antimatter, and other artifact behaviors
     - Golems should throw rocks, and other elemental behaviors
     - More environment interactions, pitfalls are negelected
@@ -34,3 +37,4 @@
     - Sandtimer that freezes time.
     - Ancient War Mask makes you recover anxiety from attacking
     - Make fire stone charge things if it's hot
+- Add hotkey for activatable artifacts below icon

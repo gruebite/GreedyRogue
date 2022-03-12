@@ -69,7 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 		action = true
 		delta = Vector2.RIGHT
-	elif event.is_action_pressed("ui_wait"):
+	elif event.is_action_pressed("ui_wait") and Input.is_key_pressed(KEY_SHIFT):
 		action = true
 	elif event.is_action_pressed("ui_1"):
 		use_artifact(0)
@@ -86,16 +86,22 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("ui_5"):
 		use_artifact(4)
 		return
-	elif event is InputEventKey and event.pressed:
+	elif event is InputEventKey and event.pressed and Input.is_key_pressed(KEY_SHIFT):
 		match event.scancode:
 			KEY_F:
 				entity_system.add_entity(preload("res://entities/fire/fire.tscn").instance(), entity.grid_position)
-			KEY_A:
-				entity_system.add_entity(preload("res://entities/falling_rock/falling_rock.tscn").instance(), entity.grid_position)
 			KEY_R:
 				entity_system.add_entity(preload("res://entities/rock/rock.tscn").instance(), entity.grid_position)
+			KEY_M:
+				entity_system.add_entity(preload("res://entities/stalagmite/stalagmite.tscn").instance(), entity.grid_position)
+			KEY_P:
+				entity_system.add_entity(preload("res://entities/pitfall/pitfall.tscn").instance(), entity.grid_position)
+			KEY_G:
+				entity_system.add_entity(preload("res://entities/gold_pile/gold_pile.tscn").instance(), entity.grid_position)
 			KEY_T:
-				entity_system.add_entity(preload("res://entities/treasure_chest/treasure_chest.tscn").instance(), entity.grid_position)
+				backpack.emit_signal("picked_up_treasure")
+			KEY_X:
+				emit_signal("found_exit")
 			KEY_Z:
 				for art in backpack.get_artifacts():
 					art.charge += 999

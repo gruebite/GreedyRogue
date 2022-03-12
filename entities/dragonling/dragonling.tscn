@@ -75,6 +75,7 @@ on_knockback = true
 bump_mask = 3
 
 [node name="Attacker" parent="." instance=ExtResource( 9 )]
+damage = 2
 
 [node name="Presence" parent="." instance=ExtResource( 4 )]
 

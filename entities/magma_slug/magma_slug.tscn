@@ -1,9 +1,8 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=1]
 [ext_resource path="res://components/active/flaming/flaming.tscn" type="PackedScene" id=2]
 [ext_resource path="res://components/passive/jumpable/jumpable.tscn" type="PackedScene" id=3]
-[ext_resource path="res://components/active/antimatter/antimatter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://components/reactive/presence/presence.tscn" type="PackedScene" id=5]
 [ext_resource path="res://components/passive/matter/matter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=7]
@@ -43,8 +42,6 @@ frames = SubResource( 3 )
 [node name="Jumpable" parent="." instance=ExtResource( 3 )]
 
 [node name="Knockbackable" parent="." instance=ExtResource( 17 )]
-
-[node name="Antimatter" parent="." instance=ExtResource( 4 )]
 
 [node name="Flaming" parent="." instance=ExtResource( 2 )]
 

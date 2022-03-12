@@ -23,9 +23,9 @@ on_died = true
 immediate = true
 damage = 5
 
-[node name="Lifetime" parent="." instance=ExtResource( 1 )]
-time = 0
-
 [node name="Spawner" parent="." instance=ExtResource( 2 )]
 spawns = ExtResource( 7 )
 on_died = true
+
+[node name="Lifetime" parent="." instance=ExtResource( 1 )]
+time = 0

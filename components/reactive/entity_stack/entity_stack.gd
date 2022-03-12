@@ -4,6 +4,7 @@ class_name EntityStack
 const NAME := "EntityStack"
 
 export(PackedScene) var spawns
+export var start_here := false
 export var height := 4
 export var one_shot := true
 
@@ -20,7 +21,7 @@ func _ready() -> void:
 func _on_bumped(by: Bumper) -> void:
 	var dv := entity.grid_position - by.entity.grid_position
 	for i in height:
-		var desired: Vector2 = entity.grid_position + dv * i
+		var desired: Vector2 = entity.grid_position + dv * (i + (0 if start_here else 1))
 		if navigation_system.out_of_bounds(desired.x, desired.y):
 			continue
 		if tile_system.blocks_movement(desired.x, desired.y):

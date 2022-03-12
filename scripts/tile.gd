@@ -6,9 +6,9 @@ enum {
 	LAVA_SETTLED = -1,
 
 	# Displayed tiles.
-	CHASM,
 	WALL,
 	FLOOR,
+	CHASM,
 	EXIT,
 
 	# Not displayed.
@@ -31,8 +31,8 @@ enum Property {
 }
 
 const LIST := [
-	[true, false],
 	[true, true],
+	[false, false],
 	[false, false],
 	[false, false],
 
