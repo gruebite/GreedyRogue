@@ -65,6 +65,6 @@ on_died = true
 [node name="Elemental" parent="." instance=ExtResource( 9 )]
 idle_chance = 0.98
 bias = true
-distracted_chance = 0.5
+distracted_chance = 0.75
 
 [node name="Terrorize" parent="." instance=ExtResource( 13 )]

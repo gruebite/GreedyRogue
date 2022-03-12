@@ -23,6 +23,7 @@ layer = 0
 description = "Absorbs and eminates heat"
 max_charges = PoolIntArray( 2, 4, 8 )
 passive = true
+starting_charge = 0
 
 [node name="Display" parent="." instance=ExtResource( 1 )]
 frames = SubResource( 2 )

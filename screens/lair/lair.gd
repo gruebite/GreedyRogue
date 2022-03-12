@@ -215,7 +215,7 @@ func _on_found_exit() -> void:
 	var lvl: int = $GeneratorSystem.generated_level
 	if lvl == GeneratorSystem.LEVEL_COUNT - 1:
 		var total_gold_ps: float = gold_ps / GeneratorSystem.LEVEL_COUNT
-		show_message("Collected %.2f%% of the gold" % (total_gold_ps * 100),
+		show_message("Collected %.0f%% of the gold" % (total_gold_ps * 100),
 			"Made it out alive!", true, true)
 		game_over = true
 	else:

@@ -84,7 +84,7 @@ func add_artifact(n: String) -> void:
 	var existing := find_artifact(n)
 	if existing:
 		existing.level += 1
-		existing.charge += 999
+		existing.charge += existing.starting_charge
 		return
 
 	var artifact = Artifacts.TABLE[n].instance()

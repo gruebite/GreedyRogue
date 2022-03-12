@@ -90,7 +90,7 @@ max_health = 3
 [node name="Elemental" parent="." instance=ExtResource( 5 )]
 notice_range = 6
 pursue_range = 9
-idle_chance = 0.33
+idle_chance = 0.25
 bias = true
 distracted_chance = 0.2
 state = 0
