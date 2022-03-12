@@ -57,6 +57,8 @@ func random_artifacts() -> Array:
 	assert(not is_full())
 	var pool := []
 	for name in Artifacts.NAMES:
+		if Artifacts.NOT_FOUND.has(name):
+			continue
 		if has_artifact(name):
 			if artifact_at_max_level(name):
 				continue

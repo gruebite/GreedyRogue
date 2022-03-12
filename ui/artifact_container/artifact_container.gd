@@ -68,6 +68,9 @@ func update_artifact(artifact: Artifact=null) -> void:
 		var cp := artifact.charge_p * 100.0
 		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.value = cp
 
+		if artifact.max_level == 0:
+			$MarginContainer/Foreground/VBoxContainer/Level.hide()
+
 	if hide_charge:
 		$MarginContainer/Foreground/DescriptionContainer/ChargeContainer.hide()
 	if hide_level:

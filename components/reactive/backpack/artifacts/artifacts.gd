@@ -18,7 +18,9 @@ const NAMES := [
 	"Health Potion",
 	"Heart Piece",
 	"Horned Helm",
+	"Iridium Rod",
 	"Laser Gun",
+	"Lava Eel",
 	"Liquid Courage",
 	"Map Fragment",
 	"Power Bracelet",
@@ -29,6 +31,10 @@ const NAMES := [
 	"Unstable Salve",
 	"Winged Boots",
 ]
+
+const NOT_FOUND := {
+	"Lava Eel": true,
+}
 
 const TABLE := {
 	"Amulet of Resolve": preload("res://components/reactive/backpack/artifacts/amulet_of_resolve/amulet_of_resolve.tscn"),
@@ -47,7 +53,9 @@ const TABLE := {
 	"Health Potion": preload("res://components/reactive/backpack/artifacts/health_potion/health_potion.tscn"),
 	"Heart Piece": preload("res://components/reactive/backpack/artifacts/heart_piece/heart_piece.tscn"),
 	"Horned Helm": preload("res://components/reactive/backpack/artifacts/horned_helm/horned_helm.tscn"),
+	"Iridium Rod": preload("res://components/reactive/backpack/artifacts/iridium_rod/iridium_rod.tscn"),
 	"Laser Gun": preload("res://components/reactive/backpack/artifacts/laser_gun/laser_gun.tscn"),
+	"Lava Eel": preload("res://components/reactive/backpack/artifacts/lava_eel/lava_eel.tscn"),
 	"Liquid Courage": preload("res://components/reactive/backpack/artifacts/liquid_courage/liquid_courage.tscn"),
 	"Map Fragment": preload("res://components/reactive/backpack/artifacts/map_fragment/map_fragment.tscn"),
 	"Power Bracelet": preload("res://components/reactive/backpack/artifacts/power_bracelet/power_bracelet.tscn"),

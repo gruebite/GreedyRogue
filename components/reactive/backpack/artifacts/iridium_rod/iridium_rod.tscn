@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://components/reactive/backpack/artifacts/iridium_rod/iridium_rod.gd" type="Script" id=1]
+[ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/textures/ascii.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 512, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "lit",
+"speed": 5.0
+} ]
+
+[node name="IridiumRod" type="Node2D"]
+script = ExtResource( 1 )
+id = "Iridium Rod"
+layer = 0
+description = "Catches fish"
+max_charges = PoolIntArray( 100, 80, 60 )
+always_usable = true
+directional = true
+
+[node name="Display" parent="." instance=ExtResource( 2 )]
+frames = SubResource( 1 )
