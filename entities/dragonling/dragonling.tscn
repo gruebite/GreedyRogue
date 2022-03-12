@@ -18,14 +18,6 @@
 [ext_resource path="res://components/passive/knockbackable/knockbackable.tscn" type="PackedScene" id=16]
 [ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=17]
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 11 )
-region = Rect2( 0, 384, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 11 )
-region = Rect2( 16, 384, 16, 16 )
-
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 11 )
 region = Rect2( 64, 384, 16, 16 )
@@ -34,16 +26,24 @@ region = Rect2( 64, 384, 16, 16 )
 atlas = ExtResource( 11 )
 region = Rect2( 80, 384, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 384, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 11 )
+region = Rect2( 16, 384, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 4 ), SubResource( 5 ) ],
-"loop": true,
-"name": "dim",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "lit",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "dim",
 "speed": 5.0
 } ]
 

@@ -56,11 +56,12 @@ func move_to(ent: Entity, desired: Vector2) -> void:
 		var bumpables := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
 		var bumped := 0
 		for bumpable in bumpables:
+			var must_bump = bumpable.must_bump or bumpable.entity.layer == ent.layer
 			if bumper.does_bump(bumpable):
 				bumper.do_bump(bumpable)
 				bumped += 1
 			# If we couldn't bump, but had to, we will not move.
-			elif bumpable.must_bump:
+			elif must_bump:
 				bumped += 99
 		# We bumped something.
 		if bumped > 0:

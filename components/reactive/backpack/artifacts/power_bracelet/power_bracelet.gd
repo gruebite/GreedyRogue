@@ -50,6 +50,7 @@ func use(dir: int) -> bool:
 		# Push until we hit a wall, or get freed somehow.
 		dist = 2
 		while true:
+			# Incrementing gpos so we pass through bumpables.
 			var gpos = backpack.entity.grid_position + dv * dist
 			var i := pushing.size()
 			while i > 0:

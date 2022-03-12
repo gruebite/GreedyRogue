@@ -6,7 +6,6 @@
 # TODO
 
 - More interactions between objects
-    - Mud mechanics.  Slidable objects slide along the path.
     - Lasers should be environment antimatter, and other artifact behaviors
     - Golems should throw rocks, and other elemental behaviors
     - More environment hazards to bump into, one time effects
@@ -27,6 +26,8 @@
 # DONE
 
 - Add more effects for feedback
+- More interactions between objects
+    - Mud mechanics.  Slidable objects slide along the path.
 - Add more artifacts that interact with the existing elements
     - An artifact that knocks back entities
     - An artifact that turns rock into time bombs (explosion entity, timebomb component)

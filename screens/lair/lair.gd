@@ -46,10 +46,6 @@ func _process(_delta: float) -> void:
 		else:
 			$UI/HUD/VBoxContainer/Anxiety/Value/Progress.modulate = Color.white
 
-
-		# We have a menu up or something.
-		if $TurnSystem.disabled:
-			return
 		var mouse_pos := get_global_mouse_position()
 		if not Rect2(Vector2.ZERO, Constants.MAP_RESOLUTION).has_point(mouse_pos):
 			return
@@ -65,6 +61,8 @@ func _process(_delta: float) -> void:
 					$UI/HUD/VBoxContainer/Info.text = "Wall"
 				Tile.EXIT:
 					$UI/HUD/VBoxContainer/Info.text = "Exit"
+				Tile.CHASM:
+					$UI/HUD/VBoxContainer/Info.text = "Chasm"
 				_:
 					$UI/HUD/VBoxContainer/Info.text = "Floor"
 		return

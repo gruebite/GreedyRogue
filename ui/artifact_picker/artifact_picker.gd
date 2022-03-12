@@ -1,7 +1,7 @@
 extends CenterContainer
 
 const TAKE := "Take "
-const UPGRADE := "Upgrade! "
+const UPGRADE := "Upgrade!! "
 const CONSUMABLE := "Consumable "
 
 signal picked(index)
