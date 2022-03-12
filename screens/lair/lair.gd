@@ -5,6 +5,7 @@ const STAT_BLINKIING_THRESHOLD := 0.33
 
 var loading = null
 var game_over := false
+var entered_level := false
 var panicking := false
 
 var gold_ps := 0.0
@@ -21,10 +22,10 @@ func _ready() -> void:
 	var _ignore
 	_ignore = $TurnSystem.connect("out_of_turn", self, "_turn_taken")
 	_ignore = $TurnSystem.connect("canceled_turn", self, "_turn_taken")
+	_ignore = $GeneratorSystem.connect("entered_level", self, "_on_entered_level")
 	regenerate()
 
 func _process(_delta: float) -> void:
-
 	$UI/HUD/VBoxContainer/Info.text = ""
 	# We're done loading.
 	if not loading:
@@ -115,14 +116,21 @@ func _input(event: InputEvent) -> void:
 			hide_message()
 			if game_over:
 				regenerate()
+			elif entered_level:
+				$EffectSystem.add_effect(preload("res://effects/ping/ping.tscn"), $EntitySystem.player.grid_position)
 	if event is InputEventMouseButton:
 		if event.pressed:
 			hide_message()
 			if game_over:
 				regenerate()
+			elif entered_level:
+				$EffectSystem.add_effect(preload("res://effects/ping/ping.tscn"), $EntitySystem.player.grid_position)
 
 func _turn_taken() -> void:
 	turn_count += 1
+
+func _on_entered_level(_lvl: int) -> void:
+	entered_level = true
 
 func _on_player_died(source: String) -> void:
 	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
@@ -219,6 +227,7 @@ func update_gold() -> void:
 
 func regenerate(level: int=0, keep_player: bool=false) -> void:
 	print("Turns taken: " + str(turn_count))
+	entered_level = false
 	turn_count = 0
 	game_over = false
 	show_message("Loading")

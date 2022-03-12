@@ -1,10 +1,7 @@
 
 # Quick
 
-- Add stalagmite groups
 - Ping after closing message
-- [Space] below messages
-- Calc gold p on new level
 
 # TODO
 
@@ -37,4 +34,5 @@
     - Sandtimer that freezes time.
     - Ancient War Mask makes you recover anxiety from attacking
     - Make fire stone charge things if it's hot
+- Add stalagmite groups
 - Add hotkey for activatable artifacts below icon

@@ -8,7 +8,6 @@ signal found_exit()
 signal activated_artifact(index)
 signal deactivated_artifact(index)
 
-onready var generator_system: GeneratorSystem = find_system(GeneratorSystem.GROUP_NAME)
 onready var bright_sytem: BrightSystem = find_system(BrightSystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
@@ -27,7 +26,6 @@ var skip_turns := 0
 
 func _ready() -> void:
 	var _ignore
-	_ignore = generator_system.connect("entered_level", self, "_on_entered_level")
 	_ignore = turn_system.connect("out_of_turn", self, "_on_out_of_turn")
 
 	entity.grid_position = Vector2(Constants.MAP_COLUMNS / 2, Constants.MAP_ROWS / 2).floor()
@@ -125,9 +123,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				bright_sytem.update_brights()
 				bright_sytem.update_tiles()
 				do_initiate_turn()
-
-func _on_entered_level(_lvl: int) -> void:
-	effect_system.add_effect(preload("res://effects/ping/ping.tscn"), entity.grid_position)
 
 func _on_out_of_turn() -> void:
 	var gpos := entity.grid_position
