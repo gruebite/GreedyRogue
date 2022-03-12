@@ -177,6 +177,7 @@ func _on_artifact_charge_changed(artifact: Artifact, _to: int, _mx: int) -> void
 			break
 
 func _on_health_changed(to: int, mx: int) -> void:
+	$UI/HUD/DamageAnimation.play("shake")
 	$UI/HUD/VBoxContainer/Health/Value/Progress.value = (float(to) / mx) * 100
 
 func _on_anxiety_changed(to: int, mx: int) -> void:

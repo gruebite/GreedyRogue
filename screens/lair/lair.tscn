@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://screens/lair/lair.gd" type="Script" id=1]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_system.tscn" type="PackedScene" id=2]
@@ -15,6 +15,21 @@
 [ext_resource path="res://systems/effect_system/effect_system.tscn" type="PackedScene" id=13]
 [ext_resource path="res://systems/hoard_system/hoard_system.tscn" type="PackedScene" id=14]
 [ext_resource path="res://ui/artifact_picker/artifact_picker.tscn" type="PackedScene" id=15]
+
+[sub_resource type="Animation" id=1]
+resource_name = "shake"
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/Health/Value/Progress:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -160, 0 ), Vector2( -165, 0 ), Vector2( -155, 0 ), Vector2( -165, 0 ), Vector2( -155, 0 ), Vector2( -165, 0 ), Vector2( -155, 0 ), Vector2( -165, 0 ), Vector2( -155, 0 ), Vector2( -165, 0 ), Vector2( -160, 0 ) ]
+}
 
 [node name="Lair" type="Node2D"]
 script = ExtResource( 1 )
@@ -51,6 +66,13 @@ margin_left = -321.0
 margin_right = -1.0
 rect_min_size = Vector2( 320, 720 )
 theme = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DamageAnimation" type="AnimationPlayer" parent="UI/HUD"]
+playback_speed = 2.0
+anims/shake = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="UI/HUD"]
 anchor_right = 1.0
@@ -212,11 +234,13 @@ margin_bottom = 720.0
 align = 1
 
 [node name="WashedOut" type="ColorRect" parent="UI"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Message" type="CenterContainer" parent="UI"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 9 )
