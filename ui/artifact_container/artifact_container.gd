@@ -26,6 +26,9 @@ func _process(_delta: float) -> void:
 	$NinePatchRect.modulate = input_gradient.interpolate(p)
 	$NinePatchRect.show()
 
+func get_artifact() -> Node2D:
+	return $MarginContainer/Foreground/VBoxContainer/EntityContainer.get_child(0) as Node2D
+
 func present_artifact(art_name: String) -> void:
 	var artifact: Artifact = Artifacts.TABLE[art_name].instance()
 	artifact.get_component(Display.NAME).brightness = Brightness.LIT
@@ -33,14 +36,15 @@ func present_artifact(art_name: String) -> void:
 	for c in $MarginContainer/Foreground/VBoxContainer/EntityContainer.get_children():
 		c.queue_free()
 	$MarginContainer/Foreground/VBoxContainer/EntityContainer.add_child(artifact)
+	$MarginContainer/Foreground/VBoxContainer/EntityContainer.move_child(artifact, 0)
 
 	disabled = artifact.passive and not always_selectabled
 
 	$MarginContainer/Foreground/DescriptionContainer/Name.text = art_name
 	$MarginContainer/Foreground/DescriptionContainer/Description.text = artifact.description
 	update_artifact(artifact)
-	update_charge(artifact.no_charge)
-	update_level(artifact.max_level == 0)
+	update_charge(artifact.no_charge or artifact.consumed)
+	update_level(artifact.max_level == 0 or artifact.consumed)
 	update_hotkey(artifact.passive)
 
 func update_artifact(artifact: Artifact) -> void:

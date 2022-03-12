@@ -1,8 +1,8 @@
 extends CenterContainer
 
-const NEW := "New! "
-const UPGRADE := "Upgrade "
-const CONSUMED := "Consume "
+const TAKE := "Take "
+const UPGRADE := "Upgrade! "
+const CONSUMABLE := "Consumable "
 
 signal picked(index)
 
@@ -19,16 +19,24 @@ onready var artifact_actions := [
 
 func present_picks(arts: Array) -> void:
 	for i in 3:
-		artifact_picks[i].present_artifact(arts[i])
+		if i < arts.size():
+			artifact_picks[i].show()
+			artifact_picks[i].present_artifact(arts[i])
+		else:
+			artifact_picks[i].hide()
 
 func level_picks(lvls: Array) -> void:
 	for i in 3:
-		if lvls[i] == -1:
-			artifact_actions[i].text = CONSUMED + "[" + str(i + 1) + "]"
-		elif lvls[i] == 0:
-			artifact_actions[i].text = NEW + "[" + str(i + 1) + "]"
+		if i < lvls.size():
+			artifact_actions[i].show()
+			if artifact_picks[i].get_artifact().consumed:
+				artifact_actions[i].text = CONSUMABLE + "[" + str(i + 1) + "]"
+			elif lvls[i] == 0:
+				artifact_actions[i].text = TAKE + "[" + str(i + 1) + "]"
+			else:
+				artifact_actions[i].text = UPGRADE + "[" + str(i + 1) + "]"
 		else:
-			artifact_actions[i].text = UPGRADE + "[" + str(i + 1) + "]"
+			artifact_actions[i].hide()
 
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):

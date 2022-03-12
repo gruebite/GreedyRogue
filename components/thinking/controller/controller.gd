@@ -69,19 +69,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		delta = Vector2.RIGHT
 	elif event.is_action_pressed("ui_wait") and Input.is_key_pressed(KEY_SHIFT):
 		action = true
-	elif event.is_action_pressed("ui_1"):
+	elif event.is_action_pressed("ui_1") and turn_system.can_initiate_turn():
 		use_artifact(0)
 		return
-	elif event.is_action_pressed("ui_2"):
+	elif event.is_action_pressed("ui_2") and turn_system.can_initiate_turn():
 		use_artifact(1)
 		return
-	elif event.is_action_pressed("ui_3"):
+	elif event.is_action_pressed("ui_3") and turn_system.can_initiate_turn():
 		use_artifact(2)
 		return
-	elif event.is_action_pressed("ui_4"):
+	elif event.is_action_pressed("ui_4") and turn_system.can_initiate_turn():
 		use_artifact(3)
 		return
-	elif event.is_action_pressed("ui_5"):
+	elif event.is_action_pressed("ui_5") and turn_system.can_initiate_turn():
 		use_artifact(4)
 		return
 	elif event is InputEventKey and event.pressed and Input.is_key_pressed(KEY_SHIFT):
@@ -97,7 +97,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_G:
 				entity_system.add_entity(preload("res://entities/gold_pile/gold_pile.tscn").instance(), entity.grid_position)
 			KEY_T:
-				backpack.emit_signal("picked_up_treasure")
+				backpack.try_pickup_treasure()
 			KEY_X:
 				emit_signal("found_exit")
 			KEY_Z:
@@ -139,8 +139,8 @@ func use_artifact(index: int) -> void:
 		return
 	if not artifact.usable():
 		return
-	# Wait for directional input.
 	if artifact.directional:
+		# Wait for directional input.
 		using_artifact = index
 		entity.get_component(Arrows.NAME).show()
 		emit_signal("activated_artifact", index)

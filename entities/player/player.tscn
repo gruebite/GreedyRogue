@@ -78,9 +78,11 @@ layer = 2
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 frames = SubResource( 3 )
+frame = 1
 
 [node name="Foreground" parent="Display" index="1"]
 frames = SubResource( 3 )
+frame = 1
 
 [node name="Arrows" parent="." instance=ExtResource( 16 )]
 visible = false

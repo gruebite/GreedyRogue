@@ -14,6 +14,7 @@ var name_regex := RegEx.new()
 
 var player_health: Health
 var player_anxiety: Anxiety
+var player_backpack: Backpack
 
 var turn_count := 0
 
@@ -80,11 +81,13 @@ func _process(_delta: float) -> void:
 		if $GeneratorSystem.generated_level == 0:
 			var _ignore
 			_ignore = player.connect("died", self, "_on_player_died")
-			_ignore = player.get_component(Backpack.NAME).connect("gained_artifact", self, "_on_gained_artifact")
-			_ignore = player.get_component(Backpack.NAME).connect("artifact_level_changed", self, "_on_artifact_level_changed")
-			_ignore = player.get_component(Backpack.NAME).connect("artifact_charge_changed", self, "_on_artifact_charge_changed")
-			_ignore = player.get_component(Backpack.NAME).connect("picked_up_gold", self, "_on_picked_up_gold")
-			_ignore = player.get_component(Backpack.NAME).connect("picked_up_treasure", self, "_on_picked_up_treasure")
+			player_backpack = player.get_component(Backpack.NAME)
+			_ignore = player_backpack.connect("gained_artifact", self, "_on_gained_artifact")
+			_ignore = player_backpack.connect("artifact_level_changed", self, "_on_artifact_level_changed")
+			_ignore = player_backpack.connect("artifact_charge_changed", self, "_on_artifact_charge_changed")
+			_ignore = player_backpack.connect("artifact_consuming", self, "_on_artifact_consuming")
+			_ignore = player_backpack.connect("picked_up_gold", self, "_on_picked_up_gold")
+			_ignore = player_backpack.connect("picked_up_treasure", self, "_on_picked_up_treasure")
 			player_health = player.get_component(Health.NAME)
 			_ignore = player_health.connect("health_changed", self, "_on_health_changed")
 			player_anxiety = player.get_component(Anxiety.NAME)
@@ -136,7 +139,7 @@ func _on_player_died(source: String) -> void:
 	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
 
 	# Easter egg.
-	var one_ring: bool = $EntitySystem.player.get_component(Backpack.NAME).has_artifact("Ring of Power")
+	var one_ring: bool = player_backpack.has_artifact("Ring of Power")
 	var ppos: Vector2 = $EntitySystem.player.grid_position
 	if one_ring and $NavigationSystem.is_lava(ppos.x, ppos.y):
 		show_message("Collected %.0f%% of the gold" % [total_gold_p],
@@ -152,7 +155,7 @@ func _on_picked_up_gold() -> void:
 	update_gold()
 
 func _on_picked_up_treasure() -> void:
-	var arts = Artifacts.random_artifacts($EntitySystem.player.get_component(Backpack.NAME))
+	var arts = player_backpack.random_artifacts()
 	pick_artifact(arts)
 
 func _on_gained_artifact(artifact: Artifact) -> void:
@@ -183,6 +186,15 @@ func _on_artifact_charge_changed(artifact: Artifact, _to: int, _mx: int) -> void
 		if t.artifact_name == artifact.id:
 			t.update_artifact(artifact)
 			break
+
+func _on_artifact_consuming(artifact: Artifact) -> void:
+	var treasures := $UI/HUD/VBoxContainer/Treasures
+	for i in treasures.get_child_count():
+		var t := treasures.get_child(i)
+		if not t.visible:
+			break
+		if t.artifact_name == artifact.id:
+			t.hide()
 
 func _on_health_changed(to: int, mx: int) -> void:
 	$UI/HUD/DamageAnimation.play("shake")
@@ -257,16 +269,17 @@ func hide_message() -> void:
 	$TurnSystem.disabled = false
 
 func pick_artifact(arts: Array) -> void:
-	var backpack: Backpack = $EntitySystem.player.get_component(Backpack.NAME)
 	$UI/ArtifactPicker.show()
 	$UI/ArtifactPicker.grab_focus()
 	$UI/ArtifactPicker.present_picks(arts)
+
 	var lvls := []
-	for i in 3:
-		var cons: bool = arts[i] in Artifacts.CONSUMED
-		# TODO: Get current level from backpack.
-		var lvl := -1 if cons else (backpack.artifact_level(arts[i]) + 1)
-		lvls.append(lvl)
+	for art in arts:
+		if player_backpack.has_artifact(art):
+			var artent := player_backpack.find_artifact(art)
+			lvls.append(artent.level + 1)
+		else:
+			lvls.append(0)
 	$UI/ArtifactPicker.level_picks(lvls)
 	$TurnSystem.disabled = true
 
@@ -278,5 +291,4 @@ func _on_artifact_picked(n: String) -> void:
 	done_picking()
 	if n == "":
 		return
-	var backpack: Backpack = $EntitySystem.player.get_component(Backpack.NAME)
-	backpack.add_artifact(n)
+	player_backpack.add_artifact(n)

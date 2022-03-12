@@ -5,6 +5,8 @@ const NAME := "Pickerupper"
 
 signal picked_up(other)
 
+export var free_on_pickup := false
+
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
 
@@ -25,5 +27,3 @@ func _on_in_turn() -> void:
 		if pickupable:
 			emit_signal("picked_up", pickupable)
 			pickupable.pickup(self)
-			# TODO: Is this necessary?  Can we have something else handle this?
-			ent.queue_free()

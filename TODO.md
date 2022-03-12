@@ -1,7 +1,7 @@
 
 # Quick
 
-- Ping after closing message
+- Mouse controls
 
 # TODO
 
@@ -12,6 +12,8 @@
     - More environment interactions, pitfalls are negelected
     - More environment hazards to bump into, one time effects
 - Add more artifacts that interact with the existing elements
+    - Iridium Fishing Rod that instant kills magma otherwise adds a fish to inventory that
+      heals health and anxiety
     - An artifact that knocks back entities
     - An artifact that pulls the first entity to you
     - **Unnamed** Something that makes time skip, at the cost of extra anxiety (caffeine?)
@@ -36,3 +38,4 @@
     - Make fire stone charge things if it's hot
 - Add stalagmite groups
 - Add hotkey for activatable artifacts below icon
+- Ping after closing message

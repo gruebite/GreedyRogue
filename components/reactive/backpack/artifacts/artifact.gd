@@ -48,7 +48,7 @@ func use(_dir: int) -> bool:
 	return true
 
 func usable() -> bool:
-	return not passive and self.charge_p == 1.0
+	return consumed or (not passive and self.charge_p == 1.0)
 
 func get_max_level() -> int:
 	return max_charges.size() - 1

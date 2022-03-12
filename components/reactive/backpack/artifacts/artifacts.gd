@@ -1,15 +1,6 @@
 extends Reference
 class_name Artifacts
 
-## Artifacts that are used immediately when picked.
-const CONSUMED := [
-	"Golden Chalice",
-	"Health Potion",
-	"Heart Piece",
-	"Liquid Courage",
-	"Map Fragment",
-]
-
 const NAMES := [
 	"Amulet of Resolve",
 	"Ancient War Mask",
@@ -63,21 +54,3 @@ const TABLE := {
 	"Unstable Salve": preload("res://components/reactive/backpack/artifacts/unstable_salve/unstable_salve.tscn"),
 	"Winged Boots": preload("res://components/reactive/backpack/artifacts/winged_boots/winged_boots.tscn"),
 }
-
-static func random_artifacts(backpack) -> Array:
-	var pool: Array
-	if backpack.is_full():
-		pool = CONSUMED.duplicate()
-	else:
-		pool = []
-		for name in NAMES:
-			if not backpack.artifact_at_max_level(name):
-				pool.append(name)
-	pool.shuffle()
-	var got := []
-	for i in 3:
-		if pool.size() == 0:
-			got.append(CONSUMED[randi() % CONSUMED.size()])
-		else:
-			got.append(pool.pop_back())
-	return got
