@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Daedric Shield" type="Node2D"]
+[node name="DaedricShield" type="Node2D"]
 script = ExtResource( 1 )
+id = "Daedric Shield"
 layer = 0
 description = "Emits a red glow"
 max_charges = PoolIntArray( 0, 0, 0 )

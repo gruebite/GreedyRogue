@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Ring of Power" type="Node2D"]
+[node name="RingOfPower" type="Node2D"]
 script = ExtResource( 1 )
+id = "Ring of Power"
 layer = 0
 description = "The One Ring"
 max_charges = PoolIntArray( 20 )

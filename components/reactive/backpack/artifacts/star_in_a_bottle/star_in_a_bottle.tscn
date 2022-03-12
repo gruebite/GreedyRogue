@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Star in a Bottle" type="Node2D"]
+[node name="StarInABottle" type="Node2D"]
 script = ExtResource( 2 )
+id = "Star in a Bottle"
 layer = 0
 description = "Eminates energy"
 max_charges = PoolIntArray( 0, 0, 0 )

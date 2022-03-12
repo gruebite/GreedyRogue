@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Ancient War Mask" type="Node2D"]
+[node name="AncientWarMask" type="Node2D"]
 script = ExtResource( 1 )
+id = "Ancient War Mask"
 layer = 0
 description = "Wearer yearns for a fight"
 max_charges = PoolIntArray( 0, 0, 0 )

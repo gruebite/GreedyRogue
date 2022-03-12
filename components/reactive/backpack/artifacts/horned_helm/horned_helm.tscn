@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Horned Helm" type="Node2D"]
+[node name="HornedHelm" type="Node2D"]
 script = ExtResource( 1 )
+id = "Horned Helm"
 layer = 0
 description = "Made from a bull's horns"
 max_charges = PoolIntArray( 50, 20, 10 )

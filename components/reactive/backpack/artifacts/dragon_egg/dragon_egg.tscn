@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Dragon Egg" type="Node2D"]
+[node name="DragonEgg" type="Node2D"]
 script = ExtResource( 2 )
+id = "Dragon Egg"
 layer = 0
 description = "Has a faint glow"
 max_charges = PoolIntArray( 100, 200, 300 )

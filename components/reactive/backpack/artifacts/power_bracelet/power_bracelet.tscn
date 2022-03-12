@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Power Bracelet" type="Node2D"]
+[node name="PowerBracelet" type="Node2D"]
 script = ExtResource( 1 )
+id = "Power Bracelet"
 layer = 0
 description = "Grants strength"
 max_charges = PoolIntArray( 4, 3, 2 )

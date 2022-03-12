@@ -29,8 +29,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Pile of Gold" type="Node2D"]
+[node name="GoldPile" type="Node2D"]
 script = ExtResource( 1 )
+id = "Pile of Gold"
 
 [node name="Display" parent="." instance=ExtResource( 4 )]
 frames = SubResource( 3 )

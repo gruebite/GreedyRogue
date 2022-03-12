@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Fire Stone" type="Node2D"]
+[node name="FireStone" type="Node2D"]
 script = ExtResource( 2 )
+id = "Fire Stone"
 layer = 0
 description = "Cool to the touch"
 max_charges = PoolIntArray( 2, 4, 8 )

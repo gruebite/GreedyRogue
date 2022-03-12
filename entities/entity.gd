@@ -13,6 +13,8 @@ enum Layer {
 signal moved(from)
 signal died(source)
 
+export var id := ""
+
 export var invincible := false
 export(Layer) var layer := Layer.GROUND setget set_layer
 

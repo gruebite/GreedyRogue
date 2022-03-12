@@ -38,13 +38,14 @@ animations = [ {
 
 [node name="Fire" type="Node2D"]
 script = ExtResource( 1 )
+id = "Fire"
 
 [node name="TurnTaker" parent="." instance=ExtResource( 7 )]
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 frames = SubResource( 1 )
 playing = true
-frame = 3
+frame = 2
 
 [node name="Jumpable" parent="." instance=ExtResource( 11 )]
 

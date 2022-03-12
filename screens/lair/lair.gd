@@ -56,7 +56,7 @@ func _process(_delta: float) -> void:
 			return
 		var top: Entity = $EntitySystem.get_first_top_entity(mouse_grid_pos.x, mouse_grid_pos.y)
 		if top:
-			$UI/HUD/VBoxContainer/Info.text = name_regex.search(top.name).get_string()
+			$UI/HUD/VBoxContainer/Info.text = top.id
 		else:
 			match $TileSystem.get_tile(mouse_grid_pos.x, mouse_grid_pos.y):
 				Tile.WALL:
@@ -152,7 +152,7 @@ func _on_gained_artifact(artifact: Artifact) -> void:
 	for i in treasures.get_child_count():
 		var t := treasures.get_child(i)
 		if not t.visible:
-			t.present_artifact(artifact.name)
+			t.present_artifact(artifact.id)
 			t.show()
 			break
 
@@ -162,7 +162,7 @@ func _on_artifact_level_changed(artifact: Artifact, _to: int, _mx: int) -> void:
 		var t := treasures.get_child(i)
 		if not t.visible:
 			break
-		if t.artifact_name == artifact.name:
+		if t.artifact_name == artifact.id:
 			t.update_artifact(artifact)
 			break
 
@@ -172,7 +172,7 @@ func _on_artifact_charge_changed(artifact: Artifact, _to: int, _mx: int) -> void
 		var t := treasures.get_child(i)
 		if not t.visible:
 			break
-		if t.artifact_name == artifact.name:
+		if t.artifact_name == artifact.id:
 			t.update_artifact(artifact)
 			break
 

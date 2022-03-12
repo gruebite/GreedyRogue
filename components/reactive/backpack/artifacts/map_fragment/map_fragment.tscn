@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Map Fragment" type="Node2D"]
+[node name="MapFragment" type="Node2D"]
 script = ExtResource( 1 )
+id = "Map Fragment"
 layer = 0
 description = "Reveals the exit"
 consumed = true

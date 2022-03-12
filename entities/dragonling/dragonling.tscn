@@ -49,6 +49,7 @@ animations = [ {
 
 [node name="Dragonling" type="Node2D"]
 script = ExtResource( 1 )
+id = "Dragonling"
 layer = 4
 
 [node name="TurnTaker" parent="." instance=ExtResource( 6 )]

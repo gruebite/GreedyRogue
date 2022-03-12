@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Health Potion" type="Node2D"]
+[node name="HealthPotion" type="Node2D"]
 script = ExtResource( 2 )
+id = "Health Potion"
 layer = 0
 description = "Restores health"
 consumed = true

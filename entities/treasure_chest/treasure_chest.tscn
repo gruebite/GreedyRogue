@@ -30,8 +30,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Treasure Chest" type="Node2D"]
+[node name="TreasureChest" type="Node2D"]
 script = ExtResource( 1 )
+id = "Treasure Chest"
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 frames = SubResource( 3 )

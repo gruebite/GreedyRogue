@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Chaos Shard" type="Node2D"]
+[node name="ChaosShard" type="Node2D"]
 script = ExtResource( 1 )
+id = "Chaos Shard"
 layer = 0
 description = "Looks unstable"
 max_charges = PoolIntArray( 50, 30, 10 )

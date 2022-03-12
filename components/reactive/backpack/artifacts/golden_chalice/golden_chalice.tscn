@@ -16,8 +16,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Golden Chalice" type="Node2D"]
+[node name="GoldenChalice" type="Node2D"]
 script = ExtResource( 2 )
+id = "Golden Chalice"
 layer = 0
 description = "Gold!"
 max_charges = PoolIntArray( 200 )
