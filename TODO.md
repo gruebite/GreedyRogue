@@ -2,6 +2,10 @@
 # Quick
 
 - Mouse controls
+- Maybe add a fourth chamber, and ramp up.  Can't get enough treasures
+  and levels are sometimes not difficult.
+- Chaos shard insta kills everything in the new spot.
+- Horned helm break smashables (rocks/stalagmite)
 
 # TODO
 

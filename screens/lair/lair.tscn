@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://screens/lair/lair.gd" type="Script" id=1]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_system.tscn" type="PackedScene" id=2]
@@ -15,8 +15,6 @@
 [ext_resource path="res://systems/effect_system/effect_system.tscn" type="PackedScene" id=13]
 [ext_resource path="res://systems/hoard_system/hoard_system.tscn" type="PackedScene" id=14]
 [ext_resource path="res://ui/artifact_picker/artifact_picker.tscn" type="PackedScene" id=15]
-[ext_resource path="res://assets/textures/loading_screen.png" type="Texture" id=16]
-[ext_resource path="res://fonts/no_transparency.tres" type="Material" id=17]
 
 [sub_resource type="Animation" id=1]
 resource_name = "shake"
@@ -68,9 +66,6 @@ margin_left = -321.0
 margin_right = -1.0
 rect_min_size = Vector2( 320, 720 )
 theme = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="DamageAnimation" type="AnimationPlayer" parent="UI/HUD"]
 playback_speed = 2.0
@@ -93,7 +88,7 @@ custom_constants/separation = 16
 modulate = Color( 1, 0.741176, 0.25098, 1 )
 margin_right = 320.0
 margin_bottom = 17.0
-text = "GreedyRogue"
+text = "Greedy Rogue"
 align = 1
 
 [node name="Health" type="HBoxContainer" parent="UI/HUD/VBoxContainer"]
@@ -238,34 +233,11 @@ margin_right = 320.0
 margin_bottom = 720.0
 align = 1
 
-[node name="Loading" type="Control" parent="UI"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Background" type="TextureRect" parent="UI/Loading"]
+[node name="Background" type="ColorRect" parent="UI"]
 modulate = Color( 0.901961, 0.901961, 0.901961, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1240.0
-margin_bottom = 680.0
-texture = ExtResource( 16 )
-
-[node name="Label" type="Label" parent="UI/Loading"]
-material = ExtResource( 17 )
-anchor_bottom = 1.0
-margin_left = 32.0
-margin_top = 32.0
-margin_right = 144.0
-margin_bottom = -671.0
-rect_scale = Vector2( 2, 2 )
-text = "Loading"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color( 0, 0, 0, 1 )
 
 [node name="Message" type="CenterContainer" parent="UI"]
 visible = false

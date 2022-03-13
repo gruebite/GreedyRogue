@@ -67,6 +67,7 @@ func set_level(to: int) -> void:
 	if to < 0: to = 0
 	if to > self.max_level: to = max_level
 	level = to
+	self.charge = charge
 	emit_signal("level_changed", to, max_level)
 
 func set_charge(to: int) -> void:

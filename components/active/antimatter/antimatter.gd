@@ -25,24 +25,20 @@ func _on_in_turn() -> void:
 		if matter.entity == entity:
 			continue
 		var exclude := false
-		for i in excluding.size():
-			var comp = excluding[i]
+		for comp in excluding:
 			if matter.entity.get_component(comp):
 				exclude = true
 				break
 		if exclude:
 			continue
 		var do_annihilate := false
-		var will_self_annihilate := false
-		for i in anticomponents.size():
-			var comp = anticomponents[i]
+		for comp in anticomponents:
 			if matter.entity.get_component(comp):
 				do_annihilate = true
 				if comp in self_annihilating:
-					will_self_annihilate = true
+					self_annihilate = true
 					break
 		if do_annihilate:
 			matter.entity.kill("annihilated")
-		self_annihilate = will_self_annihilate
 	if self_annihilate:
 		entity.kill("annihilated")

@@ -96,6 +96,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				entity_system.add_entity(preload("res://entities/pitfall/pitfall.tscn").instance(), entity.grid_position)
 			KEY_G:
 				entity_system.add_entity(preload("res://entities/gold_pile/gold_pile.tscn").instance(), entity.grid_position)
+			KEY_E:
+				entity_system.add_entity(preload("res://entities/mud_mephit/mud_mephit.tscn").instance(), entity.grid_position)
 			KEY_T:
 				backpack.try_pickup_treasure()
 			KEY_Y:

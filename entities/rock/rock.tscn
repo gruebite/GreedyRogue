@@ -107,7 +107,7 @@ bump_mask = 24
 
 [node name="Antimatter" parent="." instance=ExtResource( 6 )]
 self_annihilating = PoolStringArray( "Molten" )
-anticomponents = PoolStringArray( "Molten", "Flaming", "Wind" )
+anticomponents = PoolStringArray( "Molten", "Flaming", "Wind", "Gold", "Treasure" )
 
 [node name="Presence" parent="." instance=ExtResource( 5 )]
 

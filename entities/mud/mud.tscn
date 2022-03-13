@@ -54,4 +54,4 @@ jitter = false
 [node name="Matter" parent="." instance=ExtResource( 8 )]
 
 [node name="Lifetime" parent="." instance=ExtResource( 7 )]
-time = 12
+time = 36

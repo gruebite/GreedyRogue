@@ -69,12 +69,11 @@ func _process(_delta: float) -> void:
 
 	if loading is GDScriptFunctionState and loading.is_valid():
 		loading = loading.resume()
-		$UI/Loading/Label.text += "."
+		append_message(".")
 
 	# We just finished loading.
 	if not loading:
 		hide_message()
-		$UI/Loading.hide()
 		var player = $EntitySystem.player
 		if $GeneratorSystem.generated_level == 0:
 			var _ignore
@@ -105,6 +104,7 @@ func _process(_delta: float) -> void:
 			update_gold()
 		else:
 			update_gold()
+		$UI/Background.hide()
 		show_message(GeneratorSystem.LEVEL_MESSAGES[$GeneratorSystem.generated_level],
 			GeneratorSystem.LEVEL_TITLES[$GeneratorSystem.generated_level], true, true)
 		$HoardSystem.debug_gold()
@@ -134,7 +134,7 @@ func _on_entered_level(_lvl: int) -> void:
 	entered_level = true
 
 func _on_player_died(source: String) -> void:
-	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
+	var total_gold_p: float = ceil(((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0)
 
 	# Easter egg.
 	var one_ring: bool = player_backpack.has_artifact("Ring of Power")
@@ -146,7 +146,6 @@ func _on_player_died(source: String) -> void:
 		show_message("Collected %.0f%% of the gold" % [total_gold_p],
 			"Died by %s" % [source], true, true)
 	game_over = true
-
 
 func _on_picked_up_gold() -> void:
 	$HoardSystem.collect_gold()
@@ -233,7 +232,7 @@ func _on_deactivated_artifact(index: int) -> void:
 	treasures.get_child(index).activated = false
 
 func update_gold() -> void:
-	var total_gold_p: float = ((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0
+	var total_gold_p: float = ceil(((gold_ps + $HoardSystem.gold_p) / ($GeneratorSystem.generated_level + 1)) * 100.0)
 	print("Gold percentage: %0.2f%%" % [total_gold_p])
 	$UI/HUD/VBoxContainer/Gold/Value.text = "%.0f%%" % [total_gold_p]
 
@@ -242,8 +241,8 @@ func regenerate(level: int=0, keep_player: bool=false) -> void:
 	entered_level = false
 	turn_count = 0
 	game_over = false
-	$UI/Loading.show()
-	$UI/Loading/Label.text = "Loading"
+	show_message("Loading")
+	$UI/Background.show()
 	loading = $GeneratorSystem.generate(level, keep_player)
 
 func show_message(msg: String, title: String="", border: bool=false, hint: bool=false) -> void:
@@ -264,7 +263,6 @@ func append_message(msg: String) -> void:
 	$UI/Message/MarginContainer/MarginContainer/VBoxContainer/Label.text += msg
 
 func hide_message() -> void:
-	$UI/Loading.hide()
 	$UI/Message.hide()
 	$TurnSystem.disabled = false
 

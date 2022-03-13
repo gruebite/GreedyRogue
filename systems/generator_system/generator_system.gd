@@ -37,12 +37,12 @@ const LEVEL_SETTINGS := [
 		"large_gold_pile_count": 3,
 		"large_gold_pile_size": 1,
 		"fake_gold_pile_count": 2,
-		"treasure_chest_count": 3,
+		"treasure_chest_count": 5,
 
 		"mud_mephit_count": 10,
 		"dragonling_count": 3,
 		"magma_slug_count": 1,
-		"golem_count": 1,
+		"golem_count": 0,
 		"tornado_count": 0,
 	},
 	{
@@ -67,12 +67,12 @@ const LEVEL_SETTINGS := [
 		"large_gold_pile_count": 2,
 		"large_gold_pile_size": 10,
 		"fake_gold_pile_count": 4,
-		"treasure_chest_count": 5,
+		"treasure_chest_count": 7,
 
 		"mud_mephit_count": 5,
 		"dragonling_count": 5,
 		"magma_slug_count": 4,
-		"golem_count": 5,
+		"golem_count": 3,
 		"tornado_count": 0,
 	},
 	{
@@ -97,13 +97,13 @@ const LEVEL_SETTINGS := [
 		"large_gold_pile_count": 4,
 		"large_gold_pile_size": 10,
 		"fake_gold_pile_count": 6,
-		"treasure_chest_count": 7,
+		"treasure_chest_count": 9,
 
-		"mud_mephit_count": 2,
+		"mud_mephit_count": 5,
 		"dragonling_count": 7,
 		"magma_slug_count": 4,
 		"golem_count": 5,
-		"tornado_count": 2,
+		"tornado_count": 3,
 	},
 ]
 
