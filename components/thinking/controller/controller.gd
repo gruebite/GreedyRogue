@@ -37,9 +37,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	var action := false
 	var delta := Vector2.ZERO
-	if event.is_action_pressed("ui_accept"):
-		pass
-	elif event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel"):
 		if using_artifact != -1:
 			chose_artifact_direction(-1)
 			return
