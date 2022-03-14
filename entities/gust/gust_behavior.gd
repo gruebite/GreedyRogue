@@ -7,7 +7,7 @@ onready var display: Display = entity.get_component(Display.NAME)
 
 func _ready() -> void:
 	var _ignore
-	_ignore = entity.get_component(Ignitable.NAME).connect("ignited", self, "_on_ignited")
+	_ignore = entity.get_component(Ignites.NAME).connect("ignited", self, "_on_ignited")
 	_ignore = turn_system.connect("initiated_turn", self, "_on_initiated_turn")
 
 func _on_ignited(_by: Flaming) -> void:

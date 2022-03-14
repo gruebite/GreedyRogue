@@ -1,7 +1,7 @@
 extends Component
-class_name Ignitable
+class_name Ignites
 
-const NAME := "Ignitable"
+const NAME := "Ignites"
 
 signal ignited(by)
 signal put_out()

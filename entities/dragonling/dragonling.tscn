@@ -16,7 +16,8 @@
 [ext_resource path="res://components/reactive/bright/bright.tscn" type="PackedScene" id=14]
 [ext_resource path="res://components/behavior/terrorize/terrorize.tscn" type="PackedScene" id=15]
 [ext_resource path="res://components/passive/knockbackable/knockbackable.tscn" type="PackedScene" id=16]
-[ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=17]
+[ext_resource path="res://components/reactive/moves/moves.tscn" type="PackedScene" id=17]
+
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 11 )
@@ -69,7 +70,7 @@ bump_mask = 8
 
 [node name="Knockbackable" parent="." instance=ExtResource( 16 )]
 
-[node name="Moveable" parent="." instance=ExtResource( 17 )]
+[node name="Moves" parent="." instance=ExtResource( 17 )]
 on_knockback = true
 
 [node name="Bumper" parent="." instance=ExtResource( 8 )]

@@ -1,7 +1,10 @@
 extends Component
-class_name Moveable
+class_name Moves
 
-const NAME := "Moveable"
+const NAME := "Moves"
+
+signal move_succeeded(from)
+signal move_failed(to)
 
 export var inverse := false
 
@@ -31,7 +34,11 @@ func _on_kocked_back(by: Knockbacker) -> void:
 	make_move(by.entity)
 
 func make_move(by: Entity) -> void:
-	var dv := entity.grid_position - by.grid_position
-	var desired := entity.grid_position + dv * (-1 if inverse else 1)
+	var gpos := entity.grid_position
+	var dv := gpos - by.grid_position
+	var desired := gpos + dv * (-1 if inverse else 1)
 	if navigation_system.can_move_to(entity, desired):
 		navigation_system.move_to(entity, desired)
+		emit_signal("move_succeeded", gpos)
+	else:
+		emit_signal("move_failed", desired)

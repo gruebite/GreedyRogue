@@ -15,7 +15,7 @@
 [ext_resource path="res://components/behavior/terrorize/terrorize.tscn" type="PackedScene" id=13]
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=14]
 [ext_resource path="res://components/reactive/molten/molten.tscn" type="PackedScene" id=15]
-[ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=16]
+[ext_resource path="res://components/reactive/moves/moves.tscn" type="PackedScene" id=16]
 [ext_resource path="res://components/passive/knockbackable/knockbackable.tscn" type="PackedScene" id=17]
 [ext_resource path="res://effects/splash/splash.tscn" type="PackedScene" id=18]
 
@@ -49,7 +49,7 @@ frames = SubResource( 3 )
 
 [node name="Presence" parent="." instance=ExtResource( 5 )]
 
-[node name="Moveable" parent="." instance=ExtResource( 16 )]
+[node name="Moves" parent="." instance=ExtResource( 16 )]
 on_knockback = true
 
 [node name="Molten" parent="." instance=ExtResource( 15 )]

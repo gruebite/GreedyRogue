@@ -3,7 +3,7 @@
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
 [ext_resource path="res://components/reactive/presence/presence.tscn" type="PackedScene" id=3]
-[ext_resource path="res://components/reactive/crack/crack.tscn" type="PackedScene" id=4]
+[ext_resource path="res://components/reactive/cracks/cracks.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=5]
 [ext_resource path="res://components/passive/trippable/trippable.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/passive/jumpable/jumpable.tscn" type="PackedScene" id=7]
@@ -60,4 +60,4 @@ jitter = false
 
 [node name="Presence" parent="." instance=ExtResource( 3 )]
 
-[node name="Crack" parent="." instance=ExtResource( 4 )]
+[node name="Cracks" parent="." instance=ExtResource( 4 )]

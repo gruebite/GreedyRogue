@@ -110,9 +110,9 @@ _global_script_classes=[ {
 "path": "res://addons/rlgd/cp437.gd"
 }, {
 "base": "Component",
-"class": "Crack",
+"class": "Cracks",
 "language": "GDScript",
-"path": "res://components/reactive/crack/crack.gd"
+"path": "res://components/reactive/cracks/cracks.gd"
 }, {
 "base": "Grid",
 "class": "DenseGrid",
@@ -250,9 +250,9 @@ _global_script_classes=[ {
 "path": "res://systems/hoard_system/hoard_system.gd"
 }, {
 "base": "Component",
-"class": "Ignitable",
+"class": "Ignites",
 "language": "GDScript",
-"path": "res://components/reactive/ignitable/ignitable.gd"
+"path": "res://components/reactive/ignites/ignites.gd"
 }, {
 "base": "Component",
 "class": "Jumpable",
@@ -290,9 +290,9 @@ _global_script_classes=[ {
 "path": "res://components/reactive/molten/molten.gd"
 }, {
 "base": "Component",
-"class": "Moveable",
+"class": "Moves",
 "language": "GDScript",
-"path": "res://components/reactive/moveable/moveable.gd"
+"path": "res://components/reactive/moves/moves.gd"
 }, {
 "base": "Node2D",
 "class": "NavigationSystem",
@@ -465,7 +465,7 @@ _global_script_class_icons={
 "Constants": "",
 "Controller": "",
 "Cp437": "",
-"Crack": "",
+"Cracks": "",
 "DenseGrid": "",
 "Direction": "",
 "Display": "",
@@ -493,7 +493,7 @@ _global_script_class_icons={
 "Health": "",
 "Hex": "",
 "HoardSystem": "",
-"Ignitable": "",
+"Ignites": "",
 "Jumpable": "",
 "Knockbackable": "",
 "Knockbacker": "",
@@ -501,7 +501,7 @@ _global_script_class_icons={
 "Lifetime": "",
 "Matter": "",
 "Molten": "",
-"Moveable": "",
+"Moves": "",
 "NavigationSystem": "",
 "Palette": "",
 "Pathing": "",

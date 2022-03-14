@@ -20,7 +20,7 @@
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=18]
 [ext_resource path="res://components/passive/harmable/harmable.tscn" type="PackedScene" id=19]
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=20]
-[ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=21]
+[ext_resource path="res://components/reactive/moves/moves.tscn" type="PackedScene" id=21]
 [ext_resource path="res://components/coactive/knockbacker/knockbacker.tscn" type="PackedScene" id=22]
 [ext_resource path="res://components/coactive/skidder/skidder.tscn" type="PackedScene" id=23]
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=24]
@@ -78,11 +78,9 @@ layer = 2
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 frames = SubResource( 3 )
-frame = 1
 
 [node name="Foreground" parent="Display" index="1"]
 frames = SubResource( 3 )
-frame = 1
 
 [node name="Arrows" parent="." instance=ExtResource( 16 )]
 visible = false
@@ -115,7 +113,7 @@ bump_mask = 30
 
 [node name="Presence" parent="." instance=ExtResource( 4 )]
 
-[node name="Moveable" parent="." instance=ExtResource( 21 )]
+[node name="Moves" parent="." instance=ExtResource( 21 )]
 on_knockback = true
 
 [node name="Faller" parent="." instance=ExtResource( 20 )]

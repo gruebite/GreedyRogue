@@ -11,12 +11,12 @@
 [ext_resource path="res://components/passive/matter/matter.tscn" type="PackedScene" id=9]
 [ext_resource path="res://components/thinking/elemental/elemental.tscn" type="PackedScene" id=10]
 [ext_resource path="res://components/reactive/lifetime/lifetime.tscn" type="PackedScene" id=11]
-[ext_resource path="res://components/reactive/ignitable/ignitable.tscn" type="PackedScene" id=12]
+[ext_resource path="res://components/reactive/ignites/ignites.tscn" type="PackedScene" id=12]
 [ext_resource path="res://components/passive/flammable/flammable.tscn" type="PackedScene" id=13]
 [ext_resource path="res://entities/gust/gust_behavior.tscn" type="PackedScene" id=14]
 [ext_resource path="res://components/reactive/wind/wind.tscn" type="PackedScene" id=15]
 [ext_resource path="res://components/coactive/knockbacker/knockbacker.tscn" type="PackedScene" id=16]
-[ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=17]
+[ext_resource path="res://components/reactive/moves/moves.tscn" type="PackedScene" id=17]
 [ext_resource path="res://components/passive/knockbackable/knockbackable.tscn" type="PackedScene" id=18]
 
 [sub_resource type="AtlasTexture" id=2]
@@ -73,7 +73,7 @@ resistance = 999
 
 [node name="Knockbackable" parent="." instance=ExtResource( 18 )]
 
-[node name="Ignitable" parent="." instance=ExtResource( 12 )]
+[node name="Ignites" parent="." instance=ExtResource( 12 )]
 eternal = true
 
 [node name="Harming" parent="." instance=ExtResource( 5 )]
@@ -85,7 +85,7 @@ bump_mask = 22
 [node name="Knockbacker" parent="." instance=ExtResource( 16 )]
 on_bump = true
 
-[node name="Moveable" parent="." instance=ExtResource( 17 )]
+[node name="Moves" parent="." instance=ExtResource( 17 )]
 on_knockback = true
 
 [node name="Presence" parent="." instance=ExtResource( 7 )]

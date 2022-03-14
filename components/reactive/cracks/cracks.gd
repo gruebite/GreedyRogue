@@ -1,7 +1,7 @@
 extends Component
-class_name Crack
+class_name Cracks
 
-const NAME := "Crack"
+const NAME := "Cracks"
 
 export var integrity := 3
 

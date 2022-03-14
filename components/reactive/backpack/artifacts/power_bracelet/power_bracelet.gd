@@ -22,7 +22,7 @@ func use(dir: int) -> bool:
 		return false
 	var dv := Direction.delta(dir)
 	var dist := 1
-	# Keep finding bumpables and moveables until a space one can move, backtrack moving things
+	# Keep finding bumpables and moves until a space one can move, backtrack moving things
 	# if able.  It's okay if we get to a spot where they can't move even after moving them.
 	var ent_spot_stack := []
 	while true:
@@ -30,13 +30,13 @@ func use(dir: int) -> bool:
 		# Dead end.
 		if tile_system.blocks_movement(gpos.x, gpos.y):
 			return false
-		# Check entities that are bumpable and moveable and add them to the stack.
+		# Check entities that are bumpable and moves and add them to the stack.
 		var entities := entity_system.get_entities(gpos.x, gpos.y)
 		var eligible_ents := []
 		for ent in entities:
 			var bumpable = ent.get_component(Bumpable.NAME)
-			var moveable = ent.get_component(Moveable.NAME)
-			if bumpable and moveable:
+			var moves = ent.get_component(Moves.NAME)
+			if bumpable and moves:
 				eligible_ents.append(ent)
 		# No bumpables, we're clear.
 		if eligible_ents.size() == 0:

@@ -10,7 +10,7 @@
 [ext_resource path="res://components/reactive/entity_stack/entity_stack.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/textures/ascii.png" type="Texture" id=9]
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=10]
-[ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=11]
+[ext_resource path="res://components/reactive/moves/moves.tscn" type="PackedScene" id=11]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 9 )
@@ -47,7 +47,7 @@ bump_mask = 2
 
 [node name="Knockbackable" parent="." instance=ExtResource( 5 )]
 
-[node name="Moveable" parent="." instance=ExtResource( 11 )]
+[node name="Moves" parent="." instance=ExtResource( 11 )]
 on_knockback = true
 
 [node name="Presence" parent="." instance=ExtResource( 3 )]
