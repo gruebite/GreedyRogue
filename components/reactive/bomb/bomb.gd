@@ -38,6 +38,6 @@ func explode() -> void:
 	if spawns and active:
 		var circle := PointSets.circle(radius)
 		for ps in circle.array:
-			entity_system.spawn_entity(
+			var _ignore = entity_system.spawn_entity(
 				spawns,
 				entity.grid_position + ps)

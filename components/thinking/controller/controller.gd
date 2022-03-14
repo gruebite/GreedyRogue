@@ -67,7 +67,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 		action = true
 		delta = Vector2.RIGHT
-	elif event.is_action_pressed("ui_wait") and Input.is_key_pressed(KEY_SHIFT):
+	elif event.is_action_pressed("ui_wait"):
+		anxiety.anxiety += 5
 		action = true
 	elif event.is_action_pressed("ui_1") and turn_system.can_initiate_turn():
 		use_artifact(0)
@@ -101,7 +102,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_T:
 				backpack.try_pickup_treasure()
 			KEY_Y:
-				backpack.try_pickup_treasure(null, "Bucket")
+				backpack.try_pickup_treasure(null, "Ankh")
 			KEY_X:
 				emit_signal("found_exit")
 			KEY_Z:

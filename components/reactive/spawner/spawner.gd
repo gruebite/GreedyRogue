@@ -5,6 +5,7 @@ const NAME := "Spawner"
 
 export var unique := true
 export var count := 1
+export(NodePath) var effect_player_node_path
 export(PackedScene) var spawns
 export var on_ready := false
 export var on_initiated_turn := false
@@ -42,5 +43,8 @@ func spawn() -> void:
 
 	var gpos := entity.grid_position
 	var c := 1 if unique else count
+	var spawned := false
 	for i in c:
-		entity_system.spawn_entity(spawns, gpos, unique)
+		spawned = entity_system.spawn_entity(spawns, gpos, unique)
+	if spawned and effect_player_node_path:
+		 get_node(effect_player_node_path).play()

@@ -234,6 +234,7 @@ margin_bottom = 720.0
 align = 1
 
 [node name="Background" type="ColorRect" parent="UI"]
+visible = false
 modulate = Color( 0.901961, 0.901961, 0.901961, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0

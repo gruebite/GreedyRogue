@@ -31,7 +31,9 @@ func use(dir: int) -> bool:
 			backpack.entity.move(gpos)
 			break
 		else:
-			effect_system.add_effect(preload("res://effects/cracking/cracking.tscn"), gpos)
+			effect_system.add_effect(
+				preload("res://effects/splash/splash.tscn"),
+				gpos, Palette.BROWN_4)
 		dist += 1
 	self.charge = 0
 	# We return false because this is a free action.

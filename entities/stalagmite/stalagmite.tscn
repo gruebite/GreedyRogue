@@ -12,24 +12,24 @@
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=10]
 [ext_resource path="res://components/reactive/moveable/moveable.tscn" type="PackedScene" id=11]
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 9 )
-region = Rect2( 0, 320, 16, 16 )
-
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 9 )
 region = Rect2( 0, 336, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 320, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 5 ) ],
-"loop": true,
-"name": "dim",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 4 ) ],
 "loop": true,
 "name": "lit",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ) ],
+"loop": true,
+"name": "dim",
 "speed": 5.0
 } ]
 

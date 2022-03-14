@@ -44,6 +44,8 @@ func use(dir: int) -> bool:
 				self.charge += 1
 			else:
 				pass
+
+	effect_system.add_effect(preload("res://effects/splash/splash.tscn"), nextpos, Palette.BROWN_2)
 	return true
 
 func spill(dir: int) -> void:
@@ -54,6 +56,6 @@ func spill(dir: int) -> void:
 		var testpos: Vector2 = gpos + dv * (i + 1)
 		if tile_system.blocks_movement(testpos.x, testpos.y):
 			break
-		entity_system.spawn_entity(scene, testpos)
+		var _ignore = entity_system.spawn_entity(scene, testpos)
 	self.charge = 0
 	self.containing_id = ""

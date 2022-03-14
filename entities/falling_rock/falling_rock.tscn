@@ -7,7 +7,7 @@
 [ext_resource path="res://addons/rlgd/nodes/turn_system/turn_taker.tscn" type="PackedScene" id=5]
 [ext_resource path="res://components/active/harming/harming.tscn" type="PackedScene" id=6]
 [ext_resource path="res://entities/rock/rock.tscn" type="PackedScene" id=7]
-[ext_resource path="res://effects/rock_fall/rock_fall.tscn" type="PackedScene" id=8]
+[ext_resource path="res://effects/splash/splash.tscn" type="PackedScene" id=8]
 
 [node name="FallingRock" type="Node2D"]
 script = ExtResource( 3 )

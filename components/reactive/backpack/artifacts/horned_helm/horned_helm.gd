@@ -43,7 +43,9 @@ func use(dir: int) -> bool:
 			break
 		else:
 			navigation_system.move_to(backpack.entity, gpos)
-			effect_system.add_effect(preload("res://effects/cracking/cracking.tscn"), gpos)
+			effect_system.add_effect(
+				preload("res://effects/splash/splash.tscn"),
+				gpos, Palette.BROWN_4)
 		i += 1
 	self.charge = 0
 	# We return false because this is a free action.

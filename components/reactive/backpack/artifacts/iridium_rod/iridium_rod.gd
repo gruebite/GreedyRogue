@@ -25,4 +25,5 @@ func use(dir: int) -> bool:
 		return false
 	self.charge = 0
 	backpack.add_artifact("Lava Eel")
+	effect_system.add_effect(preload("res://effects/splash/splash.tscn"), nextpos, Palette.ORANGE_1)
 	return true

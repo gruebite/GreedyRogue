@@ -9,11 +9,14 @@
 script = ExtResource( 4 )
 
 [node name="Background" parent="." instance=ExtResource( 3 )]
+z_index = -10
+z_as_relative = false
 texture = ExtResource( 2 )
 tile_size = Vector2( 16, 16 )
 cell_size = Vector2( 16, 16 )
 
 [node name="Foreground" type="TileMap" parent="."]
+z_as_relative = false
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1

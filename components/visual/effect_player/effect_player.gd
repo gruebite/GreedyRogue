@@ -4,6 +4,8 @@ class_name EffectPlayer
 const NAME := "EffectPlayer"
 
 export(PackedScene) var effect
+export(Palette.Enum) var effect_color
+export var effect_amount_scale := 1.0
 export var on_ready := false
 export var on_turn_initiated := false
 export var on_take_turn := false
@@ -19,7 +21,7 @@ onready var turn_taker: TurnTaker = entity.get_component("TurnTaker")
 func _ready() -> void:
 	var _ignore
 	if on_turn_initiated:
-		_ignore = turn_system.connect("turn_initiated", self, "_on_turn_initiated")
+		_ignore = turn_system.connect("initiated_turn", self, "_on_initiated_turn")
 	if turn_taker and on_take_turn:
 		_ignore = turn_taker.connect("take_turn", self, "_on_take_turn")
 	if on_in_turn:
@@ -29,24 +31,27 @@ func _ready() -> void:
 	if on_died:
 		_ignore = entity.connect("died", self, "_on_died")
 	if on_ready and effect:
-		effect_system.add_effect(effect, entity.grid_position)
+		play()
 
-func _on_turn_initiated() -> void:
+func _on_initiated_turn() -> void:
 	if not effect: return
-	effect_system.add_effect(effect, entity.grid_position)
+	play()
 
 func _on_take_turn() -> void:
 	if not effect: return
-	effect_system.add_effect(effect, entity.grid_position)
+	play()
 
 func _on_in_turn() -> void:
 	if not effect: return
-	effect_system.add_effect(effect, entity.grid_position)
+	play()
 
 func _on_out_of_turn() -> void:
 	if not effect: return
-	effect_system.add_effect(effect, entity.grid_position)
+	play()
 
 func _on_died(_by: Node2D) -> void:
 	if not effect: return
-	effect_system.add_effect(effect, entity.grid_position)
+	play()
+
+func play() -> void:
+	effect_system.add_effect(effect, entity.grid_position, effect_color, effect_amount_scale)

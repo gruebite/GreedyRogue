@@ -2,7 +2,7 @@ extends Node2D
 class_name Entity
 
 enum Layer {
-	BELOW,
+	BELOW = -1,
 	GROUND,
 	WAIST,
 	HEAD,

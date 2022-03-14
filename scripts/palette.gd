@@ -35,6 +35,41 @@ enum {
 	VIOLET_1,
 }
 
+# Lol
+enum Enum {
+	BLACK,
+	BROWN_0,
+	BROWN_1,
+	BROWN_2,
+	BROWN_3,
+	BROWN_4,
+	BROWN_5,
+	BROWN_6,
+	BROWN_7,
+	BERGUNDY_0,
+	BERGUNDY_1,
+	BERGUNDY_2,
+	BERGUNDY_3,
+	BERGUNDY_4,
+	BERGUNDY_5,
+	BERGUNDY_6,
+	BERGUNDY_7,
+	BERGUNDY_8,
+	RED_0,
+	RED_1,
+	ORANGE_0,
+	ORANGE_1,
+	ORANGE_2,
+	GREEN_0,
+	GREEN_1,
+	GREEN_2,
+	PURPLE_0,
+	BLUE_0,
+	BLUE_1,
+	VIOLET_0,
+	VIOLET_1,
+}
+
 const LIST := [
 	Color.black,
 	Color("#1a0e14"),

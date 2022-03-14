@@ -9,13 +9,10 @@ func _ready() -> void:
 		anxiety = backpack.entity.get_component(Anxiety.NAME)
 
 func use(_dir: int) -> bool:
-	if self.level == -1:
+	var new_level := self.level - 1
+	if new_level <= 0:
 		queue_free()
-		return false
-
-	self.level -= 1
+	self.level = new_level
 	health.deal_damage(-6)
 	anxiety.anxiety -= 100
-	if self.level == -1:
-		queue_free()
 	return true

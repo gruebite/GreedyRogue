@@ -41,6 +41,7 @@ func present_artifact(art_name: String) -> void:
 
 	$MarginContainer/Foreground/DescriptionContainer/Name.text = art_name
 	$MarginContainer/Foreground/DescriptionContainer/Description.text = artifact.description
+	$CPUParticles2D.emitting = true
 	update_artifact(artifact)
 
 func update_artifact(artifact: Artifact=null) -> void:
@@ -51,7 +52,10 @@ func update_artifact(artifact: Artifact=null) -> void:
 	$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.show()
 
 	if artifact:
-		$MarginContainer/Foreground/VBoxContainer/Level.text = str("♦").repeat(artifact.level + 1)
+		var new_str := str("♦").repeat(artifact.level + 1)
+		if $MarginContainer/Foreground/VBoxContainer/Level.text != new_str:
+			$CPUParticles2D.emitting = true
+		$MarginContainer/Foreground/VBoxContainer/Level.text = new_str
 		if artifact.consumed:
 			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/TextureProgress.hide()
 			$MarginContainer/Foreground/DescriptionContainer/ChargeContainer/Label.text = "Consume"

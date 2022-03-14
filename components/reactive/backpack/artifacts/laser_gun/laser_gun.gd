@@ -34,7 +34,7 @@ func use(dir: int) -> bool:
 		if hit:
 			break
 		else:
-			effect_system.add_effect(preload("res://effects/laser/laser.tscn"), gpos)
+			effect_system.add_effect(preload("res://effects/laser/laser.tscn"), gpos, Palette.VIOLET_1)
 		i += 1
 	self.charge = 0
 	return true

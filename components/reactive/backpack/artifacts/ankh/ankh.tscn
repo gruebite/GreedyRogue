@@ -19,7 +19,6 @@ animations = [ {
 [node name="Ankh" type="Node2D"]
 script = ExtResource( 1 )
 id = "Ankh"
-layer = 0
 description = "Restores life"
 max_charges = PoolIntArray( 100, 80, 20 )
 

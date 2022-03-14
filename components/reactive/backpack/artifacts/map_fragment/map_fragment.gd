@@ -11,6 +11,6 @@ func _ready() -> void:
 func use(_dir: int) -> bool:
 	effect_system.add_effect(
 		preload("res://effects/ping/ping.tscn"),
-		generator_system.exit_position)
+		generator_system.exit_position, Palette.ORANGE_2)
 	queue_free()
 	return true

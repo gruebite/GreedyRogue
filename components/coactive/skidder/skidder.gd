@@ -23,6 +23,6 @@ func _on_moved(from: Vector2) -> void:
 		if navigation_system.can_move_to(entity, newpos):
 			navigation_system.move_to(entity, newpos)
 			effect_system.add_effect(
-				preload("res://effects/cracking/cracking.tscn"),
-				gpos)
+				preload("res://effects/splash/splash.tscn"),
+				gpos, Palette.BROWN_4)
 

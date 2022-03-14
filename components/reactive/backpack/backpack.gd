@@ -34,7 +34,7 @@ func _on_picked_up(pickup: Pickupable) -> void:
 
 func try_pickup_gold(pickup: Node2D=null) -> void:
 	anxiety.anxiety -= 15
-	effect_system.add_effect(preload("res://effects/collect_gold/collect_gold.tscn"), entity.grid_position)
+	effect_system.add_effect(preload("res://effects/splash/splash.tscn"), entity.grid_position, Palette.ORANGE_2, 3)
 	emit_signal("picked_up_gold")
 	# TODO: Should we do this here?
 	if pickup:
@@ -48,6 +48,7 @@ func try_pickup_treasure(pickup: Node2D=null, override: String="") -> void:
 			preload("res://entities/treasure_chest/treasure_chest.tscn"),
 			entity.grid_position)
 	else:
+		effect_system.add_effect(preload("res://effects/splash/splash.tscn"), entity.grid_position, Palette.ORANGE_2, 4)
 		emit_signal("picked_up_treasure", override)
 	# TODO: Should we do this here?
 	if pickup:

@@ -17,7 +17,9 @@ func _on_tripped(_by: Tripper) -> void:
 	integrity -= 1
 	if display:
 		display.frame += 1
-		effect_system.add_effect(preload("res://effects/cracking/cracking.tscn"), entity.grid_position)
+		effect_system.add_effect(
+			preload("res://effects/splash/splash.tscn"),
+			entity.grid_position, Palette.BROWN_4)
 	if integrity <= 0:
 		var gpos := entity.grid_position
 		tile_system.set_tile(gpos.x, gpos.y, Tile.CHASM)

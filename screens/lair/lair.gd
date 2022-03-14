@@ -118,14 +118,14 @@ func _input(event: InputEvent) -> void:
 			if game_over:
 				regenerate()
 			elif entered_level:
-				$EffectSystem.add_effect(preload("res://effects/ping/ping.tscn"), $EntitySystem.player.grid_position)
+				$EffectSystem.add_effect(preload("res://effects/ping/ping.tscn"), $EntitySystem.player.grid_position, Palette.BLUE_1)
 	if event is InputEventMouseButton:
 		if event.pressed:
 			hide_message()
 			if game_over:
 				regenerate()
 			elif entered_level:
-				$EffectSystem.add_effect(preload("res://effects/ping/ping.tscn"), $EntitySystem.player.grid_position)
+				$EffectSystem.add_effect(preload("res://effects/ping/ping.tscn"), $EntitySystem.player.grid_position, Palette.BLUE_1)
 
 func _turn_taken() -> void:
 	turn_count += 1

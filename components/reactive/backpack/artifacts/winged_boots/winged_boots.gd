@@ -43,7 +43,7 @@ func use(dir: int) -> bool:
 
 		if landing:
 			self.charge = 0
-			effect_system.add_effect(preload("res://effects/spell_cast/spell_cast.tscn"), backpack.entity.grid_position)
+			effect_system.add_effect(preload("res://effects/spell_cast/spell_cast.tscn"), backpack.entity.grid_position, Palette.BLUE_0)
 			backpack.entity.move(gpos)
 			return true
 		dist += 1

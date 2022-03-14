@@ -23,7 +23,7 @@ func use(_dir: int) -> bool:
 		if d < closest_dist:
 			closest_dist = d
 			closest_gpos = gold.entity.grid_position
-	
-	effect_system.add_effect(preload("res://effects/ping/ping.tscn"), closest_gpos)
+
+	effect_system.add_effect(preload("res://effects/ping/ping.tscn"), closest_gpos, Palette.ORANGE_2)
 	self.charge = 0
 	return false

@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/textures/x4.png" type="Texture" id=2]
 [ext_resource path="res://assets/textures/white.png" type="Texture" id=3]
 [ext_resource path="res://assets/textures/white_border.png" type="Texture" id=4]
 [ext_resource path="res://ui/artifact_container/artifact_container.gd" type="Script" id=5]
@@ -151,3 +152,18 @@ patch_margin_left = 1
 patch_margin_top = 1
 patch_margin_right = 1
 patch_margin_bottom = 1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 160, 35 )
+emitting = false
+amount = 128
+lifetime = 0.5
+one_shot = true
+randomness = 1.0
+texture = ExtResource( 2 )
+emission_shape = 2
+emission_rect_extents = Vector2( 160, 35 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 20.0
+color = Color( 0.282353, 0.67451, 0.878431, 1 )

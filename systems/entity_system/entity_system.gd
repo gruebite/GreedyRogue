@@ -31,17 +31,18 @@ func reset(keep_player: bool) -> void:
 		player = player_scene.instance()
 		add_entity(player, Vector2.ZERO)
 
-func spawn_entity(scene: PackedScene, gpos: Vector2, unique: bool=true) -> void:
+func spawn_entity(scene: PackedScene, gpos: Vector2, unique: bool=true) -> bool:
 	if gpos.x < 0 or gpos.y < 0 or gpos.x >= Constants.MAP_COLUMNS or gpos.y >= Constants.MAP_ROWS:
-		return
+		return false
 	var entity: Entity = scene.instance()
 	if unique:
 		var entities := get_entities(gpos.x, gpos.y)
 		# This should work for everything that is instantiated in code (not in-scene).
 		for ent in entities:
 			if ent.filename == scene.resource_path:
-				return
+				return false
 	add_entity(entity, gpos)
+	return true
 
 func add_entity(entity: Node2D, gpos=null) -> void:
 	if gpos:

@@ -70,7 +70,9 @@ func use(dir: int) -> bool:
 						pushing.remove(i)
 			if pushing.size() == 0:
 				break
-			effect_system.add_effect(preload("res://effects/cracking/cracking.tscn"), gpos)
+			effect_system.add_effect(
+				preload("res://effects/splash/splash.tscn"),
+				gpos, Palette.BROWN_4)
 			dist += 1
 		self.charge = 0
 	else:

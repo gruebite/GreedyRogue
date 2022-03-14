@@ -28,7 +28,7 @@ func _on_burned(by: Flaming) -> void:
 func _on_initiated_turn() -> void:
 	if ignited:
 		var gpos := entity.grid_position
-		entity_system.spawn_entity(preload("res://entities/fire/fire.tscn"), gpos)
+		var _ignore = entity_system.spawn_entity(preload("res://entities/fire/fire.tscn"), gpos)
 	if eternal or fuel == -1:
 		return
 	if fuel == 0:
