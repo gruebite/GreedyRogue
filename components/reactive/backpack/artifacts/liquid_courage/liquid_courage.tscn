@@ -19,7 +19,6 @@ animations = [ {
 [node name="LiquidCourage" type="Node2D"]
 script = ExtResource( 2 )
 id = "Liquid Courage"
-layer = 0
 description = "Handle more stress"
 consumed = true
 
