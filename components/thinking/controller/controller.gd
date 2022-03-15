@@ -65,25 +65,25 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 		action = true
 		delta = Vector2.RIGHT
-	elif event.is_action_pressed("ui_wait"):
+	elif using_artifact == -1 and event.is_action_pressed("ui_wait"):
 		anxiety.anxiety += 5
 		action = true
-	elif event.is_action_pressed("ui_1") and turn_system.can_initiate_turn():
+	elif using_artifact == -1 and event.is_action_pressed("ui_1") and turn_system.can_initiate_turn():
 		use_artifact(0)
 		return
-	elif event.is_action_pressed("ui_2") and turn_system.can_initiate_turn():
+	elif using_artifact == -1 and  event.is_action_pressed("ui_2") and turn_system.can_initiate_turn():
 		use_artifact(1)
 		return
-	elif event.is_action_pressed("ui_3") and turn_system.can_initiate_turn():
+	elif using_artifact == -1 and  event.is_action_pressed("ui_3") and turn_system.can_initiate_turn():
 		use_artifact(2)
 		return
-	elif event.is_action_pressed("ui_4") and turn_system.can_initiate_turn():
+	elif using_artifact == -1 and  event.is_action_pressed("ui_4") and turn_system.can_initiate_turn():
 		use_artifact(3)
 		return
-	elif event.is_action_pressed("ui_5") and turn_system.can_initiate_turn():
+	elif using_artifact == -1 and  event.is_action_pressed("ui_5") and turn_system.can_initiate_turn():
 		use_artifact(4)
 		return
-	elif event is InputEventKey and event.pressed and Input.is_key_pressed(KEY_SHIFT):
+	elif using_artifact == -1 and  event is InputEventKey and event.pressed and Input.is_key_pressed(KEY_SHIFT):
 		match event.scancode:
 			KEY_F:
 				entity_system.add_entity(preload("res://entities/fire/fire.tscn").instance(), entity.grid_position)
@@ -100,7 +100,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_T:
 				backpack.try_pickup_treasure()
 			KEY_Y:
-				backpack.try_pickup_treasure(null, "Ankh")
+				backpack.try_pickup_treasure(null, "Bucket")
 			KEY_X:
 				emit_signal("found_exit")
 			KEY_Z:

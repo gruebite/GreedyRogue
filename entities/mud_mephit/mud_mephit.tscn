@@ -79,10 +79,11 @@ max_health = 1
 
 [node name="Elemental" parent="." instance=ExtResource( 14 )]
 notice_range = 6
-pursue_range = 12
+pursue_range = 15
 idle_chance = 0.8
 bias = true
 distracted_chance = 0.5
+excluding = PoolStringArray( "Molten" )
 
 [node name="Spawner" parent="." instance=ExtResource( 16 )]
 spawns = ExtResource( 17 )

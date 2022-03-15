@@ -29,6 +29,11 @@ export var bias := false
 ## How often a random movement is made while pursuing.
 export var distracted_chance := 0.0
 
+export(State) var state: int = State.WANDERING
+var last_dir := Vector2.ZERO
+
+export(PoolStringArray) var excluding := []
+
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
@@ -36,9 +41,6 @@ onready var navigation_system: NavigationSystem = find_system(NavigationSystem.G
 
 # TODO: Used for "stealth".  If bright is disabled, player is stealthy.
 onready var player_bright: Bright = entity_system.player.get_component(Bright.NAME)
-
-export(State) var state: int = State.WANDERING
-var last_dir := Vector2.ZERO
 
 ## Used by behaviors to skip the turn, because it was handled so other way.
 var skip_this_turn := false
@@ -69,20 +71,20 @@ func _on_take_turn() -> void:
 						if dv0 == last_dir or dv1 == last_dir:
 							dv = last_dir
 					var desired := entity.grid_position + dv
-					if navigation_system.can_move_to(entity, desired):
+					if navigation_system.can_move_to(entity, desired, excluding):
 						navigation_system.move_to(entity, desired)
 					emit_signal("wandering")
 			State.PURSUING:
 				if randf() <= distracted_chance:
 					var dv := Direction.delta(Direction.CARDINALS[randi() % 4])
 					var desired := entity.grid_position + dv
-					if navigation_system.can_move_to(entity, desired):
+					if navigation_system.can_move_to(entity, desired, excluding):
 						navigation_system.move_to(entity, desired)
 					emit_signal("distracted")
 				else:
 					var dv := Direction.delta(navigation_system.cardinal_to(entity, entity_system.player))
 					var desired := entity.grid_position + dv
-					if navigation_system.can_move_to(entity, desired):
+					if navigation_system.can_move_to(entity, desired, excluding):
 						navigation_system.move_to(entity, desired)
 					emit_signal("pursuing")
 	emit_signal("thunk")

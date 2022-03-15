@@ -24,17 +24,23 @@ func is_edge(x: int, y: int) -> bool:
 ## - The tile doesn't block movement (checked last to allow in-wall bumps, if entity)
 ##
 ## Note: Capability to move to a position doesn't imply you'll end up there.
-func can_move_to(ent: Entity, desired: Vector2) -> bool:
+func can_move_to(ent: Entity, desired: Vector2, excluding = null) -> bool:
 	# OOB.
 	if out_of_bounds(desired.x, desired.y):
 		return false
 
 	var bumper: Bumper = ent.get_component(Bumper.NAME)
 	if bumper:
-		# Check bumpables.
-		var bumpables := entity_system.get_components(desired.x, desired.y, Bumpable.NAME)
+		var entities := entity_system.get_entities(desired.x, desired.y)
 		var can_bump := false
-		for bumpable in bumpables:
+		for ent in entities:
+			if excluding:
+				for ex in excluding:
+					if ent.get_component(ex):
+						return false
+
+			var bumpable: Bumpable = ent.get_component(Bumpable.NAME)
+			if not bumpable: continue
 			var must_bump = bumpable.must_bump or bumpable.entity.layer == ent.layer
 			if bumper.does_bump(bumpable):
 				can_bump = true
