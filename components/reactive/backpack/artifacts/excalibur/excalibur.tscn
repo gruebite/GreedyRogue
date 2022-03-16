@@ -19,9 +19,8 @@ animations = [ {
 [node name="Excalibur" type="Node2D"]
 script = ExtResource( 1 )
 id = "Excalibur"
-layer = 0
-description = "Legendary"
-max_charges = PoolIntArray( 10, 8, 6 )
+description = "Slow but powerful weapon"
+max_charges = PoolIntArray( 8, 4 )
 directional = true
 
 [node name="Display" parent="." instance=ExtResource( 2 )]

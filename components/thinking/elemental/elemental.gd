@@ -28,6 +28,8 @@ export var idle_chance := 0.0
 export var bias := false
 ## How often a random movement is made while pursuing.
 export var distracted_chance := 0.0
+## Whether to use astar when pursuing.
+export var use_astar := false
 
 export(State) var state: int = State.WANDERING
 var last_dir := Vector2.ZERO
@@ -73,6 +75,7 @@ func _on_take_turn() -> void:
 					var desired := entity.grid_position + dv
 					if navigation_system.can_move_to(entity, desired, excluding):
 						navigation_system.move_to(entity, desired)
+						last_dir = dv
 					emit_signal("wandering")
 			State.PURSUING:
 				if randf() <= distracted_chance:
@@ -81,6 +84,13 @@ func _on_take_turn() -> void:
 					if navigation_system.can_move_to(entity, desired, excluding):
 						navigation_system.move_to(entity, desired)
 					emit_signal("distracted")
+				elif use_astar:
+					var path := navigation_system.path_to(entity.grid_position, entity_system.player.grid_position)
+					if path.size() >= 2:
+						var desired := navigation_system.path_vector(path[1])
+						if navigation_system.can_move_to(entity, desired, excluding):
+							navigation_system.move_to(entity, desired)
+					emit_signal("pursuing")
 				else:
 					var dv := Direction.delta(navigation_system.cardinal_to(entity, entity_system.player))
 					var desired := entity.grid_position + dv

@@ -11,8 +11,8 @@ const LEVEL_TITLES := [
 ]
 const LEVEL_MESSAGES := [
 	"Known for piles of gold and powerful artifacts",
-	"",
-	"",
+	"The walls appears to swell and shift",
+	"The air is blustery and hot",
 ]
 const LEVEL_SETTINGS := [
 	{
@@ -37,7 +37,7 @@ const LEVEL_SETTINGS := [
 		"large_gold_pile_count": 3,
 		"large_gold_pile_size": 1,
 		"fake_gold_pile_count": 2,
-		"treasure_chest_count": 5,
+		"treasure_chest_count": 3,
 
 		"mud_mephit_count": 10,
 		"dragonling_count": 3,
@@ -66,13 +66,13 @@ const LEVEL_SETTINGS := [
 		"small_gold_pile_size": 3,
 		"large_gold_pile_count": 2,
 		"large_gold_pile_size": 10,
-		"fake_gold_pile_count": 4,
-		"treasure_chest_count": 7,
+		"fake_gold_pile_count": 2,
+		"treasure_chest_count": 3,
 
 		"mud_mephit_count": 5,
 		"dragonling_count": 5,
-		"magma_slug_count": 4,
-		"golem_count": 3,
+		"magma_slug_count": 2,
+		"golem_count": 5,
 		"tornado_count": 0,
 	},
 	{
@@ -96,13 +96,13 @@ const LEVEL_SETTINGS := [
 		"small_gold_pile_size": 3,
 		"large_gold_pile_count": 4,
 		"large_gold_pile_size": 10,
-		"fake_gold_pile_count": 6,
-		"treasure_chest_count": 9,
+		"fake_gold_pile_count": 2,
+		"treasure_chest_count": 3,
 
 		"mud_mephit_count": 5,
 		"dragonling_count": 7,
-		"magma_slug_count": 4,
-		"golem_count": 5,
+		"magma_slug_count": 3,
+		"golem_count": 2,
 		"tornado_count": 3,
 	},
 ]
@@ -119,6 +119,8 @@ onready var security_system: SecuritySystem = get_node("../SecuritySystem")
 var exit_position := Vector2()
 var generated_level := -1
 
+var walker := Walker.new()
+
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
@@ -130,7 +132,6 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 	hoard_system.reset()
 	security_system.reset()
 
-	var walker := Walker.new()
 	walker.start(Constants.MAP_COLUMNS - 2, Constants.MAP_ROWS - 2)
 	walker.pin(tile_to_walker_tile(Tile.LAVA_CARVING))
 
@@ -207,7 +208,7 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 		walker.commit()
 
 	yield()
-	# Gold comes before lava because we want lava to be a specific obstacle.
+	# Gold comes before lava because we want lava to be an obstacle.
 
 	var small_piles: int = LEVEL_SETTINGS[level]["small_gold_pile_count"]
 	var large_piles: int = LEVEL_SETTINGS[level]["large_gold_pile_count"]
@@ -324,13 +325,9 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 					elif tile == Tile.LAVA_CARVING:
 						# Abyss blocks light, optimizes lava casts.
 						tile_system.set_tile(x, y, Tile.ABYSS_WALL)
-						# Set lava to a closed variant, so we have accurate map info.
-						walker.goto(x - 1, y - 1)
-						walker.mark(tile_to_walker_tile(Tile.LAVA_SETTLED))
 						ent = Entities.LAVA.instance()
 					ent.grid_position = Vector2(x, y)
 					to_add.append(ent)
-	walker.commit()
 
 	var mud_mephit_count: int = LEVEL_SETTINGS[level]["mud_mephit_count"]
 	var dragonling_count: int = LEVEL_SETTINGS[level]["dragonling_count"]
@@ -371,7 +368,9 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 
 	var farthest_exit := player_spawn
 	var farthest_amount2 := 0
-	for exit in walker.exit_tiles.array:
+	var exit_tries := 25
+	for i in exit_tries:
+		var exit: Vector2 = walker.exit_tiles.random(walker.rng)
 		var exit_dist: float = exit.distance_squared_to(player_spawn)
 		if exit_dist > farthest_amount2:
 			farthest_exit = exit
@@ -426,6 +425,8 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 
 	yield()
 	bright_system.update_blocking_grid()
+
+	navigation_system.build_astar()
 
 	generated_level = level
 	emit_signal("entered_level", level)

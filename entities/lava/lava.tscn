@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
 [ext_resource path="res://components/visual/display/display.tscn" type="PackedScene" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://components/reactive/faller/faller.tscn" type="PackedScene" id=10]
 [ext_resource path="res://components/reactive/molten/molten.tscn" type="PackedScene" id=11]
 [ext_resource path="res://components/passive/scoopable/scoopable.tscn" type="PackedScene" id=12]
+[ext_resource path="res://components/visual/effect_player/effect_player.tscn" type="PackedScene" id=13]
+[ext_resource path="res://effects/jet/jet.tscn" type="PackedScene" id=14]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 9 )
@@ -21,9 +23,13 @@ region = Rect2( 0, 304, 16, 16 )
 atlas = ExtResource( 9 )
 region = Rect2( 16, 304, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 9 )
+region = Rect2( 32, 304, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ) ],
+"frames": [ SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 2 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ), SubResource( 4 ) ],
 "loop": true,
 "name": "lit",
 "speed": 5.0
@@ -60,3 +66,8 @@ excluding = PoolStringArray( "Molten" )
 
 [node name="Bright" parent="." instance=ExtResource( 4 )]
 dim_radius = 5
+
+[node name="EffectPlayer" parent="." instance=ExtResource( 13 )]
+effect = ExtResource( 14 )
+effect_color = 17
+on_time = 180.0

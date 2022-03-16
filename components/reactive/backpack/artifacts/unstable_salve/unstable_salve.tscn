@@ -19,9 +19,8 @@ animations = [ {
 [node name="UnstableSalve" type="Node2D"]
 script = ExtResource( 1 )
 id = "Unstable Salve"
-layer = 0
-description = "The bubbling is unnerving"
-max_charges = PoolIntArray( 120, 80, 40 )
+description = "Makes objects unstable"
+max_charges = PoolIntArray( 120, 50, 30 )
 directional = true
 
 [node name="Display" parent="." instance=ExtResource( 2 )]

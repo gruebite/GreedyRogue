@@ -19,9 +19,8 @@ animations = [ {
 [node name="DragonEgg" type="Node2D"]
 script = ExtResource( 2 )
 id = "Dragon Egg"
-layer = 0
-description = "Glows"
-max_charges = PoolIntArray( 100, 200, 300 )
+description = "Glows near lava"
+max_charges = PoolIntArray( 50, 100, 200 )
 passive = true
 
 [node name="Display" parent="." instance=ExtResource( 1 )]

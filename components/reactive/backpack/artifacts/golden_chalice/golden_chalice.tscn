@@ -19,7 +19,7 @@ animations = [ {
 [node name="GoldenChalice" type="Node2D"]
 script = ExtResource( 2 )
 id = "Golden Chalice"
-description = "Calms you."
+description = "Reduces anxiety"
 max_charges = PoolIntArray( 200 )
 consumed = true
 

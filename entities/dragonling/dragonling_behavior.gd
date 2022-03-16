@@ -5,7 +5,8 @@ const NAME := "DragonlingBehavior"
 
 enum State {
 	SLEEPING,
-	BREATHING,
+	BREATHING_WANDERING,
+	BREATHING_PURSUING,
 	DEFERRING, ## Deferred to the elemental state.
 }
 
@@ -58,20 +59,25 @@ func _on_thinking() -> void:
 		State.SLEEPING:
 			# Nothing.
 			pass
-		State.BREATHING:
+		State.BREATHING_WANDERING, State.BREATHING_PURSUING:
 			if breath_timer == breath_weapon_time:
 				$AnimationPlayer.play("breath_in")
 			if breath_timer == 0:
 				$AnimationPlayer.play("breath_out")
 				breath_fire(breath_dir)
+				if state == State.BREATHING_WANDERING:
+					elemental.state = Elemental.State.WANDERING
+				else:
+					elemental.state = Elemental.State.PURSUING
 				state = State.DEFERRING
-				elemental.state = Elemental.State.WANDERING
 				# Skip this turn since we already acted.
 				elemental.skip_this_turn = true
 			else:
 				breath_timer -= 1
 		State.DEFERRING:
-			# Nothing, elemental AI got this
+			var dv: Vector2 = Direction.delta(navigation_system.cardinal_to(entity, entity_system.player))
+			# Influence bias toward player.
+			elemental.last_dir = dv
 			pass
 
 func _on_blanking() -> void:
@@ -98,19 +104,19 @@ func check_transitions() -> void:
 			else:
 				# Do nothing, we asleep.
 				elemental.state = Elemental.State.BLANKING
-		State.BREATHING:
+		State.BREATHING_WANDERING, State.BREATHING_PURSUING:
 			pass
 		State.DEFERRING:
 			match elemental.state:
 				Elemental.State.WANDERING:
-					if randf() <= breath_weapon_chance:
-						state = State.BREATHING
+					if randf() <= breath_weapon_chance * 0.1:
+						state = State.BREATHING_WANDERING
 						elemental.state = Elemental.State.BLANKING
 						breath_dir = Direction.CARDINALS[randi() % 4]
 						breath_timer = breath_weapon_time
 				Elemental.State.PURSUING:
 					if randf() <= breath_weapon_chance:
-						state = State.BREATHING
+						state = State.BREATHING_PURSUING
 						elemental.state = Elemental.State.BLANKING
 						breath_dir = navigation_system.cardinal_to(entity, entity_system.player)
 						breath_timer = breath_weapon_time

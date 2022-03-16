@@ -19,9 +19,8 @@ animations = [ {
 [node name="WingedBoots" type="Node2D"]
 script = ExtResource( 2 )
 id = "Winged Boots"
-layer = 0
-description = "You can fly!"
-max_charges = PoolIntArray( 100, 80, 60 )
+description = "Jumps over obstacles"
+max_charges = PoolIntArray( 100, 50, 25 )
 directional = true
 
 [node name="Display" parent="." instance=ExtResource( 1 )]

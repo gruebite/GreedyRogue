@@ -19,7 +19,6 @@ animations = [ {
 [node name="FireStone" type="Node2D"]
 script = ExtResource( 2 )
 id = "Fire Stone"
-layer = 0
 description = "Absorbs and eminates heat"
 max_charges = PoolIntArray( 2, 4, 8 )
 passive = true

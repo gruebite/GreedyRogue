@@ -5,7 +5,8 @@
 - Maybe add a fourth chamber, and ramp up.  Can't get enough treasures
   and levels are sometimes not difficult.
 - Chaos shard insta kills everything in the new spot.
-- Horned helm break smashables (rocks/stalagmite)
+- Add ice effects that create pitfalls where fire is
+- Add more environment stuff, and ways to utilize the environment
 
 # TODO
 
@@ -46,3 +47,5 @@
 - Add stalagmite groups
 - Add hotkey for activatable artifacts below icon
 - Ping after closing message
+- Horned helm break smashables (rocks/stalagmite)
+- Improve AI by adding pathing, this will make creature obstacles more consistently dangerous

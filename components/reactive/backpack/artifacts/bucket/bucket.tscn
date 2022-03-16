@@ -20,7 +20,7 @@ animations = [ {
 [node name="Bucket" type="Node2D"]
 script = ExtResource( 1 )
 id = "Bucket"
-description = "Scoops  liquids and solids"
+description = "Contains liquids and solids"
 max_charges = PoolIntArray( 1, 2, 3 )
 always_usable = true
 directional = true

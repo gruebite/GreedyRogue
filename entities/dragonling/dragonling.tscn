@@ -93,8 +93,10 @@ pursue_range = 12
 idle_chance = 0.25
 bias = true
 distracted_chance = 0.2
+use_astar = true
 state = 0
 
 [node name="DragonlingBehavior" parent="." instance=ExtResource( 13 )]
 
 [node name="Terrorize" parent="." instance=ExtResource( 15 )]
+terror = 2

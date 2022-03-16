@@ -12,11 +12,15 @@ export var on_take_turn := false
 export var on_in_turn := false
 export var on_out_of_turn := false
 export var on_died := false
+export var on_time := -1.0
+export var on_time_randomness := 1.0
 
 onready var effect_system: EffectSystem = find_system(EffectSystem.GROUP_NAME)
 onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 
 onready var turn_taker: TurnTaker = entity.get_component("TurnTaker")
+
+onready var time_accum: float = randf() * on_time * on_time_randomness
 
 func _ready() -> void:
 	var _ignore
@@ -31,6 +35,14 @@ func _ready() -> void:
 	if on_died:
 		_ignore = entity.connect("died", self, "_on_died")
 	if on_ready and effect:
+		play()
+
+func _process(delta: float) -> void:
+	if on_time < 0:
+		return
+	time_accum += delta
+	if time_accum >= on_time:
+		time_accum = randf() * on_time * on_time_randomness
 		play()
 
 func _on_initiated_turn() -> void:

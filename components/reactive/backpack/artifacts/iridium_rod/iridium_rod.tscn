@@ -19,9 +19,8 @@ animations = [ {
 [node name="IridiumRod" type="Node2D"]
 script = ExtResource( 1 )
 id = "Iridium Rod"
-layer = 0
 description = "Catches fish"
-max_charges = PoolIntArray( 100, 80, 60 )
+max_charges = PoolIntArray( 100, 50, 25 )
 directional = true
 
 [node name="Display" parent="." instance=ExtResource( 2 )]

@@ -3,7 +3,7 @@ class_name Terrorize
 
 const NAME := "Terrorize"
 
-export var terror := 2
+export var terror := 1
 
 onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
 

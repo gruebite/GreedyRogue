@@ -19,8 +19,7 @@ animations = [ {
 [node name="AncientWarMask" type="Node2D"]
 script = ExtResource( 1 )
 id = "Ancient War Mask"
-layer = 0
-description = "Calms while fighting"
+description = "Reduces anxiety on attack"
 max_charges = PoolIntArray( 0, 0, 0 )
 passive = true
 no_charge = true

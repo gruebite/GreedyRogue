@@ -19,8 +19,7 @@ animations = [ {
 [node name="BrokenCompass" type="Node2D"]
 script = ExtResource( 1 )
 id = "Broken Compass"
-layer = 0
-description = "The needle moves erratically"
+description = "Reveals nearest gold"
 max_charges = PoolIntArray( 200 )
 
 [node name="Display" parent="." instance=ExtResource( 2 )]

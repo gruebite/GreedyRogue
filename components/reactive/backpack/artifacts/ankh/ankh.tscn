@@ -20,7 +20,7 @@ animations = [ {
 script = ExtResource( 1 )
 id = "Ankh"
 description = "Restores life"
-max_charges = PoolIntArray( 100, 80, 20 )
+max_charges = PoolIntArray( 80, 70, 60 )
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 frames = SubResource( 2 )

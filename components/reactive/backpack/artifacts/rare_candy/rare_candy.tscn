@@ -19,8 +19,7 @@ animations = [ {
 [node name="RareCandy" type="Node2D"]
 script = ExtResource( 1 )
 id = "Rare Candy"
-layer = 0
-description = "A mysterious candy"
+description = "Upgrades artifacts"
 consumed = true
 
 [node name="Display" parent="." instance=ExtResource( 2 )]

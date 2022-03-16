@@ -19,7 +19,6 @@ animations = [ {
 [node name="EschutasTemper" type="Node2D"]
 script = ExtResource( 1 )
 id = "Eschuta's Temper"
-layer = 0
 description = "Eldritch Orb"
 max_charges = PoolIntArray( 80, 60, 40 )
 directional = true

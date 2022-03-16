@@ -19,8 +19,7 @@ animations = [ {
 [node name="BalancedStaff" type="Node2D"]
 script = ExtResource( 3 )
 id = "Balanced Staff"
-layer = 0
-description = "Perfectly balanced"
+description = "A fast weapon"
 max_charges = PoolIntArray( 4, 2, 1 )
 directional = true
 

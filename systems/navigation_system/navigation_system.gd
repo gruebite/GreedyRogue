@@ -6,6 +6,8 @@ const GROUP_NAME := "navigation_system"
 onready var tile_system: TileSystem = get_node("../TileSystem")
 onready var entity_system: EntitySystem = get_node("../EntitySystem")
 
+var astar: AStar = AStar.new()
+
 func _ready() -> void:
 	assert(get_tree().get_nodes_in_group(GROUP_NAME).size() == 0)
 	add_to_group(GROUP_NAME)
@@ -15,6 +17,34 @@ func out_of_bounds(x: int, y: int) -> bool:
 
 func is_edge(x: int, y: int) -> bool:
 	return x == 0 or y == 0 or x == Constants.MAP_COLUMNS - 1 or y == Constants.MAP_ROWS - 1
+
+func build_astar() -> void:
+	astar.clear()
+	# Build points.
+	for x in Constants.MAP_COLUMNS:
+		for y in Constants.MAP_ROWS:
+			var id: int = y * Constants.MAP_COLUMNS + x
+			astar.add_point(id, Vector3(x, y, 0))
+	# Connect points.  This does some redundant work, but it's simple.
+	for x in Constants.MAP_COLUMNS:
+		for y in Constants.MAP_ROWS:
+			if tile_system.blocks_movement(x, y):
+				continue
+			var id: int = y * Constants.MAP_COLUMNS + x
+			for dir in Direction.CARDINALS:
+				var dv := Direction.delta(dir)
+				if tile_system.blocks_movement(x + dv.x, y + dv.y):
+					continue
+				var nid: int = (y + dv.y) * Constants.MAP_COLUMNS + (x + dv.x)
+				astar.connect_points(id, nid)
+
+func path_to(from: Vector2, to: Vector2) -> PoolIntArray:
+	return astar.get_id_path(from.y * Constants.MAP_COLUMNS + from.x, to.y * Constants.MAP_COLUMNS + to.x)
+
+func path_vector(id: int) -> Vector2:
+	var v := astar.get_point_position(id)
+	return Vector2(v.x, v.y)
+
 
 ## An entity can move into a place if:
 ## - Not out of bounds

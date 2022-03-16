@@ -19,9 +19,8 @@ animations = [ {
 [node name="LaserGun" type="Node2D"]
 script = ExtResource( 1 )
 id = "Laser Gun"
-layer = 0
-description = "Shoots lasers"
-max_charges = PoolIntArray( 27, 9, 3 )
+description = "Shoots lasers, powered by heat"
+max_charges = PoolIntArray( 20, 10, 5 )
 directional = true
 
 [node name="Display" parent="." instance=ExtResource( 2 )]

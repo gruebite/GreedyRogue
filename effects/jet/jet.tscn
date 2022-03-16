@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://effects/effect.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/pixel2.png" type="Texture" id=2]
+
+[node name="Jet" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 8, 8 )
+amount = 32
+lifetime = 0.5
+explosiveness = 0.5
+texture = ExtResource( 2 )
+direction = Vector2( 0, -1 )
+spread = 10.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 80.0
+damping = 80.0

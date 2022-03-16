@@ -19,9 +19,7 @@ animations = [ {
 [node name="LavaEel" type="Node2D"]
 script = ExtResource( 1 )
 id = "Lava Eel"
-layer = 0
 description = "Survives in lava"
-max_charges = PoolIntArray( 0, 0, 0 )
 consumed = true
 no_charge = true
 

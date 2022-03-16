@@ -54,7 +54,6 @@ id = "Golem"
 
 [node name="Display" parent="." instance=ExtResource( 2 )]
 frames = SubResource( 3 )
-frame = 1
 
 [node name="TurnTaker" parent="." instance=ExtResource( 1 )]
 
@@ -96,4 +95,4 @@ distracted_chance = 0.1
 [node name="GolemBehavior" parent="." instance=ExtResource( 12 )]
 
 [node name="Terrorize" parent="." instance=ExtResource( 14 )]
-terror = 4
+terror = 3

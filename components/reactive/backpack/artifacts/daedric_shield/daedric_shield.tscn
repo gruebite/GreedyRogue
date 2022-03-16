@@ -19,9 +19,8 @@ animations = [ {
 [node name="DaedricShield" type="Node2D"]
 script = ExtResource( 1 )
 id = "Daedric Shield"
-layer = 0
-description = "Withstands blows"
-max_charges = PoolIntArray( 0, 0, 0 )
+description = "Gives armor and immunity to knockback"
+max_charges = PoolIntArray( 0, 0 )
 passive = true
 no_charge = true
 
