@@ -100,7 +100,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_T:
 				backpack.try_pickup_treasure()
 			KEY_Y:
-				backpack.try_pickup_treasure(null, "Bucket")
+				backpack.try_pickup_treasure(null, "Iridium Rod")
 			KEY_X:
 				emit_signal("found_exit")
 			KEY_Z:
