@@ -75,7 +75,7 @@ func _on_thinking() -> void:
 			else:
 				breath_timer -= 1
 		State.DEFERRING:
-			var dv: Vector2 = Direction.delta(navigation_system.cardinal_to(entity, entity_system.player))
+			var dv: Vector2 = Direction.delta(navigation_system.cardinal_to(entity.grid_position, entity_system.player.grid_position))
 			# Influence bias toward player.
 			elemental.last_dir = dv
 			pass
@@ -118,7 +118,7 @@ func check_transitions() -> void:
 					if randf() <= breath_weapon_chance:
 						state = State.BREATHING_PURSUING
 						elemental.state = Elemental.State.BLANKING
-						breath_dir = navigation_system.cardinal_to(entity, entity_system.player)
+						breath_dir = navigation_system.cardinal_to(entity.grid_position, entity_system.player.grid_position)
 						breath_timer = breath_weapon_time
 
 func wake_up() -> void:

@@ -92,7 +92,7 @@ func _on_take_turn() -> void:
 							navigation_system.move_to(entity, desired)
 					emit_signal("pursuing")
 				else:
-					var dv := Direction.delta(navigation_system.cardinal_to(entity, entity_system.player))
+					var dv := Direction.delta(navigation_system.cardinal_to(entity.grid_position, entity_system.player.grid_position))
 					var desired := entity.grid_position + dv
 					if navigation_system.can_move_to(entity, desired, excluding):
 						navigation_system.move_to(entity, desired)

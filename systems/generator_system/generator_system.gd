@@ -366,6 +366,13 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 	# XXX: Kinda hacky.  Should be handled by "move", but we don't want to trigger components.
 	entity_system.update_entity(entity_system.player)
 
+	# Add a stalagmite to help with bad lava spawns.
+	var to_center_dir := navigation_system.cardinal_to(player_spawn, Constants.MAP_SIZE / 2)
+	if to_center_dir != -1:
+		var helper_stalagmite := Entities.STALAGMITE.instance()
+		helper_stalagmite.grid_position = player_spawn + Direction.delta(to_center_dir)
+		to_add.append(helper_stalagmite)
+
 	var farthest_exit := player_spawn
 	var farthest_amount2 := 0
 	var exit_tries := 25

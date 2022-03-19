@@ -140,8 +140,8 @@ func find_random_unblocked() -> Vector2:
 	# Default to center.
 	return Constants.MAP_SIZE / 2
 
-func cardinal_to(from: Entity, to: Entity) -> int:
-	var vec := to.grid_position - from.grid_position
+func cardinal_to(from: Vector2, to: Vector2) -> int:
+	var vec := to - from
 	vec.x = sign(vec.x)
 	vec.y = sign(vec.y)
 	if vec.x != 0 and vec.y != 0:
