@@ -1,6 +1,10 @@
 extends Node2D
 class_name ColorTileMap
 
+##
+## Wraps a TileMap node with one that generates tiles with color variants.
+##
+
 export var texture: Texture
 export var tile_size := Vector2(8, 8)
 export var cell_size := Vector2(8, 8)
@@ -16,9 +20,9 @@ func _ready() -> void:
 
 	tile_map.cell_size = cell_size
 	tile_map.cell_y_sort = true
-	
+
 	var tile_set = TileSet.new()
-	
+
 	var tile_id := 0
 	for c in colors:
 		var y := 0
@@ -32,13 +36,13 @@ func _ready() -> void:
 				x += int(tile_size.x)
 				tile_id += 1
 			y += int(tile_size.y)
-	
+
 	tile_map.tile_set = tile_set
 	pass
 
 func set_tile(x: int, y: int, tile: int, color: int=0) -> void:
 	tile_map.set_cell(x, y, tile + tile_count * color)
-	
+
 func clear_tile(x: int, y: int) -> void:
 	tile_map.set_cell(x, y, -1)
 

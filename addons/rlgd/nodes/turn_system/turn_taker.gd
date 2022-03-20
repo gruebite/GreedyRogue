@@ -1,6 +1,10 @@
 extends Node2D
 class_name TurnTaker
 
+##
+## TurnTaker node should be attached to any node that process per turn.
+##
+
 ## Connect when you do updates along with other turn takers.  Stuff like movement.
 signal take_turn()
 ## Connect when you do updates selectively.  This should be for basic area checks.  An analog is in_turn.

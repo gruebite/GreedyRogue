@@ -1,6 +1,10 @@
 extends Node2D
 class_name StateMachine
 
+##
+## State machine node that manages child states.
+##
+
 signal state_changed(previous, new)
 
 export var initial_state := NodePath()

@@ -2,7 +2,7 @@ extends Reference
 class_name PointSet
 
 ##
-## Maintains a random access point set.
+## Maintains a random access set of points.
 ##
 
 var array := []

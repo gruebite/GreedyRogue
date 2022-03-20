@@ -325,9 +325,13 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 					elif tile == Tile.LAVA_CARVING:
 						# Abyss blocks light, optimizes lava casts.
 						tile_system.set_tile(x, y, Tile.ABYSS_WALL)
+						# Mark as settled (closed) to get exit tiles without lava
+						walker.goto(x, y)
+						walker.mark(tile_to_walker_tile(Tile.LAVA_SETTLED))
 						ent = Entities.LAVA.instance()
 					ent.grid_position = Vector2(x, y)
 					to_add.append(ent)
+	walker.commit()
 
 	var mud_mephit_count: int = LEVEL_SETTINGS[level]["mud_mephit_count"]
 	var dragonling_count: int = LEVEL_SETTINGS[level]["dragonling_count"]
@@ -367,11 +371,16 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 	entity_system.update_entity(entity_system.player)
 
 	# Add a stalagmite to help with bad lava spawns.
-	var to_center_dir := navigation_system.cardinal_to(player_spawn, Constants.MAP_SIZE / 2)
-	if to_center_dir != -1:
-		var helper_stalagmite := Entities.STALAGMITE.instance()
-		helper_stalagmite.grid_position = player_spawn + Direction.delta(to_center_dir)
-		to_add.append(helper_stalagmite)
+	var helper_stalagmite := Entities.STALAGMITE.instance()
+	if player_spawn.x == 1:
+		helper_stalagmite.grid_position = player_spawn + Vector2(1, 0)
+	elif player_spawn.x == Constants.MAP_COLUMNS - 2:
+		helper_stalagmite.grid_position = player_spawn + Vector2(-1, 0)
+	elif player_spawn.y == 1:
+		helper_stalagmite.grid_position = player_spawn + Vector2(0, 1)
+	else:
+		helper_stalagmite.grid_position = player_spawn + Vector2(0, -1)
+	to_add.append(helper_stalagmite)
 
 	var farthest_exit := player_spawn
 	var farthest_amount2 := 0

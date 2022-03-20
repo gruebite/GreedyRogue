@@ -2,21 +2,21 @@ extends Node2D
 class_name TurnSystem
 
 ##
-## Turn system for turn-based games.
+## Turn system for turn-based games. Should appear in the scene before any nodes that use it.
 ##
-## Should appear in the scene before any nodes that use it.
+## There are 3 states in a turn:
+## - OUT_OF_TURN 	This is the default state.
+## - IN_TURN 		This state indicates a turn is being processed.
+## - CANCEL_TURN	This state indicates a turn is being processed, but will be cancelled.
+##
+## Turns are initiated by a single entity.  There are 2 steps to initiating a turn:
+## - Call will_initiate_turn().  This turns
 ##
 
 const GROUP_NAME := "turn_system"
 const TURN_TAKER_GROUP_NAME := "turn_taker"
 
-enum Step {
-	INITIATED_TURN,
-	TAKE_TURN,
-	IN_TURN,
-	OUT_OF_TURN,
-}
-
+## Turn states.
 enum {
 	OUT_OF_TURN,
 	IN_TURN,
