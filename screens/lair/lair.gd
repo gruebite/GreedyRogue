@@ -194,6 +194,11 @@ func _on_artifact_consuming(artifact: Artifact) -> void:
 			break
 		if t.artifact_name == artifact.id:
 			t.hide()
+			treasures.move_child(t, 4)
+			break
+	for i in treasures.get_child_count():
+		var t := treasures.get_child(i)
+		t.set_hotkey(i + 1)
 
 func _on_health_changed(to: int, mx: int) -> void:
 	$UI/HUD/DamageAnimation.play("shake")

@@ -25,6 +25,9 @@ func _process(_delta: float) -> void:
 	$NinePatchRect.modulate = input_gradient.interpolate(p)
 	$NinePatchRect.show()
 
+func set_hotkey(button: int) -> void:
+	$MarginContainer/Foreground/VBoxContainer/Hotkey.text = "[" + str(button) + "]"
+
 func get_artifact() -> Node2D:
 	return $MarginContainer/Foreground/VBoxContainer/EntityContainer.get_child(0) as Node2D
 
