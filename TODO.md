@@ -1,26 +1,37 @@
 
-# Quick
-
-- Mouse controls
-- Maybe add a fourth chamber, and ramp up.  Can't get enough treasures
-  and levels are sometimes not difficult.
-- Chaos shard insta kills everything in the new spot.
-- Add ice effects that create pitfalls where fire is
-- Add more environment stuff, and ways to utilize the environment
-
 # TODO
 
-- More interactions between objects
-    - Lasers should be environment antimatter, and other artifact behaviors
-    - Golems should throw rocks, and other elemental behaviors
-    - More environment hazards to bump into, one time effects
-- Add more artifacts that interact with the existing elements
+- Add more chambers with new content
+  - No lava chamber
+  - Treasure hoard chamber, toooons of dragons
+- Add weather
+  - Earthquakes which close/open chasms
+  - Lava rain which creates random lava
+- New artifact system
+  - ???
+  - Crafting/combining?
+  - Unidentified/level up to specific type?
+- Improve existing environmental features
+  - Explosions should destroy rocks and knock down stalagmites
+- Improve existing elementals
+  - Golems should throw rocks
+  - There should be older dragonlings that are much stronger
+- Improve existing artifacts
+  - Chaos shard insta kills everything in the new spot.
+- Add more effects
+  - Ice that create pitfalls where fire is
+- Add more environmental features
+  - Steam geysers, rocks turn into bombs when over it
+- Add more elementals
+  - Steam mephit that are around geysers
+- Add more artifacts
     - An artifact that knocks back entities
     - An artifact that pulls the first entity to you
     - **Unnamed** Something that makes time skip, at the cost of extra anxiety (caffeine?)
     - **Unnamed** Something that creates rocks
     - **Unnamed** Something that removes fire
     - **Unnamed** Something that removes wind
+- Mouse controls
 - Add sound effects and music
 - Add a secondary reward: gems, dropped from elementals and dragons
 - Add title screen over game and washed out overlay
