@@ -9,7 +9,7 @@ export var effect_amount_scale := 1.0
 export var on_ready := false
 export var on_turn_initiated := false
 export var on_take_turn := false
-export var on_in_turn := false
+export var on_taken_turns := false
 export var on_out_of_turn := false
 export var on_died := false
 export var on_time := -1.0
@@ -28,8 +28,8 @@ func _ready() -> void:
 		_ignore = turn_system.connect("initiated_turn", self, "_on_initiated_turn")
 	if turn_taker and on_take_turn:
 		_ignore = turn_taker.connect("take_turn", self, "_on_take_turn")
-	if on_in_turn:
-		_ignore = turn_system.connect("in_turn", self, "_on_in_turn")
+	if on_taken_turns:
+		_ignore = turn_system.connect("taken_turns", self, "_on_taken_turns")
 	if on_out_of_turn:
 		_ignore = turn_system.connect("out_of_turn", self, "_on_out_of_turn")
 	if on_died:
@@ -53,7 +53,7 @@ func _on_take_turn() -> void:
 	if not effect: return
 	play()
 
-func _on_in_turn() -> void:
+func _on_taken_turns() -> void:
 	if not effect: return
 	play()
 

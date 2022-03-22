@@ -18,11 +18,11 @@ onready var turn_system: TurnSystem = find_system(TurnSystem.GROUP_NAME)
 
 func _ready() -> void:
 	var _ignore
-	_ignore = turn_system.connect("in_turn", self, "_on_in_turn")
+	_ignore = turn_system.connect("taken_turns", self, "_on_taken_turns")
 
 	emit_signal("anxiety_changed", anxiety, max_anxiety)
 
-func _on_in_turn() -> void:
+func _on_taken_turns() -> void:
 	emit_signal("mindful")
 	# Check if we panicked this turn.
 	if panic > normal_panic:

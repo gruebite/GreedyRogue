@@ -75,7 +75,7 @@ on_bump = true
 [node name="Spawner" parent="." instance=ExtResource( 11 )]
 unique = false
 spawns = ExtResource( 12 )
-on_in_turn = true
+on_taken_turns = true
 
 [node name="Presence" parent="." instance=ExtResource( 7 )]
 

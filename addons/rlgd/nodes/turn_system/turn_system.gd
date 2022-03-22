@@ -26,7 +26,7 @@ enum {
 ## Emitted when the turn is first initiated, before signaling turn takers.
 signal initiated_turn()
 ## Emitted after all the turn takers have been signaled.
-signal in_turn()
+signal taken_turns()
 ## Emitted when all turn takers say they're finished, and a new turn can be initiated.
 signal out_of_turn()
 ## Emitted when the player initiates a turn but doesn't follow through.
@@ -44,7 +44,7 @@ func _ready() -> void:
 	add_to_group(GROUP_NAME)
 
 func taking_turn(node: Node2D) -> void:
-	assert(state == IN_TURN, "can only take turn when in_turn")
+	assert(state == IN_TURN, "can only take turn when IN_TURN")
 	_turn_takers[node] = true
 
 func finish_turn(node: Node2D) -> void:
@@ -79,5 +79,5 @@ func initiate_turn() -> void:
 	for tt in get_tree().get_nodes_in_group(TURN_TAKER_GROUP_NAME):
 		tt.emit_signal("take_turn")
 	yield(get_tree(), "idle_frame")
-	emit_signal("in_turn")
+	emit_signal("taken_turns")
 	finish_turn(self)

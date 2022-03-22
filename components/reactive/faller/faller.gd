@@ -9,9 +9,9 @@ onready var tile_system: TileSystem = find_system(TileSystem.GROUP_NAME)
 
 func _ready() -> void:
 	var _ignore
-	_ignore = find_system(TurnSystem.GROUP_NAME).connect("in_turn", self, "_on_in_turn")
+	_ignore = find_system(TurnSystem.GROUP_NAME).connect("taken_turns", self, "_on_taken_turns")
 
-func _on_in_turn() -> void:
+func _on_taken_turns() -> void:
 	if immune:
 		return
 	var gpos := entity.grid_position

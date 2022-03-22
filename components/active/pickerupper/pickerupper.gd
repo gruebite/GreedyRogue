@@ -12,13 +12,13 @@ onready var entity_system: EntitySystem = find_system(EntitySystem.GROUP_NAME)
 
 func _ready() -> void:
 	var _ignore
-	_ignore = turn_system.connect("in_turn", self, "_on_in_turn")
+	_ignore = turn_system.connect("taken_turns", self, "_on_taken_turns")
 	_ignore = entity.connect("moved", self, "_on_moved")
 	var turn_taker: TurnTaker = entity.get_component("TurnTaker")
 	if turn_taker:
-		_ignore = turn_taker.connect("manual_turn", self, "_on_in_turn")
+		_ignore = turn_taker.connect("take_inturn", self, "_on_taken_turns")
 
-func _on_in_turn() -> void:
+func _on_taken_turns() -> void:
 	var epos := entity.grid_position
 	var ents := entity_system.get_entities(epos.x, epos.y)
 	for ent in ents:
@@ -30,4 +30,4 @@ func _on_in_turn() -> void:
 			pickupable.pickup(self)
 
 func _on_moved(_from: Vector2) -> void:
-	_on_in_turn()
+	_on_taken_turns()

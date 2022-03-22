@@ -31,7 +31,7 @@ func _ready() -> void:
 		var _ignore
 		var ts: TurnSystem = backpack.turn_system
 		_ignore = ts.connect("initiated_turn", self, "_on_initiated_turn")
-		_ignore = ts.connect("in_turn", self, "_on_in_turn")
+		_ignore = ts.connect("taken_turns", self, "_on_taken_turns")
 		_ignore = ts.connect("out_of_turn", self, "_on_out_of_turn")
 		_ignore = backpack.entity.connect("moved", self, "_on_moved")
 
@@ -41,7 +41,7 @@ func _ready() -> void:
 func _on_initiated_turn() -> void:
 	pass
 
-func _on_in_turn() -> void:
+func _on_taken_turns() -> void:
 	pass
 
 func _on_out_of_turn() -> void:

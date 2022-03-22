@@ -16,13 +16,13 @@ onready var turn_taker: TurnTaker = entity.get_component("TurnTaker")
 
 func _ready() -> void:
 	var _ignore
-	_ignore = turn_system.connect("in_turn", self, "_on_in_turn")
+	_ignore = turn_system.connect("taken_turns", self, "_on_taken_turns")
 	if turn_taker:
-		_ignore = turn_taker.connect("manual_turn", self, "_on_in_turn")
+		_ignore = turn_taker.connect("take_inturn", self, "_on_taken_turns")
 	if immediate:
-		_on_in_turn()
+		_on_taken_turns()
 
-func _on_in_turn() -> void:
+func _on_taken_turns() -> void:
 	var gpos := entity.grid_position
 	var ents := entity_system.get_entities(gpos.x, gpos.y)
 	for ent in ents:

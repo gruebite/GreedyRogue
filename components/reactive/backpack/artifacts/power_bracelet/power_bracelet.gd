@@ -64,7 +64,7 @@ func use(dir: int) -> bool:
 					# Manually do an in turn update.
 					var turn_taker: TurnTaker = pushing_ent.get_component("TurnTaker")
 					if turn_taker:
-						turn_taker.emit_signal("manual_turn")
+						turn_taker.emit_signal("take_inturn")
 					# Gotta check again.
 					if pushing_ent.dead:
 						pushing.remove(i)
