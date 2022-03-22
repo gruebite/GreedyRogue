@@ -365,26 +365,20 @@ func generate(level: int=0, keep_player: bool=false) -> void:
 	yield()
 	# Player and exits.
 
-	var player_spawn := walker.exit_tiles.random(walker.rng) + Vector2(1, 1)
+	var player_spawn: Vector2
+	var player_spawn_tries = 100
+	while player_spawn_tries > 0:
+		player_spawn_tries -= 1
+		player_spawn = walker.exit_tiles.random(walker.rng) + Vector2(1, 1)
+		if not lava_tiles.has(player_spawn.x, player_spawn.y):
+			break
 	entity_system.player.grid_position = player_spawn
 	# XXX: Kinda hacky.  Should be handled by "move", but we don't want to trigger components.
 	entity_system.update_entity(entity_system.player)
 
-	# Add a stalagmite to help with bad lava spawns.
-	var helper_stalagmite := Entities.STALAGMITE.instance()
-	if player_spawn.x == 1:
-		helper_stalagmite.grid_position = player_spawn + Vector2(1, 0)
-	elif player_spawn.x == Constants.MAP_COLUMNS - 2:
-		helper_stalagmite.grid_position = player_spawn + Vector2(-1, 0)
-	elif player_spawn.y == 1:
-		helper_stalagmite.grid_position = player_spawn + Vector2(0, 1)
-	else:
-		helper_stalagmite.grid_position = player_spawn + Vector2(0, -1)
-	to_add.append(helper_stalagmite)
-
 	var farthest_exit := player_spawn
 	var farthest_amount2 := 0
-	var exit_tries := 25
+	var exit_tries := 5
 	for i in exit_tries:
 		var exit: Vector2 = walker.exit_tiles.random(walker.rng)
 		var exit_dist: float = exit.distance_squared_to(player_spawn)

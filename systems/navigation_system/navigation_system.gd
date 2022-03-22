@@ -63,13 +63,13 @@ func can_move_to(ent: Entity, desired: Vector2, excluding = null) -> bool:
 	if bumper:
 		var entities := entity_system.get_entities(desired.x, desired.y)
 		var can_bump := false
-		for ent in entities:
+		for desired_ent in entities:
 			if excluding:
 				for ex in excluding:
-					if ent.get_component(ex):
+					if desired_ent.get_component(ex):
 						return false
 
-			var bumpable: Bumpable = ent.get_component(Bumpable.NAME)
+			var bumpable: Bumpable = desired_ent.get_component(Bumpable.NAME)
 			if not bumpable: continue
 			var must_bump = bumpable.must_bump or bumpable.entity.layer == ent.layer
 			if bumper.does_bump(bumpable):

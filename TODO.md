@@ -1,24 +1,30 @@
 
 # TODO
 
+- Fix dragon AI getting stuck if boulder in between by making non-attackables go around.
 - Add more chambers with new content
   - No lava chamber
   - Treasure hoard chamber, toooons of dragons
+  - Cross river
+  - Parallel rivers
+  - Open chamber
 - Add weather
   - Earthquakes which close/open chasms
   - Lava rain which creates random lava
 - New artifact system
-  - ???
-  - Crafting/combining?
-  - Unidentified/level up to specific type?
+  - Inspired by Brogue: give options to choose a "build" and upgrade items
+  - Many items, each with a "size".
+  - Your backpack has a hard size limit.  Roughly 1-5 items.
+  - Items may have to be dropped as you decide which to keep.
+  - You can at anytime choose to bond with an artifact, enhancing it significantly.  You can't rebond.
 - Improve existing environmental features
   - Explosions should destroy rocks and knock down stalagmites
 - Improve existing elementals
   - Golems should throw rocks
   - There should be older dragonlings that are much stronger
 - Improve existing artifacts
-  - Chaos shard insta kills everything in the new spot.
-- Add more effects
+  - Chaos shard insta kills everything in the new spot
+- Add more interactions
   - Ice that create pitfalls where fire is
 - Add more environmental features
   - Steam geysers, rocks turn into bombs when over it
@@ -38,8 +44,7 @@
 
 # DONE
 
-- Add more effects for feedback
-- More interactions between objects
+- Add more interactions
     - Mud mechanics.  Slidable objects slide along the path.
 - Add more artifacts that interact with the existing elements
     - Iridium Fishing Rod that instant kills magma otherwise adds a fish to inventory that
@@ -55,6 +60,7 @@
     - More environment interactions, pitfalls are negelected
     - Ancient War Mask makes you recover anxiety from attacking
     - Make fire stone charge things if it's hot
+- Add more effects for feedback
 - Add stalagmite groups
 - Add hotkey for activatable artifacts below icon
 - Ping after closing message
