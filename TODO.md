@@ -1,7 +1,6 @@
 
 # TODO
 
-- Fix dragon AI getting stuck if boulder in between by making non-attackables go around.
 - Add more chambers with new content
   - No lava chamber
   - Treasure hoard chamber, toooons of dragons
@@ -19,15 +18,19 @@
   - You can at anytime choose to bond with an artifact, enhancing it significantly.  You can't rebond.
 - Improve existing environmental features
   - Explosions should destroy rocks and knock down stalagmites
+  - Gusts should push back not just rocks
 - Improve existing elementals
   - Golems should throw rocks
   - There should be older dragonlings that are much stronger
 - Improve existing artifacts
   - Chaos shard insta kills everything in the new spot
+  - Make fire spread to flammables
 - Add more interactions
-  - Ice that create pitfalls where fire is
+  - Ice that create pitfalls where fire.  Ice is slippery
+  - Add freezable
+  - Add combustable (explodes when lit)
 - Add more environmental features
-  - Steam geysers, rocks turn into bombs when over it
+  - Steam geysers, rocks turn into bombs when over it, creates steam which hurts
 - Add more elementals
   - Steam mephit that are around geysers
 - Add more artifacts
