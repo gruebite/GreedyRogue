@@ -33,6 +33,10 @@
   - Steam geysers, rocks turn into bombs when over it, creates steam which hurts
 - Add more elementals
   - Steam mephit that are around geysers
+  - Ooze mephit that creates ooze
+  - Fire elemental that throws fireballs
+  - Earth wyrm that digs underground making pitfalls and
+  - Salt mephit
 - Add more artifacts
     - An artifact that knocks back entities
     - An artifact that pulls the first entity to you
