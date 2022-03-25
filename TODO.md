@@ -12,9 +12,14 @@
   - Lava rain which creates random lava
 - New artifact system
   - Inspired by Brogue: give options to choose a "build" and upgrade items
-  - Many items, each with a "size".
-  - Your backpack has a hard size limit.  Roughly 1-5 items.
-  - Items may have to be dropped as you decide which to keep.
+  - Consumables aren't effected by backpack limit
+    - Health potion - Restores health
+    - Gold drink - Restores anxiety
+    - Magic dust - Restores charges
+  - Many items, each with a "size"
+  - Your backpack has a hard size limit.  Roughly 1-5 items
+  - Only items that can fit will spawn
+  - Once backpack is full, you only find consumables
   - You can at anytime choose to bond with an artifact, enhancing it significantly.  You can't rebond.
 - Improve existing environmental features
   - Explosions should destroy rocks and knock down stalagmites

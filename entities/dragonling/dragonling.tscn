@@ -55,7 +55,6 @@ layer = 4
 [node name="TurnTaker" parent="." instance=ExtResource( 6 )]
 
 [node name="Display" parent="." instance=ExtResource( 3 )]
-background_color = Color( 0, 0, 0, 1 )
 frames = SubResource( 1 )
 jitter = false
 
