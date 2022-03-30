@@ -62,8 +62,9 @@ static func rectangle(left: int, right: int, top: int, bottom: int) -> PointSet:
 		dx += 1
 	return ps
 
-## width is how quickly width grows with distance,
+## width_ratio is how quickly width grows with distance
 static func cone(dir: int, dist: int, width_ratio: float=1.0) -> PointSet:
+	assert(Direction.is_cardinal(dir))
 	var ps := PointSet.new()
 	var deltav := Direction.delta(dir)
 	var leftv := Direction.delta(Direction.cardinal_left(dir))

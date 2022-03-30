@@ -5,11 +5,9 @@ class_name TurnTaker
 ## TurnTaker node should be attached to any node that process per turn.
 ##
 
-## Connect when you do updates along with other turn takers.  Stuff like movement.
+## Connect when you want to process a turn.  This is a place to do movement / animations.
 signal take_turn()
-## Connect when you should be triggered multiple times during a turn where position or
-## other parameters can change.
-## This may or may not be emitted.
+## Connect when you want to process within a turn when say position could change (triggering a trap).
 signal take_inturn()
 
 onready var system: TurnSystem = get_tree().get_nodes_in_group(TurnSystem.GROUP_NAME)[0]

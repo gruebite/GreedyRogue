@@ -354,11 +354,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://systems/security_system/security_system.gd"
 }, {
-"base": "Reference",
-"class": "ShadowCast",
-"language": "GDScript",
-"path": "res://addons/rlgd/shadow_cast.gd"
-}, {
 "base": "Component",
 "class": "Skidder",
 "language": "GDScript",
@@ -514,7 +509,6 @@ _global_script_class_icons={
 "Scoopable": "",
 "Scooper": "",
 "SecuritySystem": "",
-"ShadowCast": "",
 "Skidder": "",
 "Slippable": "",
 "SparseGrid": "",

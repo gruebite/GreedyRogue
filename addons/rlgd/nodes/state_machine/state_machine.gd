@@ -18,16 +18,16 @@ func _init() -> void:
 func _ready() -> void:
 	current_state.enter()
 
-func _process(delta: float):
+func _process(delta: float) -> void:
 	current_state.process(delta)
 
-func _physics_process(delta: float):
+func _physics_process(delta: float) -> void:
 	current_state.physics_process(delta)
 
-func _input(event: InputEvent):
+func _input(event: InputEvent) -> void:
 	current_state.input(event)
 
-func _unhandled_input(event: InputEvent):
+func _unhandled_input(event: InputEvent) -> void:
 	current_state.unhandled_input(event)
 
 func transition_to(target_state_path: NodePath, msg=null) -> void:

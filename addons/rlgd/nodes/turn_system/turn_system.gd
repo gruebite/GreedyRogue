@@ -10,7 +10,9 @@ class_name TurnSystem
 ## - CANCEL_TURN	This state indicates a turn is being processed, but will be cancelled.
 ##
 ## Turns are initiated by a single entity.  There are 2 steps to initiating a turn:
-## - Call will_initiate_turn().  This turns
+## - Call will_initiate_turn().  This transitions the state to IN_TURN.  The turn initiator can now act.
+## - Call initiate_turn().  Will call all turn takers to take a turn, and then emit out_of_turn when all turn takers have finished their turn.
+## - ...Or call will_not_initiate_turn().  Will emit cancel_turn when all current nodes taking turn have finished.
 ##
 
 const GROUP_NAME := "turn_system"
@@ -30,8 +32,6 @@ signal taken_turns()
 ## Emitted when all turn takers say they're finished, and a new turn can be initiated.
 signal out_of_turn()
 ## Emitted when the player initiates a turn but doesn't follow through.
-## If you're listening on out_of_turn to finish the turn, you should also
-## listen to this one.
 signal canceled_turn()
 
 var disabled := false

@@ -47,7 +47,7 @@ func get_brightness(x: int, y: int) -> int:
 func cast_light(x: int, y: int, lit_radius: int, dim_radius: int) -> void:
 	var origin := Vector2(x, y)
 	var lit_radius2 := lit_radius * lit_radius
-	ShadowCast.compute(blocking_grid, _scratch_grid, origin, dim_radius)
+	Fov.shadow_cast(blocking_grid, _scratch_grid, origin, dim_radius)
 	for cell in _scratch_grid.cells:
 		var cb = static_light_grid.get_cellv(cell)
 		if cb == null:
@@ -80,7 +80,7 @@ func update_brights() -> void:
 			continue
 		var origin: Vector2 = b.entity.grid_position
 		var lit_radius2: int = b.lit_radius * b.lit_radius
-		ShadowCast.compute(blocking_grid, _scratch_grid, origin, b.dim_radius)
+		Fov.shadow_cast(blocking_grid, _scratch_grid, origin, b.dim_radius)
 		for cell in _scratch_grid.cells:
 			var cb = dynamic_light_grid.get_cellv(cell)
 			if cb == null:
@@ -106,9 +106,9 @@ func update_blocking_grid() -> void:
 			var tile := tile_system.get_tile(x, y)
 			var blocks_light: bool = Tile.LIST[tile][Tile.Property.BLOCKS_LIGHT]
 			if blocks_light:
-				blocking_grid.set_cell(x, y, Fov.Transparency.NONE)
+				blocking_grid.set_cell(x, y, Fov.Clarity.NONE)
 			else:
-				blocking_grid.set_cell(x, y, Fov.Transparency.FULL)
+				blocking_grid.set_cell(x, y, Fov.Clarity.FULL)
 
 func _brightness_none() -> int:
 	return Brightness.NONE

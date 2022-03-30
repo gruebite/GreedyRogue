@@ -83,10 +83,10 @@ func _ready() -> void:
 			match tile:
 				WALL:
 					$Tiles.set_tile(x, y, tile, BROWN)
-					trans_grid.set_cell(x, y, Fov.Transparency.NONE)
+					trans_grid.set_cell(x, y, Fov.Clarity.NONE)
 				FLOOR:
 					$Tiles.set_tile(x, y, tile, GRAY)
-					trans_grid.set_cell(x, y, Fov.Transparency.FULL)
+					trans_grid.set_cell(x, y, Fov.Clarity.FULL)
 	$Tiles.set_tile(px, py, PLAYER, RED)
 	update_fog()
 
@@ -113,7 +113,7 @@ func _input(event: InputEvent) -> void:
 
 func update_fog() -> void:
 	light_grid.clear()
-	ShadowCast.compute(trans_grid, light_grid, Vector2(px, py), 17)
+	Fov.shadow_cast(trans_grid, light_grid, Vector2(px, py), 17)
 	for x in COLS:
 		for y in ROWS:
 			var color: int = $Fog.get_color(x, y)
